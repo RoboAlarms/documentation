@@ -1,0 +1,32 @@
+---
+title: "Remote keypad"
+description: "View and operate the panel touchscreen safely from an authorized browser session."
+sidebar:
+  order: 3
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+Open **Remote keypad** from a signed-in Panel Manager session. The panel's own display appears in the browser. Opening this page gives you control; there is no separate **Take control** button.
+
+<PanelShot src="/images/panel-manager/keypad.png" alt="Remote keypad displaying the panel with the red remote session banner and Still pictures selection" caption="A red banner on the panel shows that a browser is connected; the person there can pause control." source="Panel Manager UI · genuine LVGL frame in an isolated fixture" detail />
+
+## Operate the screen
+
+1. Click or press the displayed screen to make a short tap. Hold to keep a control pressed; drag to scroll a page that supports scrolling.
+2. If the panel shows its own text field or code pad, click the screen and type on the computer keyboard. Printable keys, paste, Backspace, Enter, and Escape are sent to the panel. Keyboard input is ignored when focus is in a browser form, address bar, or browser shortcut.
+3. Choose **Video (H.264)** for a moving display when the browser can decode it. Choose **Still pictures (JPEG)** if video is unsupported or appears corrupted. Panel Manager remembers the choice in that browser.
+4. To finish, navigate away from **Remote keypad** or close its tab.
+
+The browser sends a quick tap as one timed press and release at the panel, so a delayed network response does not turn a tap into a repeated key. A hold is refreshed while you hold and is released if updates stop. Use extra care with Panic or other long-press controls.
+
+## Coordinate with the person at the panel
+
+The panel displays a steady red banner while a browser remote session is active. A local touchscreen touch blocks remote presses for three seconds after the last touch. While someone is typing a code or using a protected local page, remote presses remain blocked until that local task ends.
+
+The person at the panel can tap the red banner to pause remote control. They can choose **Allow** to resume or **Turn off remote access** to close Web server and Developer mode. The pause is panel-wide; reconnecting the browser does not clear it. The person at the panel must choose **Allow** before remote presses resume.
+
+If the panel says local interaction is in progress, wait for it to finish or coordinate with the person there. If video does not update, select **Still pictures (JPEG)**. A background browser tab stops receiving pictures; after about a minute the panel ends that remote session. Reopen the page to reconnect, unless the person at the panel paused it—in that case they must allow it first.
+
+## Keep codes private
+
+Remote keypad control is equivalent to standing at the touchscreen. The panel still requires codes for actions that need them, but anyone who can see your browser may see the screen or what you type. Do not share the browser window during code entry or when private household information is visible. Browser passwords and keypad codes are different; the [accounts guide](/panel-manager/accounts/) explains sign-in and password recovery.

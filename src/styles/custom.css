@@ -1,0 +1,42 @@
+@layer starlight, brand;
+@layer brand {
+:root {
+  --sl-color-accent-low: #063c43;
+  --sl-color-accent: #00a6a9;
+  --sl-color-accent-high: #94eff0;
+  --sl-font: 'Segoe UI', system-ui, sans-serif;
+  --sl-content-width: 52rem;
+  --sl-text-h1: 2.65rem;
+}
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d8f5f4;
+  --sl-color-accent: #007b7d;
+  --sl-color-accent-high: #064c53;
+}
+html { scroll-behavior: auto; }
+.site-title { font-weight: 750; letter-spacing: -.045em; gap: .65rem; }
+.site-title img { height: 2.3rem; width: 2.3rem; object-fit: contain; }
+header.header { border-bottom: 1px solid var(--sl-color-hairline-light); }
+h1, h2, h3 { letter-spacing: -.025em; }
+.sl-markdown-content { line-height: 1.8; }
+.sl-markdown-content h2 { margin-top: 2.5rem; }
+.sl-markdown-content li + li { margin-top: .45rem; }
+.sl-markdown-content table { font-size: .93rem; width: 100%; }
+.sl-markdown-content th { background: var(--sl-color-accent-low); }
+.sl-markdown-content td, .sl-markdown-content th { padding: .8rem; }
+.panel-shot { margin: 1.75rem 0 2.25rem; }
+.panel-shot img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid #314047; box-shadow: 0 12px 30px #00000018; }
+.panel-shot.detail { max-width: 42rem; }
+.panel-shot figcaption { font-size: .85rem; line-height: 1.6; color: var(--sl-color-gray-2); margin-top: .8rem; }
+.panel-shot figcaption span { display: block; font-size: .78rem; color: var(--sl-color-gray-3); }
+.edition-footer { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--sl-color-hairline-light); color: var(--sl-color-gray-3); font-size: .8rem; line-height: 1.7; }
+.hero { padding-block: 2.8rem 2rem; gap: 2rem; }
+.hero h1 { max-width: 12ch; letter-spacing: -.055em; line-height: 1.08; }
+.hero .tagline { max-width: 38rem; font-size: 1.15rem; }
+.hero img { border-radius: 12px; box-shadow: 0 18px 45px #00000025; width: 100%; height: auto; aspect-ratio: 1024 / 600; object-fit: contain; }
+.card { border-radius: 12px; border-color: var(--sl-color-hairline-light); }
+.card .title { font-size: 1.2rem; }
+.sl-link-card { border-radius: 10px; }
+@media (max-width: 50rem) { :root { --sl-text-h1: 2rem; } .hero { padding-block: 1.25rem; } }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+}

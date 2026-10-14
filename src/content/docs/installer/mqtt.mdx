@@ -1,0 +1,38 @@
+---
+title: "Connect an MQTT broker"
+description: "Configure the optional MQTT integration separately from Home Assistant pairing."
+sidebar:
+  order: 9
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+> This URL is kept for existing links. The [Integrations guide](/integrations/) compares MQTT with native Home Assistant pairing and phone notifications.
+
+MQTT is a separate integration for broker-based setups, such as Node-RED, custom scripts, or Home Assistant installations using MQTT. The native RoboAlarms Home Assistant integration connects directly and does not require a broker.
+
+**Before you begin:** obtain the broker host, port, credentials, TLS requirements and any required CA certificate from the broker administrator.
+
+## Configure the connection
+
+1. Open **Settings > Integrations > MQTT** and authenticate with the system master or installer code if asked.
+2. Turn on **Connect to the broker**.
+3. Set **Address**, **Port**, **User name**, and **Password** to match the broker. A stored password appears as **Set**, not as its value.
+4. Under **Security**, choose the certificate option required by the broker. **Not encrypted** sends traffic, including commands and any codes they carry, in readable form; use it only on a network you trust. To use your own certificate authority, load it with `mqtt ca` from the service console; the USB console is available under **Advanced tools > Console** in [RoboAlarms Flasher](/flasher/).
+5. Review **Topic prefix** and **Panel ID** so the topics match your intended clients.
+6. Turn on **Announce the panel** if you need discovery messages, and review **Arm and disarm over MQTT** separately. Check the page's live connection state.
+
+<PanelShot src="/images/panel/mqtt.png" alt="MQTT configuration showing broker and integration controls" caption="The broker settings must match the service you are connecting to." />
+
+Do not turn off certificate verification merely to suppress an error. Check the server address, trust configuration and panel time first.
+
+## Discovery and remote commands
+
+**Announce the panel** controls MQTT discovery. When the native Home Assistant integration is paired, the panel withdraws or suppresses MQTT discovery to avoid duplicate Home Assistant entities; MQTT publishing for other broker clients can remain on. The page explains when discovery is quiet because of pairing.
+
+Remote commands have their own enablement and authorization rules. Publishing status to a broker does not automatically grant remote control. **Arm and disarm over MQTT** controls whether commands are accepted, while the panel still checks user codes and installer policy. Disarming requires a valid code; arming without one depends on the installer option **Arm remotely without a code** in [System options](/installer/system-options/). Only enable command handling when broker permissions and intended clients are configured.
+
+## Verify
+
+Confirm the panel reports a connected broker and inspect the expected status messages from your intended client. Test authorized commands only during agreed commissioning.
+
+If you are using the native integration and do not need another broker-based consumer, you can leave MQTT disconnected. Follow [Connect Home Assistant](/installer/home-assistant/) for direct pairing. For browser configuration of the panel itself, use [Panel Manager](/panel-manager/).

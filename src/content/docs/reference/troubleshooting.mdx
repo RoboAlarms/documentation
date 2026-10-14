@@ -1,0 +1,88 @@
+---
+title: "Troubleshooting"
+description: "Look up an on-screen message and find the next useful action."
+sidebar:
+  order: 1
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+Start with the exact message and the named zone or service. Avoid factory reset as a general troubleshooting step.
+
+## Home and keypad
+
+| What you see | What it means / next action |
+| --- | --- |
+| **Not ready** | Open **Zones**, identify the active input and restore it. Review any intentional [bypass](/user/zones-bypass/) |
+| **Armed Stay** after choosing Away | Auto-stay may have detected that no entry/exit door was used |
+| Settings will not open | Disarm all partitions and resolve a sounding alarm first |
+| Code refused | Check authority and partition access. Guest and installer codes have disarm restrictions; see [partitions and your code](/user/partitions/) |
+| A keypad shows or controls the wrong area | Check which partition is assigned to that keypad; see [partitions and your code](/user/partitions/) and ask the installer to check the assignment |
+| **Keypad locked** | Stop guessing and wait for the displayed lockout to end; contact the master if the code is unknown |
+| Cannot arm in Installer | Select **Leave installer mode** and retry |
+| Chime is silent | Check global chime, disarmed state and the individual zone's Chime option |
+| Normal volume is low but alarms are loud | Alarm/fire/CO sounds use full volume separately from the everyday volume setting |
+
+## A zone shows CHECK or Unreachable
+
+The panel does not have a trustworthy current state for that input. It is not the same as a closed door.
+
+1. Identify the zone and its source.
+2. Check that the source service is connected.
+3. For Home Assistant, confirm the entity is available and still in the share list.
+4. Restore the connection and operate the input to verify a fresh state.
+5. Ask the installer if the problem persists.
+
+<PanelShot src="/images/panel/zone-unreachable.png" alt="Zone source view showing an unavailable input" caption="This troubleshooting example intentionally shows an unreachable source." />
+
+## Home Assistant
+
+| Symptom | Next step |
+| --- | --- |
+| No discovered panel | Add RoboAlarms manually using its address; check enablement and TCP 6054 |
+| No RoboAlarms in integration search | Verify HACS/manual installation and restart Home Assistant |
+| Pairing expired | Reopen pairing on the panel and continue within two minutes |
+| Codes differ | Reject the pairing; verify devices and the network before retrying |
+| A shared entity is absent | Check integration options, entity availability and pairing state |
+| Certificate changed | Verify the device; use reauthentication after an expected identity change |
+| Wrong device during reconfigure | Do not accept it; check that the address belongs to the same panel |
+| Protocol incompatible | Use compatible panel and integration versions |
+
+The complete flow is in [Set up Home Assistant](/integrations/home-assistant-setup/). For connection repairs, changed identities and version problems, use [Home Assistant troubleshooting](/integrations/home-assistant-troubleshooting/).
+
+## Smart Home and automations
+
+| Symptom | Next step |
+| --- | --- |
+| Smart Home is absent or an expected device is missing | Check the paired connection and the separate controllable-entity share list, then the entity's availability; see [Smart Home](/user/smart-home/) |
+| A tile shows a pending, failed or unknown result | Read its status, check the actual device, and restore the connection before repeating an action |
+| A timed automation waits | Set the clock and verify the time zone, enabled rule, days and time conditions |
+| An automation no longer has permission | The panel rechecks the person who saved it for protected actions; review that person's permissions and the installer's allowed-action setting |
+| Automatic arming is warning | Review the warning and open zones, then use the displayed Put off options if needed; see [Panel automations](/user/automations/) |
+| An automation failed | Open its last-run result and identify the missing, offline or refused device or alarm action before using Try it now |
+
+For details about a bound Home Assistant zone, check [Use Home Assistant sensors](/installer/home-assistant-zones/). If setup fails before pairing or after a factory reset, the [RoboAlarms Flasher guide](/flasher/) covers serial installation and full-flash restore; a restore replaces the current settings with the saved copy, while a factory reset removes them.
+
+## Network and notifications
+
+Use the panel's [connection check](/user/network-time/) to separate Wi-Fi, addressing, router and service failures.
+
+For missing phone alerts, check the selected event categories, service status, destination and phone permissions. Follow [notification setup and testing](/installer/notifications/). Send an explicit test; a panel event appearing in Activity does not prove a phone received it.
+
+For browser access, a keypad code is not the Panel Manager password. Confirm the **Panel Manager** switch is on under **Settings > About > Installer**, use its HTTPS address, and verify the certificate fingerprint shown on the panel before trusting it. See [Panel Manager](/panel-manager/) for sign-in and recovery.
+
+For browser network changes, reconnect and confirm **Keep the new settings** within the trial period. Otherwise the previous network settings return. Panel Manager's guide explains the two-minute trial and rollback.
+
+## Updates and storage
+
+| Symptom | Next step |
+| --- | --- |
+| Update waits | Disarm every partition and ensure the system is silent |
+| Update rolled back | Record both versions and the message; contact the maintainer before retrying repeatedly |
+| USB install or update failed | Keep the panel powered, save the Flasher log, and follow [Flasher recovery steps](/flasher/troubleshooting/). Do not choose Reset to factory defaults unless you intend to erase the configuration |
+| Storage problem | Treat configuration persistence as unresolved; record the message and contact the installer |
+| SD card not found | Check the storage status; do not format as a first response |
+| Need a lost master code | Ask the installer to set a replacement; factory reset is unnecessary |
+
+## Information to collect
+
+Record the software version, exact message, affected zone/service, the action just taken and whether it repeats. Screenshots should exclude codes, notification QR codes, tokens and private network details.

@@ -1,0 +1,53 @@
+---
+title: "Wi-Fi, network and time"
+description: "Connect the panel to Wi-Fi, check its network path and set local time preferences."
+sidebar:
+  order: 8
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+**Where:** Settings > Wi-Fi and network, or Settings > Time and language<br />
+**Access:** a system master, partition master or installer code is needed to change network settings, time zone, language, region or time server. Anyone may choose this keypad's clock format. Settings cannot be opened while a partition is armed or in alarm.
+
+## Join or change Wi-Fi
+
+1. Open **Settings > Wi-Fi and network**. Enter an authorized code if asked.
+2. Choose a network under **Networks nearby** or **Other networks nearby**. Select **Look again** to scan again.
+3. Enter the Wi-Fi password when prompted and confirm.
+4. Wait for the Wi-Fi row to show a connection, then tap that row to open **Network** and read **IP address**.
+
+<PanelShot src="/images/panel/wifi.png" alt="Wi-Fi and network settings with nearby networks and connection state" caption="Select the network the panel should use." />
+
+If a network is missing, check that it is available to the panel and scan again. If it is listed but the panel will not connect, verify the password with the person who manages the router.
+
+## Check the connection
+
+On **Wi-Fi and network**, tap the connected **Wi-Fi** row to open **Network**. Scroll to **Check the connection**. The panel runs a check automatically after an address change; after a completed or running check, the action reads **Check again**. The check is diagnostic and does not change network settings.
+
+The result rows are **Wi-Fi**, **Address**, **Router**, **Name lookup**, **Internet**, **Time server** and **Connected service**. Start with the first failed or warned row: it narrows down whether the problem is the wireless link, an address, the router, DNS, internet access, time synchronization or the configured service. Connected service only checks the configured service connection; it does not test Home Assistant entity sharing or phone notifications. If no service is configured, that row says so.
+
+For most home networks, leave **IP address settings** on **Automatic** so the router supplies the address. Use **A fixed address** only when the network administrator asks for it. Enter **Address**, **Subnet mask** and **Router** values they provide. Under the same page, the optional **DNS server** and **Second DNS server** fields let you specify name servers; if the first is empty, the router supplies DNS. Choose an address outside the router's automatic address pool and make sure no other device uses it. The panel keeps asking the router until a fixed address is complete and valid, then checks the connection after applying the change.
+
+<PanelShot src="/images/panel/network-check.png" alt="Network page with individual connection-check results" caption="Use the first failed check to narrow down a network issue." />
+
+## Set the time zone, language and time server
+
+1. Open **Settings > Time and language** and authenticate with an authorized code.
+2. Select **Time zone** for the panel's location. The selected time zone supplies daylight-saving changes where applicable.
+3. Under **Language**, choose an installed screen language. **Region** controls date and number formatting; **Automatic** follows the language's region.
+4. Under **Advanced**, select **Time server**. Leave it empty to use `pool.ntp.org`, or enter the server approved for this network.
+5. Set **Clock** to **Automatic**, **12-hour** or **24-hour**. This controls how times appear on this keypad; it does not change the stored time.
+
+<PanelShot src="/images/panel/time.png" alt="Time and language settings with clock, time zone, language and time server" caption="Time zone and region affect how local dates and times appear." />
+
+The panel synchronizes its clock with a network time server when the network is available. With a supported clock module present and answering, select the date and time row to open **Set the date and time**; an unset clock may show **Set** on that row. Choose the day in the calendar, use the month arrows or month heading to change the date, and adjust the **Hour** and **Minute** rollers. Choose **AM** or **PM** when using a 12-hour clock. Review **The clock will say**, then select **Set**. **Cancel** leaves the clock unchanged. A later network synchronization can replace a time set by hand. If the row cannot be opened, manual setting is unavailable on the current hardware.
+
+<PanelShot src="/images/panel/manual-time.png" alt="Time and language page with the date and time row available for a supported clock module" caption="Select the date and time row to set the clock manually when a supported clock module is available." detail />
+
+<PanelShot src="/images/panel/clock-set.png" alt="Set the date and time editor with a date and time preview" caption="Review the displayed local date and time before setting the clock." detail />
+
+## What happens without Wi-Fi?
+
+Local alarm operation continues, but network-dependent functions may be affected. Home Assistant sensors need their connection to the panel; an unavailable source is not treated as closed. Phone notifications, online update checks and network time also depend on their configured services. A supported, working clock module may keep time while the panel is offline.
+
+See [troubleshooting](/reference/troubleshooting/) if Wi-Fi connects but a configured service still cannot be reached.

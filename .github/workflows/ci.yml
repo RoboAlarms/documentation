@@ -1,0 +1,45 @@
+name: Validate manual
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: manual-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Validate and build production image
+        run: docker build --tag roboalarms-manual:ci .
+      - name: Smoke-test production server
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run --detach --name manual-ci --publish 127.0.0.1:8080:8080 roboalarms-manual:ci
+          trap 'docker logs manual-ci; docker rm --force manual-ci' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8080/ > /dev/null; then break; fi
+            sleep 1
+          done
+          curl --fail --silent --output /tmp/manual-home.html http://127.0.0.1:8080/
+          grep -q 'RoboAlarms' /tmp/manual-home.html
+          curl --fail --silent http://127.0.0.1:8080/user/getting-started/ > /dev/null
+          curl --fail --silent http://127.0.0.1:8080/images/panel/home-ready.png > /dev/null
+          curl --fail --silent http://127.0.0.1:8080/pagefind/pagefind.js > /dev/null
+          test "$(curl --silent --output /dev/null --write-out '%{http_code}' http://127.0.0.1:8080/not-a-manual-page/)" = '404'
+          curl --fail --silent --head --output /tmp/manual-headers.txt http://127.0.0.1:8080/
+          grep -qi 'X-Content-Type-Options: nosniff' /tmp/manual-headers.txt
+          test "$(docker exec manual-ci id -u)" != '0'

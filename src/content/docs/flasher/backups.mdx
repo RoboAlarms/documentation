@@ -1,0 +1,40 @@
+---
+title: "Back up, reset and restore"
+description: "Preserve a whole-flash copy, understand a factory reset, and restore a compatible Flasher backup."
+sidebar:
+  order: 3
+---
+
+The Flasher makes a **whole-flash backup**: firmware, settings and logs together. Keep both files it creates. A backup taken before the first install is the only way to get the panel's original maker software back after the chip is erased.
+
+## Choose the right operation
+
+| Operation | Effect |
+| --- | --- |
+| **Install RoboAlarms** | For a new panel or when you deliberately intend a full replacement. Optionally saves a whole-flash copy, then erases the chip and installs firmware. Existing contents are removed. |
+| **Update to RoboAlarms &lt;version&gt;** | Writes compatible firmware in place. Settings stay if the partition layout matches. A layout mismatch stops the job before writing. |
+| **Reset to factory defaults** | For a panel already running RoboAlarms. Erases the full chip and installs RoboAlarms fresh. Codes, users, zones, Wi-Fi, integrations and event history are removed. |
+| **Restore** | Writes a saved whole-flash copy over the selected panel, replacing its firmware, settings and logs with the saved contents. |
+
+## Make a backup
+
+In the guided Install review, leave **Back up the panel first** checked before the first install. For an existing panel, open **Advanced tools > Backups** and select **Back up this panel now**. Keep the panel idle, powered and connected until the Flasher finishes reading the full flash and checking the saved file. A short or unreadable copy fails before an install can erase the chip.
+
+The app saves files under `Documents\RoboAlarms\Backups` (the app can open the folder for you). If a read at the faster baud rate fails, Flasher 0.1.2 reconnects at a slower rate and retries. Each backup is a `.bin` file and a matching `.json` description file containing the chip, flash size, board MAC, date and checksum. Keep the pair together, and keep another copy somewhere safe if the panel's original software matters to you.
+
+## Reset to factory defaults
+
+Use this when you deliberately want to erase a RoboAlarms panel and set it up fresh. In the guided review, select **Reset to factory defaults**, read the erase warning, and check **Erase everything on this panel**. Optionally select **Keep a copy of the panel as it is now**; this backup option is off by default for reset. Then select **Reset to factory defaults** to start.
+
+The panel's whole flash is erased and RoboAlarms is installed again. After it starts, the panel returns to first-time setup. Restore a backup only if you intend to replace that fresh state with the older saved image.
+
+## Restore a backup
+
+1. Connect and select the panel in **Advanced tools > Backups**.
+2. Select **Restore…** beside the backup you want, and verify its name and date in the confirmation. Restore overwrites everything currently on the panel.
+3. The Flasher checks the `.bin` file against its neighboring `.json` file. It refuses a different chip type or flash size. If the saved MAC belongs to another board, the app asks you to confirm restoring it onto this board; verify the target carefully before agreeing.
+4. Keep the panel powered and connected while the Flasher writes the whole image, verifies its checksum on the chip, and restarts the panel.
+
+Only Flasher backups with their matching description file can be restored from this tool. A missing sidecar, checksum mismatch, wrong chip or wrong flash size stops the job before it writes. A backup from another MAC requires explicit confirmation. Restoring a backup is a full replacement of the current panel contents, not a way to merge settings.
+
+Keep the panel disarmed and idle before backup, reset or restore. The Flasher's busy check relies on a responding service console; if the current firmware does not answer, confirm the panel's state yourself. See [Update](/flasher/update/) for the in-place operation that keeps settings.

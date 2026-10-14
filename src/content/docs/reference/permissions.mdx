@@ -1,0 +1,66 @@
+---
+title: "Access and permissions"
+description: "See which panel role or browser account can view and change each part of RoboAlarms."
+sidebar:
+  order: 2
+---
+
+Access depends on the user role, the partitions assigned to that user, and whether the system is disarmed. Panel Manager follows the same role rules, but some browser pages show only a reduced view of panel information. A browser account does not grant more access than that person's panel role.
+
+## Roles
+
+| Role | What the role can do |
+| --- | --- |
+| Standard user | Arm and disarm assigned partitions as allowed by their code; see their own assigned partition status and everyday panel pages. |
+| Partition master | Do standard user tasks for assigned partitions and manage lower-authority users in those partitions. |
+| System master | Manage household users and shared settings across the system. Cannot manage the installer account. |
+| Installer | Configure alarm behavior, manage every user, and control remote access and development tools. The installer cannot arm or disarm; use an authorized household account for those tasks. Installer mode temporarily prevents arming. |
+| Arm-only | Arm assigned partitions; cannot disarm. |
+| Guest | Can disarm only an armed period that the guest started. |
+| Duress | Disarms while sending the configured silent duress indication. Treat this code as private. |
+
+Household users' operation is limited to their partition assignments and code permissions. Installer access reaches programming across partitions but does not grant arm or disarm authority.
+
+## What each role can change
+
+| Task | Standard user | Partition master | System master | Installer |
+| --- | --- | --- | --- | --- |
+| View status, Zones, Activity, Troubles, About and storage information | Yes, for assigned partitions where applicable | Yes, for assigned partitions | Yes | Yes |
+| Change display and sound preferences | Yes | Yes | Yes | Yes |
+| Arm or disarm | Assigned partitions and code rules | Assigned partitions and code rules | All partitions, under the normal alarm rules | — |
+| Change Wi-Fi, network settings, or date and time | — | Yes | Yes | Yes |
+| Manage household users and keypad codes | — | Lower-authority users whose full partition access stays within the master's areas | Everyone except the installer | Everyone |
+| Configure Home Assistant, MQTT, and phone notification integrations | — | — | Yes | Yes |
+| Read private event details in Activity on the panel | — | Yes | Yes | Yes |
+| Create or edit panel device automations | — | — | Yes | Yes |
+| Save an automation that arms or disarms | — | — | Yes | — |
+| Allow less-secure automation actions | — | — | — | Yes |
+| Program zones, sensor links, partitions, devices, delays, and system options | — | — | — | Yes |
+| Change installer or system-master code without the old code | — | — | — | Yes |
+| Manage SD card | — | — | Yes | Yes |
+| Install a normal signed software update on the touchscreen | — | — | Yes | Yes |
+| Change the update server or channel | — | — | — | Yes |
+| Turn Panel Manager or Developer mode on or off | — | — | — | Yes |
+| Enroll a development workstation, install a signed development file, or factory reset | — | — | — | Yes, with any requested installer-code check |
+
+In the browser, everyone who can sign in can open the **Remote keypad** when screen sharing is available. It operates the panel's own screen and still follows the panel's code prompts. Activity contains the event history; private details require the appropriate authority. The panel's red remote-session banner lets the person there pause or stop remote access. See [panel automations](/user/automations/) for the maker's permissions and restrictions on automatic alarm actions.
+
+For the matching browser menu and sign-in steps, see [Use Panel Manager in a browser](/panel-manager/).
+
+## Keypad codes and browser passwords
+
+A keypad code is used at the panel for the actions that ask for a code. It does not sign in to Panel Manager. Browser sign-in uses a separate password between 12 and 64 characters.
+
+Eligible installer, system master, partition master, and standard-user accounts can have a browser sign-in. Arm-only, guest, and duress accounts cannot. People sign in with their account name, including the installer (initially **Installer**); a Panel ID is not a sign-in name.
+
+On the panel, the installer opens **Settings > About > Installer** and turns on **Browser sign-in**, directly below the **Panel Manager** switch. For another eligible user, open **Settings > Users > [person] > Browser sign-in**. A person who manages that account can enable, disable, or change its browser sign-in there. An enabled account offers **Change the browser password**.
+
+In Panel Manager, the installer can manage every user's code and browser sign-in; the system master can manage everyone except the installer; a partition master can manage their own code and browser sign-in, plus lower-authority users whose entire partition access stays within the partition master's own areas. Browser changes use the signed-in account's authority. Protected browser operations may ask for that account's password again; they do not use the panel's keypad code. A password set for someone else is temporary and that person must choose a new one at first sign-in. A signed-in user changes their own browser password with **Change password** in the account area by entering their current browser password.
+
+## Settings and armed state
+
+Protected Settings sections ask for an authorized user code on the panel. That authorization lasts while Settings remains open and expires after inactivity; closing Settings ends it. Installer mode requires the installer code and also ends when it is left or times out.
+
+While any partition is armed or an alarm is active, configuration changes are blocked. The browser reports that the panel is locked. The remote keypad, changing your own browser password, and signing out remain available. Disarm and clear the active alarm condition before changing settings.
+
+For task-by-task instructions, see [People and access codes](/user/users-codes/) and the [Installer Guide checklist](/installer/setup-checklist/).

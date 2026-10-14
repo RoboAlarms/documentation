@@ -1,0 +1,52 @@
+---
+title: "Use Home Assistant sensors"
+description: "Choose which Home Assistant entities the panel can use as alarm zones."
+sidebar:
+  order: 7
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+> This URL is kept for existing links. The current [Home Assistant sharing guide](/integrations/home-assistant-sharing/) covers permissions, prerequisites, sensor binding, and device control.
+
+Pairing lets Home Assistant see the panel. Sharing permits the opposite direction: selected Home Assistant sensors can supply states to panel zones.
+
+**Before you begin:** finish [pairing](/installer/home-assistant/), confirm the connection, and verify the source entity already changes correctly in Home Assistant. The integration and panel firmware remain in testing; confirm you have compatible versions before commissioning.
+
+## 1. Choose what to share
+
+1. In Home Assistant, open **Settings > Devices & services**.
+2. Open the **RoboAlarms** integration and its panel entry, then select **Configure** (the gear beside the entry).
+3. Find **What the panel may see and do**.
+4. Under **Entities the panel may use as zones**, select the intended entities.
+5. Select **Submit** to save the options.
+
+<PanelShot src="/images/home-assistant/share-entities.png" alt="Home Assistant options for entities the panel may use as zones and entities it may control" caption="Choose the zone entities explicitly. The control permission is separate." source="Home Assistant 2026.10.1 · simulated panel" detail />
+
+An empty selection shares nothing. Do not share RoboAlarms' own exported entities back to the same panel.
+
+The separate **Entities the panel may control** permission is for the panel's **Smart Home** screen. Leave it empty if you only want to share zone sensors. It is a separate grant from **Entities the panel may use as zones**; selecting an entity for one list does not add it to the other. The supported domains and panel-side code prompts depend on a compatible integration and firmware build; see [Share Home Assistant entities](/integrations/home-assistant-sharing/).
+
+## 2. Assign the sensor to a zone
+
+1. On the panel, open **Settings > About > Installer > Zones** and enter the installer code.
+2. Add or open the intended zone.
+3. Scroll to **Its sensor**, open **Source**, then choose **Home Assistant sensor**.
+4. Search by name, room or entity ID.
+5. Select the intended entity and confirm it in the picker.
+6. Go back to the zone list to save. Reopen the zone and check **Source** under **Its sensor**; read its current state at the top of the page.
+
+<PanelShot src="/images/panel/ha-sensor-search.png" alt="Home Assistant source search finding an example Porch Door entity" caption="Use an identifiable entity name and verify its location before binding." />
+
+<PanelShot src="/images/panel/ha-zone.png" alt="Zone with a Home Assistant source assigned and its current state" caption="Scroll to Its sensor to confirm which entity feeds the zone; the top of the page reports its current state." />
+
+## 3. Verify the behavior
+
+Operate the source sensor and confirm the correct zone becomes active and returns to normal. A value displayed as unavailable in Home Assistant should not be treated as a closed door. For life-safety zones, the installer override for untrusted sources is not available; do not use a Home Assistant entity as a fire, CO, or panic input.
+
+Home Assistant and its network are now part of this zone's availability. A connection loss can raise a source or zone trouble after its grace period. Verify the recovery path during commissioning.
+
+## Sensor suitability
+
+Use an input with an unambiguous normal/active state. These network sources are not automatically trusted for fire, CO or panic. See [zone setup](/installer/zones/) before assigning a source.
+
+If the sensor is missing from the picker, first check the share list, connection status and entity availability. Reinstalling the integration is usually unnecessary. For other link and pairing problems, see [troubleshooting](/reference/troubleshooting/).

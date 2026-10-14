@@ -1,0 +1,41 @@
+---
+title: "Panel Manager"
+description: "Connect to and manage a RoboAlarms panel from its browser interface."
+sidebar:
+  order: 1
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+Panel Manager is the browser interface served by the panel itself. It works over your local network or an authorized VPN. It does not require a cloud account, Home Assistant, or a companion server. The panel uses HTTPS and checks every request against the signed-in person's role.
+
+<PanelShot src="/images/panel-manager/overview.png" alt="Panel Manager overview with fictional partitions and installer navigation" caption="The overview shows only the partitions and pages available to the signed-in account." source="Panel Manager development UI · fictional data" />
+
+## First connection
+
+You need someone at the panel who can enter Installer mode, the installer code, and a computer on the same local network or an authorized VPN. All partitions must be disarmed and no alarm can be active before you change configuration.
+
+1. On the touchscreen, open **Settings > About > Installer** and enter the installer code.
+2. Turn on the **Panel Manager** switch. New installations have browser access off.
+3. Record the HTTPS address and **certificate SHA256 fingerprint** shown on the panel.
+4. On the computer, open that HTTPS address. Compare the browser certificate fingerprint with the value on the panel before trusting the panel's self-signed certificate.
+5. Create or enable a browser sign-in as described in [Browser accounts and permissions](/panel-manager/accounts/).
+
+When browser access is running, plain HTTP redirects to HTTPS. Turning **Browser access (this Panel Manager)** off closes the service and ends browser sessions. It also turns off **Developer tools**; local Installer access is needed to enable browser access again.
+
+## Choose the right guide
+
+- For browser names, passwords, account management, roles, or lockouts, see [Browser accounts and permissions](/panel-manager/accounts/).
+- For screen control, keyboard input, the red local warning, and pausing a session, see [Remote keypad](/panel-manager/remote-keypad/).
+- For status, activity, zone status, display, integrations, time, storage, and health, see [Everyday pages and settings](/panel-manager/everyday/).
+- For the browser Automations list, editor, enable switch, Try it now, and deletion, see [Automations](/panel-manager/automations/). The touchscreen guide covers common trigger and action behavior.
+- For users, sensor links, partitions, devices, alarm rules, access switches, and factory reset, see [Installer programming](/panel-manager/installer/).
+- For Wi-Fi, fixed addressing, applying network changes, and rollback, see [Network settings and recovery](/panel-manager/network/).
+- For signed updates, developer uploads, restart behavior, and rollback, see [Software updates and recovery](/panel-manager/updates/).
+
+## Understand the limits
+
+The panel enforces permissions on each request; hiding a menu item is not the security boundary. Standard users see only their assigned partition status. Non-installers see zone names, sensor kinds, and status wording, but not sensor programming. The installer can manage all users; system and partition masters can manage only users allowed by their authority and partition scope. Integrations are for the system master and installer.
+
+While any partition is armed or an alarm is active, configuration changes are refused. You can still use the remote keypad because it operates the panel's own screen, change your own browser password, or sign out. Normal signed updates can be installed by a system master, partition master, or installer when disarmed.
+
+The remote keypad is a real control path to the panel. The person at the touchscreen sees a red banner and can pause the browser session. See [Remote keypad](/panel-manager/remote-keypad/) before using it to enter a code or change a protected setting.

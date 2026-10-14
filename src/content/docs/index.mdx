@@ -1,0 +1,51 @@
+---
+title: Know your system. Make it yours.
+description: Practical instructions for everyday use and confident setup of RoboAlarms.
+template: splash
+hero:
+  tagline: Your guide to RoboAlarms. Learn the essentials, set up your system, and find an answer when you need one.
+  image:
+    html: '<img src="/images/panel/home-ready.png" alt="RoboAlarms Home screen, ready to arm" width="1024" height="600" />'
+  actions:
+    - text: Open the User Guide
+      link: /user/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Set up a system
+      link: /installer/setup-checklist/
+      icon: right-arrow
+      variant: secondary
+---
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+## What would you like to do?
+
+<CardGrid>
+  <LinkCard title="Arm or disarm" description="Choose Away, Stay or Night and understand the countdown." href="/user/arming-disarming/" />
+  <LinkCard title="Connect Home Assistant" description="Install, pair, share sensors and devices, and troubleshoot the connection." href="/integrations/home-assistant-setup/" />
+  <LinkCard title="Use Smart Home" description="Control shared devices, choose Favorites, and arrange your screen." href="/user/smart-home/" />
+  <LinkCard title="Create panel automations" description="Build device rules or scheduled arming, understand warnings, and check results." href="/user/automations/" />
+  <LinkCard title="Add people and codes" description="Give each person the access they need." href="/user/users-codes/" />
+  <LinkCard title="Resolve a problem" description="Find help for Not ready, CHECK, connection errors and more." href="/reference/troubleshooting/" />
+  <LinkCard title="Flasher Guide" description="Connect and identify a board, install or update software, manage backups, and test connected parts." href="/flasher/" />
+  <LinkCard title="Panel Manager Guide" description="Set up browser accounts, operate the remote keypad, configure the panel, and recover connection changes." href="/panel-manager/" />
+  <LinkCard title="Configure partitions" description="Separate alarm areas and assign zones, delays and user access." href="/installer/partitions/" />
+</CardGrid>
+
+## Choose your guide
+
+**User Guide** — Everyday operation, zones, chime, alerts, Smart Home, panel automations, household settings and updates.
+
+**Installer Guide** — First setup, access, zone programming, connected services and a practical handover checklist. This edition covers software setup; mounting and wiring are outside its scope.
+
+**[Flasher Guide](/flasher/)** — The computer app: USB connection, first installation, updates, whole-flash backups and recovery, connected parts and diagnostics.
+
+**[Panel Manager Guide](/panel-manager/)** — The panel's browser interface: accounts and access, the remote keypad, household settings, installer programming, network changes and updates.
+
+**[Integrations](/integrations/)** — Connect Home Assistant, share sensors and device controls, use MQTT, and set up phone notifications. Start with the overview to choose the connection you need.
+
+Start with the [task index](/reference/task-index/) if you already know what you want to do. Search also finds control names and messages shown by the panel.
+
+---
+
+**Edition 03 · 13 October 2026.** All panel screenshots use the 7-inch layout; operation is shared across supported screen sizes. Read [edition coverage](/reference/edition/) for reviewed software, screenshot sources and current limitations. Visit [RoboAlarms](https://roboalarms.com) for the project overview, hardware information and release news.

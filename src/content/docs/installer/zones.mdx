@@ -1,0 +1,72 @@
+---
+title: "Set up zones and sensor sources"
+description: "Name a zone, choose its behavior, bind its input and verify the result."
+sidebar:
+  order: 4
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+**Where:** Settings > About > Installer > Zones<br />
+**Access:** installer mode, with the system disarmed.
+
+RoboAlarms currently supports up to four partitions. Each zone belongs to exactly one enabled partition; the keypad's Zones view shows the zones assigned to its own partition. Configure [partitions and devices](/installer/partitions/) before assigning zones across multiple areas.
+
+A zone combines two decisions: **how the alarm reacts** and **which sensor supplies the state**. Choosing a sensor icon is not the same as connecting a sensor source.
+
+## Add or edit a zone
+
+1. Open **Zones** from the installer menu.
+2. Select an existing zone or **Add a zone**.
+3. Set **Name** to a physical location, such as Front Door.
+4. Choose **Type** for the intended alarm behavior.
+5. Choose **Sensor** for the icon and open/closed wording.
+6. Open **Source** and select the input that will feed this zone.
+7. Review the applicable zone options.
+8. If multiple partitions are enabled, choose **Partition** for the area this zone belongs to.
+9. Go back to save the zone's programming, then verify it in the ordinary **Zones** list.
+
+<PanelShot src="/images/panel/zone-edit.png" alt="Zone editor showing name, type, sensor and options" caption="The zone editor separates behavior from the source that supplies the input." />
+
+## Common behavior choices
+
+| Type | Typical intent |
+| --- | --- |
+| **Entry/exit 1** | The main entry route, using Entry time 1 |
+| **Entry/exit 2** | A second delayed entry route, using Entry time 2 |
+| **Perimeter** | An opening that should alarm immediately when armed |
+| **Interior follower** | Interior detection in Away; follows an entry sequence when configured appropriately |
+| **Interior with delay** | Interior detection that starts its own entry delay |
+| **24-hour / fire / CO types** | Specialized behavior that can remain active while disarmed |
+
+Select specialized types only when the source and installation support their purpose. A generic Home Assistant entity or unsupervised radio input is not automatically suitable for fire, CO or panic.
+
+## Bind the source
+
+The source picker lists what this build provides. For a Home Assistant input, pair the integration and share the desired entity first, then follow [Use Home Assistant sensors](/installer/home-assistant-zones/).
+
+For source-specific setup and current limits for 433 MHz, Zigbee, and Z-Wave, see [Sensors and radio modules](/installer/sensors-radios/).
+
+<PanelShot src="/images/panel/source-picker.png" alt="Available zone source choices" caption="Source choices depend on the firmware and available services; a listed source does not prove hardware is connected." />
+
+A **Simulator** source is a test input. It does not monitor a real door. Remove or replace example bindings before treating a system as an installation.
+
+### Enroll a 433 MHz sensor
+
+The source appears as **433 MHz sensor** when the receiver is available in this build. Open **Source**, choose **433 MHz sensor**, and follow **Find the sensor**. Start with the door closed, then open it. The first fresh code received while learning is the code bound to the zone, so for a contact sensor, open it first and then close it again. For a remote or motion sensor, trigger it twice as the panel asks.
+
+The panel groups received codes by sensor and shows how often each answered. A frame without a checksum, such as EV1527, must arrive twice before it is confirmed; a protocol with a checked frame can be confirmed from one frame. Only confirmed frames count. The panel may say **Listening: nothing heard yet**, **Heard Sensor …**, or **Found it: Sensor … answered each time**. When one sensor has answered at least twice and more often than the others, choose **Use Sensor …**. If several sensors answer, trigger only the intended one again. **Already transmitting before you started** lists signals heard before learning began; those are not evidence that the intended sensor answered your trigger.
+
+The receiver supports selected 433 MHz sensor protocols. A matching frequency alone does not establish compatibility. This source does not decode devices operating at 345 MHz or 319.5 MHz. Verify that the receiver recognizes the sensor and reports its state before assigning it to a zone. If the sensor is not recognized, see [troubleshooting](/reference/troubleshooting/) or choose another supported source.
+
+This radio source is not supervised: a sensor that stops transmitting cannot tell the panel it has failed, and most such sensors do not send periodic check-ins. A confirmed event can update the zone, but silence alone does not prove the sensor still works. Fixed-code signals can also be copied. Do not use this source for fire, CO or panic protection; choose another appropriate input. Where the sensor reports battery status, check it on the panel; otherwise include battery replacement in routine maintenance.
+
+## Review zone options
+
+- **Chime:** this zone can sound when it opens while disarmed and global chime is on.
+- **Night zone:** an eligible interior zone is also watched in Night.
+- **Can be bypassed:** controls permitted bypassing for eligible types.
+- **Report this zone:** controls reporting; disabling it retains local event history.
+
+## Verify each zone
+
+Operate only the intended input and confirm the named zone changes on the keypad assigned to that zone's partition, then restores. Check the normal and active states separately. Review unreachable/tamper behavior where supported. See [commissioning](/installer/commissioning/) before handover.

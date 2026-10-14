@@ -1,0 +1,65 @@
+---
+title: "Commission and hand over"
+description: "Verify configuration and explain the system before everyday use."
+sidebar:
+  order: 11
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+Commissioning confirms that the configured system behaves as intended. A screenshot or completed wizard cannot replace these checks.
+
+For a software-only demonstration, use simulator inputs and record the result as simulation. Physical detection, radio performance and installation acceptance remain unverified until suitable hardware is available.
+
+## Prepare the test
+
+- Agree the test period with everyone affected.
+- Identify notification recipients and any connected automations.
+- Use authorized test codes.
+- Know how to disarm before beginning.
+- Keep a zone schedule and record pass/fail results.
+
+Do not trigger emergency, fire, CO or duress functions as an informal demonstration.
+
+## Check configuration
+
+- [ ] The displayed software version is recorded.
+- [ ] Installer and master factory codes are replaced.
+- [ ] Wi-Fi, address mode, local time and time zone are correct.
+- [ ] Every used zone has an understandable name and an intentional type/source.
+- [ ] Each enabled partition has the intended name, zones, exit/entry times and keypad assignments.
+- [ ] User codes have only the intended partition access; installer and system-master access is understood.
+- [ ] A keypad displays and arms only its assigned partition; other partitions were checked independently.
+- [ ] No simulator binding is being mistaken for a physical sensor.
+- [ ] Night-zone and chime choices match the owner's expectations.
+- [ ] Entry/exit timings and auto-stay behavior are understood.
+- [ ] Unused remote services are disabled.
+
+## Check operation
+
+- [ ] Each intended input changes only the correct named zone and then restores.
+- [ ] Each installed wireless sensor has been learned or paired and tested for its expected reports after a restart; test radio-loss and recovery indications where supported. If the required device is unavailable, record this as **Not tested**. See [Sensors and radio modules](/installer/sensors-radios/) for current limits.
+- [ ] Away, Stay and Night behave as configured.
+- [ ] Each enabled partition arms and disarms separately as intended.
+- [ ] Entry and exit countdowns allow the intended route.
+- [ ] Authorized users can perform their allowed operations.
+- [ ] Arm-only and Guest restrictions are understood.
+- [ ] A deliberate eligible bypass is visible and clears on disarm.
+- [ ] Chime responds only to intended zones.
+- [ ] Faults are investigated rather than merely acknowledged.
+
+## Check connected services
+
+- [ ] Home Assistant reconnects and displays the expected devices.
+- [ ] Only intended Home Assistant entities are shared.
+- [ ] Shared sensor states agree with the panel.
+- [ ] Loss and recovery of a test source are handled as expected.
+- [ ] Each configured notification service delivers a test to the intended phone.
+- [ ] Panel Manager access and certificate identity are verified if enabled.
+
+For now, mark hardware-dependent items **Not tested** rather than passing them based on a simulator.
+
+## Hand over
+
+Show the owner how to arm/disarm each assigned area, find an open zone, bypass deliberately, manage users and read Troubles. Explain partition names and keypad assignments, code access, Instant, Auto-stay, entry routes, phone-notification limits and who to contact.
+
+Leave installer mode. Confirm the expected idle state and explain any remaining troubles. Hand over the private configuration record and unresolved items alongside the User Guide.

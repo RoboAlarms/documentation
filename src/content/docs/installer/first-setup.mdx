@@ -1,0 +1,43 @@
+---
+title: "First setup"
+description: "Join Wi-Fi, choose a time zone, replace factory codes and name the system."
+sidebar:
+  order: 2
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+A panel without a completed setup opens the welcome wizard. Work through it in order.
+
+If the wizard starts with a **Language** step, choose the screen language and select **Next**. English is always available; other choices require their language pack to be installed.
+
+<PanelShot src="/images/panel/setup-welcome.png" alt="Setup welcome screen listing Wi-Fi, timezone, codes and system name" caption="The wizard gathers the basic installation settings." />
+
+## 1. Join Wi-Fi
+
+Select **Start**, choose the intended Wi-Fi network and enter its password. Select **Next** after connection. **Skip for now** lets you continue without networking, but connected services still need setup later.
+
+## 2. Choose the time zone
+
+Select the installation's time zone, then **Next**. Verify local time once synchronization completes. If a battery-backed clock can keep time, its time is unset, and Wi-Fi time is not yet available, the wizard may include a **Date and time** step so you can set it manually. Otherwise the configured time server sets the panel clock after Wi-Fi connects. Later, a master or installer can use **Set the date and time** in **Settings > Time and language** when the panel can keep time.
+
+## 3. Replace both factory codes
+
+The factory installer code is **69420** and the factory master code is **123456**. These are public defaults, not private installation credentials.
+
+Select **Change** beside each code and enter a unique new code twice. Keep the installer and master codes distinct and hand the master code to the person responsible for the household.
+
+<PanelShot src="/images/panel/setup-codes.png" alt="Setup page for changing installer and master factory codes" caption="Replace both factory codes before handover." />
+
+Codes can contain 4–10 digits, subject to the configured minimum. If you keep a factory code, the reminder remains on the status bar.
+
+## 4. Name the system
+
+Choose a short, recognizable name such as Home or Workshop. The name appears in the panel experience and event history.
+
+## 5. Review and finish
+
+Check the summary for Wi-Fi, time zone, codes and name. Select **Done**. Next, configure and verify [zones](/installer/zones/); the wizard does not prove sensor coverage.
+
+## Run the wizard again
+
+While disarmed, open **Settings > About > Installer** and select **Run the setup again**. On a configured panel, **Leave setup** returns to Home. Changes made as you move through the wizard remain saved; leaving it is not an undo operation.

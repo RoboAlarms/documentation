@@ -1,0 +1,77 @@
+---
+title: "Install and pair Home Assistant"
+description: "Install the RoboAlarms custom integration and pair it with the panel."
+sidebar:
+  order: 1
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+Use this guide to install the integration and connect one Home Assistant instance to the panel. If you still need to install Home Assistant itself, start with [Prepare Home Assistant](/integrations/home-assistant-host/). For entities and automations, see [Home Assistant usage](/integrations/home-assistant-usage/). For sharing sensors back to the panel, see [Home Assistant sharing](/integrations/home-assistant-sharing/).
+
+## Before you begin
+
+- Home Assistant **2026.3.0 or newer**, with administrator access. The published release's HACS metadata (`hacs.json`) sets this minimum.
+- Compatible RoboAlarms panel firmware connected to a reachable local network.
+- Access to the panel screen and the system master or installer code. A partition master cannot configure Integrations.
+- All partitions disarmed while you change integration settings and commission the connection.
+
+The Home Assistant integration is called **RoboAlarms**. Its GitHub repository is named `ha-addon`, but it is a custom integration, not a Home Assistant Supervisor app/add-on. The current published integration release is [v0.1.0, a testing release](https://github.com/RoboAlarms/ha-addon/releases/tag/v0.1.0); check its notes for compatible panel firmware before installing.
+
+## Install with HACS
+
+1. In Home Assistant, open **HACS** and its three-dot menu, then select **Custom repositories**.
+2. Add `https://github.com/RoboAlarms/ha-addon` and choose **Integration** as the category.
+3. Find **RoboAlarms**. Because v0.1.0 is a pre-release, enable pre-release versions for this repository in HACS if it is not listed; then download it and restart Home Assistant.
+4. After Home Assistant starts, open **Settings > Devices & services**.
+
+These steps follow the [official HACS custom repository instructions](https://www.hacs.xyz/docs/faq/custom_repositories/). If HACS is not installed, use the [HACS setup guide](https://www.hacs.xyz/docs/use/). HACS requires authorizing it with a GitHub account to use the GitHub API; this authorization is separate from pairing the panel. See [Why HACS needs a GitHub account](https://www.hacs.xyz/docs/faq/github_account/).
+
+For a manual install, open the [v0.1.0 release](https://github.com/RoboAlarms/ha-addon/releases/tag/v0.1.0), download its source archive, and copy the archive's `custom_components/roboalarms` folder into `config/custom_components/roboalarms`. Restart Home Assistant. Confirm the file is at `config/custom_components/roboalarms/manifest.json`; avoid an extra nested folder.
+
+## Enable the panel link
+
+1. On the panel, open **Settings > Integrations > Home Assistant**.
+2. Enter the system master or installer code if asked. To enter Installer, open **Settings > About > Installer**.
+3. Turn on **Home Assistant**.
+
+<PanelShot src="/images/panel/ha-ready.png" alt="Panel Home Assistant page with the integration enabled and pairing available" caption="Enable the panel link before adding the integration in Home Assistant." />
+
+The panel advertises the service for discovery when it is enabled. The default port is **6054**. The connection is local; it does not use an MQTT broker or require the panel to store your Home Assistant password.
+
+## Add the panel in Home Assistant
+
+1. Open **Settings > Devices & services**. If the panel appears under **Discovered**, select **Add**.
+2. If it is not discovered, choose **Add integration**, search for **RoboAlarms**, and enter the panel's address shown beneath its connected network in **Settings > Wi-Fi and network**, with port `6054`.
+3. Select **Submit**. Home Assistant checks that it can reach a RoboAlarms panel before continuing.
+
+<PanelShot src="/images/home-assistant/connect.png" alt="Home Assistant connection form with example host and port" caption="Enter the address shown by your panel. The screenshot address is only an example." source="Home Assistant 2026.10.1 · isolated lab" detail />
+
+mDNS discovery normally needs Home Assistant and the panel on the same subnet. On routed networks, use manual addressing and make sure network rules permit the connection. Manual setup still requires a working route to TCP port 6054.
+
+## Pair and compare the codes
+
+1. When Home Assistant asks you to pair, return to the panel and select **Pair with Home Assistant**.
+2. Enter the system master or installer code when prompted. Pairing stays open for two minutes.
+3. Continue in Home Assistant. Both screens show a six-digit code.
+4. Compare every digit. If they match, select **Yes, allow** on the panel. If they differ, select **No, reject** and stop. Never approve a mismatch.
+5. Finish the Home Assistant flow and confirm the panel reports a paired state.
+
+<PanelShot src="/images/home-assistant/open-pairing.png" alt="Home Assistant asks the user to open pairing on the panel" caption="Open pairing on the panel and continue before the two-minute window expires." source="Home Assistant 2026.10.1 · simulated panel" detail />
+
+<PanelShot src="/images/home-assistant/compare-code.png" alt="Home Assistant example pairing code 540497" caption="Compare this fresh code with the panel. Never use the example digits in this image." source="Home Assistant 2026.10.1 · simulated panel" detail />
+
+<PanelShot src="/images/panel/ha-code-detail.png" alt="Panel showing the pairing code and allow or reject actions" caption="Select Yes, allow only after all six digits match." detail />
+
+The pairing code is temporary and is not an alarm code. Pairing trusts one Home Assistant instance. To move the connection to another HA instance, unpair the first one at the panel before pairing the new one.
+
+## Confirm the connection
+
+If Home Assistant opens **Name and assign**, review the panel and zone names and optionally assign areas. Select **Skip and finish** to keep the supplied names and finish without assigning areas. Names can be edited later in Home Assistant.
+
+<PanelShot src="/images/home-assistant/name-assign.png" alt="Home Assistant naming the fictional panel and zones after pairing" caption="Review device names and optional areas, then finish the integration setup." source="Home Assistant 2026.10.1 · isolated lab" detail />
+
+In Home Assistant, open **Settings > Devices & services** and confirm the **RoboAlarms** integration has a panel device. On the panel, confirm the status says it is paired or connected. Home Assistant adds the configured partitions and zones as entities and devices.
+
+<PanelShot src="/images/home-assistant/connected.png" alt="Home Assistant showing the RoboAlarms integration and devices" caption="Entity and device counts depend on the panel's configuration." source="Home Assistant 2026.10.1 · isolated lab" />
+
+If pairing does not complete, see [Troubleshoot and update Home Assistant](/integrations/home-assistant-troubleshooting/). The older [Connect Home Assistant URL](/installer/home-assistant/) remains available for existing links.

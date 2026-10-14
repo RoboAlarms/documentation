@@ -1,0 +1,38 @@
+---
+title: "Installer access and code recovery"
+description: "Enter programming, leave it safely, and understand master-code recovery."
+sidebar:
+  order: 3
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+## Enter installer mode
+
+1. Make sure every partition is disarmed and the system is not sounding an alarm.
+2. Open **Settings > About > Installer**.
+3. Select **Enter the installer code** and authenticate.
+4. Confirm that the installer menu is available.
+
+<PanelShot src="/images/panel/installer-menu.png" alt="Installer menu with system options, zones and code settings" caption="Installer mode is for alarm programming and system access controls." />
+
+Arming is blocked while installer mode is active. Fire, CO, 24-hour zones and panics remain live. The session ends after 15 minutes without activity.
+
+When finished, select **Leave installer mode**. Confirm the panel returns to ordinary operation before testing arming.
+
+## Reset installer or master codes
+
+In installer mode, open **Installer and master codes**. Choose the relevant code and enter its replacement twice. This route does not require the old value.
+
+The installer can replace the system master code here. The installer may also manage household users in **Settings > Users**, including their codes, names, authority, partitions and browser sign-in. The system master can manage other users but cannot change or remove the installer account.
+
+## If the installer code is lost
+
+When **Installer code recovery** is enabled, the touchscreen describes a two-minute recovery route after power-up. The current implementation can also open this route after a software restart, so treat the setting as allowing recovery after any startup. Every partition must be disarmed. Follow the on-screen confirmation, then set a new installer code.
+
+Arrange an authorized restart before using this route. Do not interrupt an active alarm to try recovery. If the option was disabled or the system is armed, this route is unavailable. The setting is in **Settings > About > Installer > Delays and arming**.
+
+## Factory reset is a separate action
+
+**Factory reset** erases configuration and returns the system to setup and factory codes. Its confirmation can also request event-log erasure. It is not the normal way to fix pairing, change Wi-Fi or recover a master code.
+
+General configuration backup/restore is not a completed workflow in this edition. Do not reset on the assumption that the current installation can be restored from a backup.

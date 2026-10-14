@@ -1,0 +1,30 @@
+---
+title: "Network settings and recovery"
+description: "Change Wi-Fi or IP settings, reconnect to the panel, and recover automatically from a failed network trial."
+sidebar:
+  order: 6
+---
+
+Network changes can interrupt your browser session. Before editing, note the panel's current network address and keep a way to reach the touchscreen. The browser and panel must be on the same local network or an authorized VPN. The panel's network settings are available to system masters, partition masters, and the installer while disarmed and not in alarm.
+
+## Change network settings
+
+1. Open **Panel settings > Network**.
+2. For Wi-Fi, select **Find networks**, choose a listed network, or type its **Network name**. Enter its **Password** if it is secured; leave the field blank only for an open network. Select **Connect**, review the network name and password change, then confirm. This password field is submitted with the network change; an empty value means the new Wi-Fi network has no password.
+3. For IP settings, open the **IP address** card. Leave **Fixed IP address** off to use the router's automatic address, or turn it on and enter the **IP address**, **Subnet mask**, **Router (gateway)**, and **DNS server** values from your network plan. **Second DNS server** is optional. Select **Apply**, inspect the before-and-after review, and confirm.
+4. The panel applies either network change as a two-minute trial. The browser may disconnect while the panel joins Wi-Fi or changes address.
+5. Reopen Panel Manager at the panel's new address and select **Keep the new settings** before the two-minute trial ends. After confirming, use **Connection check > Run the check** to test Wi-Fi, IP address, router, name lookup (DNS), internet, time server, and connected service in order. Later checks are skipped when an earlier prerequisite fails.
+
+The confirmation binds to the trial network profile. If you cannot reconnect and confirm, the panel restores the previous profile when the timer expires. A reboot during the trial also causes rollback. Once rollback completes, reconnect at the old address and try again with corrected settings.
+
+## If Panel Manager stops responding
+
+1. Try the panel's new address right away over the LAN or authorized VPN; the trial lasts two minutes from the save.
+2. If Panel Manager opens, choose **Keep the new settings** immediately. If the browser cannot reach the panel before the deadline, do not submit another network change; wait for the trial to roll back.
+3. After rollback, check the panel's current address on its touchscreen and reconnect at the previous address. Then correct the network fields and try again.
+4. If the browser warns that the certificate changed, compare its SHA256 fingerprint with the one shown beneath the **Panel Manager** switch in **Settings > About > Installer** before trusting it.
+5. If Browser access was turned off, go to **Settings > About > Installer** on the touchscreen and turn the **Panel Manager** switch back on. Disabling the service ends the browser session, so it cannot be re-enabled through that session.
+
+If the panel is reachable but the browser reports a failed fetch, confirm the address and VPN route, then check whether an ad or tracker blocker is blocking the panel's address. Plain HTTP redirects to HTTPS while Web server is enabled; open the HTTPS address directly.
+
+For changes to browser access itself, see [Installer programming](/panel-manager/installer/). For signed firmware rollback, see [Software updates and recovery](/panel-manager/updates/).

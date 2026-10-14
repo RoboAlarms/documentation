@@ -1,0 +1,42 @@
+---
+title: "Partitions and devices"
+description: "Configure separately armed areas and assign supervised keypad/device records."
+sidebar:
+  order: 5.5
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+**Where:** Settings > About > Installer > Partitions, or **Keypads and devices**<br />
+**Access:** installer mode; all partitions must be disarmed and quiet.
+
+A partition is an alarm area whose zones arm and disarm together. This firmware supports up to four. Partitions are software configuration. They do not create separate physical sirens, wiring or monitoring services by themselves.
+
+## Add or name a partition
+
+1. Open **Settings > About > Installer** and authenticate with the installer code.
+2. Select **Partitions**. The list shows each slot, whether it is in use and its exit/entry delays. The current keypad's area is marked **this keypad**.
+3. Select a partition. Turn **In use** on, then select **Name** and enter a recognizable area name.
+4. Set **Exit time**, **Entry time 1** and **Entry time 2** for that area.
+5. Go back to save the changes. Configure the areas' zones and device assignments on their corresponding pages.
+
+<PanelShot src="/images/panel/partitions.png" alt="Partition 2 editor with In use, Name, Exit time, Entry time 1 and Entry time 2" caption="An enabled partition has its own name and entry and exit delays. This detail shows Partition 2." detail />
+
+When enabling a partition for the first time, it starts with a 60-second exit time, 30-second Entry time 1 and 45-second Entry time 2. With **Allow values outside SIA CP-01** off, the partition controls enforce an exit range of 45–255 seconds and entry ranges of 30–240 seconds. The relaxed option permits 0–600 seconds. The controls do not certify compliance with a standard.
+
+To turn a partition off, first move its zones elsewhere. The keypad's own partition cannot be disabled. The UI explains why a change is refused. Do not remove a partition until you have confirmed the zones and users that depend on it.
+
+## Assign zones and user access
+
+Each zone belongs to one enabled partition. In the zone editor, choose **Partition** and save. A keypad's ordinary Home and Zones screens show its assigned partition. See [Set up zones and sensor sources](/installer/zones/).
+
+On **Settings > Users > user > Partitions**, select the areas where a user's code may operate. Each user needs at least one partition. The installer and system master have access to every partition. A partition master can only administer eligible users within their own areas. See [People, codes and partitions](/user/users-codes/).
+
+## Assign a keypad or device record
+
+Open **Keypads and devices** from the installer menu and select a device entry. Turn **In use** on, set **Name**, choose its **Home partition**, and set **Supervision**. **All partitions** records permission for that device to work across areas; it does not add a partition switcher to the current touchscreen. **Not supervised** disables its supervision timer; otherwise the panel reports a trouble if that device does not answer within the configured interval.
+
+The menu provides software records and supervision policy. The manual does not claim that a supported physical secondary keypad or expander is present or tested. Confirm the current hardware options at [RoboAlarms hardware](https://roboalarms.com/hardware/).
+
+## Verify and recover
+
+After saving, check each partition separately: its name, zone list, delays, user access and keypad assignment. If an area is missing from a picker, confirm it is **In use**. If disabling is refused, move its zones first or keep the partition used by this keypad. If a device shows a trouble, check its configured identity and supervision interval; software configuration alone cannot repair missing hardware or wiring.

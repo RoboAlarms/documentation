@@ -1,0 +1,92 @@
+---
+title: "Use Home Assistant entities"
+description: "Use RoboAlarms entities, events, and alarm actions in Home Assistant."
+sidebar:
+  order: 3
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+After [pairing](/integrations/home-assistant-setup/), RoboAlarms adds entities for the panel's configured partitions, zones, health, and events. This page shows what to expect and how to use entities in automations. The Home Assistant integration and matching panel firmware are still testing software; test all actions with a supervised, disarmed panel before relying on them.
+
+## Entities you can use
+
+- **Alarm control panel:** one per partition, with Home, Away, and Night arming. The panel validates a user code and permissions for each request.
+- **Zone binary sensors:** one for each panel zone, with a Home Assistant device entry under the panel. The state reports open or faulted according to the zone type.
+- **Zone diagnostics:** tamper, low battery, and supervision indicators. Battery percentage and radio signal are available only when the source reports them.
+- **Panel health:** trouble, AC power, installer mode, uptime, and Wi-Fi signal.
+- **Partition controls:** a chime switch and an exit-delay restart button for each partition.
+- **Event:** a Home Assistant event entity with the latest panel event type and event-specific attributes.
+- **Firmware update:** available on compatible firmware builds. Authorization and installation remain under panel control.
+- **Panel Z-Wave devices:** newer compatible integration and firmware can expose the panel's Z-Wave switches, dimmers, and close-only garage doors in Home Assistant.
+
+Exact entity IDs depend on your panel name, partition numbers, and Home Assistant's entity registry. Find the actual IDs in **Settings > Devices & services > RoboAlarms > the panel device** or from **Developer Tools > States**. When the link drops, entities become unavailable and return when the link recovers.
+
+## Control a partition from Home Assistant
+
+1. Open the panel's device and select the alarm entity under **Controls**, or open its card on your dashboard.
+2. Choose **Home** (the panel's Stay mode), **Away**, or **Night**. To disarm an armed partition, choose **Disarmed**.
+3. Enter your authorized keypad code when Home Assistant asks, then confirm the action.
+4. Check the reported state and the panel. A request is successful only when the panel accepts it; an error or unavailable entity is not a completed action.
+
+<PanelShot src="/images/home-assistant/alarm-control.png" alt="Home Assistant alarm entity showing Home, Away, Night and Disarmed modes" caption="Home Assistant calls Stay mode Home. Each alarm entity represents its configured partition." source="Home Assistant 2026.10.1 · isolated lab" detail />
+
+<PanelShot src="/images/home-assistant/arm-code.png" alt="Empty Home Assistant alarm-code prompt before an arming request" caption="Enter your own authorized alarm code. It is separate from your Home Assistant sign-in password." source="Home Assistant 2026.10.1 · isolated lab" detail />
+
+## Notify on a nonsilent alarm event
+
+This example watches the panel's event entity. Choose its actual entity ID and your phone's Companion App notification action from the Home Assistant selectors. The condition excludes events whose `silent` attribute is true.
+
+```yaml
+alias: "Notify on a RoboAlarms alarm"
+triggers:
+  - trigger: state
+    entity_id: event.roboalarms_event
+conditions:
+  - condition: template
+    value_template: >-
+      {{ trigger.to_state is not none
+         and trigger.to_state.attributes.get('event_type') == 'alarm'
+         and not trigger.to_state.attributes.get('silent', false) }}
+actions:
+  - action: notify.mobile_app_example_phone
+    data:
+      title: "Alarm"
+      message: >-
+        {{ trigger.to_state.attributes.get('zone_name') or
+           'A RoboAlarms partition reported an alarm.' }}
+```
+
+The event entity's state is the timestamp of the latest event; its `event_type` attribute contains the latest panel event type. Other attributes may include `partition`, `zone`, `zone_name`, `cause`, `source`, and `silent`, depending on the event. The state trigger omits a `to` value so it sees each new timestamp. Its `trigger.to_state` contains that event's attributes, which the condition uses to filter event type and silence without reading a later event. Silent and duress events do not change the visible alarm panel state; decide explicitly whether any automation should react to them, because a notification may disclose a deliberately quiet event. Home Assistant documents [state triggers](https://www.home-assistant.io/triggers/state/) and [Companion App notifications](https://companion.home-assistant.io/docs/notifications/notifications-basic/).
+
+## Arm from an automation
+
+Automatic arming can leave a home in an unexpected state if presence or sensor data is wrong. Test this with the panel disarmed, use deliberate conditions, and confirm that the selected user is authorized. Replace all example entity IDs and the example code.
+
+```yaml
+alias: "Arm RoboAlarms away when everyone leaves"
+triggers:
+  - trigger: state
+    entity_id: group.household
+    from: "home"
+    to: "not_home"
+conditions:
+  - condition: state
+    entity_id: binary_sensor.front_door
+    state: "off"
+actions:
+  - action: alarm_control_panel.alarm_arm_away
+    target:
+      entity_id: alarm_control_panel.roboalarms_partition_1
+    data:
+      code: "246810"
+```
+
+Do not copy a real alarm code into shared dashboards, public YAML, or an automation other people can edit. The panel can refuse a command because of a bad code, insufficient permission, a not-ready zone, or another panel rule. Home Assistant shows the failure; it cannot bypass the rule. See Home Assistant's [alarm panel actions](https://www.home-assistant.io/integrations/alarm_control_panel/) and [automation action guide](https://www.home-assistant.io/docs/automation/action/).
+
+## Developer Tools actions
+
+The integration provides `roboalarms.arm`, `roboalarms.bypass_zone`, `roboalarms.unbypass_zone`, and `roboalarms.panic` under **Developer Tools > Actions**. Each action requires the selected panel entry and a user code; arm also requires a partition and level (`stay`, `away`, or `night`). The panel checks every action against its normal authorization and state rules. Remote panic is refused unless panel policy permits it.
+
+Prefer the alarm control panel entity for ordinary arm/disarm actions. Use bypass actions only during an intentional, authorized procedure, and restore the zone afterward. Never use an automation to bypass a life-safety zone.
+
+For Home Assistant entities shared in the reverse direction, see [Share Home Assistant entities](/integrations/home-assistant-sharing/).

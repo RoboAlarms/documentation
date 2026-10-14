@@ -1,0 +1,56 @@
+---
+title: "Set up phone notifications"
+description: "Configure ntfy or Pushover and confirm delivery with a test."
+sidebar:
+  order: 8
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+> This URL is kept for existing links. The [Integrations guide](/integrations/) explains how phone notifications fit alongside MQTT and Home Assistant.
+
+**Where:** Settings > Integrations, in the notifications group<br />
+**Access:** system master or installer code.
+
+Notifications depend on the network, the selected service and phone settings. A saved configuration is not proof of delivery: finish with a test received on the intended phone.
+
+## ntfy
+
+1. Install/open the ntfy client on the intended phone.
+2. On the panel, open **Settings > Integrations > ntfy**.
+3. The hosted **ntfy.sh** service and a unique topic are selected by default. To use your own service, change the **Server** choice and enter its **Address**.
+4. Set an **Access token** only if your server requires one.
+5. Subscribe the phone to the same server and topic. Use **Show the QR code** to scan the subscription details, or enter the topic in the phone app.
+6. Enable **Send notifications** and choose the event categories.
+7. Select **Send a test notification** and verify the phone receives it.
+
+<PanelShot src="/images/panel/ntfy.png" alt="ntfy configuration page with notification and destination controls" caption="Configure the destination before testing delivery." />
+
+Treat the topic and any access token as private: anyone who knows the topic can subscribe to it. **New topic** replaces it, so every phone must subscribe again. The QR code reveals subscription details for a short time; use it only when ready to add the intended phone. Do not put that QR code in shared screenshots.
+
+For hosted-service accounts, authentication and access rules, consult [ntfy's documentation](https://docs.ntfy.sh/).
+
+For a self-hosted ntfy server, its HTTPS certificate must chain to a certificate authority trusted by the panel's certificate bundle. Although a private CA can be saved through the panel tools, current notification firmware does not use that saved CA for ntfy connections.
+
+## Pushover
+
+1. Set up Pushover on the receiving phone.
+2. Obtain the account's **user/group key** and create an application token in Pushover.
+3. Open **Settings > Integrations > Pushover**.
+4. Enter the two credentials into their respective fields.
+5. Turn on **Send notifications** and review event categories.
+6. Review **Repeat alarms until answered**. When enabled, an alarm notification repeats until the panel is disarmed, silenced or the alarm is cancelled.
+7. Send a test and confirm delivery.
+
+<PanelShot src="/images/panel/pushover.png" alt="Pushover configuration with credential and notification controls" caption="The user key and application token are different credentials." />
+
+The panel ships without a shared Pushover application token. Use the credentials created for this installation. See [Pushover](https://pushover.net/) for account and application setup. Pushover delivery has not yet been verified end to end on panel hardware; run the test and confirm delivery before relying on it.
+
+## Choose what to send
+
+Review alarm, trouble and other available event categories with the owner. Silent alarms require explicit opt-in; a phone sound or visible notification can reveal an event intended to remain silent at the panel.
+
+If you disable alarm notifications, the page warns about the consequence. Enable only the channels and categories you have tested.
+
+## When a test does not arrive
+
+Check panel network status, the service status shown on the page, destination credentials, phone subscription and phone notification permissions. Repeat the test after correcting the cause. A successful local button press does not establish end-to-end delivery. ntfy delivery has been checked from panel hardware; Pushover still needs hardware acceptance. Phone alerts are a convenience, not a life-safety path. For help with panel-hosted browser settings, see [Panel Manager](/panel-manager/).

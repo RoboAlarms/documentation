@@ -1,0 +1,44 @@
+---
+title: "Zones and bypassing"
+description: "Find an open sensor and temporarily exclude an eligible zone."
+sidebar:
+  order: 3
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+A **zone** is the named alarm input for a door, window, motion detector or other sensor. The zone's name tells you where to look. On a multi-partition system, this keypad shows zones in its assigned partition.
+
+## Find what is open
+
+1. Select **Zones** on the left rail.
+2. Use the **Open** filter to find active sensors.
+3. Close the named door or window, or wait for a motion detector to clear.
+4. Check that the zone returns to normal, then return to Home.
+
+<PanelShot src="/images/panel/zones.png" alt="Zone list showing sensor names and status" caption="Use the zone name and status to locate the opening." />
+
+**Unreachable** or **CHECK** is different from an open door: the panel cannot rely on the sensor's current state. See [sensor troubleshooting](/reference/troubleshooting/#a-zone-shows-check-or-unreachable).
+
+## Bypass one zone
+
+**Before you begin:** disarm the system. A bypass intentionally leaves that zone out of the next armed period.
+
+1. Open **Zones** and find the zone.
+2. Select **Bypass**.
+3. Enter a code allowed to bypass and select the **check mark**.
+4. Confirm the zone shows **Bypassed**.
+5. Arm using your chosen mode.
+
+<PanelShot src="/images/panel/bypass.png" alt="Code confirmation for bypassing a named zone" caption="The confirmation identifies the exact zone being left out." />
+
+To put it back before arming, select **Unbypass** and authenticate. Bypasses clear when the system is disarmed; review them each time you arm.
+
+## Bypass open while arming
+
+The arming code pad can offer **Bypass open** when zones are not ready. It bypasses eligible not-ready zones as part of the arming request. Review the zone list first: this may exclude more than one opening.
+
+If an input cannot be bypassed, the panel can still refuse to arm. Fire, CO and 24-hour zones are not generally bypassable; a missing button is not a UI fault. A bypass applies only to the zone's partition.
+
+## When to call the installer
+
+Ask for help if a zone has the wrong name, reacts to the wrong sensor, repeatedly becomes unreachable, or uses the wrong alarm behavior. Renaming, source assignment and zone types belong in [installer programming](/installer/zones/).

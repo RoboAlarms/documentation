@@ -1,0 +1,39 @@
+---
+title: "System setup checklist"
+description: "The order to configure RoboAlarms and hand it over with confidence."
+sidebar:
+  order: 1
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+This guide is for the person configuring RoboAlarms. It starts with working panel software and covers system setup. Mounting, power supplies, physical wiring and hardware selection are outside this edition.
+
+## Before you begin
+
+Have access to the panel, the intended Wi-Fi network, and the installer and master credentials. For Home Assistant, also have administrator access to the intended Home Assistant instance.
+
+The system must be disarmed and silent before programming. **Installer mode does not disable fire, CO, 24-hour zones or panic actions.**
+
+## Follow this order
+
+1. [Complete first setup](/installer/first-setup/): network, time zone, codes and system name.
+2. [Review access](/installer/installer-access/): verify account roles and recovery policy.
+3. [Configure zones](/installer/zones/): names, behavior and actual sources.
+4. [Review system options](/installer/system-options/): global alarm behavior, arming, lockout and power recovery.
+5. [Configure partitions and device records](/installer/partitions/) if separate areas or supervised keypads/devices are used.
+6. Review [sensor and radio limits](/installer/sensors-radios/) before pairing or relying on an optional source.
+7. If used, [install and pair Home Assistant](/installer/home-assistant/).
+8. If used, [share Home Assistant sensors](/installer/home-assistant-zones/).
+9. If used, [configure notifications](/installer/notifications/) or [MQTT](/installer/mqtt/).
+10. If needed, [enable Panel Manager](/panel-manager/) for browser administration.
+11. [Commission and hand over](/installer/commissioning/) the configured system.
+
+## Record the installation
+
+Keep a separate private installation record: software version, partition and zone schedule, keypad assignments, entry routes, timing choices, who holds each role, and the services enabled. Store credentials securely rather than writing them into a public manual.
+
+Do not treat the end of the setup wizard as acceptance of every sensor or external service. The commissioning checklist verifies those separately.
+
+## This edition's limits
+
+The guides describe implemented software controls and identify unfinished physical acceptance. Zigbee pairing and Z-Wave commissioning are implemented in software, but acceptance with real sensors and other devices remains open. Physical installation, secondary keypad/expander acceptance and touchscreen backup/restore remain outside this guide. [Smart Home](/user/smart-home/) and [panel automations](/user/automations/) have their own instructions; the separate Settings > Devices rename/hide page is not available yet. Panel Manager has an encrypted configuration backup and restore; it does not include the Zigbee network store. The installer screens can store supervised device records, but this does not prove a compatible device is connected. See [edition coverage](/reference/edition/).

@@ -1,0 +1,39 @@
+---
+title: "Glossary"
+description: "Plain-language explanations of alarm and integration terms."
+sidebar:
+  order: 3
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+| Term | Meaning |
+| --- | --- |
+| **Activity** | The panel's event history, with public wording and protected private details |
+| **Alarm memory** | A record that an alarm occurred, even after it is no longer sounding |
+| **Auto-stay** | A setting that can change keypad Away arming to Stay when nobody exits |
+| **Automation** | A saved trigger and action. [Panel automations](/user/automations/) run on the panel; Home Assistant automations run in Home Assistant |
+| **Bypass** | Temporarily leaving an eligible zone out of protection for an armed period |
+| **Chime** | A sound for selected opening events while disarmed |
+| **Commissioning** | Checking the configured system against its intended operation |
+| **Disarmed** | Burglary arming is off; 24-hour behaviors can still operate |
+| **Entity** | A named state or control exposed in Home Assistant |
+| **Entry delay** | Time to disarm after using a designated entry route |
+| **Exit delay** | Time to leave after arming |
+| **Factory reset** | Returns the panel to initial setup. [Panel Manager reset](/panel-manager/installer/#factory-reset) erases configuration and optionally the event log while retaining firmware; [Flasher reset](/flasher/backups/#reset-to-factory-defaults) erases the entire flash and installs firmware again |
+| **Flasher** | Desktop app that installs, updates, backs up, restores, and tests supported RoboAlarms panels over USB; see [the Flasher guide](/flasher/) |
+| **HACS** | Home Assistant Community Store, used to install custom integrations |
+| **Home Assistant Container** | Home Assistant running in a container such as Docker, with supporting services managed separately |
+| **Home Assistant integration** | The RoboAlarms custom integration that pairs directly with the panel over the local network; it is separate from MQTT |
+| **Installer mode** | Authorized programming mode that blocks arming |
+| **Instant** | An arming option that removes entry delay |
+| **Integration** | Software connecting RoboAlarms to another system or service |
+| **Master code** | A household administrator's alarm code |
+| **MQTT broker** | The service that routes MQTT messages between clients |
+| **Pairing** | Explicitly establishing trust between the panel and Home Assistant |
+| **Panel Manager** | The panel-hosted browser administration interface; it uses a browser password rather than an alarm keypad code. See [Panel Manager](/panel-manager/) |
+| **Partition** | An independently armed part of an alarm system. Disarming one does not disarm the others; see [Partitions and your code](/user/partitions/) |
+| **Source** | The connection supplying a zone's sensor state |
+| **Smart Home** | The panel screen for supported shared device controls, rooms and Favorites; see [Smart Home](/user/smart-home/) |
+| **Supervision** | Checking that a sensor/source remains available |
+| **Trouble / CHECK** | A fault requiring attention, distinct from an alarm |
+| **Zone** | A named input with assigned alarm behavior |

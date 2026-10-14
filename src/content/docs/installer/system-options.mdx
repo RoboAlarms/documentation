@@ -1,0 +1,62 @@
+---
+title: "System options"
+description: "Review global alarm behavior, code policy, panic keys and power restoration settings."
+sidebar:
+  order: 5
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+**Where:** Settings > About > Installer > Delays and arming<br />
+**Access:** installer mode, with every partition disarmed.
+
+Record the current values before changing them. These settings apply system-wide; each partition's name and entry/exit times are in [Partitions and devices](/installer/partitions/). With only one partition in use, its exit and entry delays also appear on this page. Changes are saved when you go back from the page. Verify the result during commissioning.
+
+<PanelShot src="/images/panel/system-options.png" alt="System options showing delay controls" caption="Review timing choices against the actual entry and exit routes." />
+
+## Delays and alarm behavior
+
+| Setting | Effect |
+| --- | --- |
+| **Report delay** | Time to disarm after a burglary alarm starts without sending that burglary report; it does not create an entry delay. |
+| **Siren time** | How long a burglary siren sounds; **Until disarmed** keeps it sounding until disarm. |
+| **Fire and CO sirens stop by themselves** | When off, those sirens continue until silenced. Review the installer note before changing this behavior. |
+| **Cancel window** | Disarming soon after a report was sent can issue a cancel. |
+| **Alarm limit** | Limits repeat trips from one zone while armed; the zone is shut down until disarmed after its limit. |
+| **Cross-zone time** | Two cross-zoned sensors must trip within this interval. |
+| **Fire verification** | Sets the interval in which a verified smoke detector must trip again. |
+| **Smoke detector reset** | Sets how long smoke detectors lose power during reset. |
+
+The panel warns when entry time plus report delay exceeds 60 seconds. The setting controls do not certify that an installation meets any standard. Do not shorten delays merely to make a demonstration faster.
+
+**Panic keys** selects what keypad keys A, B and C send. **Trouble beeps** selects which troubles make the keypad sound. Coordinate emergency and audible behavior with everyone affected; do not test emergency functions casually.
+
+## Arming and chime
+
+- **Auto-stay:** keypad Away arming becomes Stay if nobody leaves through an entry/exit door.
+- **Exit beeps:** controls beeps during Away exit time.
+- **Arm without a code:** allows quick arming; disarming still requires a code.
+- **Arm remotely without a code:** allows connected services to arm without a code; disarming still requires one. A service's own access rules still apply.
+- **Quick exit:** allows exit time to restart without a code while armed Stay or Night.
+- **Exit time restarts:** limits how many times Away exit time can restart when someone re-enters during the countdown.
+- **Recent closing:** sets how soon after arming an alarm is identified as a recent closing.
+- **Chime needs a code:** controls whether a code is needed to switch the chime on or off. Chime changes only while disarmed.
+
+## Code lockout
+
+- **Shortest new code** sets the minimum length for new or changed codes. Existing shorter codes keep working.
+- **Wrong codes before lockout** sets how many incorrect attempts are allowed; **Never lock** disables keypad lockout.
+- **Lockout time** sets how long the keypad rejects code attempts.
+
+## Power and recovery
+
+- **Come back armed after a power cut** restores the previous armed state after restart when enabled. When disabled, the system starts disarmed.
+- **Installer code recovery** opens a two-minute installer recovery window after power-up. When disabled, a lost installer code cannot be recovered through that route.
+- **Settling time** delays zone alarms after startup while sensors settle; **None** disables the delay.
+
+These settings affect recovery and protection after an outage. Explain their behavior to the owner and document the selected values. Installer code recovery is not an ordinary way to enter programming.
+
+## Walk test and limits
+
+**Walk test ends after** sets the test duration. **Allow values outside SIA CP-01** relaxes certain timing and alarm limits for special installations; the screen warns against using this for monitored systems. RoboAlarms does not claim certification or compliance based on these controls.
+
+If settings are refused or revert, confirm all partitions are disarmed, return from the page to save, and check for a storage trouble. See [commissioning](/installer/commissioning/) to record and verify settings.

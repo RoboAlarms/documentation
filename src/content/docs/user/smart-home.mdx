@@ -1,0 +1,59 @@
+---
+title: "Control household devices"
+description: "Find shared devices, use their controls, and arrange Favorites and rooms on Smart Home."
+sidebar:
+  order: 4.5
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+**Availability:** the panel-side Smart Home screen appears when the firmware build includes home control and at least one controllable entity is shared with the panel. The Home Assistant 0.1.0 integration has the entity allow-list and action path. Integration 0.2.0 adds richer device values and capability reporting; it is prepared but not released in this edition. A panel build must also include the Smart Home screen. Built-in Zigbee support is for alarm zones; native Zigbee and Z-Wave devices are not currently available as Smart Home tiles. Z-Wave output support in automations is separate and has not completed panel acceptance.
+
+## Find a device
+
+1. Select **Smart Home** on the left rail.
+2. Select **Favorites** to see the devices you have favorited, or select a room tab to see devices assigned to that Home Assistant area.
+3. Select **Other** for devices that have no area assigned in Home Assistant.
+
+<PanelShot src="/images/panel/smart-home.png" alt="Smart Home showing Favorites and room tabs with household device tiles" caption="Favorites is the first tab; room tabs follow the areas supplied by Home Assistant." />
+
+The panel can show Home Assistant lights, switches and input booleans, locks, thermostats and climate controls, covers and garage doors, fans, water valves, scenes, and scripts when the integration allows those entities to be controlled. A shared device remains visible if it becomes unavailable; its tile reads **Offline** and its controls are unavailable. The integration's selected entities determine what the panel can see; see [Share Home Assistant entities](/integrations/home-assistant-sharing/) for sharing and pairing.
+
+The device's area comes from Home Assistant. Change the area there if a device is in the wrong room. The panel's **Settings > Devices** page for renaming and hiding devices is not available yet. You can still choose which devices appear in Favorites and arrange them on this screen.
+
+An allow-list entry lets the panel run that selected entity; it does not limit what a Home Assistant scene or script can do to other entities. A scene or script could unlock a lock or open a cover without the panel's direct-action code prompt. Inspect its full contents and effects in Home Assistant, and share or run it only if you trust everything it controls. The panel cannot show those indirect effects or apply its direct lock/open confirmation to them.
+
+## Use a tile
+
+- Tap a light, switch, or fan tile to switch it. A scene tile runs its scene.
+- Tap a lock tile to lock or unlock it. Unlocking asks for an authorized user code.
+- Tap a cover or garage-door tile to open or close it. Opening asks for an authorized user code. If it is moving, a tap stops it when it can stop; otherwise, it changes direction. Changing direction to open still asks for a code.
+- Tap a water-valve tile to open or close it. Opening asks for an authorized user code.
+- Use the tile's on-screen controls when shown. A wide light tile may have a brightness control; a thermostat may have a setpoint control; a cover may have Open, Stop and Close; a fan may have speed controls. The source reports which controls the device supports, so some devices of the same kind show fewer controls.
+
+You can also press and hold a tile, or tap its detail arrow, to open the device sheet. It shows the full device name and state, and offers the controls supported by that device. A short tap operates the tile; a long press opens its details.
+
+<PanelShot src="/images/panel/smart-home-detail.png" alt="Smart Home device detail sheet with its supported controls and state" caption="The detail sheet shows the controls this device reports it can use." />
+
+When a device is offline, its name and last reported state remain readable, but its controls are unavailable. If the panel reports **Didn't…**, the action was refused or failed. **Not confirmed** means the panel cannot tell whether the device acted, so check the device's actual state before trying again. The panel does not automatically repeat an unlock or opening command.
+
+## Arrange Favorites and tile sizes
+
+1. Open **Smart Home** and select the tab you want to arrange.
+2. Tap the **pencil button** beside the room tabs to enter Arrange.
+3. Tap a tile to select it. Move it with the on-screen arrows, or press and hold it and drag it to another tile's place.
+4. Choose **Small** or **Wide** for the selected tile. A wide tile has room for controls such as a brightness slider or temperature stepper.
+5. In **Favorites**, choose **Remove** to take the selected tile off Favorites. Choose **Add** to pick another device; the list is grouped by room. In a room tab, tiles are ordered for that room.
+6. Select **Done** to finish.
+
+<PanelShot src="/images/panel/smart-home-arrange.png" alt="Smart Home Arrange view with tile movement, size and Favorites controls" caption="Use the arrows when dragging a tile is difficult; Arrange changes the screen layout only." />
+
+Arrange changes this panel's layout and does not send a command to the device. It does not require a user code.
+
+## If a device is missing or does not respond
+
+- Check that Home Assistant is paired and online, and that the entity is enabled for control in the integration's options.
+- Confirm the entity is available in Home Assistant. An unavailable entity can remain visible on the panel with **Offline** status.
+- Check the room assignment in Home Assistant. Devices without one are under **Other**.
+- If a control such as brightness, position, or fan speed is missing, the entity may not report that capability to Home Assistant.
+- If the panel says **Not confirmed**, inspect the device in Home Assistant before repeating a security-sensitive action.
+- If Smart Home is absent after setup, the current firmware build may not include home control or the shared device catalog may be empty.

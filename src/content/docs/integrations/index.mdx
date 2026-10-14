@@ -1,0 +1,33 @@
+---
+title: "Integrations"
+description: "Connect RoboAlarms to Home Assistant, MQTT, and phone notification services."
+sidebar:
+  order: 0
+---
+
+RoboAlarms has three independent ways to connect to other services. Choose the guide for the task you want to complete.
+
+New to Home Assistant? [Prepare a Home Assistant installation](/integrations/home-assistant-host/) before following the pairing guide. If Home Assistant is already running, skip that step.
+
+| Goal | Guide |
+| --- | --- |
+| See panel status and zones in Home Assistant, pair securely, or send authorized alarm commands | [Install and pair Home Assistant](/integrations/home-assistant-setup/) |
+| Send selected Home Assistant sensors to the panel as zone sources, or grant device control | [Share Home Assistant entities](/integrations/home-assistant-sharing/) |
+| Use panel entities and events in Home Assistant automations | [Use Home Assistant entities](/integrations/home-assistant-usage/) |
+| Reconfigure, unpair, update, or diagnose a Home Assistant connection | [Recover a Home Assistant connection](/integrations/home-assistant-troubleshooting/) |
+| Publish status to Node-RED, scripts, or another broker client | [Configure MQTT](/installer/mqtt/) |
+| Send phone notifications through ntfy or Pushover | [Configure phone notifications](/installer/notifications/) |
+
+The native Home Assistant integration connects directly over the local network and does not need MQTT. Home Assistant pairing does not configure MQTT or phone notifications. If the native integration is paired, MQTT discovery is suppressed to prevent duplicate Home Assistant entities; MQTT publishing for other broker clients can stay enabled.
+
+> **Testing status:** Compatible current panel firmware includes the Smart Home screen and can use explicitly shared Home Assistant entities. The published integration v0.1.0 provides binary-sensor zone sharing and a separate device control allow-list. A prepared, unpublished v0.2.0 candidate adds the panel's own Z-Wave devices to Home Assistant and richer device details. Check the compatibility notes in the [integration releases](https://github.com/RoboAlarms/ha-addon/releases) before installing. RoboAlarms is software under development, not a listed or certified alarm system.
+
+## Connection at a glance
+
+The panel advertises itself on the local network. Home Assistant can discover it with mDNS or connect to its address manually on TCP port **6054**. The first pairing is confirmed by comparing a six-digit code on both screens and allowing it on the panel. After pairing, the connection is encrypted and mutually authenticated. The panel makes alarm decisions locally; Home Assistant remains optional.
+
+Home Assistant needs an administrator to install the custom integration and configure what is shared. On the panel, **Settings > Integrations** requires the system master or installer code; a partition master cannot configure it. If you need to enter Installer, open **Settings > About > Installer**. Keep partitions disarmed while changing integration settings and commissioning the link.
+
+## Other connections
+
+MQTT is for broker-based consumers such as Node-RED, scripts, or HA users who prefer MQTT discovery. Phone notifications are sent from the panel directly to ntfy or Pushover. Each connection has its own settings and delivery checks; a successful Home Assistant pairing does not prove the other services work.

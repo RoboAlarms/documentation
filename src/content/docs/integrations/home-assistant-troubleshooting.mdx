@@ -1,0 +1,49 @@
+---
+title: "Troubleshoot and update Home Assistant"
+description: "Recover, reconfigure, unpair, and update the RoboAlarms Home Assistant integration."
+sidebar:
+  order: 4
+---
+
+Use this page when the RoboAlarms integration cannot be found, paired, or kept connected. First identify whether failure occurs during discovery, initial pairing, or after a working connection. For install and pairing steps, see [Install and pair Home Assistant](/integrations/home-assistant-setup/).
+
+## Common problems
+
+| Symptom | Check and recover |
+| --- | --- |
+| RoboAlarms is not discovered | Confirm **Home Assistant** is enabled under **Settings > Integrations** on the panel. mDNS discovery normally needs both devices on the same subnet. If discovery cannot cross a routed network, add the integration manually by the panel's address. |
+| Home Assistant cannot connect | Confirm the address beneath the connected network in **Settings > Wi-Fi and network** is current, the panel integration is enabled, and network rules permit TCP port **6054** from Home Assistant to the panel. The panel supports one paired Home Assistant instance. |
+| Panel is not pairing | Select **Pair with Home Assistant** on the panel, enter the requested system master or installer code, then continue the setup flow within two minutes. A partition master cannot configure Integrations. |
+| Pairing timed out | Start a fresh pairing window and continue promptly. |
+| The codes do not match | Select **No, reject** on the panel. Verify you chose the intended panel and that the connection is on a trusted network before trying again. |
+| Pairing is requested again or a certificate changed | This can happen after a factory reset. Verify the panel identity, then follow Home Assistant's reauthentication prompt and compare a new code on both screens. |
+| A different panel answers at the saved address | Stop. Do not accept a new pairing until you have verified which panel uses that address. |
+| Entities are unavailable | Check panel power, Wi-Fi, address, and the panel's Home Assistant status. Once the cause is corrected, the integration reconnects automatically. |
+| Shared sensor is missing from the source picker | Confirm the integration version supports sharing, the entity is listed in **Entities the panel may use as zones**, and Home Assistant reports it available. Reopen the picker after saving the list. |
+| A zone shows trouble or not ready | Check the source entity's state and availability, its polarity, and the panel's binding. Do not bypass a fault just to hide a network-source failure. |
+| Arm or device action is refused | Read Home Assistant's error. The panel may need a different authorized user code, a ready partition, or installer permission. The integration cannot override panel policy. |
+| Home Assistant reports an incompatible panel protocol | Update the integration and panel to a pair of versions listed as compatible in the release notes. The connection recovers when their protocol versions match. |
+
+## Change the panel address
+
+For a DHCP or network change on the same panel, open **Settings > Devices & services**, find the RoboAlarms entry, open its menu, and select **Reconfigure**. Enter the panel's new host and port, normally `6054`. Home Assistant checks the panel identity and pinned certificate before saving. The entry keeps its pairing, entities, and sharing options.
+
+If the address now belongs to a different panel, Home Assistant stops with a wrong-device error. Verify the address; do not try to force the old entry onto the other panel.
+
+## Unpair or move Home Assistant
+
+On the panel, open **Settings > Integrations > Home Assistant** and press and hold **Unpair**. The panel revokes the trusted Home Assistant client. To reconnect the same instance or move to a different instance, start **Pair with Home Assistant** and compare a fresh code.
+
+Deleting the integration entry from Home Assistant does not by itself revoke the panel's trust. Use **Unpair** on the panel when you want to remove that access. Turning off the Home Assistant switch stops the listener and discovery; use **Unpair** when you intend to revoke an existing client.
+
+## Update the integration and firmware
+
+Update the integration through HACS, or replace the manually installed `custom_components/roboalarms` directory with the version from a compatible release. Restart Home Assistant after updating. Install only panel firmware that the integration release lists as compatible; protocol changes need a matched pair.
+
+If Home Assistant creates a **Panel protocol is incompatible** repair, follow its update guidance. After installing compatible versions, the connection retries automatically. Do not delete and re-add the integration to work around a version mismatch.
+
+The current published integration is v0.1.0. The prepared v0.2.0 candidate at `2f79b49` is not a public release. Newer development builds add the panel's own Z-Wave devices to Home Assistant and send richer device values and capabilities; read the release notes before assuming those features are present.
+
+## Report a problem
+
+Include the Home Assistant version, integration release, panel firmware version, the visible error, and whether the failure happened during discovery, pairing, or a later connection. Do not include alarm codes, pairing codes, certificates, private addresses, or personal network names. Report software issues in the [integration issue tracker](https://github.com/RoboAlarms/ha-addon/issues).

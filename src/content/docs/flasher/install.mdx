@@ -1,0 +1,29 @@
+---
+title: "Install RoboAlarms"
+description: "Identify a new panel, review a compatible firmware bundle, preserve a flash backup, and install."
+sidebar:
+  order: 1
+---
+
+Use **Install RoboAlarms** for a new panel or when you deliberately intend to erase and replace everything on the chip. Install erases the entire chip before writing the firmware, so the maker's demo and all saved panel settings are removed. Current release firmware has no service console, so the Flasher may not recognize it as RoboAlarms. If you need to preserve an existing installation, do not treat an unknown panel as new: use Panel Manager's signed update page when available, or identify a recovery route before choosing Install. See [Update](/flasher/update/).
+
+Before starting, make sure the panel is disarmed, out of Installer mode and idle. Keep its power supply and USB connection stable from identification through startup. On the Elecrow CrowPanel Advanced 7-inch, turn **POWER** on, connect the computer to **UART0**, and power **USB2.0** with a phone charger; leave the panel's own power supply connected if fitted. The screen needs more power than the computer's USB port supplies alone.
+
+## Install from the guided setup
+
+1. In **Panel and parts** (Plan), choose the panel model and mark only optional parts that are actually fitted.
+2. In **Get ready** (Wire), gather the items shown and prepare the panel. If a Zigbee module is selected, the Flasher offers to write and verify its radio software over USB before the module is fitted. The checklist is guidance, not a hardware test.
+3. Follow **Full wiring** to compare the planned parts with their documented locations. Use the hardware page and maker's instructions for physical work; the drawing is not proof that hardware is connected.
+4. Review **Check before power** for the selected parts and their listed checks. This checklist does not measure or verify the installation. Consult [RoboAlarms hardware](https://roboalarms.com/hardware/) before doing physical wiring.
+5. In **Connect**, select the panel's serial port and follow the board's connection instructions. If the panel is missing, expand **Nothing showing up?** and check the board, cable and whether another program is using the port.
+6. In **Check the panel**, choose **Check this panel**. For a new board this briefly restarts the chip into its loader so the Flasher can read the chip, silicon revision and flash size; that check does not write anything. Do not check a device unless you know it is the alarm panel. A release build without a service console cannot report the panel's state here. If the board is not identified, choose **Not this board? Choose it yourself** only when you know the exact model. A build for another chip or too little flash is disabled.
+7. In **Install**, confirm the board, release and operation. The Flasher chooses Stable when available, then Beta, then Alpha; it offers a Dev build only after a separate choice. To use a supplied file instead of a server release, open it under **Advanced tools > Software**. For a new board, **Back up the panel first** is selected by default. Keep it selected if you may want the maker's demo back. This is the only way to preserve the existing whole flash before Install erases it. Clearing the option requires confirmation. The Flasher cannot verify alarm state if firmware has no service console. Select **Install RoboAlarms** and confirm. It connects to the chip loader, reads and checks the backup when requested, erases the chip, writes and verifies firmware, installs matching language, voice, and asset packs when available, then restarts and watches for startup. Keep power and USB connected until the job finishes.
+8. At **Test and finish**, confirm startup. If the firmware answers its service-console commands, the Flasher applies chosen connected-part settings after startup, restarts once, and reads them back. Current release firmware omits the service console, so these commands may be unanswered; an unanswered command does not mean a part was configured. Complete first-start setup on the panel's touchscreen: join Wi-Fi and change the factory installer and master codes when prompted. See [Connected parts](/flasher/connected-parts/) for what the Flasher can verify with release firmware.
+
+## Understand the safety check
+
+The Flasher can read whether the panel is idle and refuse to restart it only when the running firmware answers its service-console probe with the required state. Current release firmware omits that console. A new panel, other firmware, and release firmware therefore cannot report armed state, Installer mode, an active alarm, or an update/probation check. Confirm at the panel that it is disarmed and idle before proceeding; do not treat a missing response as proof that the panel is safe to restart.
+
+The firmware server supplies signed releases and their matching language, voice, and asset packs. The Flasher installs compatible packs with the firmware; you do not need to open separate pack files for a normal release install. Version selection prefers Stable, then Beta, then Alpha. A Dev build is offered only after a separate choice.
+
+If the install stops during erase or writing, the board may have no working firmware until an install finishes. Keep it powered, reconnect, and run Install again; the error card and [Logs](/flasher/troubleshooting/#advanced-tools) show the failure details. If startup reports a brownout or remains black, see [troubleshooting](/flasher/troubleshooting/#if-something-goes-wrong) for the board's power advice.

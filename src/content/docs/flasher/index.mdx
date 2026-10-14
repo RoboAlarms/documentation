@@ -1,0 +1,36 @@
+---
+title: "RoboAlarms Flasher"
+description: "Prepare a panel, identify it safely, and choose the right Flasher operation."
+sidebar:
+  order: 0
+---
+
+import PanelShot from '../../../components/PanelShot.astro';
+
+RoboAlarms Flasher is a desktop app for installing and maintaining panel firmware over USB. It lists serial ports, checks which board is connected, selects a compatible firmware image, and guides you through a job. **Panel Manager is a separate browser tool** for configuring a panel after RoboAlarms is running.
+
+The Flasher normally finds signed firmware releases on the RoboAlarms firmware server. **Automatic (recommended)** chooses the steadiest release for the selected board: Stable, then Beta, then Alpha. You can choose another release channel for the current Flasher session. A Dev build requires a separate choice and is intended for testing on a test panel. Advanced tools > Software can open a supplied `.roboflash` file or show available builds. Do not install a build for a different board. The Flasher currently does not offer the unfinished E32R40T 4-inch board.
+
+## Choose a guide
+
+- [Install RoboAlarms](/flasher/install/) on a new panel and understand the backup and erase steps.
+- [Update a panel](/flasher/update/) while keeping its configuration.
+- [Back up, reset and restore](/flasher/backups/) whole-flash copies and factory resets.
+- [Set up connected parts](/flasher/connected-parts/) such as a 433 MHz receiver or battery-backed clock.
+- [Use advanced tools and troubleshoot problems](/flasher/troubleshooting/) with ports, Console, Hardware, Software and Logs.
+
+## Before connecting
+
+- Use a USB data cable. Close serial tools such as Arduino IDE, PuTTY, `idf.py monitor`, or another Flasher window; only one program can use a serial port at a time.
+- Keep the panel powered while the Flasher identifies it, backs it up, writes firmware, verifies the write and checks startup. For the Elecrow CrowPanel Advanced 7-inch, turn **POWER** on, connect the computer to **UART0**, and power **USB2.0** with a phone charger. Leave the panel's own power supply connected if it has one. The screen draws more power than a computer USB port supplies by itself.
+- Make sure the panel is disarmed, out of Installer mode, and not in the middle of an update or startup check before anything that may restart it. The Flasher can refuse a restart only when compatible running firmware answers its service-console probe. If no firmware answers, it cannot confirm the panel's state; check the panel yourself before continuing.
+
+## What the first check does
+
+The guided setup has eight steps: **Panel and parts** (Plan), **Get ready** (Wire), **Full wiring**, **Check before power**, **Connect**, **Check the panel**, **Install** (or Update/Reset), and **Test and finish**. The first four help plan and check the physical setup before the panel is connected; their checklists are guidance, not tests of connected hardware. **Check this panel** restarts a new board into its chip loader to read its chip, silicon revision and flash size; it does not write firmware. If RoboAlarms is already running and answers, the Flasher reads its identity without restarting. If the connected device might be something other than your alarm panel, unplug it instead of checking it.
+
+The board name and the explanation beside it show what evidence the Flasher used. A manual board choice is for cases where you know the exact board. A disabled build has failed a compatibility check; don't override it. To use a supplied firmware bundle, open it under **Advanced tools > Software** or drag a `.roboflash` file onto the window.
+
+<PanelShot src="/images/flasher/connect.png" alt="Windows RoboAlarms Flasher showing USB connection instructions, a detected panel, and the older five-step navigation" caption="Retained development screenshot from the Windows desktop app; the source date is unknown and its five-step labels are older. Follow the current eight-step guide above." source="Windows desktop app · retained development screenshot" />
+
+For physical wiring, power supplies, modules and purchasing, see [RoboAlarms hardware](https://roboalarms.com/hardware/). The Flasher drawings help compare an existing setup with the selected board; read the [connected-parts guide](/flasher/connected-parts/) before wiring anything.

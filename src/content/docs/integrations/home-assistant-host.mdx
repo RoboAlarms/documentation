@@ -1,0 +1,48 @@
+---
+title: "Prepare Home Assistant"
+description: "Install Home Assistant and finish its first-run setup before pairing RoboAlarms."
+sidebar:
+  order: 0.5
+---
+
+If Home Assistant is already running and you can open it in a browser, skip this page and continue to [install and pair RoboAlarms](/integrations/home-assistant-setup/). This guide covers a new Home Assistant installation only.
+
+## Choose an installation
+
+For a first installation, Home Assistant recommends **Home Assistant Operating System (HAOS)**. It includes Home Assistant and its Supervisor, supports apps, and handles updates and backups from the interface. Install it on a dedicated Home Assistant Green, Raspberry Pi, or supported x86-64 computer by following the official [installation chooser](https://www.home-assistant.io/installation/) and its hardware-specific guide.
+
+If you use Windows or macOS, the official Home Assistant instructions run HAOS in a virtual machine. Follow the [Windows VM guide](https://www.home-assistant.io/installation/windows/) or [macOS VM guide](https://www.home-assistant.io/installation/macos/); the Linux Docker networking example below is not for Docker Desktop on those systems.
+
+## Finish first-run setup
+
+After the system starts, open `http://homeassistant.local:8123/`. If that does not open, use the address shown by your router followed by `:8123`. The first screen says **Preparing Home Assistant** while it downloads and starts the software; wait for the welcome screen.
+
+Follow the official [onboarding steps](https://www.home-assistant.io/getting-started/onboarding/): create the owner account, record its username and password somewhere safe, set your home location, and finish the remaining prompts. The owner account is an administrator. You are ready when Home Assistant opens its default dashboard. Then continue with [Install and pair Home Assistant](/integrations/home-assistant-setup/).
+
+## Linux alternative: Home Assistant Container
+
+Choose Home Assistant Container only if you already manage a Linux system and Docker. You need a working Linux host and Docker Engine **23.0.0 or newer**. Container installations do not include the Supervisor or Home Assistant OS apps, and you manage the container updates yourself. Home Assistant recommends HAOS for most people.
+
+The following Compose example follows Home Assistant's [official Linux Container guide](https://www.home-assistant.io/installation/linux/). Save it as `compose.yaml` on the Linux host, replace `Europe/Amsterdam` with your home region's time zone, then start it with `docker compose up -d`:
+
+```yaml
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+      # Optional; required only for Home Assistant's Bluetooth integration.
+      # - /run/dbus:/run/dbus:ro
+    restart: unless-stopped
+    stop_grace_period: 60s
+    privileged: true
+    network_mode: host
+    environment:
+      TZ: Europe/Amsterdam
+```
+
+The `./config:/config` bind mount keeps Home Assistant's configuration on the host when the container is recreated. `network_mode: host` is the Linux host-network setting used by Home Assistant's example; it lets Home Assistant use the host network for local discovery. This networking mode is not supported the same way by Docker Desktop on Windows or macOS, so use the HAOS VM guides above on those systems. This panel integration uses the network and does not need a USB device mapping.
+
+When the container starts, open `http://<linux-host-name-or-IP>:8123/` and complete the same [onboarding](https://www.home-assistant.io/getting-started/onboarding/). Once its dashboard is available, continue to [Install and pair Home Assistant](/integrations/home-assistant-setup/).

@@ -1,0 +1,21 @@
+---
+import panelManifest from '../../image-manifest.json';
+import haManifest from '../../home-assistant-manifest.json';
+import browserManifest from '../../browser-image-manifest.json';
+interface Props { src: string; alt: string; caption: string; detail?: boolean; source?: string }
+const {src, alt, caption, detail = false, source = 'Panel UI preview'} = Astro.props;
+const filename = src.split('/').pop();
+const capture = src.includes('/flasher/') || src.includes('/panel-manager/')
+  ? browserManifest.images.find(image => src.endsWith('/' + image.file))
+  : src.includes('/home-assistant/')
+  ? haManifest.images.find(image => image.file === filename)
+  : panelManifest.images.find(image => image.file === filename);
+const width = capture?.crop?.width ?? capture?.width ?? 1024;
+const height = capture?.crop?.height ?? capture?.height ?? 600;
+---
+<figure class:list={['panel-shot', { detail }]} style={`max-width: min(100%, ${width}px)`}>
+  <a href={src} aria-label={`Open full-size image: ${alt}`}>
+    <img src={src} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+  </a>
+  <figcaption>{caption} <span>{source} · select to enlarge</span></figcaption>
+</figure>

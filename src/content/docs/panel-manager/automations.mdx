@@ -1,0 +1,37 @@
+---
+title: "Automations"
+description: "Create and manage the panel's local automations in Panel Manager."
+sidebar:
+  order: 4.5
+---
+
+import PanelShot from '../../../components/PanelShot.astro';
+
+Open **Household > Automations**. The page appears only when this firmware includes Automations. You must be signed in as the **system master** or **installer**; a partition master and standard user cannot open or change the page. Changes are authorized as the signed-in person.
+
+<PanelShot src="/images/panel-manager/automations.png" alt="Panel Manager Automations page open in an installer account" caption="Current Panel Manager page with example installer data." source="Panel Manager development UI · installer fixture" />
+
+Automations keep running while the panel is armed. You can view them then, but adding, editing, enabling, disabling, trying, and deleting are available only when every partition is disarmed and quiet. The page says when the panel is locked and keeps changes disabled until it is ready.
+
+## Add or edit an automation
+
+1. Choose **Add an automation**. The page offers ideas when the required sensors or devices are available, plus **Start from scratch**. Choosing an idea opens **New automation**; nothing is saved until you select **Save**.
+2. In **When**, use **Starts when** to choose a trigger: **When the panel is armed**, **When the panel is disarmed**, **When an alarm sounds**, **When a fire or CO alarm sounds**, a door/window opening or closing, or **At a time of day**. Depending on the trigger, choose **Which partition?**, **Armed how?**, **Which sensor?**, or **Which door or window?**. A time trigger uses **Run at** and **On these days**. Other triggers can be limited with **Only between** and its **From** and **To** fields.
+3. In **Then**, choose a **Device** action. For a compatible device, choose an **Action**; an **on** action may also show **Turn it off after**. Choose **Add a second action** if offered, then select a different device. The system master also sees **The alarm** choices to **Arm the panel** or **Disarm**. An installer can save device actions but cannot save an automation containing Arm or Disarm.
+4. Review the generated trigger and action sentences. The page may ask you to confirm an action before saving, with a **Save this automation?** dialog that spells out what it will do. Select **Save** in the dialog to continue.
+
+For an existing automation, its trigger sentence is the page heading. Edit the **When** or **Then** fields; the bottom bar lists the changed sections and offers **Undo** and **Save**. Saving checks the panel's current rules and role permissions again. The list shows each automation as a sentence rather than a custom name, along with its enabled state and last-run result. The panel stores up to 16; at the limit, delete one before adding another.
+
+The touchscreen guide [Create panel automations](/user/automations/) explains trigger behavior, supported actions, warnings, and runtime safeguards. Use it for shared rule behavior; the browser field and button labels above are specific to Panel Manager.
+
+## Enable, try, or delete
+
+- **Use this automation** switches an existing rule on or off immediately. It does not require **Save**. A switched-off rule stays in the list and does not run.
+- **Try it now** runs the saved device action or actions once, without waiting for the trigger. It is available for saved device rules only—not for Arm or Disarm—and is disabled until you save pending edits. Its result appears under **Last run**; the page does not show a separate success toast.
+- **Delete this automation** opens a confirmation. **Delete** stops it at once and cannot be undone. Records made by newer software or with a missing device may be available only to delete.
+
+The list and editor show outcomes such as **Ran at**, **Tried at**, **Didn't work**, **Waiting until the clock is set**, **Can't run**, or **Off: it won't run**. Open an automation to see its **Last run** explanation. A failure does not repeat an action automatically; check the listed device or panel condition before trying again.
+
+## If someone changes the list at the same time
+
+Each save is checked against the version of the automation list that was open in the editor. If another person changes the list first, the panel refuses the stale save and reloads the current data with **Someone changed automations meanwhile. The page now shows them as they are.** Review those values, then make and save your changes again. The other person's saved changes remain in place.

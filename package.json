@@ -1,0 +1,32 @@
+{
+  "name": "roboalarms-documentation",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RoboAlarms/documentation.git"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check",
+    "verify": "node scripts/verify-site.mjs && node scripts/verify-images.mjs",
+    "validate": "pnpm check && pnpm build && pnpm verify"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "0.42.2",
+    "astro": "7.3.3",
+    "sharp": "0.35.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "typescript": "^6.0.0"
+  }
+}

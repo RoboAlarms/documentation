@@ -1,0 +1,23 @@
+RoboAlarms Documentation
+Copyright 2026 the RoboAlarms Panel authors
+
+This repository contains documentation, website code and curated screenshots
+originally distributed in the RoboAlarms Panel project's docs/manual directory.
+The standalone repository adds build, deployment and maintenance configuration.
+The upstream Apache-2.0 license and authors' attribution are retained.
+
+Panel UI screenshots contain rendered Inter typography and Lucide icons:
+
+Inter typeface - SIL Open Font License 1.1
+    Copyright (c) 2016 The Inter Project Authors
+    https://github.com/rsms/inter
+    See licenses/LICENSE-Inter.txt.
+
+Lucide icons - ISC License
+    Copyright (c) 2026 Lucide Icons and Contributors
+    See licenses/LICENSE-Lucide.txt.
+
+Build dependencies retain their own licenses. They are resolved from the
+lockfile; firmware source and its hardware dependencies are not included here.
+
+RoboAlarms is a DIY project and is not a listed or certified alarm system.

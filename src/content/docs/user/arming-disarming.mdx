@@ -1,0 +1,54 @@
+---
+title: "Arm and disarm"
+description: "Choose an arming mode, leave during exit time, and disarm when you return."
+sidebar:
+  order: 2
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+**Before you begin:** know your code, the exit route and which door starts the entry countdown. Each keypad controls its assigned partition; ask the installer which area it operates.
+
+## Choose the right mode
+
+| Mode | Use it when | What is watched |
+| --- | --- | --- |
+| **Away** | Everyone is leaving | Perimeter and interior zones |
+| **Stay** | Someone stays inside | Perimeter zones; interior zones are ignored |
+| **Night** | You are going to bed | Perimeter plus interior zones the installer marked as **Night zone** |
+
+Fire, CO and other 24-hour zone behavior is separate from these burglary modes. An arming mode is not a way to disable them.
+
+## Arm the system
+
+1. Close the doors and windows you want protected.
+2. On **Home**, choose **Away**, **Stay** or **Night**.
+3. Enter your code and select the **check mark**, if asked.
+4. For Away, leave by the agreed exit door before the countdown ends.
+5. Check the resulting state. **Armed Away**, **Armed Stay** or **Armed Night** confirms the active mode.
+
+<PanelShot src="/images/panel/arm-away.png" alt="Arm Away code pad with Instant and Silent exit options" caption="Check the selected mode and options before submitting your code." />
+
+With **Auto-stay** enabled, keypad Away arming can become Stay if no entry/exit door was used. That is expected behavior, not a failed arming request.
+
+Away normally has exit beeps. Stay and Night have a quiet exit countdown; silence does not mean they failed to arm.
+
+For Away, **Silent exit** suppresses the exit beeps and extends exit time. It does not silence a later alarm. Stay and Night already use a quiet exit countdown.
+
+## Disarm or cancel exit time
+
+1. On Home, use the code pad already shown during exit time or while armed.
+2. Enter an authorized code.
+3. Select the **check mark**.
+4. Confirm the state changes to **Disarmed**.
+
+When you return through an entry door, finish before the entry countdown ends. Your code must be authorized for this partition. A **Guest** code can disarm only when that same guest armed this partition. An **Arm only** code cannot disarm.
+
+<PanelShot src="/images/panel/entry-delay.png" alt="Entry countdown with a code pad ready for disarming" caption="Enter your code directly when you return; no separate Disarm card is needed." />
+
+## What does Instant do?
+
+**Instant removes the entry delay.** It does not remove exit time. After the system arms, opening a normally delayed entry door can trigger an immediate alarm. Use it only when nobody needs to enter before disarming.
+
+## If the system refuses to arm
+
+Open **Zones** and read the named problem. Close the opening or resolve the fault, then retry. If deliberately leaving out an eligible zone, follow [Bypass a zone](/user/zones-bypass/). Do not use **Bypass open** without checking which zones it will exclude.

@@ -1,0 +1,58 @@
+---
+title: "Browser accounts and permissions"
+description: "Set up separate Panel Manager passwords and understand account authority and lockouts."
+sidebar:
+  order: 2
+---
+
+Panel Manager uses a browser password that is separate from the person's keypad code. A keypad code, including the installer code, never signs in to the browser.
+
+## Enable a sign-in
+
+The panel must be disarmed and not in alarm. The installer enables their own access in Installer mode. For other users, a person who manages that user can enable browser access at the touchscreen or in **People and codes**.
+
+| Account | Browser user name | Enable on the touchscreen |
+| --- | --- | --- |
+| Installer | Name shown in **Settings > Users**; it is **Installer** by default. | **Settings > About > Installer**, then **Browser sign-in** directly below the **Panel Manager** switch |
+| System master, partition master, standard user | Name shown in **Settings > Users** | **Settings > Users > [person] > Browser sign-in** |
+
+Set a browser password from the same local control. Passwords are 12–64 characters. Use a distinct password; do not use a keypad code. Enter the name and browser password on the Panel Manager sign-in page. If the installer changes another person's password through **People and codes**, that password is temporary: the person chooses their own password at first sign-in before accessing other pages.
+
+The Panel Manager authorizes changes by the signed-in person's role and partition access. It does not ask for a keypad code to confirm browser account changes. To change your own browser password, choose **Change your password** beside your name in the page header and enter your current browser password.
+
+## Who can manage accounts
+
+| Signed-in role | User management |
+| --- | --- |
+| Installer | Can manage every user, including codes and browser sign-ins. |
+| System master | Can manage users except the installer. |
+| Partition master | Can manage their own account and lower-authority users whose partition access remains entirely within the master's own partitions. |
+| Standard user | Cannot manage users. |
+
+Only the installer, system master, partition masters, and standard users can have browser sign-ins. Arm-only, guest, and duress accounts cannot sign in. A user's visible partitions limit which partition states they can read. A partition master cannot create or assign access outside their own areas.
+
+## Add or update a person's access
+
+1. Open **Household > People and codes** and choose **Add a person**, or select a person you manage.
+2. Enter **Name** and, when offered, choose **What this code can do** and **Partitions**. The name is also that person's browser user name. A new person needs a 4–10 digit **Code**. For an existing person, leave **New code** empty to keep their keypad code.
+3. To allow browser access, turn on **Browser sign-in**, then enter a 12–64 character **Password**. Choose whether they must change it at first sign-in. A browser password is separate from their keypad code.
+4. Select **Add this person** or **Save**. The signed-in person's role is checked by the panel. Give the person their user name and any temporary browser password privately; they must choose a new password at first sign-in if you selected that option.
+
+To revoke browser access, edit the person, turn **Browser sign-in** off, then **Save**. To remove someone other than yourself or the reserved first two accounts, open their editor, choose **Remove**, check that their code and browser sign-in will stop working, then confirm the removal. The panel checks the signed-in person's role for these actions; it does not ask for that person's keypad code or browser password.
+
+If someone forgets a browser password, a user manager can set a new temporary password in **People and codes** using **New browser password**. The person replaces it at their next sign-in. If Panel Manager is unavailable, the installer or another authorized manager can reset it from the touchscreen's user controls. For your own password, use **Change password** if you know the current one; otherwise ask a manager to set a temporary one.
+
+## Avoid lockouts
+
+There are two independent failure counters:
+
+- **Browser password checks:** after five wrong password checks at sign-in or while confirming your current password, the panel waits one minute. Each later failed check after its wait doubles the delay, up to 15 minutes. One hour without a failed password check clears this counter.
+- **Keypad code checks:** touchscreen programming and keypad actions can count refused codes toward a one-minute wait after five failures; later failures after their waits double it to at most 15 minutes. A correct code does not clear earlier refusals. One hour without a refused code clears this counter. Panel Manager browser actions use the signed-in account's authority and do not ask for the actor's keypad code.
+
+A password shorter than 12 characters is rejected before a browser attempt is counted. If you enter a keypad code in the password field, the page explains that codes do not sign in. Correct the field and use the browser password; do not keep retrying.
+
+## Sessions and revocation
+
+A session ends after 20 minutes without activity and no later than eight hours after sign-in. The panel holds up to four sessions; a new successful sign-in replaces the oldest when all four are occupied. Changing the account's name, role, keypad code, or browser password, or disabling browser sign-in, signs that account out of its open sessions. Use **Sign out** in the header when finished on a shared computer.
+
+For what each browser page allows, see [Everyday pages and settings](/panel-manager/everyday/) and [Installer programming](/panel-manager/installer/).

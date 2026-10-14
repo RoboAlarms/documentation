@@ -1,0 +1,65 @@
+---
+title: "Everyday pages and settings"
+description: "Use Panel Manager for status, activity, zones, display, integrations, time, storage, and health."
+sidebar:
+  order: 4
+---
+
+The Panel Manager menu lists only pages available to your account. The panel checks authorization for each request as well, so a copied page address cannot grant access.
+
+## Find the page
+
+| Menu | What it shows or changes | Who can use it |
+| --- | --- | --- |
+| **Overview** | Panel health, clock, connection, and status for your permitted partitions. | All signed-in users; partition status is scoped to the user's assignments. |
+| **Activity** | Recent public event wording. It is not the private Event log on the touchscreen. | All signed-in users. |
+| **Zones** | Zone name, sensor kind, and the panel's status wording. | All signed-in users; only the installer can program or link sensors. |
+| **Display and sound** | Display brightness, screen saver, keypad sound, language, voice volume, and Announcements when voice support is available. | All signed-in users can change display settings; system master and installer can manage voice packs. |
+| **Date and time** | Time zone and time server; when the panel can keep time, a card also lets an authorized user set the current time. | All signed-in users can view; system master, partition master, and installer can change. |
+| **Automations** | Rules the panel runs from a trigger, such as a sensor, alarm state, or time, with one or two actions and a last-run result. | System master and installer; only the system master can save Arm or Disarm actions. Changes are locked while any partition is armed or an alarm is active. |
+| **Storage** | SD card and firmware storage state and capacity. | All signed-in users can view; system master and installer can operate SD card actions. |
+| **System health** | Current system and service health information. | All signed-in users. |
+| **Integrations** | Home Assistant/MQTT and notification services included in this firmware. | System master and installer. |
+| **Software updates** | Update status and the signed release available from the configured source. | All signed-in users can view status; system master, partition master, and installer can check/install. Only system master and installer can change the release source. |
+
+The page can show only features included in the firmware. A compiled-in integration can still be disabled and configurable. For setup details, see the [Home Assistant](/installer/home-assistant/) and [notifications](/installer/notifications/) guides.
+
+Open **Household > Automations** for local rules, or read the [Panel Manager Automations guide](/panel-manager/automations/) for its editor and controls. The [touchscreen automations guide](/user/automations/) explains the shared trigger and action behavior.
+
+## Adjust display and sound
+
+1. Open **Panel settings > Display and sound**.
+2. Adjust **Screen brightness**, **Screen saver**, **Screen saver brightness**, **Speaker volume**, **Voice volume**, **Key click sounds**, or **24-hour clock**. Screen saver brightness appears only when the screen saver is enabled. Alarm sounds are not affected by Speaker volume.
+3. Select **Save changes**, check each before-and-after value in **Review changes**, and confirm **Save changes**. Return to the page to see the saved values.
+
+The **Announcements** card appears when voice support is available. It shows whether a voice pack is installed, its language, and whether it is ready. A system master or installer can upload a signed **.robovoice** file there. Firmware-server releases used by the Flasher include a matching voice pack when one is available. Installing a pack does not turn Announcements on; use the card's switch after the pack is ready. The page language and voice language are separate.
+
+## Set the time zone or panel clock
+
+1. Open **Panel settings > Date and time**. The page displays the **Time zone** and **Time server** settings. All users can view them; a system master, partition master, or installer can change them.
+2. Choose a named time zone or **Other: type a POSIX rule**. If you choose Other, enter the **POSIX time-zone rule**. Set **Time server** to a host name such as `pool.ntp.org` or the router if your network provides time.
+3. Select **Save changes**, inspect **Review changes**, confirm **Save changes**, then reopen **Date and time** to check the saved values.
+
+If the panel reports that it can keep time, the page also shows **Set the date and time**. Choose **Use this computer’s time** to fill the review with this computer's current time, or enter **New date and time** in this computer's time zone. Choose **Set**, check the before-and-after time, and confirm **Set**. The time server corrects a manually set time at its next sync.
+
+## Check or manage storage
+
+1. Open **Panel settings > Storage**. Review the SD card state and capacity and the **Internal flash** firmware-slot use. This page is readable by every signed-in user.
+2. A system master or installer can choose **Check** to look for card file-system errors, or **Eject** and wait for confirmation before physically removing the card.
+3. **Erase and format…** deletes every file on the SD card. The dialog says the panel settings, users, and event log are stored separately. Continue only if the card's files can be erased; type `ERASE SD CARD` exactly and select **Erase**. Cancel if the confirmation text or selected card is not what you expect.
+
+## Open an integration
+
+1. Open **Household > Integrations**. If no integrations are included in the firmware, the page explains that none are available.
+2. Check each card's status, then choose **Set up** for the integration you intend to configure. Integrations are managed by the system master and installer.
+3. Follow that integration page and review changes before saving. Saved secrets are not shown again; an empty secret field normally means keep the existing secret, while an explicit clear action removes it. For Home Assistant setup, see the [pairing guide](/installer/home-assistant/); for phone alerts, see [Notifications](/installer/notifications/).
+
+## Apply and verify changes
+
+Configuration forms present a **Review** step before applying. Check each before-and-after value, especially for integrations and settings that affect more than one partition, then confirm. The page reports the result; return to the page to verify the displayed setting or status.
+
+Most configuration changes are blocked while any partition is armed or an alarm is active. If the panel is locked, disarm all partitions and clear the active alarm before trying again. Your own browser password, sign-out, and remote keypad remain available. Review does not bypass the panel's checks: the signed-in account's role and partition access govern each browser action, and sensitive actions may require that account's browser password again. Browser pages do not ask for a keypad code as confirmation.
+
+## Understand what you can see
+
+Panel Manager shows each person only the partitions assigned to their account. A standard user sees the zone status words the panel publishes, not installer-only sensor details or the private Event log. Integrations and sensitive programming are restricted separately from status viewing. For account scope and browser sign-in, see [Browser accounts and permissions](/panel-manager/accounts/); for installer-only pages, see [Installer programming](/panel-manager/installer/).

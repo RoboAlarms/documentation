@@ -1,0 +1,44 @@
+---
+title: "Sensors and radio modules"
+description: "Choose and commission wired, 433 MHz, Zigbee, and Z-Wave zone sources with their current software limits."
+sidebar:
+  order: 4.5
+---
+
+RoboAlarms supports several sensor sources, but software support does not prove that a particular device or physical installation has been accepted. Confirm the panel's current capabilities in **Settings > About > Installer** and the source picker. Use [RoboAlarms hardware](https://roboalarms.com/hardware/) and the module maker's instructions for physical context; this guide does not specify wiring.
+
+Before programming, disarm every partition and leave Installer mode closed when the page asks for it. Pairing, removal, radio resets, and firmware updates can interrupt sensor coverage. Plan those changes with the person responsible for the system, and do not rely on a source until its sensor has been tested at the panel.
+
+## Wired terminals and 433 MHz sensors
+
+Use the Flasher's **Panel and parts** step to record an optional receiver, then use **Zones > Add a zone** on the panel to learn a 433 MHz sensor. The Flasher's receiver test only shows transmissions; it does not enroll a sensor. Some common fixed-code and rolling-code families are decoded, but a 433 MHz label alone does not mean a device is supported. The zone's learned codes determine which signal opens and closes it.
+
+This 433 MHz source is not supervised. A sensor that stops transmitting does not report that it has failed. Where supported, the panel can use separate learned codes for tamper and low battery. Do not assign an unsupervised sensor to fire, CO, or panic protection. Fixed-code signals may be copied.
+
+Wired inputs are available only where the board provides them and are subject to the selected optional-module layout. Confirm the source and terminal shown by the panel before saving a zone.
+
+## Zigbee
+
+On supported panels with an ESP32-H2 radio, open **Settings > About > Installer > Zigbee** to inspect the radio and its device list. To pair a sensor, open a zone, choose **Source > Zigbee sensor**, then start the pairing window and put the intended device in its pairing mode. The panel supports install codes for devices that provide one. Pairing can also be started from the Zigbee page. Close the window when finished; it does not stay open after a restart.
+
+RoboAlarms has software for the radio, coordinator, device records, pairing pages, and zone reporting. The panel can also show sirens and keypads in its Zigbee device pages. However, real-sensor, siren, and keypad acceptance is still open. The radio has answered and the stack has started on a real module, but this does not establish reliable operation with a real device. Treat compatibility as unverified until the exact device has been tested through pairing, reports, restart, and radio-loss recovery.
+
+If the panel says the radio is unusable or its software is missing, prepare the ESP32-H2 module with the Flasher's **Zigbee module** tool. The module must be connected to the computer on its own USB port; the Flasher explains the required state. Firmware updates do not currently update the H2 module from the panel. Do not reset the Zigbee network unless you are prepared to pair its devices again.
+
+## Z-Wave
+
+On a supported build with a working Z-Wave radio, open **Settings > About > Installer > Z-Wave**. Select **Add a device**, put one device into pairing mode as its maker describes, and follow the panel's security choices. Use Security 2 when the device supports it, entering its printed PIN when requested. If the device is added without encryption, the panel warns that its radio signal can be copied; do not use it for fire or CO protection. Check the device page and bind the intended input to a zone through **Zones > Add a zone > Source > Z-Wave sensor**.
+
+Compatibility depends on what the device reports and the panel's model rules. The panel exposes only inputs it can use; a device name in the UI does not guarantee that every feature of that device is supported. The software includes add, remove, replace, setup-again, SmartStart, region, radio diagnostics, and selected device operations. Real-device acceptance remains incomplete, including reset-line confirmation and a full sensor test through restart and loss of the radio. Verify the specific sensor before relying on it.
+
+Changing the radio region can stop devices that use another frequency band or Long Range. The panel warns and asks for the installer code when a choice would remove devices; those devices need to be paired again. **Reset the Z-Wave network** starts a new network and disconnects every device from the panel. Use either operation only when you understand the re-pairing work. A Z-Wave radio software update also interrupts sensor reports; keep the panel powered and wait for the radio to return before arming.
+
+## Clock and other optional modules
+
+The Flasher can test a supported battery-backed clock module when the running firmware's service console is available. The touchscreen and Panel Manager provide manual time setting only when the panel can keep time. Check the panel's reported capability before relying on clock retention.
+
+The Flasher shows the supported optional-part combinations and can prepare a Zigbee radio. A release firmware without the service console cannot answer the Flasher's busy-state probe or apply and verify its connected-part choices. Confirm that the panel is disarmed and idle at its own screen before any Flasher operation that can restart it. See [Flasher connected parts](/flasher/connected-parts/) and [Flasher updates](/flasher/update/).
+
+## Keep the software current
+
+The Flasher's signed firmware-server releases include matching language and voice packs and the asset packs used by the panel, such as screen-saver images, letters, and certificates. Install and Update handle the compatible packs alongside firmware. An update does not substitute for testing sensor operation. The panel's **Screen and sound** settings control whether available announcements are enabled; a voice pack by itself does not mean announcements are on.

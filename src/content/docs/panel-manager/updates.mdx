@@ -1,0 +1,35 @@
+---
+title: "Software updates and recovery"
+description: "Check and install signed panel updates, use developer uploads, and understand rollback."
+sidebar:
+  order: 7
+---
+
+Panel Manager can check for a signed release and install it from **System > Software updates**. A system master, partition master, or installer can check and install the normal release. Only the system master and installer can change the **Release source**. All partitions must be disarmed and no alarm can be active before installing; the panel refuses a change while armed or in alarm.
+
+## Install a normal signed update
+
+1. Open **System > Software updates** and select **Check now**.
+2. Review the installed version and any available version. If an update is available, choose **Install** and read the confirmation.
+3. Confirm the installation. Keep the browser open while the panel downloads and verifies the signed update, restarts, and reconnects.
+4. When Panel Manager returns, check **System health** and **Software updates** for a normal result and the installed version.
+
+An update restarts the panel, so the browser connection will drop temporarily. If startup checks fail, the panel returns to the previous firmware. Wait for the panel to finish restarting and reconnect at its HTTPS address. Do not interrupt power during an update.
+
+## Install a signed development file
+
+This path is for an installer who has a signed `.bin` for this panel's board and profile. It requires **Developer tools** to be on under **Installer > Access and maintenance**. Developer tools are optional; a household user should use the normal signed release path.
+
+1. Confirm all partitions are disarmed and no alarm is active. If a temporary browser password has not yet been changed, sign in and change it first; the panel refuses the upload until you do.
+2. Open **System > Software updates** and find the **Install a signed file** card. Choose **Firmware file** and select a signed `.bin` built for this panel's board and profile.
+3. Review the file name, size, and **Allow the same or an older version** value. Leave that switch off unless the installer specifically intends that signed downgrade.
+4. Select **Upload and install**, review the file details, then confirm **Upload and install**. Keep the browser open while the upload and signature checks run, then allow the panel to restart and complete its health check.
+5. Reconnect after restart and verify **System health**. A missing reconnect or failed startup health check causes rollback to the previous firmware.
+
+The installer is required for signed uploads and downgrade authorization. A temporary password still awaiting change cannot upload firmware. Turning **Developer tools** off leaves normal browser administration on if **Browser access** remains on. Turning Web server off closes the browser service and disables Developer tools; enable it locally at the touchscreen to use the browser again.
+
+## If the panel does not return
+
+Wait for the restart and probation window to complete, then reconnect using the current address and verify the HTTPS fingerprint from local Installer if the browser reports a certificate change. Check **System health** and the installed version before trying again. A network trial may also roll back independently; see [Network settings and recovery](/panel-manager/network/).
+
+If the panel is still unavailable after the update rollback window, check that it has power and its expected network route, then use the [Flasher troubleshooting and recovery guide](/flasher/troubleshooting/) for USB recovery steps. Do not repeatedly upload an image or power-cycle during an active update. For enabling developer access, see [Installer programming](/panel-manager/installer/).

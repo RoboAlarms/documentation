@@ -1,0 +1,35 @@
+---
+title: "Update RoboAlarms with the Flasher"
+description: "Update an idle panel in place, keep its settings, and handle layout and downgrade checks."
+sidebar:
+  order: 2
+---
+
+import PanelShot from '../../../components/PanelShot.astro';
+
+An in-place **Update** writes new firmware while keeping the panel's codes, users, zones, Wi-Fi, integrations and event history. It is available only when the running firmware answers the Flasher's probe and the firmware uses the same flash layout. Current release firmware does not include the service console, so the Flasher cannot probe it and cannot offer in-place Update. Use **System > Software updates** in Panel Manager when available. Install erases settings; do not choose it when you need to preserve configuration.
+
+## Update the panel
+
+1. On the panel, disarm every partition and leave Installer mode. Wait for any firmware update or probation check to finish. Keep the panel powered and idle throughout the operation.
+2. Follow **Panel and parts**, **Get ready**, **Full wiring**, and **Check before power**. These steps guide part planning and preparation; they do not test installed hardware.
+3. In **Connect**, select the panel by its serial port. At **Check the panel**, development firmware with a service console can identify the board and version without restarting and report whether it is idle. Current release firmware has no console, so the Flasher cannot verify its state or use Update.
+4. In **Install**, make sure **Update to RoboAlarms &lt;version&gt;** is selected and that the board and firmware are correct. Read the list under **What happens**; Update compares the partition-table layout before writing.
+5. Select **Update to RoboAlarms &lt;version&gt;**. Keep USB and power connected while it checks the panel, compares the layout, writes and verifies firmware, restarts the panel, and waits for its running message. If you selected connected parts, their settings are applied only when the running firmware answers the service-console commands; see [Connected parts](/flasher/connected-parts/).
+6. At **Test and finish**, confirm the new version is running. An Update leaves the existing codes, zones and Wi-Fi in place. Test the selected modules if you changed their settings.
+
+<PanelShot src="/images/flasher/review.png" alt="Windows RoboAlarms Flasher Update review showing preserved settings, board, software and parts" caption="Retained Windows desktop app development screenshot of an Update review; source date unknown. Its five-step navigation uses older labels; the current eight-step guide above is authoritative." source="Windows desktop app · retained development screenshot" />
+
+<PanelShot src="/images/flasher/progress.png" alt="Windows RoboAlarms Flasher showing overall firmware update progress and the first status line" caption="Progress detail cropped from a retained Windows desktop app screenshot; source date unknown. The chip identity is outside the crop. This older development interface is an example; follow the current steps above." source="Windows desktop app · retained development screenshot" />
+
+If the bundle version is older than the one already running, the Flasher asks you to confirm going back. Firmware settings created by the newer version may not all be understood by the older one. Continue only if you mean to downgrade.
+
+## If the layout check fails
+
+The Flasher compares the partition table on the chip with the selected firmware before writing. If they differ, it stops the Update and writes nothing. The message offers Install instead, which erases the full chip, including codes, users, zones and Wi-Fi. Check the backup and erase consequences on [Install RoboAlarms](/flasher/install/) before choosing that operation.
+
+## When the Flasher cannot check the panel
+
+The probe uses the running firmware's service console. Current release firmware does not include it, so the Flasher cannot verify the panel's idle state or offer an in-place Update. Make sure the panel is disarmed and idle yourself before any action that could restart it. Use Panel Manager's signed **System > Software updates** page when it is enabled; otherwise identify the installed firmware and choose a recovery path that preserves the configuration.
+
+The probe can detect armed partitions, Installer mode, and an update/probation operation only when the running firmware reports enough information. When the Flasher shows that the panel is busy, finish the alarm or operation on the panel and check again after it is idle. It does not force a restart through a busy response.

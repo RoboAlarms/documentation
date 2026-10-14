@@ -1,0 +1,50 @@
+---
+title: "Installer programming"
+description: "Manage users, sensors, partitions, alarm behavior, access, and maintenance in Panel Manager."
+sidebar:
+  order: 5
+---
+
+Sign in with the installer browser account. Installer-only pages appear under **Installer**. All partitions must be disarmed, no alarm can be active, and local Installer mode must be closed before programming in the browser. If an Installer session is open at the touchscreen, exit it there first. Browser actions are authorized as the signed-in installer; the browser does not ask for the installer keypad code. Some sensitive actions, such as turning remote access off or resetting the panel, require the installer's own browser password again if it has not been entered within the last ten minutes.
+
+## Manage people and browser access
+
+Open **Household > People and codes**. Choose a person to edit or **Add a person**. Set the person's name, role, partition assignments, keypad code, and browser sign-in, then select **Save** or **Add this person**. The panel enforces the signed-in person's account authority and partition scope. It does not ask for the actor's keypad code in the browser. A browser password you set for someone else can be temporary; that person chooses their own password at first sign-in when you request it. See [Browser accounts and permissions](/panel-manager/accounts/) for who can manage whom and lockout behavior.
+
+Turning a user's browser sign-in off signs that user's sessions out. Changing a name, role, code, or browser password also revokes that person's active sessions. Installer mode can manage every account. A system master cannot edit the installer, and partition masters are limited to themselves and eligible lower-authority users within their own partitions.
+
+## Program sensors and partitions
+
+Open **Installer > Sensor sources** to choose available source types and manage source connections. To configure a zone, open **Zones** in the main menu, select its row, then choose **Sensor link**. In the sensor link page, check **Source**, **Device ID**, **Input or terminal**, and **Reference** against the intended sensor; choose the **Reading** mode and any mapping fields needed by that source. Optional **Tamper input** and **Battery input** sections can map separate source signals. Expand **Timing** only when setting advanced grace or response values. Select **Review**, check the zone number and each changed mapping, then select **Save**. The signed-in installer account authorizes the change; no keypad code or browser password is requested for sensor programming. Unlinking a sensor means that zone no longer hears from it until linked again.
+
+In the main-menu **Zones** page, select a zone to edit its **Name**, **Zone type**, **Sensor kind**, **Partition**, and **Options**; advanced fields can include **Check-in supervision**, **Cross-zone partner**, and **Alarm limit**. Select **Add a zone** to open a free zone, complete its fields, review them, and **Apply**. No keypad code or browser password is requested for zone programming. **Remove** changes a zone's type to **Not used** after confirmation; its sensor link remains until you remove that link separately.
+
+In **Installer > Partitions and devices**, select a partition to edit **In use**, **Name**, **Exit time**, **Entry time 1**, and **Entry time 2**. Select a device to edit **In use**, **Name**, **Home partition**, and **Check-in supervision**. Review the partition or device values and choose **Apply**. These programming saves use the signed-in installer account and do not ask for a keypad code or browser password.
+
+Save each edit through its review. The panel enforces installer authority from the signed-in browser account. Check that the selected partition is the one intended: a zone's partition determines where that zone reports and how its status affects arming.
+
+The browser has separate **Installer > Z-Wave** and **Installer > Zigbee** pages when those radios are included in the firmware. Use the procedures and support limits in [Sensors and radio modules](/installer/sensors-radios/). Pairing or resetting a radio network changes sensor coverage; do not start unless the panel is idle and you are prepared to test the affected devices afterward.
+
+For delay ranges, zone assignments and user access examples, see [Partitions and devices](/installer/partitions/). Device records describe supervised equipment; enabling one does not install a physical keypad or make the planned panel-link feature available. **All partitions** in a device record does not add a partition switcher to the touchscreen Home page.
+
+## Change alarm behavior
+
+Open **Installer > System options**. The page groups alarm and access behavior such as the shortest allowed code, wrong-code lockout, chime code requirement, exit sounds, Automatic Stay, Quick Arm, Quick Exit, report and cancel windows, siren behavior, fire verification, smoke reset, power-up behavior, trouble beeps, panic keys, and walk-test timeout.
+
+Change only settings you intend to change, then inspect the review carefully before **Apply**. Fields such as **Allow values outside SIA CP-01** are intended for testing; leave that option off in a home. System options are installer-only and remain locked while armed or in alarm.
+
+## Manage browser and development access
+
+Open **Installer > Access and maintenance**. **Browser access (this Panel Manager)** controls the Web server. **Developer tools** controls workstation enrollment, developer logs, and signed development-file installation; it requires Web server access. Developer mode is optional for household operation. Change a switch and select **Review**. Confirm with the installer's own Panel Manager password when prompted; this is a browser password, not the installer keypad code. If you turn Browser access off, the page closes as soon as you apply and only the touchscreen can turn it on again.
+
+Turning browser access off closes Panel Manager, revokes browser sessions, and turns Developer mode off. On the touchscreen, return to **Settings > About > Installer** and turn the **Panel Manager** switch on to enable it again. Developer mode can be disabled while leaving ordinary Panel Manager administration available by keeping **Browser access** on and switching **Developer tools** off. Workstation enrollment and other sensitive remote maintenance require installer authorization and may ask for the installer's own browser password again.
+
+## Back up or restore configuration
+
+Open **Installer > Access and maintenance**. **Download a backup…** creates an encrypted `.rabk` configuration file. Choose a separate backup password and keep it apart from the file. The installer must confirm with their own Panel Manager password if recent-password verification is required. The file includes configuration such as zones, people and codes, Wi-Fi, integrations, and the Z-Wave network; it does not include the event log or the panel's identity. The Zigbee stack's network store is not yet included, so a configuration restore does not preserve Zigbee pairing.
+
+To restore, select the `.rabk` file and choose **Restore…**. Check the destination carefully: the saved configuration replaces the matching settings on this panel, then the panel restarts. Type `RESTORE`, enter the backup password, and confirm with the installer's browser password if asked. Every partition must be disarmed and quiet. The panel validates the complete file before changing settings. A replacement panel keeps its own identity and takes over the backup's Z-Wave network. This is a configuration backup; a Flasher whole-flash backup is a separate file and operation.
+
+## Factory reset
+
+The factory reset action erases saved settings, users and codes, Wi-Fi, and remote access; it does not reflash or replace the installed firmware. Use it only when you intend to set up the panel again. Open **Installer > Access and maintenance**, choose **Factory reset…**, decide whether to select **Erase the event log too**, and type `ERASE THIS PANEL` exactly. Enter the installer's own browser password if asked, then choose **Erase the panel**. The panel restarts and must be set up again at its touchscreen; its browser sign-ins and configuration are gone. Cancel if you are not ready to erase the installation. This reset is not a repair for a network address change; use [Network settings and recovery](/panel-manager/network/) for that.

@@ -1,0 +1,41 @@
+---
+title: "Screen and sound"
+description: "Set the keypad's sound, appearance, brightness and night screen behavior."
+sidebar:
+  order: 7
+---
+import PanelShot from '../../../components/PanelShot.astro';
+
+**Where:** Settings > Screen and sound<br />
+**Access:** anyone may change these preferences for this keypad. Settings are unavailable while a partition is armed or in alarm.
+
+## Sound
+
+The **Sound** section controls this keypad's everyday sounds:
+
+- **Chime volume** adjusts the door-chime tone.
+- **Beeps volume** adjusts entry and exit beeps, trouble beeps and key clicks.
+- **Key clicks** turns the short touch feedback on or off.
+- **Voice volume** appears when this build has voice available. It changes spoken announcements, not alarm tones.
+- **Announcements** opens the voice settings when voice is available. You can enable or disable announcements, choose **Status messages** and **Zone chime**, and play a **Preview**. Preview works while announcements are off and does not switch them on.
+
+Use the **Chime** button on the left rail to turn door chime on or off for the current partition. Its volume is set here; the rail button may ask for a code depending on the installer's setting.
+
+Alarm, fire and carbon-monoxide sounds always play at full volume. Turning Announcements off does not mute those sounds. A release that includes a ready voice pack can speak arming, armed, disarmed, entry and not-ready messages. With **Zone chime** on, the panel speaks an approved spoken zone name after its chime tone. The voice pack is English (en-US); the spoken language does not follow the screen language. If voice is absent or unavailable on your build, the voice controls are not shown or cannot be enabled. Walk-test zone names speak when voice is ready; that behavior does not have a separate Announcements switch.
+
+<PanelShot src="/images/panel/voice-announcements.png" alt="Screen and sound settings with the Announcements controls" caption="Voice controls appear on a build with a ready voice pack." />
+
+## Screen
+
+- **Appearance** selects **Automatic**, **Dark** or **Light**. Automatic follows **Night hours** when those hours are enabled; otherwise the screen stays light.
+- **High contrast** strengthens colors and outlines every button.
+- **Brightness** sets normal screen brightness.
+- **Screen saver** sets when the dimmed photo, time and alarm state appear. Its separate **Screen saver brightness** control can dim it further; at 0 the screen goes dark until touched.
+- **Screen off** sets when the screen goes dark until touched.
+- **Night hours** lets this keypad use different brightness and screen-off timing during a daily time range. The panel needs a known time before the schedule can take effect. Night hours are a display preference and do not arm or disarm the alarm.
+
+The screen saver uses the supplied photo when its image asset is available; if it is missing or unusable, the panel can show a plain dark background. The Screen saver page does not select a personal photo from the SD card. Tapping the dimmed screen wakes it. Changing a saver delay does not change an entry or exit countdown.
+
+## Clock format
+
+Open **Settings > Time and language** to choose the 12- or 24-hour clock format for this keypad. Anyone may change the display format. The time zone and network time server are separate settings and require an authorized code; see [Wi-Fi, network and time](/user/network-time/).

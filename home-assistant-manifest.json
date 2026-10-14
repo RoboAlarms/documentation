@@ -1,0 +1,135 @@
+{
+  "edition": "03",
+  "captureDate": "2026-10-13",
+  "homeAssistant": "2026.10.1",
+  "integrationVersion": "0.2.0 candidate (unpublished)",
+  "integrationCommit": "2f79b490b170a9f2c762accb4c6406cddd213473",
+  "source": "Genuine Home Assistant 2026.10.1 frontend, unmodified integration candidate, isolated Docker lab and fictional loopback panel. Pairing/sharing screenshots illustrate software; the lab does not test hardware, durable trust or complete control behavior.",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "examplePairingCode": "540497",
+  "images": [
+    {
+      "file": "connect.png",
+      "crop": {
+        "x": 350,
+        "y": 146,
+        "width": 580,
+        "height": 429
+      },
+      "source": "ha-connect-full.jpg",
+      "sourceSha256": "a9d55efab2210bb8b995cb5eb267d02862f1fd4531bc9a9884d1ef08e2b29ed3",
+      "sha256": "edcc2a1de38a2c8233a7bf57ae8ca0676f879c53f4e3d0927aa15339021f9154",
+      "width": 580,
+      "height": 429,
+      "captureDate": "2026-10-13"
+    },
+    {
+      "file": "open-pairing.png",
+      "crop": {
+        "x": 350,
+        "y": 206,
+        "width": 580,
+        "height": 309
+      },
+      "source": "ha-open-pairing-full.jpg",
+      "sourceSha256": "29bddf7d9491b834d7650032b7759984464b721110466513e106f1da9be73e07",
+      "sha256": "2208b88bf29f0e4b08829c8eb2f0ecb5fb05f0feeb841b1d40d70f335a110df5",
+      "width": 580,
+      "height": 309,
+      "captureDate": "2026-10-13"
+    },
+    {
+      "file": "compare-code.png",
+      "crop": {
+        "x": 350,
+        "y": 160,
+        "width": 580,
+        "height": 400
+      },
+      "source": "ha-compare-code-full.jpg",
+      "sourceSha256": "ca694b1abb90fee942896ed8e51aaf0a9137ba3bd1da307e19859f7c32d25255",
+      "sha256": "6a4258bbaddb895c9dda08947014013742a2ff3243e54ced13423b79f9d1a5de",
+      "width": 580,
+      "height": 400,
+      "captureDate": "2026-10-13"
+    },
+    {
+      "file": "connected.png",
+      "crop": {
+        "x": 280,
+        "y": 80,
+        "width": 976,
+        "height": 600
+      },
+      "captureDate": "2026-10-13",
+      "source": "ha-connected-full.jpg",
+      "sourceSha256": "bf4218f410815cf16e6c8e488ed05dc7d9443f90371e6f1b212d683c896b36b6",
+      "sha256": "074844ac00c6e10dbcc22ee76b79ce83724da377b54e1bb3464028f0ce5d4769",
+      "width": 976,
+      "height": 600
+    },
+    {
+      "file": "share-entities.png",
+      "crop": {
+        "x": 350,
+        "y": 40,
+        "width": 580,
+        "height": 640
+      },
+      "source": "ha-share-entities-full.jpg",
+      "sourceSha256": "be9df7886f58292617d0ef134c022b83f98ba1d2a1d4553adaec023e850de9bb",
+      "sha256": "6f954b399193b169257545fa251bfc0c0f8af312a088ec30b39e4bc316dfe7dc",
+      "width": 580,
+      "height": 640,
+      "captureDate": "2026-10-13"
+    },
+    {
+      "file": "name-assign.png",
+      "crop": {
+        "x": 350,
+        "y": 0,
+        "width": 580,
+        "height": 720
+      },
+      "source": "ha-name-assign-full.jpg",
+      "sourceSha256": "2f98d44232e867b95f6fb1c9e5a317f443676be7be507ea90459e0b0a97ab946",
+      "sha256": "1b429efc7a597dfc787f3a211a62f99939ae8cf1d21248bae6c376811768b1a5",
+      "width": 580,
+      "height": 720,
+      "captureDate": "2026-10-13"
+    },
+    {
+      "file": "alarm-control.png",
+      "crop": {
+        "x": 345,
+        "y": 40,
+        "width": 580,
+        "height": 560
+      },
+      "source": "ha-alarm-control-full.jpg",
+      "sourceSha256": "7701e0dd59c0402e5ae2f3b2bb01068a34c61602e60d9fd7582d5074b8cefd3e",
+      "sha256": "94795d442541ede84feb9e888ac3a8587d926e0d05eee27ca5c45957c5042991",
+      "width": 580,
+      "height": 560,
+      "captureDate": "2026-10-13"
+    },
+    {
+      "file": "arm-code.png",
+      "crop": {
+        "x": 475,
+        "y": 116,
+        "width": 320,
+        "height": 488
+      },
+      "source": "ha-arm-code-full.jpg",
+      "sourceSha256": "90c7e56b0d6ac7f4e728312966f6b7416a5b2a3a8721f38009dabaad485a3856",
+      "sha256": "56dcf554ff9e08ee79c629bd9f811149c76cc976465e8e3bb1b3a475584811de",
+      "width": 320,
+      "height": 488,
+      "captureDate": "2026-10-13"
+    }
+  ]
+}
