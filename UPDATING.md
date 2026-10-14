@@ -1,13 +1,13 @@
-# Maintain the manual
+# Maintain the documentation
 
-This repository contains an independently buildable documentation website. Manual editions are deliberate reviews of specified software versions; a firmware commit alone does not refresh the documentation.
+This repository contains an independently buildable documentation site. Documentation editions are deliberate reviews of specified software versions; a firmware commit alone does not refresh the documentation.
 
 ## Update content
 
 1. Identify the affected controls and reviewed firmware, Flasher, Panel Manager, or integration revision.
 2. Verify behavior against the implementation and applicable requirements. Keep planned behavior and unperformed hardware checks explicit.
 3. Update the relevant task pages, cross-links, task index, glossary, and troubleshooting entries together.
-4. Follow [CONTRIBUTING.md](CONTRIBUTING.md) and run `pnpm validate`.
+4. Follow the [maintenance guidelines](docs/maintenance.md) and run `pnpm validate`.
 
 ## Replace screenshots
 
@@ -29,6 +29,6 @@ Manifest fields naming upstream fixture scripts describe historical capture prov
 
 Update `src/content/docs/reference/edition.mdx`, the landing page, and `src/components/DocsFooter.astro` consistently. Record the edition date, reviewed source revisions, software scope, screenshot limitations, and unperformed acceptance checks. Preserve any existing routes used by older bookmarks.
 
-Run `pnpm validate`, build the Docker image, and review the production pages on desktop and mobile. In the pull request, state which checks passed and any remaining limitations.
+Run `pnpm validate`, build the Docker image, and review the production pages on desktop and mobile. Record which checks passed and any remaining limitations with the update.
 
-After merging to `main`, Dokploy can rebuild and deploy automatically when configured as described in [Deployment](docs/deployment.md). The repository itself contains no deployment credentials or production access.
+Updates to `main` can trigger a rebuild and deployment when Dokploy is configured as described in [Deployment](docs/deployment.md). The repository itself contains no deployment credentials or production access.

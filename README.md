@@ -1,8 +1,14 @@
-# RoboAlarms Documentation
+<p align="center">
+  <a href="https://docs.roboalarms.com">
+    <img src="public/brand/roboalarms-mark.png" alt="RoboAlarms logo" width="96" height="96" />
+  </a>
+</p>
 
-The source for the [RoboAlarms documentation website](https://docs.roboalarms.com): practical guides for users, installers, Home Assistant integrations, the Flasher, and the Panel Manager.
+<h1 align="center">RoboAlarms Documentation</h1>
 
-Built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). This repository builds independently of the alarm firmware. The current manual edition and reviewed software versions are documented in [About this edition](src/content/docs/reference/edition.mdx).
+The source for the [RoboAlarms Documentation Site](https://docs.roboalarms.com): practical guides for users, installers, Home Assistant integrations, the Flasher, and the Panel Manager.
+
+Built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). This repository builds independently of the alarm firmware. The current documentation edition and reviewed software versions are documented in [About this edition](src/content/docs/reference/edition.mdx).
 
 ## Develop locally
 
@@ -28,7 +34,7 @@ The package manager is pinned in `package.json`; dependencies are recorded in `p
 
 | Path | Purpose |
 | --- | --- |
-| `src/content/docs/` | Manual pages, grouped by guide |
+| `src/content/docs/` | Documentation pages, grouped by guide |
 | `src/components/`, `src/styles/` | Shared components and site styling |
 | `src/assets/`, `public/` | Brand assets and curated screenshots |
 | `*-manifest.json` | Screenshot dimensions, hashes, and provenance |
@@ -41,19 +47,17 @@ Generated files and local capture sessions are excluded from Git and Docker's bu
 ## Run with Docker
 
 ```sh
-docker build -t roboalarms-manual .
-docker run --rm -p 127.0.0.1:8080:8080 roboalarms-manual
+docker build -t roboalarms-docs .
+docker run --rm -p 127.0.0.1:8080:8080 roboalarms-docs
 ```
 
 Open `http://127.0.0.1:8080`. The multi-stage image validates and builds the website, then serves the generated files using an unprivileged Nginx process on port **8080**. No runtime credentials or persistent storage are required.
 
-For Dokploy, use branch `main`, repository-root build context, build type **Dockerfile**, and container port **8080**. See [Deployment](docs/deployment.md) for exact settings, domain configuration, and automatic deployments.
+## Maintenance
 
-## Contribute
+External contributions are not being accepted at this time.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for content conventions and validation, and [UPDATING.md](UPDATING.md) for edition and screenshot maintenance. Report documentation errors through [GitHub issues](https://github.com/RoboAlarms/documentation/issues); include the page and relevant software version.
-
-Use fictional examples in contributions. Keep installation credentials, authentication sessions, personal identifiers, and private network details out of text and images.
+See the [maintenance guidelines](docs/maintenance.md) for content conventions and validation, and [UPDATING.md](UPDATING.md) for edition and screenshot maintenance.
 
 ## License
 

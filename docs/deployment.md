@@ -1,4 +1,4 @@
-# Deploy the manual with Dokploy
+# Deploy the documentation with Dokploy
 
 The site is pre-rendered during a Docker build. Production serves the resulting `dist/` files through unprivileged Nginx; Node.js and build dependencies are absent from the final image.
 
@@ -28,11 +28,11 @@ Save the settings and deploy once. Configure the GitHub integration or webhook a
 ## Build and verify locally
 
 ```sh
-docker build -t roboalarms-manual .
-docker run --rm --name roboalarms-manual -p 127.0.0.1:8080:8080 roboalarms-manual
+docker build -t roboalarms-docs .
+docker run --rm --name roboalarms-docs -p 127.0.0.1:8080:8080 roboalarms-docs
 ```
 
-Visit the homepage and several guide pages. Verify images, production search, and a missing URL returning a 404 page. In another terminal, `docker inspect --format '{{.State.Health.Status}}' roboalarms-manual` reports the container's health. The Docker healthcheck requests the generated homepage.
+Visit the homepage and several guide pages. Verify images, production search, and a missing URL returning a 404 page. In another terminal, `docker inspect --format '{{.State.Health.Status}}' roboalarms-docs` reports the container's health. The Docker healthcheck requests the generated homepage.
 
 ## Serving behavior
 
