@@ -4,6 +4,7 @@
 - Start with `git status` and the relevant documentation pages. Preserve existing changes.
 - Read README.md, CONTRIBUTING.md, docs/maintenance.md and UPDATING.md before changing content, assets or the build.
 - External contributions are not being accepted at this time.
+- Use RoboAlarms Panel as the panel project's name. Keep documentation free of references to unrelated alarm companies or their products.
 - Keep the public repository free of personal details, real installation credentials and authentication sessions. Inspect screenshot content as well as text.
 - Preserve page routes, image provenance, reviewed software revisions and upstream license attribution.
 - A website build requires no firmware checkout, hardware connection or credentials. Capture tooling remains upstream.
