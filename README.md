@@ -61,4 +61,4 @@ See the [maintenance guidelines](docs/maintenance.md) for content conventions an
 
 ## License
 
-Licensed under [Apache-2.0](LICENSE), retaining attribution to the upstream RoboAlarms Panel authors. See [NOTICE](NOTICE) and [licenses/](licenses/) for third-party notices associated with the screenshots.
+Licensed under [Apache-2.0](LICENSE). See [NOTICE](NOTICE) and [licenses/](licenses/) for copyright, font and icon notices.

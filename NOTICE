@@ -1,10 +1,8 @@
 RoboAlarms Documentation
 Copyright 2026 the RoboAlarms Panel authors
 
-This repository contains documentation, website code and curated screenshots
-originally distributed in the RoboAlarms Panel project's docs/manual directory.
-The standalone repository adds build, deployment and maintenance configuration.
-The upstream Apache-2.0 license and authors' attribution are retained.
+Documentation, website code and screenshots for RoboAlarms Panel.
+Licensed under the Apache License, Version 2.0. See LICENSE.
 
 Panel UI screenshots contain rendered Inter typography and Lucide icons:
 
