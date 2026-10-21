@@ -1,0 +1,94 @@
+---
+title: "Questions and answers"
+description: "Short answers to common questions from households and installers about RoboAlarms."
+audience: ["everyone"]
+---
+
+This page answers common questions about RoboAlarms. Each answer links to the page with the full information.
+
+## About the system
+
+### Does RoboAlarms need the internet?
+
+No. The panel makes every alarm decision itself and keeps working without the internet. The time from the internet, update checks and phone notifications need the internet. See [Wi-Fi, network and time](/user/network-time/#without-wi-fi).
+
+### Does the panel call the police or a monitoring center?
+
+No. RoboAlarms is not a monitoring service, and the panel does not call emergency services. Phone notifications can tell you about an alarm, but they can arrive late or not at all. See [Safety and limits](/start/safety/).
+
+### Is RoboAlarms a certified alarm system?
+
+No. RoboAlarms is do-it-yourself software. It is not a certified or listed alarm system. Some delay settings follow alarm standards, but these settings do not certify an installation. See [Safety and limits](/start/safety/).
+
+### Do I need Home Assistant?
+
+No. The panel works without Home Assistant. Panel automations run on the panel itself. You need Home Assistant only to use its sensors as zones or to control its devices on **Smart Home**. See [Create panel automations](/user/automations/).
+
+### What happens if the Wi-Fi stops?
+
+The alarm keeps working, with its wired and radio sensors. A zone that uses a Home Assistant sensor shows **Not reporting**, and the panel cannot detect an opening on it. A keypad panel shows **No system communication** and cannot arm until the Wi-Fi is back. See [Troubleshooting](/reference/troubleshooting/#the-keypad-panel-shows-no-system-communication).
+
+### What happens if the power fails?
+
+The panel runs on its backup battery and shows **Mains power lost**. Restore the power before the battery is empty. After a restart, the panel goes back to its earlier armed state, unless the installer changed this. See [Delays and arming](/installer/system-options/#power-and-walk-test).
+
+### Is my data sent anywhere?
+
+The panel has no cloud account. It sends data only to the services that you turn on: your phone notification service, your MQTT broker and your Home Assistant. The panel also asks the update server for new versions and gets the time from a time server. See [Connect other systems](/integrations/).
+
+## Sensors, sirens and keypads
+
+### Can I use my old wired sensors?
+
+Yes. Wire each contact between a terminal and GND, and choose its **Contact** type on the panel. On a terminal that can measure the loop, you can use end-of-line resistors. Then the panel detects a cut or shorted wire. See [Wired zones and end-of-line resistors](/installer/zones/#wired-zones-and-end-of-line-resistors).
+
+### Which wireless sensors can I use?
+
+The panel can use 433 MHz, Zigbee and Z-Wave sensors, with the matching radio module. It can also use binary sensors from Home Assistant. Do not use a 433 MHz or Home Assistant sensor for fire, CO or panic protection. See [Sensors and radio modules](/installer/sensors-radios/).
+
+### Which sirens can I connect?
+
+You can use wired sirens and strobes through a relay or MOSFET module, and 433 MHz, Zigbee and Z-Wave sirens. The panel's own speaker always sounds too. See [Sirens and outputs](/installer/sirens/).
+
+### Can I have more than one keypad?
+
+Yes. Another RoboAlarms panel on the same Wi-Fi can be a keypad for your alarm panel, for example at a second door. A keypad panel shows the alarm state and arms and disarms its partition. See [Keypad panels](/installer/keypads/).
+
+### Can parts of the house arm separately?
+
+Yes. The installer can set up to four partitions, for example a house and a studio. Each partition arms and disarms on its own. See [Partitions](/user/partitions/).
+
+## Codes and access
+
+### Who can change what?
+
+Each code has a level. A user code arms and disarms. A master code also manages users and household settings. The installer code changes how the alarm works, but it never arms or disarms. See [Who can do what](/reference/permissions/).
+
+### I forgot my code. What do I do?
+
+Ask the person who manages users to give you a new code. If you lost the master code, ask the installer. Do not use a factory reset to recover a code. See [Troubleshooting](/reference/troubleshooting/#you-forgot-your-code).
+
+### Can I see the panel from my phone?
+
+Yes, on your home network. Panel Manager runs on the panel, and you open it in a browser. It has no cloud relay. From outside your home, you need a VPN into your home network. Phone notifications and Home Assistant can also tell you about the panel. See [Panel Manager](/panel-manager/).
+
+### What does a duress code do?
+
+A duress code disarms like a normal code. It also records a private event that a connected service can report. It does not send help by itself. See [Users and codes](/user/users-codes/#what-a-code-can-do).
+
+## Updates and settings
+
+### How do I update the panel?
+
+Open **Settings > About > Software update** and push **Install**. You need a system master code or the installer code. Keypad panels update with the alarm panel. You can also update over USB with the Flasher. See [Software updates and SD card](/user/updates-storage/).
+
+### Can I change the language of the panel?
+
+Yes. Open **Settings > Time and language** and push **Language**. The voice announcements speak English (United States) in every screen language. See [Wi-Fi, network and time](/user/network-time/#set-the-time-zone-language-and-time-server).
+
+## Related tasks
+
+- [How RoboAlarms works](/start/how-it-works/)
+- [Safety and limits](/start/safety/)
+- [Troubleshooting](/reference/troubleshooting/)
+- [Find a task](/reference/task-index/)

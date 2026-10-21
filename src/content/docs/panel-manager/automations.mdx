@@ -1,37 +1,102 @@
 ---
 title: "Automations"
-description: "Create and manage the panel's local automations in Panel Manager."
-sidebar:
-  order: 4.5
+description: "Add, change, try, turn off and delete the panel's automations in Panel Manager."
+audience: ["user", "installer"]
+time: "5 minutes"
 ---
-
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-Open **Household > Automations**. The page appears only when this firmware includes Automations. You must be signed in as the **system master** or **installer**; a partition master and standard user cannot open or change the page. Changes are authorized as the signed-in person.
+An automation is a rule that the panel runs by itself: when something happens, the panel does one or two things. Use this page to manage automations in Panel Manager. For what triggers and actions do, see [Automations](/user/automations/) in the user guide.
 
-<PanelShot src="/images/panel-manager/automations.png" alt="Panel Manager Automations page open in an installer account" caption="Current Panel Manager page with example installer data." source="Panel Manager development UI · installer fixture" />
+<Aside type="note" title="Before you start">
+- Sign in as the system master or the installer. Other roles do not see **Automations**.
+- Disarm every partition. While a partition is armed or an alarm sounds, you can only look at the automations. They keep running.
+- The devices that you want to use are connected, for example through Home Assistant, Z-Wave or Zigbee.
+</Aside>
 
-Automations keep running while the panel is armed. You can view them then, but adding, editing, enabling, disabling, trying, and deleting are available only when every partition is disarmed and quiet. The page says when the panel is locked and keeps changes disabled until it is ready.
+## Add an automation
 
-## Add or edit an automation
+<Steps>
 
-1. Choose **Add an automation**. The page offers ideas when the required sensors or devices are available, plus **Start from scratch**. Choosing an idea opens **New automation**; nothing is saved until you select **Save**.
-2. In **When**, use **Starts when** to choose a trigger: **When the panel is armed**, **When the panel is disarmed**, **When an alarm sounds**, **When a fire or CO alarm sounds**, a door/window opening or closing, or **At a time of day**. Depending on the trigger, choose **Which partition?**, **Armed how?**, **Which sensor?**, or **Which door or window?**. A time trigger uses **Run at** and **On these days**. Other triggers can be limited with **Only between** and its **From** and **To** fields.
-3. In **Then**, choose a **Device** action. For a compatible device, choose an **Action**; an **on** action may also show **Turn it off after**. Choose **Add a second action** if offered, then select a different device. The system master also sees **The alarm** choices to **Arm the panel** or **Disarm**. An installer can save device actions but cannot save an automation containing Arm or Disarm.
-4. Review the generated trigger and action sentences. The page may ask you to confirm an action before saving, with a **Save this automation?** dialog that spells out what it will do. Select **Save** in the dialog to continue.
+1. Click **Automations**.
 
-For an existing automation, its trigger sentence is the page heading. Edit the **When** or **Then** fields; the bottom bar lists the changed sections and offers **Undo** and **Save**. Saving checks the panel's current rules and role permissions again. The list shows each automation as a sentence rather than a custom name, along with its enabled state and last-run result. The panel stores up to 16; at the limit, delete one before adding another.
+   The list shows each automation as a sentence, and how many of the 16 places are in use.
 
-The touchscreen guide [Create panel automations](/user/automations/) explains trigger behavior, supported actions, warnings, and runtime safeguards. Use it for shared rule behavior; the browser field and button labels above are specific to Panel Manager.
+2. Click **Add an automation**.
 
-## Enable, try, or delete
+   Panel Manager shows ideas to start from.
 
-- **Use this automation** switches an existing rule on or off immediately. It does not require **Save**. A switched-off rule stays in the list and does not run.
-- **Try it now** runs the saved device action or actions once, without waiting for the trigger. It is available for saved device rules only—not for Arm or Disarm—and is disabled until you save pending edits. Its result appears under **Last run**; the page does not show a separate success toast.
-- **Delete this automation** opens a confirmation. **Delete** stops it at once and cannot be undone. Records made by newer software or with a missing device may be available only to delete.
+   <PanelShot src="/images/panel-manager/pm-automations-ideas.png" alt="Add an automation with ideas: Turn on a light when a door opens, Lock up when you arm Away, Turn on lights when an alarm sounds, Close the water when a leak is found, Arm Night at bedtime, Start from scratch" caption="Pick an idea, or Start from scratch." size="medium" />
 
-The list and editor show outcomes such as **Ran at**, **Tried at**, **Didn't work**, **Waiting until the clock is set**, **Can't run**, or **Off: it won't run**. Open an automation to see its **Last run** explanation. A failure does not repeat an action automatically; check the listed device or panel condition before trying again.
+3. Click an idea, or click **Start from scratch**.
 
-## If someone changes the list at the same time
+   Panel Manager opens **New automation**. Nothing is saved yet.
 
-Each save is checked against the version of the automation list that was open in the editor. If another person changes the list first, the panel refuses the stale save and reloads the current data with **Someone changed automations meanwhile. The page now shows them as they are.** Review those values, then make and save your changes again. The other person's saved changes remain in place.
+4. Under **When**, choose **Starts when**.
+
+   For example, choose **When a door or window opens**, **When the panel is armed** or **At a time of day**.
+
+5. Choose the details that the trigger asks for, for example **Which sensor?** or **Run at** and **On these days**.
+6. To limit the hours, set **From** and **To** under **Only between**.
+7. Under **Then**, choose the **Device** and the **Action**.
+
+   For an action that turns something on, you can also set **Turn it off after**.
+
+8. To add a second action, click **Add a second action**, and choose another device.
+9. Click **Save**.
+
+   Some automations ask **Save this automation?** and tell what the automation will do. Click **Save** to confirm.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The list shows the new automation as a sentence. After it runs, the list shows **Ran at** and the time.
+</Aside>
+
+<PanelShot src="/images/panel-manager/pm-automations-editor.png" alt="Automation When Front Door opens with Use this automation on, Last run Ran at 7:42 PM, Starts when When a door or window opens, Which sensor? Front Door, Only between 6:00 PM and 6:00 AM, and Then Turn on Porch Light for 10 minutes" caption="An automation page shows its switch, its last run, and the When, Only between and Then parts." />
+
+## Arm or disarm with an automation
+
+The system master can choose **The alarm** under **Then**, with **Arm the panel** or **Disarm**. The installer cannot choose these actions, because the installer does not arm or disarm.
+
+**Disarm** shows only if the installer allows it in **System options** with **Allow less secure automations**. If the installer turns this option off, automations that disarm, unlock or open do not run.
+
+## Change, try, turn off or delete
+
+Click an automation in the list to open it.
+
+- To change it, change the **When** or **Then** fields. The bar at the bottom lists the changes. Click **Save**, or click **Undo**.
+- To turn it off or on, use **Use this automation**. The change counts at once. An automation that is off stays in the list and does not run.
+- To run its device actions once now, click **Try it now**. Save your changes first. **Try it now** does not arm or disarm. The result shows under **Last run**.
+- To delete it, click **Delete this automation**, then **Delete**. You cannot undo this.
+
+The panel keeps up to 16 automations. To add one more, delete one first.
+
+## What the list shows
+
+| The list shows | What it means |
+| --- | --- |
+| **Ran at** and a time | The automation ran. |
+| **Tried at** and a time | Someone clicked **Try it now**. |
+| **Didn't work** | The automation ran, but a device did not answer. Open it to see the reason. The panel does not try again by itself. |
+| **Waits until the clock is set** | A time automation waits until the panel knows the time. |
+| **Can't run** | Something is missing, for example a device. Open the automation to see what to fix. |
+| **Off: it won't run** | **Use this automation** is off. |
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Automations** is not in the menu. | Sign in as the system master or the installer. |
+| The fields cannot be changed. | Disarm every partition, and wait until no alarm sounds. |
+| **Someone changed automations meanwhile. The page now shows them as they are.** | Another person saved first. Check the list, and make your change again. |
+| **Can't run: open it and pick the device again** | The device is gone or renamed. Open the automation, choose the device again, and click **Save**. |
+| **Didn't work** | Check the device and its connection. Then click **Try it now**. |
+
+## Related tasks
+
+- [Automations on the panel](/user/automations/)
+- [Smart Home](/user/smart-home/)
+- [System options](/installer/system-options/)
+- [Everyday pages](/panel-manager/everyday/)

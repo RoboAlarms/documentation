@@ -1,36 +1,82 @@
 ---
-title: "RoboAlarms Flasher"
-description: "Prepare a panel, identify it safely, and choose the right Flasher operation."
-sidebar:
-  order: 0
+title: "Flasher"
+description: "What the Flasher does, what you need before you connect a panel, and which task to choose."
+audience: ["installer"]
 ---
-
+import { Aside, LinkCard, CardGrid } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-RoboAlarms Flasher is a desktop app for installing and maintaining panel firmware over USB. It lists serial ports, checks which board is connected, selects a compatible firmware image, and guides you through a job. **Panel Manager is a separate browser tool** for configuring a panel after RoboAlarms is running.
+The Flasher is a program for your computer. It installs the RoboAlarms firmware on a panel over a USB cable. It also updates a panel, makes and restores backups, and sets up and tests connected parts.
 
-The Flasher normally finds signed firmware releases on the RoboAlarms firmware server. **Automatic (recommended)** chooses the steadiest release for the selected board: Stable, then Beta, then Alpha. You can choose another release channel for the current Flasher session. A Dev build requires a separate choice and is intended for testing on a test panel. Advanced tools > Software can open a supplied `.roboflash` file or show available builds. Do not install a build for a different board. The Flasher currently does not offer the unfinished E32R40T 4-inch board.
+Panel Manager is a different tool. You use [Panel Manager](/panel-manager/) in a browser after RoboAlarms runs on the panel.
 
-## Choose a guide
+## Get the Flasher
 
-- [Install RoboAlarms](/flasher/install/) on a new panel and understand the backup and erase steps.
-- [Update a panel](/flasher/update/) while keeping its configuration.
-- [Back up, reset and restore](/flasher/backups/) whole-flash copies and factory resets.
-- [Set up connected parts](/flasher/connected-parts/) such as a 433 MHz receiver or battery-backed clock.
-- [Use advanced tools and troubleshoot problems](/flasher/troubleshooting/) with ports, Console, Hardware, Software and Logs.
+Download the Flasher from https://firmware.roboalarms.com/. The Flasher gets the firmware from the same firmware server by itself. The computer needs the internet the first time. The Flasher keeps what it downloaded for the next panel.
 
-## Before connecting
+## What you need
 
-- Use a USB data cable. Close serial tools such as Arduino IDE, PuTTY, `idf.py monitor`, or another Flasher window; only one program can use a serial port at a time.
-- Keep the panel powered while the Flasher identifies it, backs it up, writes firmware, verifies the write and checks startup. For the Elecrow CrowPanel Advanced 7-inch, turn **POWER** on, connect the computer to **UART0**, and power **USB2.0** with a phone charger. Leave the panel's own power supply connected if it has one. The screen draws more power than a computer USB port supplies by itself.
-- Make sure the panel is disarmed, out of Installer mode, and not in the middle of an update or startup check before anything that may restart it. The Flasher can refuse a restart only when compatible running firmware answers its service-console probe. If no firmware answers, it cannot confirm the panel's state; check the panel yourself before continuing.
+- A computer with the Flasher.
+- A USB-C cable that carries data. A charge-only cable does not work.
+- A phone charger with 5 V and 2 A or more. The screen of the panel needs more power than a computer USB port gives.
+- The parts that you want to connect, for example a 433 MHz receiver or a battery-backed clock. The Flasher shows the wiring for each part.
 
-## What the first check does
+Close other programs that use serial ports, for example a serial monitor or another Flasher window. Only one program can use a port at a time.
 
-The guided setup has eight steps: **Panel and parts** (Plan), **Get ready** (Wire), **Full wiring**, **Check before power**, **Connect**, **Check the panel**, **Install** (or Update/Reset), and **Test and finish**. The first four help plan and check the physical setup before the panel is connected; their checklists are guidance, not tests of connected hardware. **Check this panel** restarts a new board into its chip loader to read its chip, silicon revision and flash size; it does not write firmware. If RoboAlarms is already running and answers, the Flasher reads its identity without restarting. If the connected device might be something other than your alarm panel, unplug it instead of checking it.
+## Connect the panel
 
-The board name and the explanation beside it show what evidence the Flasher used. A manual board choice is for cases where you know the exact board. A disabled build has failed a compatibility check; don't override it. To use a supplied firmware bundle, open it under **Advanced tools > Software** or drag a `.roboflash` file onto the window.
+On the Elecrow CrowPanel Advanced, connect the cable like this:
 
-<PanelShot src="/images/flasher/connect.png" alt="Windows RoboAlarms Flasher showing USB connection instructions, a detected panel, and the older five-step navigation" caption="Retained development screenshot from the Windows desktop app; the source date is unknown and its five-step labels are older. Follow the current eight-step guide above." source="Windows desktop app · retained development screenshot" />
+1. Slide the **POWER** switch to on.
+2. Connect the port marked **UART0** to the computer.
+3. Connect the port marked **USB2.0** to the phone charger.
 
-For physical wiring, power supplies, modules and purchasing, see [RoboAlarms hardware](https://roboalarms.com/hardware/). The Flasher drawings help compare an existing setup with the selected board; read the [connected-parts guide](/flasher/connected-parts/) before wiring anything.
+If the panel has its own power supply, keep it connected.
+
+<PanelShot src="/images/flasher/flasher-connect.png" alt="Flasher step 5 Connect with Found a panel, No RoboAlarms software yet, USB on COM5, and the eight steps on the left" caption="The list on the left shows the eight steps of the guided setup and where you are." />
+
+## Choose a task
+
+<CardGrid>
+  <LinkCard title="Install RoboAlarms" description="Put RoboAlarms on a new panel. Install erases everything on the chip." href="/flasher/install/" />
+  <LinkCard title="Update RoboAlarms" description="Update a panel and keep its codes, users, zones and Wi-Fi." href="/flasher/update/" />
+  <LinkCard title="Back up, reset and restore" description="Keep a copy of the whole panel, erase a panel, or put a copy back." href="/flasher/backups/" />
+  <LinkCard title="Connected parts" description="Choose, wire and test a 433 MHz receiver, a clock, or a Zigbee or Z-Wave radio." href="/flasher/connected-parts/" />
+</CardGrid>
+
+If something does not work, see [Flasher troubleshooting](/flasher/troubleshooting/).
+
+## Guided setup and advanced tools
+
+The Flasher has two parts. Click **Guided setup** or **Advanced tools** at the top of the window.
+
+**Guided setup** has eight steps in three groups:
+
+| Group | Steps |
+| --- | --- |
+| Plan | **Panel and parts** |
+| Wire | **Get ready**, **Full wiring**, **Check before power** |
+| Install | **Connect**, **Check the panel**, **Install** (or **Update** or **Reset**), **Test and finish** |
+
+The Plan and Wire steps help you plan and wire the parts before you connect the panel. The Flasher does not check these steps. Your ticks are only a list for you.
+
+**Advanced tools** has the pages **Panels and ports**, **Console**, **Hardware**, **Zigbee module**, **Backups**, **Software** and **Logs**. See [Flasher troubleshooting](/flasher/troubleshooting/#advanced-tools).
+
+## The panel must be idle
+
+<Aside type="danger" title="Warning">
+Do not restart a panel that protects a home while it is armed. Disarm every partition and close Installer mode first. A panel that restarts does not watch its zones until it starts again.
+</Aside>
+
+Before the Flasher restarts a panel, it asks the panel if it is idle. Idle means disarmed, not in Installer mode, no alarm, and no software update in progress. If the panel is busy, the Flasher stops and changes nothing.
+
+The Flasher can ask only a panel whose software has a service console. RoboAlarms software from the firmware server does not have this console. Before you restart such a panel, check on its screen that it is disarmed and idle.
+
+The Flasher never enters keypad codes. It cannot burn eFuses, turn on secure boot or flash encryption, or change the panel's C6 coprocessor.
+
+## Related tasks
+
+- [Install RoboAlarms](/flasher/install/)
+- [Plan the installation](/installer/setup-checklist/)
+- [Run the first setup](/installer/first-setup/)
+- [Flasher troubleshooting](/flasher/troubleshooting/)

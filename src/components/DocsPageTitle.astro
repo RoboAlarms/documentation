@@ -1,0 +1,32 @@
+---
+// The page title, with who the page is for (frontmatter `audience`) and the time it takes.
+const PAGE_TITLE_ID = '_top'; // Starlight's constant; the package does not export it
+
+const labels = { everyone: 'Everyone', user: 'Household', installer: 'Installer', integrator: 'Integrator' } as const;
+const { title, audience = [], time } = Astro.locals.starlightRoute.entry.data as {
+  title: string;
+  audience?: (keyof typeof labels)[];
+  time?: string;
+};
+---
+<h1 id={PAGE_TITLE_ID}>{title}</h1>
+{(audience.length > 0 || time) && (
+  <p class="page-meta">
+    {audience.map((who) => <span class:list={['who', who]}>{labels[who]}</span>)}
+    {time && <span class="time">{time}</span>}
+  </p>
+)}
+
+<style>
+  @layer starlight.core {
+    h1 { margin-top: 1rem; font-size: var(--sl-text-h1); line-height: var(--sl-line-height-headings); font-weight: 700; color: var(--sl-color-white); }
+  }
+  @layer brand {
+    .page-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .9rem; }
+    .page-meta span { display: inline-flex; align-items: center; gap: .4rem; padding: .15rem .7rem; border-radius: 999px; border: 1px solid var(--ra-line); background: var(--ra-surface); color: var(--ra-ink-2); font-size: .8125rem; font-weight: 600; }
+    .page-meta .who::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--ra-accent); }
+    .page-meta .installer::before { background: #f0cf8f; }
+    .page-meta .integrator::before { background: #a7b6ff; }
+    .page-meta .time::before { content: '⏱'; font-size: .8em; }
+  }
+</style>

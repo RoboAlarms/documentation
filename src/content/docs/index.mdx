@@ -1,51 +1,67 @@
 ---
-title: Know your system. Make it yours.
-description: Practical instructions for everyday use and confident setup of RoboAlarms.
+title: RoboAlarms documentation
+description: Learn how to use, install and connect your RoboAlarms Panel.
 template: splash
 hero:
-  tagline: Your guide to RoboAlarms. Learn the essentials, set up your system, and find an answer when you need one.
+  title: 'Learn your panel. <span class="grad">Make it yours.</span>'
+  tagline: Step-by-step guides for the people who live with the panel, the people who install it, and the people who connect it to other systems.
   image:
-    html: '<img src="/images/panel/home-ready.png" alt="RoboAlarms Home screen, ready to arm" width="1024" height="600" />'
+    html: '<div class="bezel"><img src="/images/panel/home-ready.png" alt="The RoboAlarms Panel Home screen. The panel is disarmed and ready to arm." width="1024" height="600" /></div>'
   actions:
-    - text: Open the User Guide
-      link: /user/getting-started/
+    - text: Start here
+      link: /start/how-it-works/
       icon: right-arrow
       variant: primary
-    - text: Set up a system
-      link: /installer/setup-checklist/
-      icon: right-arrow
+    - text: Quick start
+      link: /start/quick-start/
       variant: secondary
 ---
-import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+import GuideCard from '../../components/GuideCard.astro';
 
-## What would you like to do?
+<p class="eyebrow">Choose your guide</p>
 
-<CardGrid>
-  <LinkCard title="Arm or disarm" description="Choose Away, Stay or Night and understand the countdown." href="/user/arming-disarming/" />
-  <LinkCard title="Connect Home Assistant" description="Install, pair, share sensors and devices, and troubleshoot the connection." href="/integrations/home-assistant-setup/" />
-  <LinkCard title="Use Smart Home" description="Control shared devices, choose Favorites, and arrange your screen." href="/user/smart-home/" />
-  <LinkCard title="Create panel automations" description="Build device rules or scheduled arming, understand warnings, and check results." href="/user/automations/" />
-  <LinkCard title="Add people and codes" description="Give each person the access they need." href="/user/users-codes/" />
-  <LinkCard title="Resolve a problem" description="Find help for Not ready, CHECK, connection errors and more." href="/reference/troubleshooting/" />
-  <LinkCard title="Flasher Guide" description="Connect and identify a board, install or update software, manage backups, and test connected parts." href="/flasher/" />
-  <LinkCard title="Panel Manager Guide" description="Set up browser accounts, operate the remote keypad, configure the panel, and recover connection changes." href="/panel-manager/" />
-  <LinkCard title="Configure partitions" description="Separate alarm areas and assign zones, delays and user access." href="/installer/partitions/" />
-</CardGrid>
+<div class="guide-grid">
+  <GuideCard title="I live with the panel" href="/user/getting-started/" icon="heart" more="Use your panel">
+    Arm and disarm, read the Home screen, add codes for your family, and know what to do in an alarm.
+  </GuideCard>
+  <GuideCard title="I install the panel" href="/installer/setup-checklist/" icon="setting" more="Install and set up">
+    Install the firmware, set up zones and sensors, set the delays, then test the panel and hand it over.
+  </GuideCard>
+  <GuideCard title="I connect other systems" href="/integrations/" icon="puzzle" more="Connect">
+    Connect Home Assistant, MQTT and phone notifications, and share sensors and devices with the panel.
+  </GuideCard>
+</div>
 
-## Choose your guide
+## Common tasks
 
-**User Guide** — Everyday operation, zones, chime, alerts, Smart Home, panel automations, household settings and updates.
+<div class="guide-grid">
+  <GuideCard title="Arm and disarm" href="/user/arming-disarming/" icon="approve-check-circle">
+    Select Away, Stay or Night, and disarm when you come back.
+  </GuideCard>
+  <GuideCard title="Add a person" href="/user/users-codes/" icon="add-document">
+    Give each person a code and the access that they need.
+  </GuideCard>
+  <GuideCard title="Bypass a zone" href="/user/zones-bypass/" icon="warning">
+    Arm with a window open, and know which zones you can bypass.
+  </GuideCard>
+  <GuideCard title="Install the firmware" href="/flasher/install/" icon="download">
+    Use the Flasher to put RoboAlarms on a new panel.
+  </GuideCard>
+  <GuideCard title="Use Panel Manager" href="/panel-manager/" icon="laptop">
+    Control and set up the panel from a browser on your home network.
+  </GuideCard>
+  <GuideCard title="Fix a problem" href="/reference/troubleshooting/" icon="information">
+    Find the message that the panel shows and do the steps to fix it.
+  </GuideCard>
+</div>
 
-**Installer Guide** — First setup, access, zone programming, connected services and a practical handover checklist. This edition covers software setup; mounting and wiring are outside its scope.
+## The parts of RoboAlarms
 
-**[Flasher Guide](/flasher/)** — The computer app: USB connection, first installation, updates, whole-flash backups and recovery, connected parts and diagnostics.
+| Part | What it is | Guide |
+| --- | --- | --- |
+| **RoboAlarms Panel** | The touchscreen on your wall. It holds the alarm and works without the internet. | [Use your panel](/user/getting-started/) |
+| **Flasher** | An app for your computer. It installs and updates the firmware over USB. | [Flasher](/flasher/) |
+| **Panel Manager** | Pages that the panel shows in a browser on your home network. | [Panel Manager](/panel-manager/) |
+| **Home Assistant integration** | An optional connection to Home Assistant. | [Home Assistant](/integrations/) |
 
-**[Panel Manager Guide](/panel-manager/)** — The panel's browser interface: accounts and access, the remote keypad, household settings, installer programming, network changes and updates.
-
-**[Integrations](/integrations/)** — Connect Home Assistant, share sensors and device controls, use MQTT, and set up phone notifications. Start with the overview to choose the connection you need.
-
-Start with the [task index](/reference/task-index/) if you already know what you want to do. Search also finds control names and messages shown by the panel.
-
----
-
-**Edition 03 · 13 October 2026.** All panel screenshots use the 7-inch layout; operation is shared across supported screen sizes. Read [edition coverage](/reference/edition/) for reviewed software, screenshot sources and current limitations. Visit [RoboAlarms](https://roboalarms.com) for the project overview, hardware information and release news.
+For the hardware list and project news, go to [roboalarms.com](https://roboalarms.com).

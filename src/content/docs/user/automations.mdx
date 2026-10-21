@@ -1,88 +1,172 @@
 ---
 title: "Create panel automations"
-description: "Set up local alarm and device rules, schedule arming, and review the last result."
-sidebar:
-  order: 4.6
+description: "Make simple rules that the panel runs by itself, such as a porch light when a door opens or arming at bedtime."
+audience: [user, installer]
+time: "5 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-An automation is a short rule stored and run by the panel. It has one trigger and one or two actions. It can run without Home Assistant, though Home Assistant must be available when an action uses one of its devices. The panel's automations are separate from Home Assistant's automation editor: use Home Assistant for richer rules, conditions, or actions outside the panel's list.
+An automation is a short rule that the panel keeps and runs by itself. It has one trigger and one or two actions. For example: when the front door opens, turn on the porch light.
 
-**Availability:** this feature is present only in firmware builds that include Automations. If **Settings > Automations** is absent, that build does not expose the feature. The rules and panel screens are implemented and host-tested, but hardware acceptance is still in progress; follow your installation's release guidance before relying on a rule for security. Home Assistant integration 0.1.0 includes the allow-list and action path for shared entities. Version 0.2.0 adds richer device values and capability reporting; it is prepared but not released in this edition. The Z-Wave automation source is implemented and host-tested, but has not completed panel acceptance; use it only if the device appears in the editor on your build.
+Automations run on the panel itself, with or without Home Assistant. Home Assistant must be online only when an action uses one of its devices. For advanced automations with conditions, waits or many steps, use Home Assistant.
 
-## Who can manage automations
+<Aside type="note" title="Before you start">
+- You need a system master code or the installer code. A partition master code cannot change automations.
+- All partitions must be disarmed, with no alarm.
+- For a device action, the device must be shared with the panel. See [Smart Home](/user/smart-home/).
+</Aside>
 
-Open **Settings > Automations** while all partitions are disarmed and quiet. Enter a **system master** or **installer** code when asked. Partition masters and other user codes cannot manage the list. Existing automations continue running while the panel is armed, in alarm, or being edited elsewhere, but you cannot change them until the system is disarmed and quiet.
+Automations keep running while the panel is armed or in alarm. You can change them only when the panel is disarmed and quiet.
 
-For arming, disarming, and other less secure actions, the rule acts as the user who last saved it. The panel rechecks that user's current role and permission when the action runs. A system master can save arming and disarming actions; an installer can save device rules, but cannot save an arming or disarming action because the installer code cannot arm or disarm. Editing a rule makes the editor its new maker for those actions, so review its authority when another authorized person changes it. Ordinary device actions do not ask for a code when they run.
+## Create an automation
 
-## Create a device automation
+<Steps>
 
-1. Open **Settings > Automations** and choose **Add an automation**.
-2. Choose **When should it run?** and select one trigger:
-   - **When the panel is armed**: choose Away, Stay, Night, or any of them. It fires after exit time ends.
-   - **When the panel is disarmed**.
-   - **When an alarm sounds**, or **When a fire or CO alarm sounds**.
-   - **When a door or window opens**, or **When a sensor opens**: select an eligible door, window, motion, or water sensor.
-   - **When a door or window closes**: select an eligible door, window, or garage-door zone. It fires after the zone has stayed closed for 10 seconds.
-   - **At a time of day**: choose a time and one or more days of the week. It runs at most once on each selected day.
-3. Choose one action, and optionally add a second action if the editor offers **Add an action**. Check the generated sentence and device names.
-4. Set **Only between** for a time window on a non-time trigger, or **Turn it off after** for a supported on action, when those choices are useful.
-5. Review any safety confirmation, then save. The list shows the trigger and actions as a sentence; automations do not have custom names.
+1. Open **Settings > Automations**.
+2. Enter a system master or installer code.
+3. Push **Add an automation**.
 
-<PanelShot src="/images/panel/automation-editor.png" alt="Panel automation editor showing a trigger, action and schedule options" caption="The editor summarizes the rule using the selected trigger and actions." />
+   The panel shows some ready ideas, such as **Turn on a light when a door opens**, and **Start from scratch**.
 
-The panel supports simple actions such as switching a light, switch, or fan on or off; toggling a light or switch; locking or unlocking a lock; opening, closing, or stopping a cover; opening or closing a water valve; turning a thermostat off; and running a scene. Available devices and actions depend on the device catalog and the permissions configured for this panel. Home Assistant 0.2.0 adds richer device values and capability reporting, so controls may vary with the integration version and what each entity supports. Z-Wave switches, dimmers, and closing a garage door are offered by the automation device source where enabled; they are not the same as native Smart Home tiles. Scripts, alarm panels, and sirens are not offered as automation actions.
+4. Push an idea, or push **Start from scratch**.
+5. Under **When should it run?**, push a trigger.
+6. Under **What should it do?**, push an action.
+7. To add a second action, push **Add a second action**.
+8. If you want, set **Only between** or **Turn it off after**.
+9. Read the sentence that the panel shows for the rule, and then save it.
 
-An automation may have up to two actions, with at most one action per device. It is not a general rules engine: it has one trigger, no condition chains, and no branches or waits.
+</Steps>
 
-## Use a time trigger to arm
+<PanelShot src="/images/panel/automations-rule.png" alt="An automation page: When Front Door opens, Only between 6:00 PM to 6:00 AM, Turn on Porch Light, Turn it off after 10 minutes" caption="The page shows the trigger under When and the actions under Then." size="medium" />
 
-Choose **At a time of day**, select the days, then choose **Arm** as the only action. Select the partition and **Away**, **Stay**, or **Night**, and set the warning length from 1 to 15 minutes (5 minutes by default). The panel gives a steady Home card and status-bar notice and sounds the chime once a minute while the warning runs.
+<Aside type="tip" title="Check the result">
+The rule shows in the list as a sentence, such as **When Front Door opens**. Push **Try it now** on the rule page to run its device actions once.
+</Aside>
 
-At the warning, check Home and the zone list. If the partition is not ready and **Bypass open zones** is off, the panel does not arm and reports the open zone. If enabled, the automation can bypass eligible open burglary zones and arm. A sensor in trouble still prevents arming; fire, CO, and 24-hour zones are never bypassed. Bypassed zones are watched again after they close and each bypass ends at the next disarm.
+### Triggers
 
-The installer controls **Allow less secure automations** at **Settings > About > Installer > Delays and arming > Arming**. If it is off, the arming editor does not offer **Bypass open zones**. If it is on, the rule's bypass choice is still off by default; turn it on only if leaving an open zone out of protection is acceptable.
+| Trigger | When it runs |
+| --- | --- |
+| **When the panel is armed** | After exit time ends. Choose Away, Stay, Night or **Any of them**. |
+| **When the panel is disarmed** | When a partition is disarmed. |
+| **When an alarm sounds** | When an alarm sounds. It never runs for a silent alarm. |
+| **When a fire or CO alarm sounds** | When a fire or CO alarm sounds. |
+| **When a door or window opens** | When the zone opens. You can also choose a motion or water sensor. |
+| **When a door or window closes** | When the zone stays closed for 10 seconds. |
+| **At a time of day** | At the time you choose, on the days you choose. It runs once a day at most. |
 
-<PanelShot src="/images/panel/automation-warning.png" alt="Home screen showing an automatic arming warning and Put off button" caption="The warning stays visible and gives you time to delay the automatic arming." />
+Silent alarms and duress codes never start an automation.
 
-Choose **Put off** to postpone an arming warning. Select **An hour later** or **Not tonight** (shown as **Not today** for a daytime arm), then enter a code. Any valid user code can put an arming off for an hour; **Not tonight/Not today** requires a code that can disarm that partition. A wrong code counts toward keypad lockout. The warning returns five minutes before an hourly delay expires. Home shows who put it off and when the rule will try again.
+### Actions
 
-This time-triggered automation is the panel's current auto-arm method. The separate weekly schedule feature for exception dates, scheduled users, and independent auto-disarm is not available yet. Auto-arm does not run when the clock is unset, and a missed time is not replayed later.
+A device action can turn a light, switch or fan on or off, or toggle it. It can lock or unlock a lock, and open, close or stop a cover. It can open or close a water valve, turn a thermostat off or run a scene. **Arm the panel** and **Disarm the panel** are also actions.
 
-## Understand safety confirmations and permissions
+A rule has up to two actions, with one action for each device. An arming action must be the only action. Scripts and sirens are not automation actions.
 
-The installer can turn off less secure automations. This setting covers disarming, unlocking, opening, and stopping. When it is off, the editor will not offer those actions; a saved automation containing one is kept but cannot run until the installer allows it again.
+**Only between** limits a rule to a time window. **Turn it off after** turns a device off again after a time. The panel keeps up to 16 automations.
 
-When you select a scene or a switch-on/toggle action, the editor asks for a one-time confirmation because the action may have effects beyond what the panel can inspect. The scene confirmation warns that the panel cannot see what the scene does; a Home Assistant scene may affect entities that are not individually shared for panel control, including unlocking or opening something, without a separate code prompt or the installer setting for direct less secure actions. Use a scene only if you trust its complete contents. A switch-on/toggle confirmation warns against using a switch that operates a door, gate, or garage.
+## Arm at a set time
 
-For a door, window, motion, or alarm trigger, the editor also asks you to confirm in plain language before saving a less secure action, such as “Anyone who opens Front Door will unlock Front Door Lock.” It asks again if you later change the trigger or action. An armed trigger also needs confirmation before an unlock, open, or stop. A disarm after an alarm or fire trigger is refused, and a rule cannot disarm the same partition that its own trigger just armed. The editor does not ask for a keypad code for these save confirmations.
+Use **At a time of day** with the **Arm the panel** action to arm a partition automatically. The panel always warns before it arms.
 
-At runtime, a device action is rechecked against the saved-by user's permission and the installer setting. The panel never lets an automation silence a sounding alarm, issue Panic, or bypass zones as a separate action. Arming is only from Disarmed; it does not change an already armed partition to another level.
+<Steps>
 
-## Edit, pause, test, or delete a rule
+1. Open **Settings > Automations**, and then push **Add an automation**.
+2. Push **Start from scratch**.
+3. Push **At a time of day**, and then set the time and the days.
+4. Push **Arm the panel**.
+5. Choose the partition and **Away**, **Stay** or **Night**.
+6. Set **Warn first** to a time from 1 to 15 minutes. The default is 5 minutes.
+7. Save the rule.
 
-1. Open **Settings > Automations** and select a rule.
-2. Use the **Use this automation** switch to enable or disable it. A disabled rule stays in the list but does not run.
-3. Select its trigger or action rows to change them. Review and save the updated rule; safety confirmations may appear again.
-4. Choose **Try it now** to run the device actions once. This does not run the trigger or execute an arming action.
-5. Choose **Delete** and confirm when the rule is no longer needed.
+</Steps>
 
-The panel stores up to 16 automations. The list shows when a rule last ran and its most recent result, such as **Didn't work** or **Can't run**. That result is kept until the panel restarts. Open a rule to read the reason; common causes include an offline or missing device, an action the device refused, the installer setting blocking the action, an unset clock for a time rule, or a partition that was not ready to arm.
+During the warning, **Security** and the status bar show the arming time. The panel sounds the chime once a minute.
+
+<PanelShot src="/images/panel/automations-arm-warning.png" alt="Security screen with the card Arming Night at 10:30 PM, Set by an automation, and a Put off button" caption="The card at the top right shows when the panel arms and has the Put off button." />
+
+If a zone is open when the time comes, the panel does not arm. **Bypass open zones** lets the rule bypass open burglary zones and arm. A sensor with a trouble still stops the arming. Fire, CO and 24-hour zones are never bypassed. A bypassed zone is watched again when it closes, and each bypass ends at the next disarm.
+
+<Aside type="danger" title="Warning">
+Turn on **Bypass open zones** only if you accept an open zone without protection. A bypassed zone does not cause an alarm while it is open.
+</Aside>
+
+**Bypass open zones** is available only when the installer turns on **Allow less secure automations**. It is off in each new rule.
+
+### Put off an automatic arming
+
+<Steps>
+
+1. On **Security**, push **Put off**.
+2. Push **An hour later** or **Not tonight**.
+
+   During the day, the second choice is **Not today**.
+
+3. Enter a code.
+
+</Steps>
+
+<PanelShot src="/images/panel/automations-put-off.png" alt="Put off arming dialog with An hour later and Not tonight" caption="Each choice shows when the panel arms instead." size="small" />
+
+Any valid code can put off the arming for an hour. **Not tonight** and **Not today** need a code that can disarm that partition. A wrong code counts toward the keypad lockout. The warning starts again five minutes before the new time.
+
+An automatic arming does not run while the panel clock is not set. A missed time does not run later. If the panel restarts during the warning, it skips that arming.
+
+## Safety and permissions
+
+An automation acts as the person who saved it last. When it runs, the panel checks the current role of that person again. A system master can save arming and disarming actions. The installer can save device actions, but cannot save arming or disarming actions. When you edit a rule, you become its new maker.
+
+Disarming, unlocking, opening and stopping are less secure actions. The installer turns them on or off with **Allow less secure automations** at **Settings > About > Installer > Delays and arming**. When it is off, the panel does not offer these actions. A saved rule with such an action stays in the list, but it does not run.
+
+Before you save some rules, the panel asks you to confirm:
+
+- A scene: the panel cannot see what a scene does. A scene can unlock or open something without a code.
+- A switch that turns on or toggles: use it only for a light or a plug. Never use it for a switch that opens a door, gate or garage.
+- A less secure action after a door, window, motion or alarm trigger. The panel shows what happens, for example: "Anyone who opens Front Door will unlock Front Door Lock."
+
+The panel refuses some rules. A rule cannot disarm after an alarm or fire trigger. A rule cannot disarm a partition that its own trigger armed. An automation can never silence an alarm, start a panic alarm or change the arming mode of an armed partition.
+
+## Change, pause, test or delete a rule
+
+<Steps>
+
+1. Open **Settings > Automations**, and then push the rule.
+2. To pause the rule, turn off **Use this automation**.
+3. To change the rule, push its trigger or action, and then save it.
+4. To run its device actions once, push **Try it now**.
+5. To delete the rule, push **Delete this automation**, and then confirm.
+
+</Steps>
+
+**Try it now** does not run an arming action. A paused rule stays in the list but does not run.
+
+<PanelShot src="/images/panel/automations-list.png" alt="Automations list with five rules, one of them showing Didn't work at 8:02 AM" caption="Each rule shows its last result under its actions." size="medium" />
+
+The list shows when each rule ran last and its result, such as **Didn't work**. The panel keeps this result until it restarts. Open the rule to read the reason.
 
 ## Examples
 
-- **Porch light at the door:** when the front door opens, turn on the porch light. Use **Only between** to limit it to evening and overnight hours.
-- **Lock after leaving:** when the panel is armed Away, lock the selected lock. Check the rule's generated sentence and the lock's actual state after saving it.
-- **Night arming:** at 10:30 PM every day, arm Night after a five-minute warning. Leave **Bypass open zones** off unless the installer has enabled the option and you have decided that behavior is appropriate.
-- **Water response:** when the water sensor opens, close the water valve. The panel can run the rule locally, but the Home Assistant device must be online to receive the command.
+- **Porch light:** when the front door opens, turn on the porch light. Set **Only between** to evening hours.
+- **Lock up:** when the panel is armed Away, lock the front door.
+- **Night arming:** at 10:30 PM every day, arm Night after a 5-minute warning.
+- **Water leak:** when the water sensor opens, close the water valve.
 
-## Troubleshoot a rule
+## If it does not work
 
-- **No Automations page:** the current firmware may not include it. Check the build and firmware notes.
-- **Can't edit:** disarm all partitions and clear any active alarm state. Then reopen Settings with a system master or installer code.
-- **A time rule waits:** set the panel clock and time zone in **Settings > Time and language**. It does not catch up for a missed time.
-- **A rule is shown as Can't run:** open it and follow the explanation. A rule from newer software cannot run or be edited by this build; it can only be deleted.
-- **A device action failed:** confirm the device is online in its source and still shared for control. Check its state before retrying an unlock, opening, or stop action.
-- **Automatic arming did not happen:** review the last result, the warning on Home, open zones, and the partition's status. If a restart interrupts the warning, that day's arming is skipped rather than performed without its full warning.
-- **A rule ran but did not produce the expected result:** the panel sends each action only once. Check the device itself and the last-run result before changing or retrying the rule.
+| Problem | Do this |
+| --- | --- |
+| **Settings > Automations** is not in the list. | The software on this panel does not have automations. Ask the installer. |
+| The panel shows **Automations can be changed once the system is disarmed**. | Disarm all partitions and silence any alarm. Then open **Settings** again. |
+| A rule shows **On · waits until the clock is set**. | Set the clock in **Settings > Time and language**. See [Wi-Fi, network and time](/user/network-time/). |
+| A rule shows **Can't run** and a reason. | Open the rule and do what the reason says. A rule from newer software can only be deleted. |
+| A device action did not work. | Make sure the device is online in Home Assistant and still shared. Look at the device before you try an unlock or open again. |
+| The automatic arming did not happen. | Open the rule and read its result. Look for open zones and troubles in the partition. |
+| The rule ran, but the result is wrong. | The panel sends each action once. Look at the device itself before you change the rule. |
+
+## Related tasks
+
+- [Smart Home](/user/smart-home/)
+- [Arm and disarm](/user/arming-disarming/)
+- [Automations in Panel Manager](/panel-manager/automations/)
+- [Zones and bypass](/user/zones-bypass/)

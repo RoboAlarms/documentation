@@ -1,26 +1,59 @@
 ---
 title: "Turn the chime on or off"
-description: "Hear selected doors open while the system is disarmed."
-sidebar:
-  order: 4
+description: "Hear a beep at the panel when a door or window opens while the panel is disarmed."
+audience: ["user"]
+time: "1 minute"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-Chime makes a short sound when a chime-enabled zone opens while its partition is disarmed. It is separate from arming the alarm.
+The chime is a beep at the panel each time a door or window opens while the panel is disarmed. Use this page to turn the chime on or off. The chime does not arm the panel and does not cause an alarm.
 
-## Change chime
+<Aside type="note" title="Before you start">
+- The panel must be disarmed.
+- You need your code, unless the installer turned off **Chime needs a code**.
+</Aside>
 
-1. Disarm the partition controlled by this keypad.
-2. Select **Chime** on the left rail.
-3. If a code pad opens, enter an authorized code and select the **check mark**.
-4. Check the chime indicator to confirm the new state.
+## Change the chime
 
-<PanelShot src="/images/panel/chime.png" alt="Turn chime on confirmation with a code pad" caption="Your installer chooses whether changing chime requires a code." />
+<Steps>
 
-If **Chime needs a code** is off, selecting Chime switches it immediately. Chime on/off is controlled from the **Chime** rail button; its volume is under **Settings > Screen and sound**. Chime state belongs to the current partition; brightness, volume, key clicks and screen-saver settings belong to this keypad.
+1. Find the bell button in the top bar, to the left of the gear.
 
-## A door does not chime
+   A bell means that the chime is on. A crossed-out bell means that the chime is off.
 
-Check that this keypad's partition is disarmed and chime is on. Then open **Zones** and confirm that the correct zone changes when the door opens. The installer must also enable **Chime** for that individual zone.
+2. Push the bell button.
 
-If the zone never changes, investigate the sensor first. Changing the chime setting cannot fix a sensor connection.
+   If the chime needs a code, the panel shows the **Turn chime on** or **Turn chime off** code pad. If the chime needs no code, the chime changes at once.
+
+   <PanelShot src="/images/panel/chime-code-pad.png" alt="The Turn chime on code pad with a line that explains the chime" caption="The title of the code pad tells you if the chime turns on or off." size="small" />
+
+3. Enter your code.
+
+4. Push the check mark.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The bell button shows a bell when the chime is on. On the **Security** screen, the state text shows **Chime on** below **Ready to arm**.
+</Aside>
+
+The chime belongs to the partition that the panel shows. To change how loud the chime is, open **Settings > Screen and sound** and move **Chime volume**. See [Screen and sound](/user/display-sound/).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The panel says **Chime can be changed once the system is disarmed**. | Disarm the panel first. |
+| The panel says **Chime can be changed once the alarm is silenced**. | Stop the alarm first. See [Alarms, troubles and activity](/user/alarms-troubles/). |
+| On a keypad panel, the panel says **Chime can be changed once the alarm panel answers**. | Check that the alarm panel is on and on the same Wi-Fi. |
+| One door does not chime. | The installer must turn on **Chime** for that zone. Open **Zones** and check that the zone changes when the door opens. |
+| No door chimes. | Check that the chime is on and that **Chime volume** is not at 0. |
+
+If a zone does not change on the **Zones** screen, the sensor needs attention. The chime setting cannot fix a sensor.
+
+## Related tasks
+
+- [The Home screen](/user/getting-started/)
+- [Zones and bypass](/user/zones-bypass/)
+- [Screen and sound](/user/display-sound/)

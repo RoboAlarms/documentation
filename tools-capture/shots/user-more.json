@@ -1,0 +1,23 @@
+[
+  { "out": "panel/smart-home-tabs.png", "from": "panel/59_bl-220-no-header.png" },
+  { "out": "panel/smart-home-arrange-picked.png", "from": "panel/60_bl-220-arrange-pick.png", "crop": { "left": 100, "top": 56, "width": 924, "height": 230 } },
+  { "out": "panel/smart-home-room-picker.png", "from": "panel/62_bl-220-room-pick.png", "crop": { "left": 212, "top": 40, "width": 600, "height": 520 } },
+  { "out": "panel/smart-home-room-actions.png", "from": "panel/65_bl-220-room-sheet.png", "crop": { "left": 212, "top": 83, "width": 600, "height": 435 } },
+  { "out": "panel/smart-home-settings.png", "from": "panel/68_bl-220-settings-smart-home.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 524 } },
+  { "out": "panel/smart-home-master-code.png", "from": "panel/69_bl-220-device-code.png", "crop": { "left": 272, "top": 84, "width": 480, "height": 433 } },
+  { "out": "panel/automations-list.png", "from": "panel/373_automations.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 524 } },
+  { "out": "panel/automations-rule.png", "from": "panel/374_automation.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 524 } },
+  { "out": "panel/automations-arm-warning.png", "from": "panel/398_home_arm_warning.png" },
+  { "out": "panel/automations-put-off.png", "from": "panel/400_home_arm_put_off_choice.png", "crop": { "left": 212, "top": 105, "width": 600, "height": 391 } },
+  { "out": "panel/display-sound-settings.png", "from": "panel/78_settings_display.png" },
+  { "out": "panel/display-sound-announcements.png", "from": "panel/407_voice_announcements_on.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 470 } },
+  { "out": "panel/display-sound-start-screen.png", "from": "panel/71_bl-220-start-screen-pick.png", "crop": { "left": 212, "top": 163, "width": 600, "height": 275 } },
+  { "out": "panel/network-wifi-list.png", "from": "panel/84_settings_wifi.png" },
+  { "out": "panel/network-joined.png", "from": "panel/87_network_address.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 500 } },
+  { "out": "panel/network-check-passed.png", "from": "panel/89_network_check_passed.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 524 } },
+  { "out": "panel/network-time-language.png", "from": "panel/249_time_settable.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 494 } },
+  { "out": "panel/network-set-clock.png", "from": "panel/250_clock_set.png" },
+  { "out": "panel/updates-offered.png", "from": "panel/141_about_update_available.png" },
+  { "out": "panel/updates-keypads.png", "from": "panel/474_bl-048-fw-master-keypads.png", "crop": { "left": 430, "top": 210, "width": 584, "height": 375 } },
+  { "out": "panel/updates-sd-card.png", "from": "panel/223_sd_card.png", "crop": { "left": 430, "top": 56, "width": 584, "height": 504 } }
+]

@@ -1,41 +1,110 @@
 ---
 title: "Screen and sound"
-description: "Set the keypad's sound, appearance, brightness and night screen behavior."
-sidebar:
-  order: 7
+description: "Set the volumes, voice announcements, start screen, brightness and night behavior of this panel."
+audience: [user]
+time: "5 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-**Where:** Settings > Screen and sound<br />
-**Access:** anyone may change these preferences for this keypad. Settings are unavailable while a partition is armed or in alarm.
+Use **Settings > Screen and sound** to set how this panel sounds and looks. These settings apply to this panel only. A keypad panel has its own settings.
+
+<Aside type="note" title="Before you start">
+- You do not need a code. Anyone can change these settings.
+- All partitions must be disarmed, with no alarm. Settings open only then.
+</Aside>
+
+<PanelShot src="/images/panel/display-sound-settings.png" alt="Screen and sound settings with Chime volume, Voice volume, Beeps volume and Key clicks" caption="The Sound section is at the top of the page, and the Screen section follows below." />
 
 ## Sound
 
-The **Sound** section controls this keypad's everyday sounds:
+| Setting | What it does |
+| --- | --- |
+| **Chime volume** | Sets the volume of the door chime. |
+| **Voice volume** | Sets the volume of the spoken announcements. It does not change alarm sounds. |
+| **Beeps volume** | Sets the volume of the entry and exit beeps, trouble beeps and key clicks. |
+| **Key clicks** | Turns the short click for each touch on or off. |
+| **Announcements** | Opens the voice settings. See [Voice announcements](#voice-announcements). |
 
-- **Chime volume** adjusts the door-chime tone.
-- **Beeps volume** adjusts entry and exit beeps, trouble beeps and key clicks.
-- **Key clicks** turns the short touch feedback on or off.
-- **Voice volume** appears when this build has voice available. It changes spoken announcements, not alarm tones.
-- **Announcements** opens the voice settings when voice is available. You can enable or disable announcements, choose **Status messages** and **Zone chime**, and play a **Preview**. Preview works while announcements are off and does not switch them on.
+Alarm, fire and CO sounds always play at full volume. No setting on this page makes them quieter.
 
-Use the **Chime** button on the left rail to turn door chime on or off for the current partition. Its volume is set here; the rail button may ask for a code depending on the installer's setting.
+To turn the chime on or off, push the bell beside the gear at the top of the screen. See [Turn the chime on or off](/user/chime/).
 
-Alarm, fire and carbon-monoxide sounds always play at full volume. Turning Announcements off does not mute those sounds. A release that includes a ready voice pack can speak arming, armed, disarmed, entry and not-ready messages. With **Zone chime** on, the panel speaks an approved spoken zone name after its chime tone. The voice pack is English (en-US); the spoken language does not follow the screen language. If voice is absent or unavailable on your build, the voice controls are not shown or cannot be enabled. Walk-test zone names speak when voice is ready; that behavior does not have a separate Announcements switch.
+## Voice announcements
 
-<PanelShot src="/images/panel/voice-announcements.png" alt="Screen and sound settings with the Announcements controls" caption="Voice controls appear on a build with a ready voice pack." />
+The panel can say what happens in words. For example, it says when it arms, disarms or starts an entry time. The voice needs a voice pack on the panel. The voice speaks English (United States), whatever the screen language is.
+
+<Steps>
+
+1. Open **Settings > Screen and sound**.
+2. Push **Announcements**.
+3. Turn on **Announcements**.
+4. Turn on **Status messages** to hear the arming, armed, disarmed, entry and not ready messages.
+5. Turn on **Zone chime** to hear the spoken name of a zone after its chime.
+6. Push **Preview** to hear a sample.
+
+</Steps>
+
+<PanelShot src="/images/panel/display-sound-announcements.png" alt="Announcements page with the Announcements, Status messages and Zone chime switches and the Preview button" caption="Status messages and Zone chime work only while the Announcements switch is on." size="medium" />
+
+**Preview** works while Announcements is off, and it does not turn Announcements on. The installer sets the spoken name of each zone. A walk test always speaks the zone names when the voice is ready.
+
+If the panel has no voice pack, **Announcements** shows **Needs a voice pack** and cannot be turned on. If the voice does not work, the panel shows **Voice is unavailable.**
+
+## Choose the start screen
+
+The start screen is the screen that the panel rests on. You can choose **Security** or **Smart Home**. This setting shows only while **Smart Home** is on the rail.
+
+<Steps>
+
+1. Open **Settings > Screen and sound**.
+2. Under **Screen**, push **Start screen**.
+3. Push **Security** or **Smart Home**.
+
+</Steps>
+
+<PanelShot src="/images/panel/display-sound-start-screen.png" alt="Start screen choices: Security, The alarm state and arming, and Smart Home, Your devices; Security while armed" caption="The check mark shows the start screen that is in use." size="small" />
+
+While the panel is disarmed, it goes back to the start screen at these times:
+
+- After it starts.
+- After nobody touches it for 90 seconds.
+- Under the screen saver.
+
+While the panel is armed, it rests on **Security**. An alarm or an entry time always shows **Security**.
 
 ## Screen
 
-- **Appearance** selects **Automatic**, **Dark** or **Light**. Automatic follows **Night hours** when those hours are enabled; otherwise the screen stays light.
-- **High contrast** strengthens colors and outlines every button.
-- **Brightness** sets normal screen brightness.
-- **Screen saver** sets when the dimmed photo, time and alarm state appear. Its separate **Screen saver brightness** control can dim it further; at 0 the screen goes dark until touched.
-- **Screen off** sets when the screen goes dark until touched.
-- **Night hours** lets this keypad use different brightness and screen-off timing during a daily time range. The panel needs a known time before the schedule can take effect. Night hours are a display preference and do not arm or disarm the alarm.
+| Setting | What it does |
+| --- | --- |
+| **Appearance** | Selects **Automatic**, **Dark** or **Light**. **Automatic** is dark during the night hours and light by day. If **Night hours** is off, the screen stays light. |
+| **High contrast** | Makes the colors stronger and puts an outline on each button. |
+| **Brightness** | Sets the normal brightness of the screen. |
+| **Screen saver** | Sets when the dimmed photo with the time and the alarm state starts. **Screen saver brightness** on the same page makes it dimmer. At 0, the screen goes dark until a touch wakes it. |
+| **Screen off** | Sets when the screen goes dark until a touch wakes it. |
+| **Night hours** | Sets a daily time range when the screen is dimmer and goes dark sooner. |
 
-The screen saver uses the supplied photo when its image asset is available; if it is missing or unusable, the panel can show a plain dark background. The Screen saver page does not select a personal photo from the SD card. Tapping the dimmed screen wakes it. Changing a saver delay does not change an entry or exit countdown.
+Night hours need a set clock. Night hours change the screen only. They do not arm or disarm the alarm.
+
+A touch wakes the screen. A screen saver delay does not change an entry or exit time.
 
 ## Clock format
 
-Open **Settings > Time and language** to choose the 12- or 24-hour clock format for this keypad. Anyone may change the display format. The time zone and network time server are separate settings and require an authorized code; see [Wi-Fi, network and time](/user/network-time/).
+To choose a 12-hour or 24-hour clock, open **Settings > Time and language > Clock**. Anyone can change the clock format. See [Wi-Fi, network and time](/user/network-time/#set-the-time-zone-language-and-time-server).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Settings** does not open. | Disarm all partitions and silence any alarm. |
+| **Announcements** is not on the page. | This panel has no voice. Ask the installer. |
+| **Announcements** cannot be turned on. | The voice pack is missing or does not work. Ask the installer to update the panel. |
+| **Start screen** is not on the page. | The panel has no shared devices, so **Smart Home** is not on the rail. |
+| Night hours do not start. | Set the clock in **Settings > Time and language**. |
+
+## Related tasks
+
+- [Turn the chime on or off](/user/chime/)
+- [Smart Home](/user/smart-home/)
+- [Wi-Fi, network and time](/user/network-time/)
+- [Software updates and SD card](/user/updates-storage/)

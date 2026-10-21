@@ -1,42 +1,148 @@
 ---
 title: "Alarms, troubles and activity"
-description: "Understand alarms, system faults, recent events and emergency controls."
-sidebar:
-  order: 5
+description: "Stop an alarm, clear the alarm memory, acknowledge a trouble, read the event history and use the Emergency screen."
+audience: ["user"]
+time: "2 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-An **alarm** reports an alarm condition. A **trouble** reports a fault that needs attention. The two are not interchangeable.
+Use this page when the panel sounds an alarm, shows a trouble, or when you want to know what happened.
 
-## When an alarm appears
+An **alarm** means that the panel detected an event, for example a door that opened while armed. A **trouble** means that something does not work correctly, for example a low sensor battery. A trouble is not an alarm.
 
-Read the alarm type and named zone. If there may be a real emergency, follow your household emergency plan and contact the appropriate emergency service. Operating the screen does not itself guarantee that anyone has been notified.
+<Aside type="note" title="Before you start">
+- You need your own code.
+- The panel does not call emergency services. See [Safety and limits](/start/safety/).
+</Aside>
 
-For a known false burglary alarm, enter an authorized disarm code and select the **check mark**. Check the resulting state and review the named zone. Do not assume that silencing the panel also canceled a report already delivered to another service.
+## Stop an alarm
 
-<PanelShot src="/images/panel/alarm-memory.png" alt="Panel displaying alarm memory after disarming" caption="Alarm memory records that an alarm happened; it is different from a currently sounding alarm." />
+<Aside type="danger" title="Warning">
+If there can be a real emergency, get everyone to safety first. Then call the emergency service yourself. The panel does not call anyone.
+</Aside>
 
-After reviewing the cause, use **Clear alarm** when offered, enter an authorized code and submit with the check mark. It clears alarm memory for the affected partition; it does not make an active sensor fault disappear.
+During an alarm, the screen turns red. The state text shows the kind of alarm and the zone, for example **Burglary alarm** and **Front Door**.
+
+<PanelShot src="/images/panel/alarms-burglary.png" alt="A burglary alarm. The state text says Burglary alarm and Front Door, and the Disarm code pad is on the right" caption="The state text names the kind of alarm and the zone that caused it." />
+
+<Steps>
+
+1. Read the kind of alarm and the zone name.
+
+2. For a fire, CO or medical alarm, push **Silence** to stop the siren.
+
+   The panel shows **Siren silenced. Enter your code to reset**.
+
+3. Enter your code on the **Disarm** code pad.
+
+4. Push the check mark.
+
+   The siren stops, and the panel shows the alarm memory.
+
+</Steps>
+
+If no person is near the panel, the siren stops after the siren time. The state text then says **The siren timed out**. The alarm stays in the alarm memory.
+
+## Clear the alarm memory
+
+After an alarm, the panel keeps an alarm memory. The state text shows one of these:
+
+- **Alarm canceled**: You disarmed soon after the alarm started. The panel also shows **No alert was sent**.
+- **Alarm occurred**: The alarm was not canceled in time. The panel shows **Review it, then clear it with your code**.
+
+<PanelShot src="/images/panel/alarms-clear.png" alt="The alarm memory. The state text says Alarm canceled, and a Clear alarm card is on the right" caption="Push the Clear alarm card after you know what caused the alarm." />
+
+<Steps>
+
+1. Find out what caused the alarm. Check the named zone.
+
+2. Push **Clear alarm**.
+
+   The panel shows the **Clear alarm memory** code pad.
+
+3. Enter your code.
+
+4. Push the check mark.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The panel shows **Disarmed**. **Activity** still lists the alarm.
+</Aside>
+
+Clearing the alarm memory does not repair a sensor. It also does not cancel a message that a connected service already sent.
 
 ## Read and acknowledge a trouble
 
-1. Open **Troubles** on the left rail.
-2. Read the fault and its explanation.
-3. Correct the underlying problem, or contact the installer.
-4. Use the offered acknowledgment control and enter a code if asked.
+When the panel has a trouble, a yellow trouble count shows in the top bar. The panel beeps for some troubles.
 
-<PanelShot src="/images/panel/troubles.png" alt="Troubles page listing current faults and an acknowledgment control" caption="Read the individual fault before acknowledging it." />
+<Steps>
 
-Acknowledging a trouble does not repair it. A continuing fault can remain listed or return. Use the [troubleshooting table](/reference/troubleshooting/) for network, sensor, storage and code problems.
+1. Push the yellow trouble count in the top bar.
+
+   The panel shows **Troubles** with a list of each trouble.
+
+   <PanelShot src="/images/panel/alarms-troubles-list.png" alt="The Troubles list with Mains power lost and Basement Water Low battery, and the Acknowledge button" caption="Each row names the trouble and tells you what to do." size="medium" />
+
+2. Read each trouble and the line below it.
+
+3. Fix the cause, or tell the installer.
+
+4. Push **Acknowledge**.
+
+   The panel shows the **Acknowledge troubles** code pad.
+
+5. Enter your code and push the check mark.
+
+   The trouble beeps stop.
+
+</Steps>
+
+To acknowledge does not repair a trouble. A trouble stays in the list until its cause is fixed. You can acknowledge troubles only while the panel is disarmed.
 
 ## Review what happened
 
-**Activity** is the event history. It shows events in time order, with the partition where relevant. Silent events are excluded from the public Activity view, including Panel Manager's Activity page.
+Push **Activity** on the rail. **Activity** lists everything the panel did, the newest event first.
 
-<PanelShot src="/images/panel/activity.png" alt="Activity list with chronological alarm events" caption="Activity helps you identify what changed and when." />
+- Push a filter to show one kind of event: **All**, **Alarms**, **Troubles**, **Arming**, **Bypass** or **System**.
+- Each row shows the event, who did it and the time.
+- Some events are private, for example the use of a duress code. To show them, push **Show private events** at the end of the list. Then enter a master or installer code.
 
-## Emergency controls
+## Use the Emergency screen
 
-The **Panic** rail item opens the **Emergency** page. Available actions depend on configuration. The interface uses a deliberate hold to activate an emergency action; a brief touch does not complete it.
+<Aside type="danger" title="Warning">
+Do not push the **Emergency** buttons to try them. A held button starts a real alarm. Tell everyone who gets your notifications before you test it.
+</Aside>
 
-Do not activate emergency controls just to explore the page. Arrange any test with the installer and everyone who might receive an alert. This guide does not claim automatic police, fire or medical dispatch.
+<Steps>
+
+1. Push **Panic** on the rail.
+
+   The panel shows **Emergency** with **Police**, **Fire** and **Medical** buttons.
+
+2. Hold the button that you need for 2 seconds.
+
+   A ring around the button fills. When it is full, the alarm starts.
+
+</Steps>
+
+<PanelShot src="/images/panel/alarms-emergency.png" alt="The Emergency screen with the Police, Fire and Medical buttons. A ring fills around the Police button while it is held" caption="Hold a button until the ring around it is full. The line below the title tells you if a connected service gets the alarm." />
+
+If you release the button too soon, nothing happens. The line below the title tells you if a connected service is set up to get the alarm. The panel itself does not call emergency services.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The siren does not stop after **Silence**. | Enter your code and push the check mark. |
+| The panel says **Troubles can be acknowledged once the system is disarmed**. | Disarm first, then acknowledge. |
+| A trouble comes back after you acknowledge it. | The cause is not fixed. Tell the installer. See [Troubleshooting](/reference/troubleshooting/). |
+| The **Activity** list does not show an event that you expect. | Push **All**. If the event is private, push **Show private events**. |
+
+## Related tasks
+
+- [Arm and disarm](/user/arming-disarming/)
+- [Zones and bypass](/user/zones-bypass/)
+- [Safety and limits](/start/safety/)
+- [Troubleshooting](/reference/troubleshooting/)

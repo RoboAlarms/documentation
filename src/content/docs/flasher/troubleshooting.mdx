@@ -1,45 +1,86 @@
 ---
-title: "Advanced tools and troubleshooting"
-description: "Choose ports, use the service Console, inspect software and logs, and recover from common Flasher problems."
-sidebar:
-  order: 5
+title: "Flasher troubleshooting"
+description: "Use the Flasher's advanced tools, and fix problems with ports, checks, installs, updates and parts."
+audience: ["installer"]
 ---
+import { Aside } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-Select **Advanced tools** in the Flasher for tools that are outside the guided install flow. Use **Back to guided setup** to return.
+Use this page when the Flasher does not find a panel, stops a job or shows an error. The page also explains the advanced tools.
+
+When a job stops, the Flasher shows what happened and what to do next. Read the message first. Most messages also say if something was changed.
 
 ## Advanced tools
 
+Click **Advanced tools** at the top of the window. Click **Back to guided setup** to go back.
+
+<PanelShot src="/images/flasher/flasher-panels-and-ports.png" alt="Flasher Panels and ports page with COM5, No RoboAlarms software yet, and COM6, RoboAlarms 0.5.9, Chosen" caption="Panels and ports lists every panel that is plugged in. Click Choose to work with one." size="medium" />
+
 | Tool | What it does |
 | --- | --- |
-| **Panels and ports** | Lists serial devices, lets you choose a port, and offers **Look again** to query a panel without restarting it. **Show other ports** reveals devices the app did not classify as likely panel ports. |
-| **Console** | Connects to the panel's live service log without restarting it. Enter commands or use quick commands such as `status`, `health`, `rf`, `rtc`, `power` and `help`; choose **Save log** to save the session. **Restart panel…** explicitly restarts the panel. The Flasher never enters keypad codes. |
-| **Hardware** | Reads or changes the connected-parts selection. On supported running firmware, **Apply and restart the panel** saves settings, restarts once, then reads the settings back. The page also contains receiver and clock tests, plus **Record** to save a three-second raw radio capture. |
-| **Backups** | Select **Back up this panel now**, open the backup folder, or choose **Restore…** beside a saved whole-flash backup. See [backups, reset and restore](/flasher/backups/). |
-| **Software** | Shows the loaded bundle, opens another `.roboflash` file, displays available builds and reasons a build is disabled, and routes to a fresh install or factory reset. |
-| **Logs** | Opens the Flasher's session logs, including job steps and diagnostic details useful when a job fails or support asks for the log. |
+| **Panels and ports** | Lists everything plugged into the computer. Click **Choose** to use a panel. Click **Look again** to ask a panel again. Looking at a panel never restarts it. Click **Show other ports** to see ports that do not look like a panel. |
+| **Console** | Opens the panel's service console without a restart. Use the quick commands or type a command. Click **Save log** to keep the text. Click **Restart panel** only when you want to restart the panel. The Flasher never types keypad codes. |
+| **Hardware** | Shows and changes the connected parts. Click **Apply and restart the panel** to save them. It also records raw 433 MHz pulses. See [Connected parts](/flasher/connected-parts/). |
+| **Zigbee module** | Puts the radio software on the Zigbee module, while the module is out of the panel. |
+| **Backups** | Makes and restores whole-flash backups. See [Back up, reset and restore](/flasher/backups/). |
+| **Software** | Shows the firmware version and the build for each board. You can choose another release channel or open a `.roboflash` file that you were given. You can also drop the file on the window. |
+| **Logs** | Opens the Flasher's own log folder. Add the log to a bug report. |
 
-**Open the Backups folder**, **Open the folder**, and **Logs > Open** open the relevant folder from the app. Backups and radio captures are kept under the user's Documents folder in `RoboAlarms\Backups` and `RoboAlarms\Captures`; session logs are in the app's per-user application-data folder.
+The Console works only when the panel's software has a service console. Software from the Stable, Beta and Alpha channels has no service console. A Dev build has it, and is for test panels only.
+
+**Automatic (recommended)** in **Software** chooses the steadiest release for the board: Stable, then Beta, then Alpha. A Dev build needs its own confirmation. Do not use a Dev build on a panel that protects a home.
+
+The Flasher keeps its files in these folders:
+
+| Files | Folder |
+| --- | --- |
+| Backups | `Documents\RoboAlarms\Backups` |
+| Radio recordings | `Documents\RoboAlarms\Captures` |
+| Logs | `%LOCALAPPDATA%\RoboAlarms\Flasher\logs` |
 
 ## If something goes wrong
 
-**No panel appears.** Turn on the board's POWER switch and check the labeled serial/data port. On the CrowPanel, connect the computer to **UART0**; **USB2.0** is for power. Use a USB data cable, connect directly to the computer, and close other serial programs. Expand **Nothing showing up?** in Connect for the board's advice. If Windows does not show a CH340 serial device, its USB driver may be missing.
+### The panel is not found or the port does not open
 
-**The Flasher cannot open the port, or says it is in use.** Close Arduino IDE, PuTTY, `idf.py monitor` or another Flasher window, then select **Try again** or reopen the port. Only one app can use the port at a time.
+| Problem | Do this |
+| --- | --- |
+| **Connect** finds no panel. | Slide the **POWER** switch to on. Connect the computer to **UART0**, not to **USB2.0**. Use a cable that carries data, and connect it straight to the computer. Click **Nothing showing up?** for more help. |
+| Windows shows no COM port for the panel. | The CH340 USB driver is missing or did not start. Install the driver, then plug the panel in again. |
+| **The port could not be opened.** | Close other programs that use the port, for example a serial monitor or another Flasher window. Then try again. |
+| **That board was unplugged. Plug it in again.** | Plug the cable in again, and choose the panel again. If the job had started, run it again. |
+| **Nothing on** the port **takes what the Flasher sends.** | Unplug the panel, plug it back in, and try again. |
 
-**The chip check fails.** Confirm the selected port belongs to the alarm panel and is not used by another program. Check the data cable and board power. If the app cannot restart the board into its loader, the CrowPanel's board instructions say to hold **BOOT**, press and release **RESET**, then release **BOOT**, and try **Check this panel** again. This reads the chip; it does not install firmware.
+### The check or the job stops
 
-**The board or firmware choice looks wrong.** Stop before installing. Review the board identification evidence and loaded firmware version. Choose **Not this board? Choose it yourself** only if you know the exact board. A disabled build failed a chip or flash-size compatibility check; do not bypass it.
+| Problem | Do this |
+| --- | --- |
+| **The board did not answer its loader.** | Check that the cable carries data and that the panel has power. If it still fails, hold **BOOT** on the board, push and release **RESET**, then release **BOOT**. Click **Check this panel** again. |
+| The board or the build looks wrong. | Stop. Click **Not this board? Choose it yourself** only if you know the exact board. A build that is grayed out does not fit the chip or the flash size. Do not force it. |
+| The panel is armed, in Installer mode or has an alarm. | Finish that on the panel. Then click **Look again**. The Flasher does not restart a busy panel. |
+| **Identifying restarts the board, so it waits.** | The panel is busy, and a check would restart it. Disarm the panel and close Installer mode, then check again. Nothing was changed. |
+| **The Flasher's look at the panel is out of date.** | The Flasher checks that the panel is idle before every restart. Click **Look again**, then start the job again. Nothing was changed. |
+| **The panel did not answer, so the Flasher can't tell whether it is idle.** | Check on the panel's screen that it is disarmed and idle. If it is stuck, unplug it and plug it back in. |
+| **The panel's firmware does not answer, so it cannot be updated in place.** | The panel's software has no service console. Update it on its screen or in [Panel Manager](/panel-manager/updates/). Choose Install only if you want to erase the panel. |
+| **The connection to the board was lost.** | Check the cable, plug it back in, and run the same job again. |
+| **What was written does not read back the same.** | Try again. If it fails again, use another USB cable or port. |
 
-**The panel is busy.** If the Flasher reports an armed partition, Installer mode, an alarm or an update/probation check, finish or wait for that condition at the panel, then select **Look again** or check it again. The Flasher can report and block on busy states only when the running firmware answers the service probe with the required information. If it does not answer, the Flasher cannot verify the state; check the panel yourself before restarting it.
+### After the install or update
 
-**The Flasher does not recognize a RoboAlarms release, or cannot check whether it is idle.** Current release firmware omits the service console used by the Flasher's probe. This is expected: the Flasher cannot identify the release build, confirm its armed or alarm state, offer in-place Update, or apply and verify connected-part settings through that console. Do not choose **Install** just to get past the missing reply if you need to keep the panel's configuration; Install erases the entire chip. Use Panel Manager's signed update page when available, or identify a configuration-preserving recovery path first. Confirm the panel is disarmed and idle at its screen before any restart.
+| Problem | Do this |
+| --- | --- |
+| The write stopped before the end. | Keep the panel powered. Run the same job again: Install after an install, Update after an update, Restore after a restore. Do not run Install after an update: it erases the settings. |
+| **The panel did not come back after its restart.** or the screen stays black | The panel had too little power. Connect **USB2.0** to a phone charger with 5 V and 2 A or more. Switch the panel off and on with **POWER**. Then check **Advanced tools > Console**. |
+| A part is not found. | Compare the part and its place with the drawing in **Full wiring**. Correct it in **Advanced tools > Hardware**. See [Connected parts](/flasher/connected-parts/). |
+| **This panel's firmware can't set up these parts.** | The firmware on the panel does not support the part. Use a firmware version that supports it. |
+| You need the maker's demo software back. | Restore the backup that the Flasher made before the first install. See [Back up, reset and restore](/flasher/backups/#restore-a-backup). Without that backup, the demo cannot come back. |
 
-**A write stops or USB disconnects.** Read the error and its suggested next step, keep power stable, and reconnect the same board. Retry the operation that was interrupted: run Install again after an interrupted first install, run Update again after an interrupted update, or restore the same backup again after an interrupted restore. If erase or writing had begun, the panel may not have working firmware until that operation finishes. An interrupted Update does not call for Install: Install erases configuration. If Update can no longer identify the running firmware, retain any backups and inspect the session log before choosing a fresh Install; proceed with Install only if you are ready to erase the panel and have a recovery plan.
+<Aside type="note">
+The Flasher cannot burn eFuses, turn on secure boot or flash encryption, or change the panel's C6 coprocessor. It never enters keypad codes.
+</Aside>
 
-**Firmware was written but the panel did not report starting.** Check the panel screen and **Advanced tools > Console**. A brownout report means the board ran short of power while starting. For the CrowPanel, connect **USB2.0** to a 5 V, 2 A or stronger phone charger as well; then switch the panel off and on with **POWER**. If the screen is black or it keeps restarting without a brownout message, use the board's power guidance and Console log to investigate.
+## Related tasks
 
-**A receiver or clock is not detected.** Compare the selected part and location with the in-app drawing and its cautions. Correct the selection under **Advanced tools > Hardware**, then apply it and use **Check again** for the clock or **Start listening** for the receiver. If the drawing does not match the physical installation, consult [Connected parts](/flasher/connected-parts/) and the [RoboAlarms hardware page](https://roboalarms.com/hardware/) before changing wiring. If the firmware says the part is unsupported or absent from this firmware, its tool cannot enable that feature; use a firmware version that supports it.
-
-**You need the maker's software back.** Use **Advanced tools > Backups > Restore…** with the whole-flash backup made before Install, including its matching `.json` file. Without that pre-install backup, the Flasher cannot recreate the erased maker demo.
-
-The Flasher does not burn eFuses, enable secure boot or flash encryption, update the panel's C6 coprocessor, or enter keypad codes. These are outside its available actions.
+- [Flasher](/flasher/)
+- [Install RoboAlarms](/flasher/install/)
+- [Update RoboAlarms](/flasher/update/)
+- [Troubleshooting](/reference/troubleshooting/)

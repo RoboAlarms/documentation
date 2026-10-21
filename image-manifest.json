@@ -1,475 +1,1062 @@
 {
-  "edition": "03",
-  "sourceCommit": "d33d91a03896585f34bf676730916c81d23ab7a8",
-  "captureDate": "2026-10-13",
-  "screen": {
-    "width": 1024,
-    "height": 600,
-    "board": "crowpanel_p4",
-    "inches": 7
-  },
-  "fixture": "scripts/capture-panel.ps1",
-  "captureValidation": {
-    "nativeExitCode": 0,
-    "summary": "403 screenshots\r\n0 labels cut off, 22 shortened with ...; 0 checks left to the English walk",
-    "pngCount": 402,
-    "supplemental": {
-      "purpose": "Initial scenes rerendered with RFC 5737 example LAN addresses; later scenes preserved.",
-      "nativeExitCode": 0,
-      "pngCount": 76,
-      "addresses": {
-        "panel": "192.0.2.42",
-        "router": "192.0.2.1",
-        "failedRouterExample": "192.0.2.9"
-      }
-    }
-  },
-  "note": "Real host UI with fictional state and a healthy battery. Both factory codes changed through engine APIs after each screenshot-scenario initialization; every normal capture asserts default_codes == 0 without masking it. Some scenes retain earlier fictional event/status history. Crops focus on the controls taught by the caption; relevant warnings remain. No pixel repainting. Crops are explicit below.",
   "images": [
     {
-      "file": "home-ready.png",
-      "source": "01_home_ready.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "782bfa49cf3035eac48f96cb93aab2f090ebb978c808e543243cd62bfb4b61d5"
-    },
-    {
-      "file": "arm-away.png",
-      "source": "04_pad_arm_away.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "6068a0d8066621ba5ca54dd2d106d7f94b96dce43aac0c60f11452ce150a3d86"
-    },
-    {
-      "file": "entry-delay.png",
-      "source": "08_entry_delay.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "ed08e39b16c36b43e9184ebc23425404f8999a2bb6b2862465441a929d2aa4eb"
-    },
-    {
-      "file": "alarm-memory.png",
-      "source": "11_alarm_memory.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "d0738a76db3051fc7de20c5bcf6d41465ac54c067b6cbd788fc78814796308b1"
-    },
-    {
-      "file": "zones.png",
-      "source": "14_zones.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "33624af04b5973e096dd07c2e8edddad8154400631014da24050618f8ecd04c1"
-    },
-    {
-      "file": "activity.png",
-      "source": "16_activity.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "1a0a63de3fd1179e3876f282453ceff3c9a1ee703fc55a6c3a9ccc480f9ee3e9"
-    },
-    {
-      "file": "troubles.png",
-      "source": "60_troubles.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "3abed219403d107da0348878040925261f89cb232c2dbb61d481a573da9445b2"
-    },
-    {
-      "file": "display-sound.png",
-      "source": "66_settings_display.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "565d926194dc3f721a5def2ab42662fb3e4f2c2284780d0e0f19d0b730d07316"
-    },
-    {
-      "file": "user-page.png",
-      "source": "71_user_page.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "56cca705248df24ccebf76e0869aafb4008ddf9e2c86689378134eceb6a09b44"
-    },
-    {
-      "file": "wifi.png",
-      "source": "72_settings_wifi.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "bc2d01fcf8913bbb90eed6e78b0bbb37b31e14834b5976c6c156a7b4eb028f5b"
-    },
-    {
-      "file": "network-check.png",
-      "source": "77_network_check_passed.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "c0e46fd504188257228106c7a2197c6cb92b3a2f5281321cdff00c14ce41275b"
-    },
-    {
-      "file": "time.png",
-      "source": "83_settings_time.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "aa60b497e0df1e1ea451eba29c5a0e253265dda4ad2a4fbf295800c0b8d8c633"
-    },
-    {
-      "file": "ha-ready.png",
-      "source": "86_ha_ready.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "ddff4ae6151ee62c02b65ab46dacc5f6b7484b1a6a60917d5cb085995b14d6d9"
-    },
-    {
-      "file": "ha-wait.png",
-      "source": "87_ha_pairing_wait.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "23abecf6a49f923ff5675eb2598db7921173fc011ebc69aea8fb9c3f55fe75f7"
-    },
-    {
-      "file": "ha-code.png",
-      "source": "88_ha_pairing_code.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "6bfedce2faeeb8df99e18d008f87672ace65440f7a598eccb893328b8d8c1a1d"
-    },
-    {
-      "file": "ha-paired.png",
-      "source": "89_ha_paired.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "120818e118ffff4768f0ff0079352bb7fe250a777ca62ebb36d672df5ea7d65f"
-    },
-    {
-      "file": "mqtt.png",
-      "source": "92_mqtt_connected.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "31c772b4a3b578878e4a7242a9b6932e5184fc3b21b96edd93f69b779caf7930"
-    },
-    {
-      "file": "installer-menu.png",
-      "source": "99_installer_menu.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "724de3caaf5ee101a20c2b2373802b0b83584c18b21b9ba74969da319202efa6"
-    },
-    {
-      "file": "system-options.png",
-      "source": "117_installer_options.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "6b9ca6567e9a51a4b66bdcc778d1687705cc1bec9f4006f0435638c735bb20c5"
-    },
-    {
-      "file": "zone-edit.png",
-      "source": "119_zone_edit.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "7673b2a8e9aa1763a2d0adf36702fbab6a25b2151145c008dce588411076c086"
-    },
-    {
-      "file": "update.png",
-      "source": "127_about_update_available.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "9a7dc755920e5b27cabc1f7f547b6ae6e71b5f5b2891660adb7e6ee922e431a8"
-    },
-    {
-      "file": "setup-welcome.png",
-      "source": "162_setup_welcome.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "832678f8ac65b8034d2ee0dd41f2d18e8f9d84d3cf604152fe133f90a053f93e"
-    },
-    {
-      "file": "setup-codes.png",
-      "source": "165_setup_codes.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "573c60f28927422fc27b66feec9602aabdbc3555e8044856433dd6342d967714"
-    },
-    {
-      "file": "source-picker.png",
-      "source": "175_zone_source_pick.png",
+      "file": "flasher/flasher-backups.png",
+      "source": "flasher/tools-05-backups.png",
       "crop": {
-        "left": 211,
-        "top": 42,
-        "width": 602,
-        "height": 517
-      },
-      "width": 602,
-      "height": 517,
-      "sha256": "3a8b51b4bfab74d9f0ea85981f920602c4801d2abdf90e7fff8f24ab2723fd17"
-    },
-    {
-      "file": "ha-sensor-search.png",
-      "source": "179_zone_ha_search.png",
-      "crop": {
-        "left": 439,
+        "left": 0,
         "top": 64,
-        "width": 571,
-        "height": 350
+        "width": 1330,
+        "height": 460
       },
-      "width": 571,
-      "height": 350,
-      "sha256": "2de01e96e64692d89826ed2b647a5ba7f6a26388f4312ca8cab8db2626ad21b6"
+      "width": 1330,
+      "height": 460,
+      "sha256": "0e3954dd1c68d41432f039701c0179554460c36fe538624f700e8000ab6ea08e"
     },
     {
-      "file": "ha-zone.png",
-      "source": "180_zone_ha_bound.png",
+      "file": "flasher/flasher-connect.png",
+      "source": "flasher/install-07-connect.png",
+      "crop": null,
+      "width": 1440,
+      "height": 960,
+      "sha256": "328b1ec9d28d4796a0affd0c28f0b4437c1edcf24799c2b46b2f1ad70f4ab87d"
+    },
+    {
+      "file": "flasher/flasher-install-progress.png",
+      "source": "flasher/install-12-progress-writing.png",
+      "crop": null,
+      "width": 800,
+      "height": 285,
+      "sha256": "25dc7c3fc01d90cbbec2ae922cb5b9ccb8908ebc88cf198b5be78031794c6528"
+    },
+    {
+      "file": "flasher/flasher-install-review.png",
+      "source": "flasher/install-10-review.png",
       "crop": {
-        "left": 439,
-        "top": 64,
-        "width": 571,
-        "height": 492
+        "left": 460,
+        "top": 90,
+        "width": 792,
+        "height": 790
       },
-      "width": 571,
-      "height": 492,
-      "sha256": "41ab3e118e17492c0019e3bf58e0a799a6740392adc828318b7dd7f19ab14991"
+      "width": 792,
+      "height": 790,
+      "sha256": "4960617ae206ba81c583621190b6d4c437fdcafb812a98a373d0e1c2a7256f51"
     },
     {
-      "file": "zone-unreachable.png",
-      "source": "181_zone_unreachable.png",
+      "file": "flasher/flasher-panels-and-ports.png",
+      "source": "flasher/tools-01-panels-and-ports.png",
+      "crop": {
+        "left": 0,
+        "top": 64,
+        "width": 1330,
+        "height": 460
+      },
+      "width": 1330,
+      "height": 460,
+      "sha256": "dee48fb055e9692af451d9d570333e57e9a654d9a565fa2d8e5a41c7040fbd0d"
+    },
+    {
+      "file": "flasher/flasher-plan-parts.png",
+      "source": "flasher/install-03-plan-parts.png",
+      "crop": {
+        "left": 460,
+        "top": 120,
+        "width": 792,
+        "height": 474
+      },
+      "width": 792,
+      "height": 474,
+      "sha256": "f762f2578eb3f859ea1e9dd0013b7fb709958aaeab2b1d7422d659e9be725a33"
+    },
+    {
+      "file": "flasher/flasher-test-parts.png",
+      "source": "flasher/install-14-test-and-finish.png",
+      "crop": {
+        "left": 460,
+        "top": 360,
+        "width": 792,
+        "height": 480
+      },
+      "width": 792,
+      "height": 480,
+      "sha256": "b91079f9cc155d49421a7b583738e1a7c2d94516c55e17d48cd8f39199495e11"
+    },
+    {
+      "file": "flasher/flasher-update-review.png",
+      "source": "flasher/update-03-review.png",
+      "crop": {
+        "left": 460,
+        "top": 90,
+        "width": 792,
+        "height": 790
+      },
+      "width": 792,
+      "height": 790,
+      "sha256": "20f7b197e2249e864f652cefda467c464cf6aabd453f5ceb5124918f92b8337c"
+    },
+    {
+      "file": "home-assistant/alarm-control.png",
+      "source": "retained",
+      "crop": null,
+      "width": 580,
+      "height": 560,
+      "sha256": "94795d442541ede84feb9e888ac3a8587d926e0d05eee27ca5c45957c5042991"
+    },
+    {
+      "file": "home-assistant/arm-code.png",
+      "source": "retained",
+      "crop": null,
+      "width": 320,
+      "height": 488,
+      "sha256": "56dcf554ff9e08ee79c629bd9f811149c76cc976465e8e3bb1b3a475584811de"
+    },
+    {
+      "file": "home-assistant/compare-code.png",
+      "source": "retained",
+      "crop": null,
+      "width": 580,
+      "height": 400,
+      "sha256": "6a4258bbaddb895c9dda08947014013742a2ff3243e54ced13423b79f9d1a5de"
+    },
+    {
+      "file": "home-assistant/connect.png",
+      "source": "retained",
+      "crop": null,
+      "width": 580,
+      "height": 429,
+      "sha256": "edcc2a1de38a2c8233a7bf57ae8ca0676f879c53f4e3d0927aa15339021f9154"
+    },
+    {
+      "file": "home-assistant/connected.png",
+      "source": "retained",
+      "crop": null,
+      "width": 976,
+      "height": 600,
+      "sha256": "074844ac00c6e10dbcc22ee76b79ce83724da377b54e1bb3464028f0ce5d4769"
+    },
+    {
+      "file": "home-assistant/name-assign.png",
+      "source": "retained",
+      "crop": null,
+      "width": 580,
+      "height": 720,
+      "sha256": "1b429efc7a597dfc787f3a211a62f99939ae8cf1d21248bae6c376811768b1a5"
+    },
+    {
+      "file": "home-assistant/open-pairing.png",
+      "source": "retained",
+      "crop": null,
+      "width": 580,
+      "height": 309,
+      "sha256": "2208b88bf29f0e4b08829c8eb2f0ecb5fb05f0feeb841b1d40d70f335a110df5"
+    },
+    {
+      "file": "home-assistant/share-entities.png",
+      "source": "retained",
+      "crop": null,
+      "width": 580,
+      "height": 640,
+      "sha256": "6f954b399193b169257545fa251bfc0c0f8af312a088ec30b39e4bc316dfe7dc"
+    },
+    {
+      "file": "panel-manager/pm-automations-editor.png",
+      "source": "panel-manager/automations-editor.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 890
+      },
+      "width": 1150,
+      "height": 890,
+      "sha256": "c1f111a5ca2d008ea553203573272dafa472398ba71e617e6f1204a1d2b5bedb"
+    },
+    {
+      "file": "panel-manager/pm-automations-ideas.png",
+      "source": "panel-manager/automations-ideas.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 545
+      },
+      "width": 1150,
+      "height": 545,
+      "sha256": "ed89fc0a797a2843016baa48d815a8e6ede5172f83cf1e4d0f02c5ae4ca18025"
+    },
+    {
+      "file": "panel-manager/pm-keypad-updates.png",
+      "source": "panel-manager/installer-software-updates.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 400
+      },
+      "width": 1150,
+      "height": 400,
+      "sha256": "ba6b51f5a760fdf3b5fe9836b3d5567210d15ebe78c815a60797bc71a4c9f433"
+    },
+    {
+      "file": "panel-manager/pm-network.png",
+      "source": "panel-manager/network.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 825
+      },
+      "width": 1150,
+      "height": 825,
+      "sha256": "9a234ef213287297c58c04de8420fea0f3c176d5cd7895901715b4c7c8c300c0"
+    },
+    {
+      "file": "panel-manager/pm-overview.png",
+      "source": "panel-manager/overview.png",
+      "crop": null,
+      "width": 1440,
+      "height": 960,
+      "sha256": "f28a5548263e2eb51b599b65a801345161d406e3c100a9bfe42be4a85cb2aac7"
+    },
+    {
+      "file": "panel-manager/pm-partitions-and-devices.png",
+      "source": "panel-manager/installer-partitions-and-devices.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 455
+      },
+      "width": 1150,
+      "height": 455,
+      "sha256": "5b51ade867b43520ef37553b47638f583bc43af99172472e951104651ce224aa"
+    },
+    {
+      "file": "panel-manager/pm-people-browser-sign-in.png",
+      "source": "panel-manager/people-browser-sign-in.png",
+      "crop": {
+        "left": 272,
+        "top": 620,
+        "width": 1150,
+        "height": 310
+      },
+      "width": 1150,
+      "height": 310,
+      "sha256": "dd46427255fe629b42cbafb571885e2aaa20b422e6224ef88eb57fdb5e1a7fa0"
+    },
+    {
+      "file": "panel-manager/pm-remote-keypad.png",
+      "source": "panel-manager/remote-keypad.png",
+      "crop": null,
+      "width": 1440,
+      "height": 960,
+      "sha256": "6ad506de361edd0898b4dcfbb1166cf84222cd04c5c3086f1a092ffa49ce1522"
+    },
+    {
+      "file": "panel-manager/pm-sign-in.png",
+      "source": "panel-manager/sign-in.png",
+      "crop": {
+        "left": 620,
+        "top": 150,
+        "width": 452,
+        "height": 530
+      },
+      "width": 452,
+      "height": 530,
+      "sha256": "fa41b94d411f28763e6cf73bbadff9a3a3979c7a04c97b7acbfe87adaca7a8e1"
+    },
+    {
+      "file": "panel-manager/pm-software-updates.png",
+      "source": "panel-manager/software-updates.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 300
+      },
+      "width": 1150,
+      "height": 300,
+      "sha256": "8dc5d6a0c6459843dfe4863153e3f8eed04eb149dad196bbd12a92680b16d03f"
+    },
+    {
+      "file": "panel-manager/pm-troubles.png",
+      "source": "panel-manager/troubles.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 420
+      },
+      "width": 1150,
+      "height": 420,
+      "sha256": "3cc75c5f561f9993e814c896764f884ef18d02e38fb85ca4606496b1ddc34332"
+    },
+    {
+      "file": "panel-manager/pm-zone-editor.png",
+      "source": "panel-manager/installer-zone-editor.png",
+      "crop": {
+        "left": 272,
+        "top": 70,
+        "width": 1150,
+        "height": 890
+      },
+      "width": 1150,
+      "height": 890,
+      "sha256": "fd9a2413df214b295e931fb3527f3e375e1e883ed02b206e229710f13a889a8d"
+    },
+    {
+      "file": "panel/alarms-burglary.png",
+      "source": "panel/09_alarm_burglary.png",
       "crop": null,
       "width": 1024,
       "height": 600,
-      "sha256": "c58b05223acd8c6f950009076e6446e4edd25149093e1fe3610f3b14bd9fd831"
+      "sha256": "0491436974b9421d8a50d084547eee5df277fb34dfe6a592971187f5c4c17aed"
     },
     {
-      "file": "chime.png",
-      "source": "182_chime_panel.png",
+      "file": "panel/alarms-clear.png",
+      "source": "panel/10_alarm_memory.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "47210bc6003aa7e84715bfd4ab0ae4edcc4cdd5dfb4a0bf03dd61d26b244fcf0"
+    },
+    {
+      "file": "panel/alarms-emergency.png",
+      "source": "panel/75_emergency_hold.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "b199308b95b3731ade1a068bc6121476beb447bf137a0a05dca1aca2a65765ac"
+    },
+    {
+      "file": "panel/alarms-troubles-list.png",
+      "source": "panel/72_troubles.png",
       "crop": {
-        "left": 271,
-        "top": 63,
-        "width": 483,
-        "height": 475
+        "left": 96,
+        "top": 0,
+        "width": 928,
+        "height": 330
       },
-      "width": 483,
-      "height": 475,
-      "sha256": "17788ef3d543f135e47d0ff41787d272709e6a11d8f17f31dd087a05d456ff7a"
+      "width": 928,
+      "height": 330,
+      "sha256": "67f6bd151cc1da687ae3cc92c9dd5cb3ec3ab2418dfcde152fa63bfa223b6cbd"
     },
     {
-      "file": "bypass.png",
-      "source": "183_bypass_panel.png",
-      "crop": {
-        "left": 271,
-        "top": 63,
-        "width": 483,
-        "height": 475
-      },
-      "width": 483,
-      "height": 475,
-      "sha256": "44903322e52a2f882d24c9f14de5cbc301094c3f7fa2856588cbe22544f3502c"
+      "file": "panel/arming-entry-time.png",
+      "source": "panel/07_entry_delay.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "da801ce6436d7a27a85b470605129e1e8e4ee364ffe3c54913e9bac57196b86b"
     },
     {
-      "file": "ntfy.png",
-      "source": "194_ntfy_on.png",
+      "file": "panel/arming-pad-options.png",
+      "source": "panel/288_pad_arm_not_ready_options.png",
       "crop": {
-        "left": 439,
-        "top": 64,
-        "width": 571,
+        "left": 560,
+        "top": 52,
+        "width": 452,
         "height": 536
       },
-      "width": 571,
+      "width": 452,
       "height": 536,
-      "sha256": "f14594a3c867a2356327a3a9a860359511c32fea2e7bee81733d19f7a2130cb5"
+      "sha256": "5f2698afbfc6a32165c145423703076f2865c95779e48e5f5a39923e38c355cd"
     },
     {
-      "file": "pushover.png",
-      "source": "200_pushover_on.png",
-      "crop": {
-        "left": 439,
-        "top": 64,
-        "width": 571,
-        "height": 536
-      },
-      "width": 571,
-      "height": 536,
-      "sha256": "e995e4f289c059837c7f74cc0f8d786ca5d1a39864391ec3f722a4373f9ef70c"
-    },
-    {
-      "file": "storage.png",
-      "source": "206_sd_card.png",
-      "crop": {
-        "left": 439,
-        "top": 64,
-        "width": 571,
-        "height": 398
-      },
-      "width": 571,
-      "height": 398,
-      "sha256": "cfcbfeece68dbb48b007fe4563119ebf2a2043c880fa1c55f1e293cda507dcf0"
-    },
-    {
-      "file": "partitions.png",
-      "source": "225_installer_partition.png",
-      "crop": {
-        "left": 438,
-        "top": 64,
-        "width": 570,
-        "height": 490
-      },
-      "width": 570,
-      "height": 490,
-      "sha256": "b5f7a2b5c9318b14227e76e644a4d66620bd059d0b52fd315694cb5150e4c5b9"
-    },
-    {
-      "file": "manual-time.png",
-      "source": "232_time_settable.png",
-      "crop": {
-        "left": 438,
-        "top": 64,
-        "width": 570,
-        "height": 290
-      },
-      "width": 570,
-      "height": 290,
-      "sha256": "00fb05bf16bccdb5b1f5a17900e374aae362f99f4a8e6d78313e48a400ff289a"
-    },
-    {
-      "file": "clock-set.png",
-      "source": "233_clock_set.png",
-      "crop": {
-        "left": 72,
-        "top": 31,
-        "width": 880,
-        "height": 538
-      },
-      "width": 880,
-      "height": 538,
-      "sha256": "796a35268de5ba40aa172a9aaacbee1888262fd30e626cb1ae164c562e04b1cf"
-    },
-    {
-      "file": "remote-keypad.png",
-      "source": "02_remote_keypad_home.png",
+      "file": "panel/automations-arm-warning.png",
+      "source": "panel/398_home_arm_warning.png",
       "crop": null,
       "width": 1024,
       "height": 600,
-      "sha256": "ad73b4f394b1c26bb631c066c01f0a97fd26dfa5c339b234762464fdb247cd7c"
+      "sha256": "4fc268d3c8f07836587ecd05626fa9440e5665359c24fdc2ca4a7bb115556186"
     },
     {
-      "file": "smart-home.png",
-      "source": "17_devices.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "26e4a2fd371d12623fe6359149ff6802d5dd134ed7f9d4701668a4a96ee854c8"
-    },
-    {
-      "file": "smart-home-detail.png",
-      "source": "21_device_light.png",
+      "file": "panel/automations-list.png",
+      "source": "panel/373_automations.png",
       "crop": {
-        "left": 211,
-        "top": 196,
-        "width": 602,
-        "height": 209
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 524
       },
-      "width": 602,
-      "height": 209,
-      "sha256": "6feb38784a2a48ca42d7010565280b8ff6e9e39783caa0e358b047d14d200190"
+      "width": 584,
+      "height": 524,
+      "sha256": "fe990265908a6df19ec000f4e6f565ac129e1c0019e14bd76213986313f45614"
     },
     {
-      "file": "smart-home-arrange.png",
-      "source": "56_devices_arrange_tile.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "325cda69ec52eb201f1fdaf4467a05238cb6357160818dee47357a64e750e35d"
-    },
-    {
-      "file": "automation-list.png",
-      "source": "348_automations.png",
+      "file": "panel/automations-put-off.png",
+      "source": "panel/400_home_arm_put_off_choice.png",
       "crop": {
-        "left": 438,
+        "left": 212,
+        "top": 105,
+        "width": 600,
+        "height": 391
+      },
+      "width": 600,
+      "height": 391,
+      "sha256": "296ed80d43a545e0d580c362abea1b3df3bdb5744e2cf896c10bdc486759d84c"
+    },
+    {
+      "file": "panel/automations-rule.png",
+      "source": "panel/374_automation.png",
+      "crop": {
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 524
+      },
+      "width": 584,
+      "height": 524,
+      "sha256": "276a6d589ca4debe008a6f1e5d638b88e5999bc3a32ed845e97cb30d4854ea82"
+    },
+    {
+      "file": "panel/chime-code-pad.png",
+      "source": "panel/199_chime_panel.png",
+      "crop": {
+        "left": 262,
         "top": 64,
-        "width": 570,
-        "height": 536
+        "width": 500,
+        "height": 472
       },
-      "width": 570,
-      "height": 536,
-      "sha256": "7269accbd01086dc8ec58138071954a85a9d48aa7fc4fd00f27da9d62bb7c564"
+      "width": 500,
+      "height": 472,
+      "sha256": "975e62fbebadbfc8dc9eee97a6f3492b66de02d69dfe30ed5d5956c3dad3e80b"
     },
     {
-      "file": "automation-editor.png",
-      "source": "349_automation.png",
+      "file": "panel/commissioning-walk-test.png",
+      "source": "panel/282_walk_test_summary.png",
       "crop": {
-        "left": 438,
-        "top": 64,
-        "width": 570,
-        "height": 536
-      },
-      "width": 570,
-      "height": 536,
-      "sha256": "932647913555525199df1c0e7dc2024b089d6ecde03ec95c7d07cab0b17436dc"
-    },
-    {
-      "file": "automation-warning.png",
-      "source": "373_home_arm_warning.png",
-      "crop": null,
-      "width": 1024,
-      "height": 600,
-      "sha256": "d235ac1000782a9ac9aecb013e86c3bf3c09f7ac08e1ee23a02ddf5ccb5d1686"
-    },
-    {
-      "file": "automation-arming-editor.png",
-      "source": "363_automation_arm.png",
-      "crop": {
-        "left": 131,
-        "top": 77,
-        "width": 762,
-        "height": 448
-      },
-      "width": 762,
-      "height": 448,
-      "sha256": "44cf372a6307c7dde8cd4507fbfea925010e7a45cca20057ce7514a1e399158c"
-    },
-    {
-      "file": "voice-announcements.png",
-      "source": "382_voice_announcements_on.png",
-      "crop": {
-        "left": 438,
-        "top": 64,
-        "width": 570,
-        "height": 536
-      },
-      "width": 570,
-      "height": 536,
-      "sha256": "e348343013d375e7edf0dbabc7f70413623508305fb94fb467b4069d3fc81bdf"
-    },
-    {
-      "file": "ha-code-detail.png",
-      "source": "88_ha_pairing_code.png",
-      "crop": {
-        "left": 438,
-        "top": 65,
-        "width": 570,
+        "left": 430,
+        "top": 60,
+        "width": 594,
         "height": 520
       },
-      "width": 570,
+      "width": 594,
       "height": 520,
-      "sha256": "542a5b5afbccf919d1bf05f4c9434af1df80377dbb481ec375a90cbd9f75e603"
+      "sha256": "b0a800102b848418bd8513a15396d63b710c39e3b8e380df40ae3e809722d6c6"
+    },
+    {
+      "file": "panel/delays-and-arming.png",
+      "source": "panel/131_installer_options.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "e4dd1274d8717d8e020f232b1515ac7be71c14cc9a4b58fd5b8711195fc9d1b5"
+    },
+    {
+      "file": "panel/display-sound-announcements.png",
+      "source": "panel/407_voice_announcements_on.png",
+      "crop": {
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 470
+      },
+      "width": 584,
+      "height": 470,
+      "sha256": "c82309787989e05b5a79dbdd70a9847902ae72103192c697b424f164fa048cce"
+    },
+    {
+      "file": "panel/display-sound-settings.png",
+      "source": "panel/78_settings_display.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "6fe11ffa6b9d6908cb46c880edfd6e490c98e7d366c3b82715d0a206016c57b7"
+    },
+    {
+      "file": "panel/display-sound-start-screen.png",
+      "source": "panel/71_bl-220-start-screen-pick.png",
+      "crop": {
+        "left": 212,
+        "top": 163,
+        "width": 600,
+        "height": 275
+      },
+      "width": 600,
+      "height": 275,
+      "sha256": "1d7aea3f04339772c89d4691d61a3888315a2d522fe4e3c1ba445dce7a3e09e3"
+    },
+    {
+      "file": "panel/first-setup-codes.png",
+      "source": "panel/180_setup_codes.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "f90a3bfec62cbdda78828b75c42775f3c2b4a5c09f92858b0e9dc57d09569882"
+    },
+    {
+      "file": "panel/first-setup-role.png",
+      "source": "panel/430_bl-048-setup-role.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "80495d5df8e0096ae5d3b67f4afd57ac9998ae66bbc378d65ba199e74e60b185"
+    },
+    {
+      "file": "panel/first-setup-welcome.png",
+      "source": "panel/429_bl-048-setup-welcome.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "78c45efafd55d9823fca798e18933dfdd4151054ebef4383ce9a5dbfb0007fd8"
+    },
+    {
+      "file": "panel/ha-pair-code.png",
+      "source": "panel/100_ha_pairing_code.png",
+      "crop": {
+        "left": 430,
+        "top": 130,
+        "width": 594,
+        "height": 340
+      },
+      "width": 594,
+      "height": 340,
+      "sha256": "a6e158085f22e427c88e033429702181a799d617253238ce6e06821714dcce0d"
+    },
+    {
+      "file": "panel/ha-pair-paired.png",
+      "source": "panel/101_ha_paired.png",
+      "crop": {
+        "left": 430,
+        "top": 60,
+        "width": 594,
+        "height": 360
+      },
+      "width": 594,
+      "height": 360,
+      "sha256": "68bd47de467477d7be34aba3fd30a54c80282ef31aa285b09d2153d65b7a200d"
+    },
+    {
+      "file": "panel/ha-pair-ready.png",
+      "source": "panel/98_ha_ready.png",
+      "crop": {
+        "left": 430,
+        "top": 60,
+        "width": 594,
+        "height": 320
+      },
+      "width": 594,
+      "height": 320,
+      "sha256": "9dbfa2b264340097fb4938fb5e84b8dc2627809e07942eba5a49de5b4c35efa7"
+    },
+    {
+      "file": "panel/ha-zone-bound.png",
+      "source": "panel/197_zone_ha_bound.png",
+      "crop": {
+        "left": 430,
+        "top": 60,
+        "width": 594,
+        "height": 190
+      },
+      "width": 594,
+      "height": 190,
+      "sha256": "3ada466bbe695307241ec90e39280b85a3412d560d770e8ccd7c580e612140fc"
+    },
+    {
+      "file": "panel/ha-zone-sensor-pick.png",
+      "source": "panel/195_zone_ha_catalog.png",
+      "crop": {
+        "left": 430,
+        "top": 60,
+        "width": 594,
+        "height": 400
+      },
+      "width": 594,
+      "height": 400,
+      "sha256": "c5dfb75632954552ece1b99a68eebafbc1453c5c917a4c3cae54b6fbea9ad489"
+    },
+    {
+      "file": "panel/home-ready.png",
+      "source": "panel/01_home_ready.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "8a5c5b70853bde80b0cb50ff518827949144a974709e409a830c6c230ead9a46"
+    },
+    {
+      "file": "panel/home-tour.png",
+      "source": "panel/01_home_ready.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "8a5c5b70853bde80b0cb50ff518827949144a974709e409a830c6c230ead9a46"
+    },
+    {
+      "file": "panel/installer-locked.png",
+      "source": "panel/109_installer_locked.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "41289a7a2fc539fac4403fdd4e060002a4df0245fd3cd9702cbbda449ad689ff"
+    },
+    {
+      "file": "panel/installer-menu-top.png",
+      "source": "panel/111_installer_menu.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 516
+      },
+      "width": 572,
+      "height": 516,
+      "sha256": "90e64a1174dabfd23a9eaff1472303ae786c2737527aa479af707b5792b65cd4"
+    },
+    {
+      "file": "panel/integrations-list.png",
+      "source": "panel/96_integrations.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "0f0dacb98cd8b422b2c72eb064200c06b20e3528dabc569ebca823c18aca95a4"
+    },
+    {
+      "file": "panel/keypads-add-compare.png",
+      "source": "panel/465_bl-048-add-code.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 410
+      },
+      "width": 572,
+      "height": 410,
+      "sha256": "677495b807b88358bdc978798876171ba6461926350ed46d2553372145358b50"
+    },
+    {
+      "file": "panel/keypads-detail.png",
+      "source": "panel/471_bl-048-keypad-page.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 516
+      },
+      "width": 572,
+      "height": 516,
+      "sha256": "8868e7924339b0d01609a60e6aa08bc0d6d8b128871c2c696ed9929abf101d70"
+    },
+    {
+      "file": "panel/keypads-list.png",
+      "source": "panel/470_bl-048-devices.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 516
+      },
+      "width": 572,
+      "height": 516,
+      "sha256": "0ee3671720fb06ce91417082f694a810eb4f41fdbbed134e5169560a7933a346"
+    },
+    {
+      "file": "panel/keypads-lost-link.png",
+      "source": "panel/452_bl-048-kp-home-lost.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "37686b48acd7dfb5fd0370b7a66d609398b370a2b4747079d8cd8e58ea6a170c"
+    },
+    {
+      "file": "panel/keypads-setup-compare.png",
+      "source": "panel/435_bl-048-setup-pair-code.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "86c02a975ae134b293c87f431a978dd190631c40062c25422969dc2a188074f6"
+    },
+    {
+      "file": "panel/mqtt-broker.png",
+      "source": "panel/104_mqtt_connected.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "634a16cdbc0ab038a340882cd6c071c38d1877cb5600d0d6be15567e4ef57783"
+    },
+    {
+      "file": "panel/network-check-passed.png",
+      "source": "panel/89_network_check_passed.png",
+      "crop": {
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 524
+      },
+      "width": 584,
+      "height": 524,
+      "sha256": "77518271fb3ab94f9b3e70e9a93b6f2060243bc9984c384f777093e1d35870c0"
+    },
+    {
+      "file": "panel/network-joined.png",
+      "source": "panel/87_network_address.png",
+      "crop": {
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 500
+      },
+      "width": 584,
+      "height": 500,
+      "sha256": "df7bdc1f4a050525576be2f813d50bb46b2e81cb5eb28a7a706daf73d239e775"
+    },
+    {
+      "file": "panel/network-set-clock.png",
+      "source": "panel/250_clock_set.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "07942abd3f90e64c1206ff7bc93185dcf142d11e1234601f58629903adb1f49a"
+    },
+    {
+      "file": "panel/network-time-language.png",
+      "source": "panel/249_time_settable.png",
+      "crop": {
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 494
+      },
+      "width": 584,
+      "height": 494,
+      "sha256": "129ec4c0a2360852f3b88f7d87d044869a59e6fa042d276187f08f1e7bd44a67"
+    },
+    {
+      "file": "panel/network-wifi-list.png",
+      "source": "panel/84_settings_wifi.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "2abb7f57be0dfaae74fbe7a2985fbc9832550ca39661a3c0b5a551d30ee4d1c0"
+    },
+    {
+      "file": "panel/notifications-ntfy.png",
+      "source": "panel/211_ntfy_on.png",
+      "crop": {
+        "left": 430,
+        "top": 60,
+        "width": 594,
+        "height": 458
+      },
+      "width": 594,
+      "height": 458,
+      "sha256": "e1d3aa23ad9676e9ca9b835d0d15ddfe757a207c51661d9ca7b7a90a8412a329"
+    },
+    {
+      "file": "panel/notifications-pushover.png",
+      "source": "panel/217_pushover_on.png",
+      "crop": {
+        "left": 430,
+        "top": 60,
+        "width": 594,
+        "height": 496
+      },
+      "width": 594,
+      "height": 496,
+      "sha256": "1c2d0f71c987b166c1fd1fef6c9b07d98883cff1711fbf208c9b6022e7889989"
+    },
+    {
+      "file": "panel/partitions-chooser.png",
+      "source": "panel/483_bl-048-partition-chooser.png",
+      "crop": {
+        "left": 202,
+        "top": 154,
+        "width": 620,
+        "height": 294
+      },
+      "width": 620,
+      "height": 294,
+      "sha256": "5bffeea851244fcb05b6ee754fd63d05ec4d4b02bbb5dddbdd761c5280b32cca"
+    },
+    {
+      "file": "panel/partitions-editor.png",
+      "source": "panel/242_installer_partition.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 492
+      },
+      "width": 572,
+      "height": 492,
+      "sha256": "d47accd4a10aca234fcf5cd95c1f2a2e392273b3e268c4b1f9fe59ea06b73512"
+    },
+    {
+      "file": "panel/partitions-switch-row.png",
+      "source": "panel/482_bl-048-partition-home.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "23f3163202851c3eb4c0e52b954fa61fe13bb39154968b9d32cab93051919358"
+    },
+    {
+      "file": "panel/partitions-this-panel.png",
+      "source": "panel/486_bl-048-partition-policy.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "46e3f214cb908e772fa84b63e6af20fc89ef4fd9b5bd9c543fb576bdb23589b7"
+    },
+    {
+      "file": "panel/quick-start-welcome.png",
+      "source": "panel/429_bl-048-setup-welcome.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "78c45efafd55d9823fca798e18933dfdd4151054ebef4383ce9a5dbfb0007fd8"
+    },
+    {
+      "file": "panel/radios-zigbee-page.png",
+      "source": "panel/307_bl-144-zigbee.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 476
+      },
+      "width": 572,
+      "height": 476,
+      "sha256": "1f98e6fb8f97c8aedbfc6c5450fd89bd9521dbe07d2562305fbbebbff49b70e3"
+    },
+    {
+      "file": "panel/sirens-433-page.png",
+      "source": "panel/363_bl-037-rf.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 516
+      },
+      "width": 572,
+      "height": 516,
+      "sha256": "3bc7940361e4f631f44c6a2eb60a816b3a23086394798d1911fd08587a2c4a16"
+    },
+    {
+      "file": "panel/sirens-433-pair.png",
+      "source": "panel/361_bl-037-rf-siren-pair.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 456
+      },
+      "width": 572,
+      "height": 456,
+      "sha256": "0db405247af65ddb254c067b06bc991939bb03aa913c19d97826642868b7af6c"
+    },
+    {
+      "file": "panel/sirens-add-wired.png",
+      "source": "panel/362_bl-037-wired-add.png",
+      "crop": {
+        "left": 218,
+        "top": 88,
+        "width": 588,
+        "height": 426
+      },
+      "width": 588,
+      "height": 426,
+      "sha256": "4a50fde5a0d8fe778ce91cedc9a99d45932601bc41ccb9880b60a94bc3d5ad2d"
+    },
+    {
+      "file": "panel/sirens-list.png",
+      "source": "panel/357_bl-037-sirens.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 440
+      },
+      "width": 572,
+      "height": 440,
+      "sha256": "45662c0fb7a8d0c01ea59a4c47b04a6d91d93ee867da9496f1fa334133159132"
+    },
+    {
+      "file": "panel/sirens-wired-page.png",
+      "source": "panel/358_bl-037-wired.png",
+      "crop": {
+        "left": 436,
+        "top": 60,
+        "width": 572,
+        "height": 516
+      },
+      "width": 572,
+      "height": 516,
+      "sha256": "9cab8438d6cc00029593b037c44331b4b2b9061379dd1be3fd68a0cede5ab651"
+    },
+    {
+      "file": "panel/smart-home-arrange-picked.png",
+      "source": "panel/60_bl-220-arrange-pick.png",
+      "crop": {
+        "left": 100,
+        "top": 56,
+        "width": 924,
+        "height": 230
+      },
+      "width": 924,
+      "height": 230,
+      "sha256": "bba4615d0039815c3604e923045108043c27a802a4b139ad1b0857ac1cc6a106"
+    },
+    {
+      "file": "panel/smart-home-master-code.png",
+      "source": "panel/69_bl-220-device-code.png",
+      "crop": {
+        "left": 272,
+        "top": 84,
+        "width": 480,
+        "height": 433
+      },
+      "width": 480,
+      "height": 433,
+      "sha256": "ddce63faaa48e70038da1189c7ddade945422498035084c9e1eecaf419df67de"
+    },
+    {
+      "file": "panel/smart-home-room-actions.png",
+      "source": "panel/65_bl-220-room-sheet.png",
+      "crop": {
+        "left": 212,
+        "top": 83,
+        "width": 600,
+        "height": 435
+      },
+      "width": 600,
+      "height": 435,
+      "sha256": "b8ec761b060e64f3b57c38fc241006146b92c0e3803f9fd540e2e0db6a0149ec"
+    },
+    {
+      "file": "panel/smart-home-room-picker.png",
+      "source": "panel/62_bl-220-room-pick.png",
+      "crop": {
+        "left": 212,
+        "top": 40,
+        "width": 600,
+        "height": 520
+      },
+      "width": 600,
+      "height": 520,
+      "sha256": "225a4eabc0679554e42afb63323fa9c081436bdc4c1a9ffbf2be413cfcd47d12"
+    },
+    {
+      "file": "panel/smart-home-settings.png",
+      "source": "panel/68_bl-220-settings-smart-home.png",
+      "crop": {
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 524
+      },
+      "width": 584,
+      "height": 524,
+      "sha256": "186e6bb002d82acfdd700e423347c493571b0c2620cc3b76d98f1ecc87dbf161"
+    },
+    {
+      "file": "panel/smart-home-tabs.png",
+      "source": "panel/59_bl-220-no-header.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "cacb3265fca03d54ee5027566b15eceaf834a0b05511d83bfb1aac8f49e73168"
+    },
+    {
+      "file": "panel/updates-keypads.png",
+      "source": "panel/474_bl-048-fw-master-keypads.png",
+      "crop": {
+        "left": 430,
+        "top": 210,
+        "width": 584,
+        "height": 375
+      },
+      "width": 584,
+      "height": 375,
+      "sha256": "85379521eafa6ccfaaddb2f4819277bf2c76fd738ece4e27af6d1faa64d6a192"
+    },
+    {
+      "file": "panel/updates-offered.png",
+      "source": "panel/141_about_update_available.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "7e6e15eeafb9459a8910a00de8dad3a1f1864ed95361ded599bcab0ca1d5ac46"
+    },
+    {
+      "file": "panel/updates-sd-card.png",
+      "source": "panel/223_sd_card.png",
+      "crop": {
+        "left": 430,
+        "top": 56,
+        "width": 584,
+        "height": 504
+      },
+      "width": 584,
+      "height": 504,
+      "sha256": "f9eccbaea7b5cf7cf5bec8d043883410afeef2db84a07a82e9fa97573042a59d"
+    },
+    {
+      "file": "panel/users-authority-picker.png",
+      "source": "panel/82_user_authority.png",
+      "crop": {
+        "left": 202,
+        "top": 34,
+        "width": 620,
+        "height": 534
+      },
+      "width": 620,
+      "height": 534,
+      "sha256": "cf5a36a8dde89b1caed7d9574a7b414723d2c0cecd0995459c4fb6874dfdf4c0"
+    },
+    {
+      "file": "panel/users-user-page.png",
+      "source": "panel/83_user_page.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "f35843bcc201c720dec3a9467c124ca2f283bdbb623aec74fff26246f777f407"
+    },
+    {
+      "file": "panel/zones-bypass-pad.png",
+      "source": "panel/200_bypass_panel.png",
+      "crop": {
+        "left": 262,
+        "top": 64,
+        "width": 500,
+        "height": 472
+      },
+      "width": 500,
+      "height": 472,
+      "sha256": "db62dcaf641b3bcb894602d9a278f566060edd63476585a1984302bb772fc150"
+    },
+    {
+      "file": "panel/zones-contact-choices.png",
+      "source": "panel/193_zone_eol_contact.png",
+      "crop": {
+        "left": 212,
+        "top": 40,
+        "width": 600,
+        "height": 522
+      },
+      "width": 600,
+      "height": 522,
+      "sha256": "b9e0d16f33a5d99d7de6d12eef7b1a020de5d2d23605aea471e250b298176a9d"
+    },
+    {
+      "file": "panel/zones-list.png",
+      "source": "panel/13_zones.png",
+      "crop": null,
+      "width": 1024,
+      "height": 600,
+      "sha256": "ba4e561db6d6d92aa6ec8fa4cf6f4c9a1c25ded6d5f70789477a10f5bf88d23b"
+    },
+    {
+      "file": "panel/zones-source-picker.png",
+      "source": "panel/190_zone_source_pick.png",
+      "crop": {
+        "left": 212,
+        "top": 42,
+        "width": 600,
+        "height": 518
+      },
+      "width": 600,
+      "height": 518,
+      "sha256": "ad55e418f95dd1118025d29b84b9a033787745b539d7adbf183c278aa2844b14"
     }
   ]
 }

@@ -1,39 +1,84 @@
 ---
-title: "System setup checklist"
-description: "The order to configure RoboAlarms and hand it over with confidence."
-sidebar:
-  order: 1
+title: "Plan the installation"
+description: "Collect what you need before you set up a panel, then follow the setup pages in order."
+audience: ["installer"]
 ---
-import PanelShot from '../../../components/PanelShot.astro';
 
-This guide is for the person configuring RoboAlarms. It starts with working panel software and covers system setup. Mounting, power supplies, physical wiring and hardware selection are outside this edition.
+Use this page before you start an installation. Collect the facts in the checklist, then follow the setup pages in the order below.
 
-## Before you begin
+## Planning checklist
 
-Have access to the panel, the intended Wi-Fi network, and the installer and master credentials. For Home Assistant, also have administrator access to the intended Home Assistant instance.
+### Hardware
 
-The system must be disarmed and silent before programming. **Installer mode does not disable fire, CO, 24-hour zones or panic actions.**
+- The panel, its power supply and a place to mount it near a power outlet and in Wi-Fi range.
+- A USB data cable and a computer for the [Flasher](/installer/flasher/).
+- The optional parts that the panel will use: a 433 MHz receiver or transmitter, a battery-backed clock, a Zigbee module or a Z-Wave radio.
+- For wired zones: the terminal for each sensor, a 4.7 kOhm pull-up resistor for each end-of-line zone, and 2 kOhm end-of-line resistors.
+- For wired sirens and outputs: a relay or MOSFET module for each one, and a free terminal.
 
-## Follow this order
+### Zones
 
-1. [Complete first setup](/installer/first-setup/): network, time zone, codes and system name.
-2. [Review access](/installer/installer-access/): verify account roles and recovery policy.
-3. [Configure zones](/installer/zones/): names, behavior and actual sources.
-4. [Review system options](/installer/system-options/): global alarm behavior, arming, lockout and power recovery.
-5. [Configure partitions and device records](/installer/partitions/) if separate areas or supervised keypads/devices are used.
-6. Review [sensor and radio limits](/installer/sensors-radios/) before pairing or relying on an optional source.
-7. If used, [install and pair Home Assistant](/installer/home-assistant/).
-8. If used, [share Home Assistant sensors](/installer/home-assistant-zones/).
-9. If used, [configure notifications](/installer/notifications/) or [MQTT](/installer/mqtt/).
-10. If needed, [enable Panel Manager](/panel-manager/) for browser administration.
-11. [Commission and hand over](/installer/commissioning/) the configured system.
+Make a list with one line for each zone:
+
+- The zone name, for example Front Door or Kitchen Window.
+- The zone type, for example **Entry/exit 1**, **Perimeter**, **Interior follower** or **Fire**.
+- The source: wired, 433 MHz, Zigbee, Z-Wave or Home Assistant.
+- For a wired zone: the terminal and the **Contact** choice.
+- The partition.
+
+Do not use a 433 MHz or Home Assistant sensor for fire, CO or panic zones. See [Set up zones](/installer/zones/).
+
+### Partitions
+
+- How many areas arm separately. The panel has up to four partitions.
+- The name and the exit and entry times of each area.
+- Which panel shows which partition, and if people can switch partitions on it.
+
+### People and codes
+
+- A new installer code and a new master code, each with 4 to 10 digits.
+- The person who gets the master code.
+- The other users, their partitions and their authority.
+- Who signs in to Panel Manager.
+
+Keep the codes in a private record. Do not write them into shared documents.
+
+### Network
+
+- The Wi-Fi network name and password.
+- If you will use Panel Manager, notifications or MQTT.
+
+### Optional parts
+
+- **Radios:** 433 MHz, Zigbee or Z-Wave sensors. See [Sensors and radio modules](/installer/sensors-radios/).
+- **Sirens:** wired, 433 MHz, Zigbee or Z-Wave sirens, strobes and other outputs. See [Sirens and outputs](/installer/sirens/).
+- **Keypads:** other RoboAlarms panels on the same Wi-Fi that act as keypads. See [Keypad panels](/installer/keypads/).
+- **Home Assistant:** the Home Assistant instance and an administrator account. See [Pair with Home Assistant](/installer/home-assistant/).
+
+## Setup order
+
+1. [Install the firmware](/installer/flasher/) with the Flasher.
+2. [Run the first setup](/installer/first-setup/): the role, Wi-Fi, time zone, codes and system name.
+3. [Learn installer access](/installer/installer-access/): enter installer mode and find each setting.
+4. [Set up partitions](/installer/partitions/) if the building has more than one area.
+5. [Set up zones](/installer/zones/) for each sensor.
+6. [Add radio sensors](/installer/sensors-radios/) on 433 MHz, Zigbee or Z-Wave.
+7. [Add sirens and outputs](/installer/sirens/).
+8. [Pair keypad panels](/installer/keypads/) if you use them.
+9. [Set the system options](/installer/system-options/): delays, siren time, panic keys and codes.
+10. If you use them, set up [notifications](/installer/notifications/) or [MQTT](/installer/mqtt/).
+11. If you use them, [pair Home Assistant](/installer/home-assistant/) and [share Home Assistant sensors](/installer/home-assistant-zones/).
+12. If you use a browser, turn on [Panel Manager](/panel-manager/).
+13. [Commission and hand over](/installer/commissioning/) the panel.
 
 ## Record the installation
 
-Keep a separate private installation record: software version, partition and zone schedule, keypad assignments, entry routes, timing choices, who holds each role, and the services enabled. Store credentials securely rather than writing them into public documentation.
+Keep a private installation record. Write down the software version, the zone list, the partitions and the keypad panels. Also write down the entry routes, the delays, who holds each role and the services that you turned on.
 
-Do not treat the end of the setup wizard as acceptance of every sensor or external service. The commissioning checklist verifies those separately.
+The end of the first setup does not prove that each sensor works. Test each zone and each siren during commissioning.
 
-## This edition's limits
+## Related tasks
 
-The guides describe implemented software controls and identify unfinished physical acceptance. Zigbee pairing and Z-Wave commissioning are implemented in software, but acceptance with real sensors and other devices remains open. Physical installation, secondary keypad/expander acceptance and touchscreen backup/restore remain outside this guide. [Smart Home](/user/smart-home/) and [panel automations](/user/automations/) have their own instructions; the separate Settings > Devices rename/hide page is not available yet. Panel Manager has an encrypted configuration backup and restore; it does not include the Zigbee network store. The installer screens can store supervised device records, but this does not prove a compatible device is connected. See [edition coverage](/reference/edition/).
+- [Install the firmware](/installer/flasher/)
+- [Run the first setup](/installer/first-setup/)
+- [Commission and hand over](/installer/commissioning/)

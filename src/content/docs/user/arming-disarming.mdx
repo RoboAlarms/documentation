@@ -1,54 +1,122 @@
 ---
 title: "Arm and disarm"
-description: "Choose an arming mode, leave during exit time, and disarm when you return."
-sidebar:
-  order: 2
+description: "Choose an arming mode, leave during exit time, and disarm when you come back."
+audience: ["user"]
+time: "1 minute"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-**Before you begin:** know your code, the exit route and which door starts the entry countdown. Each keypad controls its assigned partition; ask the installer which area it operates.
+Use this page to arm the panel when you leave or go to bed, and to disarm it when you come back.
 
-## Choose the right mode
+<Aside type="note" title="Before you start">
+- You need your own code. An **Arm only** code can arm but cannot disarm.
+- Know which door you use to leave and come back. Ask the installer which doors have an entry delay.
+- The panel shows the **Security** screen.
+</Aside>
 
-| Mode | Use it when | What is watched |
+## Choose the arming mode
+
+| Mode | Use it when | What the panel watches |
 | --- | --- | --- |
-| **Away** | Everyone is leaving | Perimeter and interior zones |
-| **Stay** | Someone stays inside | Perimeter zones; interior zones are ignored |
-| **Night** | You are going to bed | Perimeter plus interior zones the installer marked as **Night zone** |
+| **Away** | Everyone is leaving. | The whole house: doors, windows and motion sensors inside. |
+| **Stay** | Someone is home. | Doors and windows. The panel ignores the motion sensors inside. |
+| **Night** | You are going to bed. | Doors, windows and the zones that the installer made night zones. |
 
-Fire, CO and other 24-hour zone behavior is separate from these burglary modes. An arming mode is not a way to disable them.
+Fire, CO and other 24-hour zones work in every mode, also when the panel is disarmed. An arming mode does not turn them off.
 
-## Arm the system
+## Arm the panel
 
-1. Close the doors and windows you want protected.
-2. On **Home**, choose **Away**, **Stay** or **Night**.
-3. Enter your code and select the **check mark**, if asked.
-4. For Away, leave by the agreed exit door before the countdown ends.
-5. Check the resulting state. **Armed Away**, **Armed Stay** or **Armed Night** confirms the active mode.
+<Steps>
 
-<PanelShot src="/images/panel/arm-away.png" alt="Arm Away code pad with Instant and Silent exit options" caption="Check the selected mode and options before submitting your code." />
+1. Close the doors and windows.
 
-With **Auto-stay** enabled, keypad Away arming can become Stay if no entry/exit door was used. That is expected behavior, not a failed arming request.
+2. On the **Security** screen, push **Away**, **Stay** or **Night**.
 
-Away normally has exit beeps. Stay and Night have a quiet exit countdown; silence does not mean they failed to arm.
+   The panel shows a code pad, for example **Arm Away**.
 
-For Away, **Silent exit** suppresses the exit beeps and extends exit time. It does not silence a later alarm. Stay and Night already use a quiet exit countdown.
+   <PanelShot src="/images/panel/arming-pad-options.png" alt="The Arm Away code pad with the No entry delay, Silent exit and Bypass open options above the number keys" caption="The options above the keys change how the panel arms. Bypass open shows only when a zone is not ready." size="medium" />
+
+3. If you want an option, push it. See [Arming options](#arming-options).
+
+4. Enter your code.
+
+5. Push the check mark.
+
+   The panel shows the exit time, for example **Arming Away**, with a countdown.
+
+6. For **Away**, leave through the exit door before the countdown ends. For **Stay** and **Night**, stay inside.
+
+   When the countdown ends, the panel shows **Armed Away**, **Armed Stay** or **Armed Night**.
+
+</Steps>
+
+If the installer allows it, the code pad says **Enter your code or press check**. Then you can push the check mark without a code to arm.
+
+<Aside type="tip" title="Check the result">
+The state text shows **Armed Away**, **Armed Stay** or **Armed Night**. Below it, the panel shows when the panel armed and who armed it.
+</Aside>
+
+### Exit time and beeps
+
+During the exit time of **Away**, the panel beeps. **Stay** and **Night** have a quiet exit time. No beeps does not mean that the arming failed. Read the state text.
+
+If **Auto-stay** is on, **Away** can become **Stay**. This happens when you arm on the panel and nobody opens and closes an exit door during the exit time. The panel then arms in **Stay**. This is correct and not a fault.
+
+## Arming options
+
+<span id="what-does-instant-do"></span>
+
+| Option | What it does |
+| --- | --- |
+| **No entry delay** | Removes the entry delay. A door that normally gives you time to disarm causes an alarm at once. The exit time stays. |
+| **Silent exit** | Only for **Away**. Stops the exit beeps and makes the exit time two times longer. It does not silence an alarm. |
+| **Bypass open** | Shows when a zone is not ready. Leaves the open zones out of the protection for this arming. Zones that cannot be bypassed stay in. |
+
+<Aside type="danger" title="Warning">
+Do not use **No entry delay** if someone must come in before you disarm. An entry door causes an alarm at once.
+</Aside>
 
 ## Disarm or cancel exit time
 
-1. On Home, use the code pad already shown during exit time or while armed.
-2. Enter an authorized code.
-3. Select the **check mark**.
-4. Confirm the state changes to **Disarmed**.
+<Steps>
 
-When you return through an entry door, finish before the entry countdown ends. Your code must be authorized for this partition. A **Guest** code can disarm only when that same guest armed this partition. An **Arm only** code cannot disarm.
+1. Find the code pad on the **Security** screen.
 
-<PanelShot src="/images/panel/entry-delay.png" alt="Entry countdown with a code pad ready for disarming" caption="Enter your code directly when you return; no separate Disarm card is needed." />
+   During the exit time, the code pad says **Cancel arming**. When the panel is armed, it says **Disarm**.
 
-## What does Instant do?
+2. Enter your code.
 
-**Instant removes the entry delay.** It does not remove exit time. After the system arms, opening a normally delayed entry door can trigger an immediate alarm. Use it only when nobody needs to enter before disarming.
+3. Push the check mark.
 
-## If the system refuses to arm
+   The panel shows **Disarmed**.
 
-Open **Zones** and read the named problem. Close the opening or resolve the fault, then retry. If deliberately leaving out an eligible zone, follow [Bypass a zone](/user/zones-bypass/). Do not use **Bypass open** without checking which zones it will exclude.
+</Steps>
+
+When you come back through an entry door, the panel shows **Disarm now** and a countdown. Enter your code before the countdown ends. If the countdown ends, the alarm sounds.
+
+<PanelShot src="/images/panel/arming-entry-time.png" alt="The entry time with Disarm now, a countdown of 22 seconds and the Disarm code pad" caption="During the entry time, enter your code on the code pad at once." />
+
+Your code must work in this partition. A **Guest** code disarms only when the same guest code armed the panel. An **Arm only** code cannot disarm. The installer code does not arm or disarm.
+
+<Aside type="tip" title="Check the result">
+The state text shows **Disarmed**. If an alarm happened while you were away, the panel shows **Alarm occurred** or **Alarm canceled**. See [Alarms, troubles and activity](/user/alarms-troubles/).
+</Aside>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The code pad says that a zone is open, and the panel does not arm. | Close the zone. Or push **Bypass open** and push the check mark again. See [Zones and bypass](/user/zones-bypass/). |
+| The panel shows **Not ready**. | Open **Zones** and find the zone that is open or has a trouble. |
+| The code pad says **A walk test is running**. | End the walk test first. |
+| The code pad says **Not while the installer is working**. | Wait until the installer leaves installer mode. |
+| The panel does not accept your code. | Check that you use your own code for this partition. After too many wrong codes, the keypad locks for a while. |
+| The panel armed in **Stay** after you pushed **Away**. | Nobody used the exit door during the exit time. Disarm and arm **Away** again, then leave at once. |
+
+## Related tasks
+
+- [Zones and bypass](/user/zones-bypass/)
+- [Alarms, troubles and activity](/user/alarms-troubles/)
+- [Partitions](/user/partitions/)
+- [The Home screen](/user/getting-started/)

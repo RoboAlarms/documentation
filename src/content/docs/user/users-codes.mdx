@@ -1,59 +1,144 @@
 ---
-title: "Users, codes and partitions"
-description: "Manage household users, choose their alarm permissions and control the areas their codes can operate."
-sidebar:
-  order: 6
+title: "Users and codes"
+description: "Add a person, choose what the code can do and where it works, and change or remove a code."
+audience: ["user", "installer"]
+time: "3 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-**Where:** Settings > Users<br />
-**Access:** installer or system master for all users; a partition master for eligible users within their assigned partitions<br />
-**Before you begin:** every partition affected by a user change must be disarmed and not in alarm.
+Use this page to give each person in the household a code, and to change or remove a code. Give each person a separate code. Then **Activity** shows who armed, disarmed or bypassed.
+
+<Aside type="note" title="Before you start">
+- You need a master code, a partition master code or the installer code.
+- Each partition that the change affects must be disarmed, and no alarm can sound.
+</Aside>
 
 ## Add a user
 
-1. Open **Settings > Users** and authenticate with your own authorized code.
-2. Select **Add a user**.
-3. Enter the new user's code twice when **Code for the new user** appears.
-4. On the new user's page, select **Name** and enter a recognizable name. The name appears in the event log.
-5. Open **What this code can do** and choose an authority you are allowed to assign. A partition master cannot assign **Partition master**.
-6. If the page offers **Partitions**, choose the areas this code may use. The user must keep at least one partition.
-7. Return to the list and verify the name, authority and partition access.
+<Steps>
 
-<PanelShot src="/images/panel/user-page.png" alt="User settings with Name, What this code can do and Change the code" caption="Give each person a separate code so events can identify who operated the system." />
+1. Push the gear in the top bar to open **Settings**.
 
-Codes must be unique and contain 4–10 digits, subject to the installer's minimum length.
+2. Push **Users**.
 
-## Choose an authority
+3. Enter your master or installer code, then push the check mark.
 
-| Authority | What it allows |
+   The panel shows the list of users. Codes are never shown.
+
+4. Push **Add a user**.
+
+   The panel shows the **Code for the new user** code pad.
+
+5. Enter the new code, then push the check mark.
+
+6. Enter the same code again, then push the check mark.
+
+   The panel shows **User added. Give them a name** and opens the page of the new user.
+
+7. Push **Name** and type the name of the person. The name shows in the event log.
+
+8. Push **What this code can do** and choose a level. See [What a code can do](#what-a-code-can-do).
+
+9. If the page shows **Partitions**, push it and choose the partitions where this code works.
+
+</Steps>
+
+<PanelShot src="/images/panel/users-user-page.png" alt="The page of a user named Sam with the Name, What this code can do and Change the code rows and a Delete this user button" caption="The page of a user shows the name, the level and the rows to change them." />
+
+<Aside type="tip" title="Check the result">
+Go back to the list of users. The new user shows with the name and the level below it, for example **User 03 · Guest**.
+</Aside>
+
+A code has from 4 to 10 digits. The installer can set a larger minimum. Each code must be different.
+
+## What a code can do
+
+<PanelShot src="/images/panel/users-authority-picker.png" alt="The What this code can do list with Standard, Arm only, Guest, Duress and Partition master" caption="Each level has one line that tells what the code can do." size="small" />
+
+| Level | What the code can do |
 | --- | --- |
-| **Standard** | Everyday arming, disarming, bypass and chime in assigned partitions |
-| **Arm only** | Arm assigned partitions; cannot disarm or bypass |
-| **Guest** | Arm and disarm a partition only when that same guest armed it |
-| **Partition master** | Manage permitted lower-level users within assigned partitions |
-| **Duress** | Normal code operation plus a silent duress event |
+| **Standard** | Arms, disarms, bypasses and changes the chime. A new user gets this level. |
+| **Arm only** | Arms only. It cannot disarm or bypass. |
+| **Guest** | Arms, and disarms only what this same code armed. It cannot bypass. |
+| **Duress** | Disarms like a standard code and silently reports that someone forces the person to disarm. |
+| **Partition master** | Everything a standard code can do. It also manages the users of its own partitions. |
+| **System master** | Everything, in all partitions, and manages all users except the installer. |
+| **Installer** | Programs the panel and manages users. It does not arm or disarm. |
 
-The installer and system master can manage all users. A system master cannot change or remove the installer. A partition master manages only standard, arm-only, guest and duress users whose partition access stays within the partition master's own access. A partition master cannot create another partition master. The installer and system master have access to every partition.
+Only the system master and the installer can make a partition master. The **System master** and **Installer** levels are fixed, and you cannot change your own level.
 
-Only the installer and system master can assign **Partition master** authority. The manager of a user can set or remove that user's Panel Manager sign-in where available; only the installer may set the installer's sign-in. A password set for somebody else is temporary: that person chooses a replacement at first sign-in. Panel Manager sign-in uses a browser password, not the keypad code.
+<Aside type="note">
+A duress code does not send help by itself. It records a private event, and a connected service can report it. See [Safety and limits](/start/safety/).
+</Aside>
 
-Duress silently records and reports a duress event. Creating a duress code does not provide a monitoring service or guarantee that help is dispatched.
+## Choose the partitions of a code
 
-## Choose partition access
+If the panel uses more than one partition, the page of a user shows **Partitions**. Turn on each partition where the code works. A user must keep at least one partition. The installer and system master codes work in all partitions.
 
-On a panel with more than one partition in use, a user's page includes **Partitions**. Turn on each named area where that person's code should work. The user must retain at least one partition. Installer and system-master accounts always cover every partition; their access is fixed.
-
-Partition access affects which keypads and alarm areas the user can operate and which users a partition master may manage. It does not move zones between areas; the installer configures zones separately. Ask the installer which physical area each partition name represents. See [Partitions and your code](/user/partitions/) for everyday use.
+A partition master can manage only users whose partitions are all inside the partitions of the partition master. For more about partitions, see [Partitions](/user/partitions/).
 
 ## Change or remove a code
 
-Open the person's page and select **Change the code**, then enter the new code twice. Existing codes are never displayed. Select **Delete this user**, review the confirmation and select **Delete** to remove access. The installer, system master and currently signed-in user cannot be deleted from this page.
+To change a code:
 
-The installer or system master can change codes and names for users they manage, and can assign roles and partitions to eligible users. The installer and system-master roles are fixed, and an account cannot change its own authority or partition access. A system master cannot manage the installer. A partition master can manage only eligible users within their assigned areas.
+<Steps>
 
-## Factory-code reminder
+1. Open **Settings > Users** and push the name of the user.
 
-The **Factory codes · Tap to change** banner opens a flow for changing a currently used factory code. The installer can also replace the installer and master codes from **Settings > About > Installer > Installer and master codes** in installer mode. Installer mode is a protected installer area; it is not the same as an ordinary user's code page.
+2. Push **Change the code**.
 
-If a code does not work, stop rather than guessing: repeated failures can lock the keypad temporarily. Ask the installer or the person who manages users to check your authority and partition access. See [access and permissions](/reference/permissions/) for the complete access rules.
+3. Enter the new code, then push the check mark.
+
+4. Enter the new code again, then push the check mark.
+
+   The panel shows **Code changed**.
+
+</Steps>
+
+To remove a user:
+
+<Steps>
+
+1. Open **Settings > Users** and push the name of the user.
+
+2. Push **Delete this user**.
+
+   The panel asks if you want to delete the user.
+
+3. Push **Delete**.
+
+   The code stops working at once. The event log keeps the name.
+
+</Steps>
+
+You cannot delete the installer, the system master or yourself.
+
+### Change your own code
+
+If the top bar shows **Factory codes · Tap to change**, push it. Enter your current code, then your new code two times. The installer can also change the installer and master codes in **Settings > About > Installer > Installer and master codes**.
+
+## Panel Manager sign-in
+
+The page of a standard, partition master or system master user can show **Browser sign-in**. Turn it on to let this person sign in to [Panel Manager](/panel-manager/) in a browser. Panel Manager uses a password of at least 12 characters, not the keypad code. If you set a password for another person, that person chooses a new password at the first sign-in. See [Browser accounts](/panel-manager/accounts/).
+
+## Smart Home protection
+
+A master code can also protect devices on the **Smart Home** screen. Then a change to a protected device asks for a master code. See [Smart Home](/user/smart-home/).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The panel says **This code can't open this section**. | Use a master, partition master or installer code. |
+| The panel says **Every user slot is taken**. | Delete a user that is not used any more. |
+| The panel does not accept the new code. | Use a code that no other user has, with the number of digits that the code pad shows. |
+| You cannot change the level or partitions of a user. | You cannot change your own level, the system master or the installer. |
+| A person's code does not work at a keypad. | Check the level and the **Partitions** of the user. After too many wrong codes, the keypad locks for a while. |
+
+## Related tasks
+
+- [Partitions](/user/partitions/)
+- [Access and permissions](/reference/permissions/)
+- [Smart Home](/user/smart-home/)
+- [Arm and disarm](/user/arming-disarming/)

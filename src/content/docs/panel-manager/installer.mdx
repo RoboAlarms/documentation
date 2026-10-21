@@ -1,50 +1,267 @@
 ---
 title: "Installer programming"
-description: "Manage users, sensors, partitions, alarm behavior, access, and maintenance in Panel Manager."
-sidebar:
-  order: 5
+description: "Program zones, radios, partitions, keypads, system options, remote access and backups in Panel Manager."
+audience: ["installer"]
+time: "15 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-Sign in with the installer browser account. Installer-only pages appear under **Installer**. All partitions must be disarmed, no alarm can be active, and local Installer mode must be closed before programming in the browser. If an Installer session is open at the touchscreen, exit it there first. Browser actions are authorized as the signed-in installer; the browser does not ask for the installer keypad code. Some sensitive actions, such as turning remote access off or resetting the panel, require the installer's own browser password again if it has not been entered within the last ten minutes.
+When you sign in as the installer, Panel Manager shows the **Installer** group in the menu. Use this page to program the panel from a browser. The pages do the same things as **Settings > About > Installer** on the panel.
 
-## Manage people and browser access
+<Aside type="note" title="Before you start">
+- Sign in with the installer's browser account. See [Browser accounts](/panel-manager/accounts/).
+- Disarm every partition, and wait until no alarm sounds.
+- Close Installer mode on the panel. While Installer mode is open at the panel, the pages show **Installer mode is open at the panel** and changes wait.
+</Aside>
 
-Open **Household > People and codes**. Choose a person to edit or **Add a person**. Set the person's name, role, partition assignments, keypad code, and browser sign-in, then select **Save** or **Add this person**. The panel enforces the signed-in person's account authority and partition scope. It does not ask for the actor's keypad code in the browser. A browser password you set for someone else can be temporary; that person chooses their own password at first sign-in when you request it. See [Browser accounts and permissions](/panel-manager/accounts/) for who can manage whom and lockout behavior.
+Panel Manager does not ask for the installer code. Some changes ask for your own browser password again: remote access, keypads, backups, restore and factory reset. Panel Manager asks if you did not type it in the last 10 minutes.
 
-Turning a user's browser sign-in off signs that user's sessions out. Changing a name, role, code, or browser password also revokes that person's active sessions. Installer mode can manage every account. A system master cannot edit the installer, and partition masters are limited to themselves and eligible lower-authority users within their own partitions.
+## Program a zone
 
-## Program sensors and partitions
+**Installer > Zones** lists the zones in use, with their type, source and state. At the end, **Sensor sources** shows each source and how many zones use it.
 
-Open **Installer > Sensor sources** to choose available source types and manage source connections. To configure a zone, open **Zones** in the main menu, select its row, then choose **Sensor link**. In the sensor link page, check **Source**, **Device ID**, **Input or terminal**, and **Reference** against the intended sensor; choose the **Reading** mode and any mapping fields needed by that source. Optional **Tamper input** and **Battery input** sections can map separate source signals. Expand **Timing** only when setting advanced grace or response values. Select **Review**, check the zone number and each changed mapping, then select **Save**. The signed-in installer account authorizes the change; no keypad code or browser password is requested for sensor programming. Unlinking a sensor means that zone no longer hears from it until linked again.
+<Steps>
 
-In the main-menu **Zones** page, select a zone to edit its **Name**, **Zone type**, **Sensor kind**, **Partition**, and **Options**; advanced fields can include **Check-in supervision**, **Cross-zone partner**, and **Alarm limit**. Select **Add a zone** to open a free zone, complete its fields, review them, and **Apply**. No keypad code or browser password is requested for zone programming. **Remove** changes a zone's type to **Not used** after confirmation; its sensor link remains until you remove that link separately.
+1. Click **Installer > Zones**.
+2. Click a zone, or click **Add a zone**.
 
-In **Installer > Partitions and devices**, select a partition to edit **In use**, **Name**, **Exit time**, **Entry time 1**, and **Entry time 2**. Select a device to edit **In use**, **Name**, **Home partition**, and **Check-in supervision**. Review the partition or device values and choose **Apply**. These programming saves use the signed-in installer account and do not ask for a keypad code or browser password.
+   A new zone gets the next free number.
 
-Save each edit through its review. The panel enforces installer authority from the signed-in browser account. Check that the selected partition is the one intended: a zone's partition determines where that zone reports and how its status affects arming.
+3. Under **The zone**, type the **Name** and choose the **Type**.
 
-The browser has separate **Installer > Z-Wave** and **Installer > Zigbee** pages when those radios are included in the firmware. Use the procedures and support limits in [Sensors and radio modules](/installer/sensors-radios/). Pairing or resetting a radio network changes sensor coverage; do not start unless the panel is idle and you are prepared to test the affected devices afterward.
+   If the panel has more than one partition, also choose the **Partition**.
 
-For delay ranges, zone assignments and user access examples, see [Partitions and devices](/installer/partitions/). Device records describe supervised equipment; enabling one does not install a physical keypad or make the planned panel-link feature available. **All partitions** in a device record does not add a partition switcher to the touchscreen Home page.
+4. Under **Its sensor**, choose the **Sensor** kind. It sets the icon on the panel and in integrations.
+5. Beside **Source**, click **Pick** or **Change**.
 
-## Change alarm behavior
+   Panel Manager asks **Where is the sensor?**.
 
-Open **Installer > System options**. The page groups alarm and access behavior such as the shortest allowed code, wrong-code lockout, chime code requirement, exit sounds, Automatic Stay, Quick Arm, Quick Exit, report and cancel windows, siren behavior, fire verification, smoke reset, power-up behavior, trouble beeps, panic keys, and walk-test timeout.
+6. Click the source, and find the sensor. The next sections show how for each source.
+7. Under **What it does**, turn on the options that you want, for example **Chime** or **Night zone**.
+8. Click **Review and save**, or **Review and add** for a new zone.
 
-Change only settings you intend to change, then inspect the review carefully before **Apply**. Fields such as **Allow values outside SIA CP-01** are intended for testing; leave that option off in a home. System options are installer-only and remain locked while armed or in alarm.
+   Panel Manager shows the old and new values.
 
-## Manage browser and development access
+9. Click **Save** and the zone name, or **Add zone** and the number.
 
-Open **Installer > Access and maintenance**. **Browser access (this Panel Manager)** controls the Web server. **Developer tools** controls workstation enrollment, developer logs, and signed development-file installation; it requires Web server access. Developer mode is optional for household operation. Change a switch and select **Review**. Confirm with the installer's own Panel Manager password when prompted; this is a browser password, not the installer keypad code. If you turn Browser access off, the page closes as soon as you apply and only the touchscreen can turn it on again.
+</Steps>
 
-Turning browser access off closes Panel Manager, revokes browser sessions, and turns Developer mode off. On the touchscreen, return to **Settings > About > Installer** and turn the **Panel Manager** switch on to enable it again. Developer mode can be disabled while leaving ordinary Panel Manager administration available by keeping **Browser access** on and switching **Developer tools** off. Workstation enrollment and other sensitive remote maintenance require installer authorization and may ask for the installer's own browser password again.
+<PanelShot src="/images/panel-manager/pm-zone-editor.png" alt="Zone editor for Front Door, Zone 1: Right now Closed, The zone with Name, Spoken name and Type Entry/exit 1, and Its sensor with Sensor Door, Source Wired contact Input 1, Contact Normally closed and Response time Source default" caption="The zone page has the zone's settings and its sensor." />
 
-## Back up or restore configuration
+<Aside type="tip" title="Check the result">
+**Right now** at the top of the zone page shows the state of the sensor. Open and close the sensor, and check that the state changes.
+</Aside>
 
-Open **Installer > Access and maintenance**. **Download a backup…** creates an encrypted `.rabk` configuration file. Choose a separate backup password and keep it apart from the file. The installer must confirm with their own Panel Manager password if recent-password verification is required. The file includes configuration such as zones, people and codes, Wi-Fi, integrations, and the Z-Wave network; it does not include the event log or the panel's identity. The Zigbee stack's network store is not yet included, so a configuration restore does not preserve Zigbee pairing.
+The spoken name is chosen at the panel. Click **Choose words on the panel** for help. See [Zones](/installer/zones/).
 
-To restore, select the `.rabk` file and choose **Restore…**. Check the destination carefully: the saved configuration replaces the matching settings on this panel, then the panel restarts. Type `RESTORE`, enter the backup password, and confirm with the installer's browser password if asked. Every partition must be disarmed and quiet. The panel validates the complete file before changing settings. A replacement panel keeps its own identity and takes over the backup's Z-Wave network. This is a configuration backup; a Flasher whole-flash backup is a separate file and operation.
+### Pick the sensor
 
-## Factory reset
+| Source | What you do |
+| --- | --- |
+| **Wired contact** | **Pick the terminal**: open and close the sensor. Its terminal shows it. Then choose the **Contact**: **Normally closed** or **Normally open**. End-of-line contacts can be chosen only on the panel. |
+| **433 MHz sensor** | **Find the sensor**: start with the door closed, then open and close it. Trigger a remote or a motion sensor twice. |
+| **Zigbee sensor**, **Z-Wave sensor** | **Find the sensor**: open and close it. The sensor must be paired with the panel first. |
+| **Home Assistant sensor** | **Pick the sensor**: type a name, a room or an entity ID to search, then click the sensor. |
+| **Keypad input** | **Pick the terminal** of the keypad. |
 
-The factory reset action erases saved settings, users and codes, Wi-Fi, and remote access; it does not reflash or replace the installed firmware. Use it only when you intend to set up the panel again. Open **Installer > Access and maintenance**, choose **Factory reset…**, decide whether to select **Erase the event log too**, and type `ERASE THIS PANEL` exactly. Enter the installer's own browser password if asked, then choose **Erase the panel**. The panel restarts and must be set up again at its touchscreen; its browser sign-ins and configuration are gone. Cancel if you are not ready to erase the installation. This reset is not a repair for a network address change; use [Network settings and recovery](/panel-manager/network/) for that.
+If you know the address of the sensor, click **Type its address instead**. Type the **Device ID**, the **Input or terminal** and the **Reference**, then click **Use this address**.
+
+To add a zone and pick the sensor later, click **Add it without a sensor for now**. A zone without a sensor never opens. The zone list shows a warning for it.
+
+### Pick a 433 MHz sensor
+
+While you open and close the door, the page shows what the panel hears.
+
+- **Heard** and a name: close the door, or push the button again, to be sure.
+- **Found it:** and the name **answered each time.**: click **Use** and the name.
+- The name **answered, but it already feeds** another zone: this sensor is in use. Pick another sensor.
+
+The list puts sensors that were sending before you started under **Already transmitting before you started**. These are usually other sensors nearby, not the one that you opened.
+
+### Tamper and low-battery inputs
+
+Under **Other inputs**, a zone can also have a **Tamper input** and a **Low-battery input**. Click **Pick** beside the input.
+
+For a 433 MHz zone, the page shows **Find the tamper code** or **Find the low-battery code**. The list shows only the codes of the zone's own sensor.
+
+- For the tamper code, open and close the door once. Then take the cover off the sensor. Pick the code that appeared as the cover came off.
+- A sensor sends its low-battery code only when its battery is low. Power it from a lower voltage to hear it, or pick the code yourself.
+
+### Remove a sensor or a zone
+
+- **Remove the sensor** keeps the zone without a sensor. The zone never opens until you pick a sensor again.
+- **Remove zone** stops the zone. Its history stays in the event log.
+
+## Z-Wave and Zigbee
+
+**Installer > Z-Wave** and **Installer > Zigbee** show the radio, its state and the paired devices. They show only when the panel has the radio.
+
+- Click **Add a device** to pair a device. Click **Remove a device** to remove one.
+- On a device page, set its name and, for a siren, the siren settings.
+- On the radio page, you can update the Z-Wave radio, also from its maker's file.
+
+For the steps and the sensor settings, see [Sensors and radio modules](/installer/sensors-radios/). Sirens on the panel's terminals and on 433 MHz are set only on the panel. See [Sirens and outputs](/installer/sirens/).
+
+## Partitions and devices
+
+**Installer > Partitions and devices** shows the partitions and the devices assigned to them. Only partitions in use show.
+
+<PanelShot src="/images/panel-manager/pm-partitions-and-devices.png" alt="Partitions and devices with the Home partition and Add partition, and Devices with Panel keypad Locked to Home and Hall keypad Online with Add device" caption="Each partition shows its delays. Each keypad shows its partition and its state." size="medium" />
+
+### Partitions
+
+<Steps>
+
+1. Click **Add partition**, or click **Edit** beside a partition.
+2. Type the **Name**.
+3. Set the **Exit time**, **Entry time 1** and **Entry time 2** in seconds.
+4. Click **Save partition**, check the values, and click **Apply**.
+
+</Steps>
+
+To remove a partition, open it and click **Remove**. Panel Manager refuses in two cases:
+
+- **The last partition cannot be removed.**
+- **Move assigned devices and zones before removing this partition.** Move the zones and keypads to another partition first.
+
+See [Set up partitions](/installer/partitions/).
+
+### Keypads
+
+The **Devices** list shows the keypads first. **Panel keypad** is the panel's own screen. It cannot be removed. Each paired keypad panel shows **Online**, **Waiting for status** or **Not responding**.
+
+Click **Edit** beside a keypad to set it:
+
+| Setting | What it does |
+| --- | --- |
+| **Name** | The name of the keypad. |
+| **Default partition** | The partition that the keypad shows and arms. |
+| **Allow partition switching** | Lets a person choose another partition on the keypad. Off locks the keypad to its default partition. Off from the factory. |
+| **Return after inactivity** | The seconds after which the keypad goes back to its default partition. 1 to 3600 seconds, default 30. |
+| **Never return automatically** | The keypad stays on the chosen partition. |
+
+**Return after inactivity** and **Never return automatically** show only when **Allow partition switching** is on. With switching on and more than one partition in use, the **Security** screen of that keypad shows **Switch partition**.
+
+Click **Save keypad settings** to save. Saving and **Remove** ask for your browser password.
+
+### Pair a keypad panel
+
+<Steps>
+
+1. Click **Add device**, then **Keypad**.
+
+   Panel Manager shows **Add a keypad**.
+
+2. Prepare the new keypad panel: choose **A keypad** in its setup, then push **Find panel**.
+3. Click **Start pairing**.
+
+   Pairing stays open for 2 minutes. Keep the window open.
+
+4. When Panel Manager shows **Compare the codes**, compare the code with the code on the keypad panel.
+5. If the codes are the same, click **Matches**. If they are different, click **No match**.
+6. Confirm on the keypad panel.
+7. Click **Set up keypad**, and set its name and partition.
+
+</Steps>
+
+See [Keypad panels](/installer/keypads/).
+
+### Other devices
+
+Click **Add device**, then **Expander** or **Receiver**, to add a record for supervised equipment. Set its **Name**, **Home partition** and **Check-in supervision** in seconds. 0 means not supervised. Click **Save device**, then **Apply**.
+
+## System options
+
+**Installer > System options** sets how the whole alarm behaves. The groups are **Codes and lockout**, **Arming**, **Alarms and sirens**, **Fire**, **Power and start-up**, **Troubles**, **Keypad panic keys** and **Service**.
+
+<Steps>
+
+1. Click **Installer > System options**.
+2. Change only the settings that you want to change.
+3. Click **Review changes**.
+4. Check each old and new value, and click **Apply**.
+
+</Steps>
+
+The panel checks each value against its rules. **Allow values outside SIA CP-01** is for tests only. Leave it off in a home. For what each option does, see [System options](/installer/system-options/).
+
+## Remote access, codes and starting over
+
+**Installer > Access and maintenance** has five cards.
+
+| Card | What it does |
+| --- | --- |
+| **Remote access** | **Browser access (this Panel Manager)** turns Panel Manager off for everyone. **Developer tools** turns on signed firmware upload from a file, diagnostic logs and an enrolled development workstation. |
+| **Installer and master codes** | **Change a code…** sets the installer's or the system master's code without the old code. |
+| **Backup** | **Download a backup…** saves the settings in one encrypted file. |
+| **Restore from a backup** | Puts the settings of a backup on this panel. |
+| **Factory reset** | Erases settings, users, Wi-Fi and remote access. |
+
+<Aside type="caution" title="Caution">
+If you turn off **Browser access (this Panel Manager)**, the page stops working at once for everyone. Only the panel's screen can turn it on again, in **Settings > About > Installer**.
+</Aside>
+
+### Back up or restore the settings
+
+The backup holds everything to set up this panel again, or a replacement panel. It holds the zones and their sensors, the people and their codes, Wi-Fi, the integrations and the Z-Wave network. It never holds the panel's own identity or its event log.
+
+<Steps>
+
+1. Click **Download a backup…**.
+2. Type a **Backup password** of 8 to 64 characters.
+
+   You need this password to restore.
+
+3. Type your browser password if Panel Manager asks.
+4. Click **Download**.
+
+   The browser saves a `.rabk` file.
+
+</Steps>
+
+Keep the file and the backup password apart. Anyone with both can read the Wi-Fi and integration passwords in the file.
+
+To restore, choose the `.rabk` file in **Backup file**, and click **Restore…**. Type `RESTORE`, the backup password and, if asked, your browser password. The panel checks the whole file first. If any part is wrong, it changes nothing. Then it replaces its settings and restarts. A replacement panel keeps its own identity and takes over the Z-Wave radio of the backup.
+
+This backup is not a Flasher whole-flash backup. See [Back up, reset and restore](/flasher/backups/).
+
+### Factory reset
+
+<Aside type="caution" title="Caution">
+A factory reset erases the settings, users and codes, Wi-Fi and remote access. You cannot undo it. Download a backup first.
+</Aside>
+
+<Steps>
+
+1. Click **Factory reset…**.
+2. To erase the event log too, tick **Erase the event log too**.
+3. Type `ERASE THIS PANEL`.
+4. Type your browser password if Panel Manager asks.
+5. Click **Erase the panel**.
+
+</Steps>
+
+The panel restarts and must be set up again at its screen. The reset does not change the firmware. See [Run the first setup](/installer/first-setup/).
+
+## Developer
+
+While **Developer tools** is on, the **System** group shows **Developer**. The page shows the panel ID, the address, the board, the development service and the panel's log. Developer tools are not needed for a home. Turn them off when you finish.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Installer mode is open at the panel** | Close Installer mode on the panel. Then make the change again. |
+| The page fields cannot be changed. | Disarm every partition, and wait until no alarm sounds. |
+| The zone list shows that zones have no sensor. | Open each zone and pick its sensor, or remove the zone. |
+| A keypad's **Edit** cannot be saved. | The keypad must be **Online** or **Waiting for status**. Check the keypad panel. |
+| **Add device > Keypad** is off. | All keypad numbers are in use. Remove a keypad or device first. |
+| You turned off browser access by mistake. | At the panel, open **Settings > About > Installer**, and turn on **Panel Manager**. |
+
+## Related tasks
+
+- [Zones](/installer/zones/)
+- [Set up partitions](/installer/partitions/)
+- [Keypad panels](/installer/keypads/)
+- [System options](/installer/system-options/)

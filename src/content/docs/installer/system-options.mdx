@@ -1,62 +1,122 @@
 ---
-title: "System options"
-description: "Review global alarm behavior, code policy, panic keys and power restoration settings."
-sidebar:
-  order: 5
+title: "Delays and arming"
+description: "Set the delays, siren time, arming rules, code lockout and power behaviour for the whole panel."
+audience: ["installer"]
+time: "15 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-**Where:** Settings > About > Installer > Delays and arming<br />
-**Access:** installer mode, with every partition disarmed.
+Use the **Delays and arming** page to set how the alarm behaves on the whole panel. The settings include the siren time, which applies to every siren that the panel sounds.
 
-Record the current values before changing them. These settings apply system-wide; each partition's name and entry/exit times are in [Partitions and devices](/installer/partitions/). With only one partition in use, its exit and entry delays also appear on this page. Changes are saved when you go back from the page. Verify the result during commissioning.
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- Disarm every partition.
+- Write down the current values before you change them.
+</Aside>
 
-<PanelShot src="/images/panel/system-options.png" alt="System options showing delay controls" caption="Review timing choices against the actual entry and exit routes." />
+## Open the page
 
-## Delays and alarm behavior
+<Steps>
 
-| Setting | Effect |
-| --- | --- |
-| **Report delay** | Time to disarm after a burglary alarm starts without sending that burglary report; it does not create an entry delay. |
-| **Siren time** | How long a burglary siren sounds; **Until disarmed** keeps it sounding until disarm. |
-| **Fire and CO sirens stop by themselves** | When off, those sirens continue until silenced. Review the installer note before changing this behavior. |
-| **Cancel window** | Disarming soon after a report was sent can issue a cancel. |
-| **Alarm limit** | Limits repeat trips from one zone while armed; the zone is shut down until disarmed after its limit. |
-| **Cross-zone time** | Two cross-zoned sensors must trip within this interval. |
-| **Fire verification** | Sets the interval in which a verified smoke detector must trip again. |
-| **Smoke detector reset** | Sets how long smoke detectors lose power during reset. |
+1. Push **Settings**.
+2. Push **About**, and then push **Installer**.
+3. Enter the installer code.
+4. Under **How the alarm works**, push **Delays and arming**.
 
-The panel warns when entry time plus report delay exceeds 60 seconds. The setting controls do not certify that an installation meets any standard. Do not shorten delays merely to make a demonstration faster.
+   The panel shows the delays first. The line under the title says **Saved when you go back**.
 
-**Panic keys** selects what keypad keys A, B and C send. **Trouble beeps** selects which troubles make the keypad sound. Coordinate emergency and audible behavior with everyone affected; do not test emergency functions casually.
+5. Change the settings that you need.
+6. Push the back arrow to save the changes.
+
+</Steps>
+
+<PanelShot src="/images/panel/delays-and-arming.png" alt="Delays and arming page with Exit time, Entry time 1, Entry time 2 and Report delay" caption="Use the minus and plus buttons to change a time; the panel saves when you go back." />
+
+**Exit time**, **Entry time 1** and **Entry time 2** on this page belong to the partition that this panel shows. Set the times of other partitions in **Installer > Partitions**. For more information, see [Set up partitions](/installer/partitions/).
+
+If the entry time plus the report delay is more than 60 seconds, the page shows a warning. If no zone is a night zone, the page tells you that **Night** arms like **Stay**.
+
+## Delays and sirens
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Exit time** | The time to leave after the panel arms. | 60 s |
+| **Entry time 1** | The time to disarm after the main door opens. | 30 s |
+| **Entry time 2** | The entry time for a second door, for example a garage door. | 45 s |
+| **Report delay** | If someone disarms within this time, the panel does not send the burglary alarm. It does not add entry time. **Report at once** turns it off. | 30 s |
+| **Siren time** | How long a burglary alarm sounds. **Until disarmed** keeps the sirens on until someone disarms. | 4 min |
+| **Fire and CO sirens stop by themselves** | On: fire and CO sirens stop after the siren time. Off: they sound until someone silences them. The panel recommends off. | Off |
+| **Cancel window** | If someone disarms this soon after the panel reported an alarm, the panel sends a cancel. | 5 min |
+
+**Siren time** and **Fire and CO sirens stop by themselves** apply to every siren kind: wired sirens, 433 MHz sirens, and Zigbee and Z-Wave sirens. To add and test sirens, see [Set up sirens and outputs](/installer/sirens/).
+
+<Aside type="danger" title="Warning">
+Do not turn on **Fire and CO sirens stop by themselves** without a reason. A fire or CO siren that stops can let people stay in a dangerous building.
+</Aside>
+
+## Alarms
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Alarm limit** | A zone that causes this many alarms while the panel is armed stops until the next disarm. | 2 times |
+| **Cross-zone time** | Two cross-zoned sensors must both trip within this time. | 300 s |
+| **Fire verification** | A verified smoke detector must trip again within this time. | 90 s |
+| **Smoke detector reset** | How long smoke detectors lose power when they reset. | 6 s |
+| **Panic keys** | What the keypad keys A, B and C send when a person holds them for two seconds. | A: Police, B: Medical, C: Fire |
+| **Trouble beeps** | Which troubles make the keypad beep. | All except mains power loss and clock not set |
+
+The **Panic** page on the screen always offers police, fire and medical alarms. **Panic keys** changes only the A, B and C keys.
 
 ## Arming and chime
 
-- **Auto-stay:** keypad Away arming becomes Stay if nobody leaves through an entry/exit door.
-- **Exit beeps:** controls beeps during Away exit time.
-- **Arm without a code:** allows quick arming; disarming still requires a code.
-- **Arm remotely without a code:** allows connected services to arm without a code; disarming still requires one. A service's own access rules still apply.
-- **Quick exit:** allows exit time to restart without a code while armed Stay or Night.
-- **Exit time restarts:** limits how many times Away exit time can restart when someone re-enters during the countdown.
-- **Recent closing:** sets how soon after arming an alarm is identified as a recent closing.
-- **Chime needs a code:** controls whether a code is needed to switch the chime on or off. Chime changes only while disarmed.
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Auto-stay** | Away arming becomes Stay when nobody leaves through an entry door. | On |
+| **Exit beeps** | The panel beeps during the Away exit time, faster in the last 10 seconds. | On |
+| **Arm without a code** | A person can arm without a code. Disarming always needs a code. | Off |
+| **Allow less secure automations** | Automations can disarm, unlock and open. This row shows only when the panel has automations. | On |
+| **Arm remotely without a code** | Connected services, such as MQTT and Home Assistant, can arm without a code. Disarming always needs a code. | Off |
+| **Quick exit** | A person can restart the exit time without a code while the panel is armed Stay or Night. | On |
+| **Exit time restarts** | How many times the Away exit time starts again when someone comes back in before it ends. | 1 |
+| **Recent closing** | An alarm this soon after arming is reported as a recent closing. | 120 s |
+| **Chime needs a code** | On: a person needs a code to switch the chime on or off. Off: one push changes it. The chime changes only while the panel is disarmed. | On |
 
-## Code lockout
+## Codes
 
-- **Shortest new code** sets the minimum length for new or changed codes. Existing shorter codes keep working.
-- **Wrong codes before lockout** sets how many incorrect attempts are allowed; **Never lock** disables keypad lockout.
-- **Lockout time** sets how long the keypad rejects code attempts.
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Shortest new code** | The minimum length of a new or changed code. Existing shorter codes keep working. | 4 digits |
+| **Wrong codes before lockout** | The number of wrong codes before the keypad locks. **Never lock** turns the lockout off. | 5 |
+| **Lockout time** | How long the keypad refuses codes after a lockout. | 5 min |
 
-## Power and recovery
+## Power and walk test
 
-- **Come back armed after a power cut** restores the previous armed state after restart when enabled. When disabled, the system starts disarmed.
-- **Installer code recovery** opens a two-minute installer recovery window after power-up. When disabled, a lost installer code cannot be recovered through that route.
-- **Settling time** delays zone alarms after startup while sensors settle; **None** disables the delay.
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Come back armed after a power cut** | On: the panel goes back to its earlier armed state after a restart. Off: the panel starts disarmed. | On |
+| **Installer code recovery** | For two minutes after power-up, **Installer** opens without the code. Off: a lost installer code cannot be recovered. | On |
+| **Settling time** | After power-up, zone alarms wait this long for the sensors to settle. **None** turns it off. | 60 s |
+| **Walk test ends after** | The longest time a walk test runs. | 60 min |
+| **Allow values outside SIA CP-01** | Allows shorter delays, more alarms for each zone and no cancel window. Use it only for special installations, never for a monitored one. | Off |
 
-These settings affect recovery and protection after an outage. Explain their behavior to the owner and document the selected values. Installer code recovery is not an ordinary way to enter programming.
+Tell the owner how the power settings work. Write the values that you chose in the handover record. The panel settings do not certify an installation to a standard.
 
-## Walk test and limits
+<Aside type="tip" title="Check the result">
+Open **Delays and arming** again and check the values. Then test the exit and entry route, the sirens and the panic keys as part of [Test and hand over](/installer/commissioning/).
+</Aside>
 
-**Walk test ends after** sets the test duration. **Allow values outside SIA CP-01** relaxes certain timing and alarm limits for special installations; the screen warns against using this for monitored systems. RoboAlarms does not claim certification or compliance based on these controls.
+## If it does not work
 
-If settings are refused or revert, confirm all partitions are disarmed, return from the page to save, and check for a storage trouble. See [commissioning](/installer/commissioning/) to record and verify settings.
+| Problem | Do this |
+| --- | --- |
+| A change does not stay. | Push the back arrow to leave the page. The panel saves only when you go back. |
+| The panel refuses a change. | Disarm every partition, and then try again. |
+| A value does not go lower or higher. | The SIA CP-01 limits apply. Change **Allow values outside SIA CP-01** only for a special installation. |
+| The values go back after a restart. | Look for a storage trouble in **Activity**. |
+
+## Related tasks
+
+- [Set up sirens and outputs](/installer/sirens/)
+- [Set up partitions](/installer/partitions/)
+- [Test and hand over](/installer/commissioning/)

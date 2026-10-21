@@ -8,7 +8,7 @@
 
 The source for the [RoboAlarms Documentation Site](https://docs.roboalarms.com): practical guides for users, installers, Home Assistant integrations, the Flasher, and the Panel Manager.
 
-Built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build). This repository builds independently of the alarm firmware. The current documentation edition and reviewed software versions are documented in [About this edition](src/content/docs/reference/edition.mdx).
+Built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.build), styled to match [roboalarms.com](https://roboalarms.com). This repository builds independently of the alarm firmware.
 
 ## Develop locally
 
@@ -35,9 +35,11 @@ The package manager is pinned in `package.json`; dependencies are recorded in `p
 | Path | Purpose |
 | --- | --- |
 | `src/content/docs/` | Documentation pages, grouped by guide |
-| `src/components/`, `src/styles/` | Shared components and site styling |
+| `src/components/`, `src/styles/` | Header, footer, screenshot frames and site styling |
 | `src/assets/`, `public/` | Brand assets and curated screenshots |
-| `*-manifest.json` | Screenshot dimensions, hashes, and provenance |
+| `image-manifest.json` | Screenshot sources, crops, sizes and hashes |
+| `tools-capture/` | Screenshot capture and curation (needs the firmware checkout) |
+| `docs/` | Writing guide, maintenance and deployment notes |
 | `scripts/` | Production link and image verification |
 | `Dockerfile`, `docker/` | Production image and static server configuration |
 | `.github/workflows/ci.yml` | Build and container smoke checks |

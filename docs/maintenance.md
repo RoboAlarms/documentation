@@ -1,18 +1,28 @@
 # Documentation maintenance
 
-These guidelines describe maintenance by the RoboAlarms project. Record the affected pages, reviewed software versions, and checks performed with each update.
+## Write pages
 
-## Write useful instructions
+- Write every page by the [writing guide](writing-guide.md).
+- Put a page in the correct folder under `src/content/docs/`: `start/`, `user/`, `installer/`,
+  `flasher/`, `panel-manager/`, `integrations/` or `reference/`.
+- Add each new page to the `sidebar` list in `astro.config.mjs`. The list sets the order.
+- Give each page `title`, `description` and `audience` in its frontmatter, and `time` for a task.
+- Keep existing URLs and section anchors. Update the task index and the related links when you add a page.
 
-- Put pages in the appropriate guide under `src/content/docs/`.
-- Include a descriptive title and description in each page's frontmatter.
-- Name controls exactly as they appear in the reviewed software.
-- Explain prerequisites, access role, starting state, steps, expected result, and recovery where relevant.
-- Distinguish software support, unreleased features, simulator results, and hardware acceptance.
-- Preserve established URLs and section anchors where possible; update the task index and cross-links when adding topics.
-- Use descriptive link text, screenshot captions, and image alt text.
+Use fictional names and documentation addresses such as `192.0.2.42`. Never include real codes,
+passwords, tokens, serial numbers, MAC addresses, network names or personal file paths. Look at
+the screenshots as well as the text.
 
-Use fictional names and documentation addresses such as `192.0.2.42`. Never include real codes, passwords, tokens, serial numbers, MAC addresses, private network names, or personal file paths. Inspect screenshots as well as text. Example pairing digits must be clearly identified as fictional.
+## Components
+
+| Component | Use |
+| --- | --- |
+| `PanelShot` | A screenshot in a device frame. Its size comes from the PNG. |
+| `GuideCard` | A card on the home page. |
+| `DocsHeader`, `DocsFooter`, `DocsPageTitle` | The website's header and footer, and the audience labels under the title. |
+| Starlight `Steps`, `Aside`, `Tabs`, `LinkCard` | Steps, notes and warnings, alternatives, links. |
+
+The colours and type in `src/styles/custom.css` match roboalarms.com. Change them in both places.
 
 ## Validate a change
 
@@ -25,8 +35,11 @@ git diff --check
 pnpm preview
 ```
 
-Review changed pages in the production preview on desktop and narrow mobile screens, in both light and dark themes. Check navigation, tables, captions, enlarged images, keyboard focus, and production search. Automated checks confirm links and image integrity; visual and editorial review remain necessary.
+Look at the changed pages in the production preview on a desktop and on a narrow phone screen,
+in the light and dark themes. Check the navigation, tables, captions, enlarged images, keyboard
+focus and search.
 
-When changing dependencies, use the pinned pnpm version, update `pnpm-lock.yaml`, and verify the Docker build. CI runs the same validation inside the production build and smoke-tests the resulting server.
+When you change dependencies, use the pinned pnpm version, update `pnpm-lock.yaml` and build the
+Docker image. CI runs the same validation in the production build and tests the server.
 
-See [UPDATING.md](../UPDATING.md) before changing screenshots or preparing a new documentation edition.
+Read [UPDATING.md](../UPDATING.md) before you change screenshots.

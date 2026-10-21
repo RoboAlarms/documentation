@@ -1,42 +1,133 @@
 ---
 title: "Connected parts"
-description: "Choose and verify a 433 MHz receiver, battery-backed clock or Zigbee radio in RoboAlarms Flasher."
-sidebar:
-  order: 4
+description: "Choose, wire, set up and test a 433 MHz receiver, a battery-backed clock, and a Zigbee or Z-Wave radio with the Flasher."
+audience: ["installer"]
+time: "15 minutes"
 ---
-
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-The **Panel and parts** step records which optional modules are fitted and suggests a compatible layout. Exact pin choices are under **Advanced tools > Hardware**. **Full wiring** shows a board-specific drawing and flags combinations that conflict. Use [RoboAlarms hardware](https://roboalarms.com/hardware/) for physical context and the module maker's instructions before changing a real installation.
+The Flasher knows the optional parts that you can connect to the panel. It shows where each part goes, sets up the panel for the parts, and tests them. Use this page to choose the parts, to change them later and to test them.
 
-<PanelShot src="/images/flasher/wiring.png" alt="Windows RoboAlarms Flasher showing a CC1101 board selected on J7 with a pin-mapping drawing" caption="Retained Windows desktop app development screenshot; source date unknown. It shows the older Connected parts step. The current flow puts part selection in Panel and parts and the diagram in Full wiring; follow current on-screen guidance and hardware references for physical work." source="Windows desktop app · retained development screenshot" />
+For the physical parts, power supplies and where to buy them, see [RoboAlarms hardware](https://roboalarms.com/hardware/). Follow the module maker's instructions too.
 
-The Flasher applies selected settings by asking the running firmware's service console, then restarts and reads the settings back. **Release firmware does not include that console.** With release firmware, the Flasher cannot check whether the panel is armed or in Installer mode, and cannot apply or verify connected-part settings. Before any action that restarts a panel without a working console, confirm at the panel that every partition is disarmed, Installer mode is closed, and no alarm or update is active. If a release install reaches **Test and finish** with a parts command unanswered, treat the parts as unconfigured; use the panel's own Installer pages where available, or wait for a supported update. An unanswered probe is not evidence that the panel is idle.
+## The parts
 
-If no extra part is ready, choose **Skip for now**. You can review selections later in **Advanced tools > Hardware**. The Flasher also checks that choices do not conflict with each other or with board resources.
+| Part | What it does |
+| --- | --- |
+| **Wireless sensors (433 MHz)** | Lets the panel hear 433 MHz door, window and motion sensors and key-fob remotes. It needs a receiver: a **CC1101 board** (eight pins) or a **Receiver module** (three pins). |
+| **Zigbee radio** | Elecrow's plug-in ESP32-H2 module, for Zigbee sensors. The module needs its radio software first. |
+| **Z-Wave sensors** | A Zooz ZAC93 radio, for Z-Wave door, window, motion, smoke and water sensors. |
+| **Battery-backed clock** | Keeps the date and time through power cuts. A small board with a coin cell (DS3231, often sold as ZS-042). |
 
-## Wireless sensors (433 MHz)
+If you are not sure which receiver you have, count the pins along its edge. Eight pins is a CC1101 board. Three pins is a receiver module. In **Advanced tools > Hardware** you can also choose **Not sure**: the panel then looks for either. **Not sure** does not work while the Zigbee module is fitted, because the search would use its pins.
 
-The Flasher offers **None**, **Receiver module**, **CC1101 board**, and **Not sure**. For a receiver module, choose whether DATA is assigned to the radio socket or to a selected available pin on the J7 header. For a CC1101, choose the socket or J7 when the selected board supports that location. **Not sure** asks the panel to look for supported receiver types; this choice is unavailable when Zigbee is fitted because the search would probe pins used by that module. The drawing names the expected connections and highlights conflicts for the selected board and part. Follow the app's **Before you wire J7** caution and the board-specific hardware instructions before making physical changes.
+## Choose the parts for a new panel
+
+Choose the parts in the first step of the guided setup, **Panel and parts**. Tick only the parts that you have or plan to add. The Flasher picks the best place for each part.
+
+<PanelShot src="/images/flasher/flasher-plan-parts.png" alt="What do you want to connect? with Wireless sensors (433 MHz) ticked and CC1101 board chosen" caption="Tick a part to add it. The Flasher works out where it goes." size="medium" />
+
+To choose the pins yourself, click **Advanced: choose where each part goes**. The Flasher checks that the parts do not use the same pins.
+
+**Get ready**, **Full wiring** and **Check before power** then show what you need, the wiring for each part, and the checks before you switch the panel on. See [Install RoboAlarms](/flasher/install/#plan-and-wire).
+
+<Aside type="caution" title="Caution">
+Power the parts from a **3V3** pin, never from **5V**. On the J7 header, one row is 5V and the other row is 3V3. If the labels are hard to read, find the 5V row with a multimeter, as **Get ready** shows. 5V can damage a part.
+</Aside>
+
+## Change the parts of a panel
+
+<Steps>
+
+1. Connect the panel, and click **Advanced tools**.
+2. Click **Hardware**.
+
+   The page shows **What is connected** and where each part goes.
+
+3. Tick or untick the parts, and choose the receiver.
+4. To choose the pins yourself, click **Custom pins**. To go back to the Flasher's choice, click **Suggested places**.
+5. Click **Apply and restart the panel**.
+
+   The panel saves the parts and restarts once. Then the Flasher reads the parts back.
+
+</Steps>
+
+The panel must be disarmed and idle before it restarts. The Flasher can apply the parts only when the panel's software answers on the service console. Software from the Stable, Beta and Alpha channels has no service console.
+
+## Test the parts
+
+After an install or an update, **Test and finish** shows a card for each part under **Test your parts**.
+
+<PanelShot src="/images/flasher/flasher-test-parts.png" alt="Test your parts with Wireless sensors Working and Start listening, and Battery-backed clock Keeping time with Set it from this computer and Check again" caption="Each part shows its state. The receiver and the clock have their own tests." size="medium" />
 
 ### Test a 433 MHz receiver
 
-When the firmware's service console is available, **Test and finish** can check whether the selected receiver answers. Select **Start listening**, then trigger a nearby transmitter. The Flasher groups transmissions it hears by device and shows available details. Select **Stop listening** when finished. This test only reports what the receiver hears; it does not enroll a sensor. On the touchscreen, add one through **Zones > Add a zone > 433 MHz sensor**.
+<Steps>
 
-If the status says **No receiver answers where the panel listens**, compare the selected receiver and location with the in-app drawing. Use **Advanced tools > Hardware** to correct the selection and choose **Apply and restart the panel**, then return to the test. If the drawing does not match the physical installation, use the [RoboAlarms hardware page](https://roboalarms.com/hardware/) for wiring guidance.
+1. On the **Wireless sensors** card, click **Start listening**.
+2. Near the panel, push a button on a remote, or open a sensor.
 
-To enroll a sensor, use the panel's Zones screen. The Flasher's test can display transmissions and record three seconds of raw pulses under **Advanced tools > Hardware**; **Record** saves a capture, and **Open the folder** opens the captures location.
+   Each sensor or remote that the panel hears shows in the list.
 
-## Battery-backed clock
+3. Click **Stop listening**.
 
-Turn on **Battery-backed clock** if a DS3231 module is fitted. Choose its actual location, such as the CrowPanel's I2C connector or a supported J7 location, and follow the displayed connector drawing and its cautions. For physical wiring, use the [RoboAlarms hardware page](https://roboalarms.com/hardware/) and the module maker's instructions.
+</Steps>
 
-When the service console is available, the clock test reports whether the module answers and can show its temperature and the difference from this computer's clock. **Set it from this computer** changes the panel's clock. Check the computer's time first. **Check again** refreshes the reading. The test and set controls are unavailable when the firmware does not support them or the console does not answer.
+The test only shows what the receiver hears. It does not add a sensor to a zone. To use a sensor as a zone, on the panel open **Zones > Add a zone > 433 MHz sensor**. See [Zones](/installer/zones/). If you leave the page, the Flasher stops the test.
+
+In **Advanced tools > Hardware**, you can record 3 seconds of raw radio pulses from a remote. Click **Record 3 seconds of raw pulses**, then push the button on the remote. You cannot start a second recording while one runs. The Flasher saves only a complete recording, in the folder `Documents\RoboAlarms\Captures`. Click **Open the folder** to see the recordings.
+
+### Test the clock
+
+The **Battery-backed clock** card shows **Keeping time** when the clock answers. It also shows how far the panel's clock is from the computer's clock.
+
+- Click **Check again** to read the clock again.
+- Click **Set it from this computer** to set the panel's clock to the computer's time. Check the computer's time first.
 
 ## Zigbee radio
 
-RoboAlarms firmware includes software support for an ESP32-H2 Zigbee radio on supported panels. The Flasher has a separate **Zigbee module** tool for writing radio software when the loaded firmware bundle contains it. That tool requires the module to be removed from the panel and connected directly to the computer; follow its screen and the [hardware page](https://roboalarms.com/hardware/) for physical context. The module is separate from the panel's own firmware update. If the Flasher says the bundle has no radio software, the panel release alone cannot prepare the module.
+The Zigbee module needs its radio software before it goes into the panel. The Flasher puts the software on the module while the module is out of the panel.
 
-The panel's Zigbee pairing and device pages are implemented, but acceptance with real sensors, sirens and keypads is still open. A successful radio check does not prove that a sensor has paired or reports reliably. See [Sensors and radio modules](/installer/sensors-radios/) for the current limits. The radio socket is shared with other optional modules; the Flasher reports incompatible selections.
+<Steps>
 
-The Flasher can also set up a supported Z-Wave radio. See [Sensors and radio modules](/installer/sensors-radios/) for the panel's commissioning steps and software limits.
+1. Switch the panel off. If the module is in its socket, lift it straight out.
+2. Connect a USB-C data cable to the module and to the computer.
+3. In the Flasher, click **Advanced tools**, then **Zigbee module**.
+
+   If you ticked the Zigbee radio in **Panel and parts**, **Get ready** opens this page for you.
+
+4. Tick **The module is on its own, not in a panel**.
+
+   The Flasher restarts the module to read it. In a panel, this would restart the panel too.
+
+5. Install the radio software, as the page shows.
+6. Unplug the cable from the module.
+7. With the panel switched off, fit the module in the radio socket, as **Full wiring** shows.
+
+</Steps>
+
+The Flasher can keep a copy of the software that was on the module before. Tick **Keep a copy of what it runs now** before you install. The copies are in **Backups**.
+
+For Zigbee sensors, see [Sensors and radio modules](/installer/sensors-radios/).
+
+## Z-Wave radio
+
+The Flasher sets up the panel for a Zooz ZAC93 radio on the radio socket or on the J7 header. To pair Z-Wave sensors and to update the radio, see [Sensors and radio modules](/installer/sensors-radios/).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **No receiver answers where the panel listens** | Compare the receiver and its place with the drawing in **Full wiring**. Correct the choice in **Advanced tools > Hardware**, and click **Apply and restart the panel**. Then test again. |
+| The clock card does not show **Keeping time**. | Check the wiring of the clock board and its coin cell. Click **Check again**. |
+| **The panel did not answer.** | The panel's software has no service console, or the panel is still starting. Wait, then try again. Set up the parts on the panel if its software has no console. |
+| A recording shows **Recording not saved**. | Record again, and keep the remote close to the panel for the full 3 seconds. |
+| The Flasher says that two parts use the same pins. | Choose another place for one part, or click **Suggested places**. |
+
+## Related tasks
+
+- [Install RoboAlarms](/flasher/install/)
+- [Sensors and radio modules](/installer/sensors-radios/)
+- [Zones](/installer/zones/)
+- [Flasher troubleshooting](/flasher/troubleshooting/)

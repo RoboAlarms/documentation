@@ -1,42 +1,126 @@
 ---
-title: "Partitions and devices"
-description: "Configure separately armed areas and assign supervised keypad/device records."
-sidebar:
-  order: 5.5
+title: "Set up partitions"
+description: "Make areas that arm separately, set their delays, and choose which partition each panel shows."
+audience: ["installer"]
+time: "10 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-**Where:** Settings > About > Installer > Partitions, or **Keypads and devices**<br />
-**Access:** installer mode; all partitions must be disarmed and quiet.
+A partition is an area whose zones arm and disarm together, for example a house and a workshop. The panel has up to four partitions. Use this page to add partitions, set their delays and choose which partition each panel shows.
 
-A partition is an alarm area whose zones arm and disarm together. This firmware supports up to four. Partitions are software configuration. They do not create separate physical sirens, wiring or monitoring services by themselves.
+A partition is a setting. It does not add sirens, wiring or a monitoring service. To choose which sirens sound for a partition, see [Sirens and outputs](/installer/sirens/).
 
-## Add or name a partition
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- Disarm every partition and silence any alarm.
+- Know which zones and which people belong to each area.
+</Aside>
 
-1. Open **Settings > About > Installer** and authenticate with the installer code.
-2. Select **Partitions**. The list shows each slot, whether it is in use and its exit/entry delays. The current keypad's area is marked **this keypad**.
-3. Select a partition. Turn **In use** on, then select **Name** and enter a recognizable area name.
-4. Set **Exit time**, **Entry time 1** and **Entry time 2** for that area.
-5. Go back to save the changes. Configure the areas' zones and device assignments on their corresponding pages.
+## Add or change a partition
 
-<PanelShot src="/images/panel/partitions.png" alt="Partition 2 editor with In use, Name, Exit time, Entry time 1 and Entry time 2" caption="An enabled partition has its own name and entry and exit delays. This detail shows Partition 2." detail />
+<Steps>
 
-When enabling a partition for the first time, it starts with a 60-second exit time, 30-second Entry time 1 and 45-second Entry time 2. With **Allow values outside SIA CP-01** off, the partition controls enforce an exit range of 45–255 seconds and entry ranges of 30–240 seconds. The relaxed option permits 0–600 seconds. The controls do not certify compliance with a standard.
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Partitions**.
 
-To turn a partition off, first move its zones elsewhere. The keypad's own partition cannot be disabled. The UI explains why a change is refused. Do not remove a partition until you have confirmed the zones and users that depend on it.
+   The list shows each partition, if it is in use and its delays. The partition of this panel shows **this keypad**.
 
-## Assign zones and user access
+3. Push a partition.
+4. Turn on **In use**.
+5. Push **Name**. Type a name for the area, for example Upstairs or Shop.
+6. Set **Exit time**, **Entry time 1** and **Entry time 2** for the area.
 
-Each zone belongs to one enabled partition. In the zone editor, choose **Partition** and save. A keypad's ordinary Home and Zones screens show its assigned partition. See [Set up zones and sensor sources](/installer/zones/).
+   <PanelShot src="/images/panel/partitions-editor.png" alt="Partition 2 page with In use, Name, Exit time, Entry time 1 and Entry time 2" caption="Each partition in use has its own name and its own delays." size="medium" />
 
-On **Settings > Users > user > Partitions**, select the areas where a user's code may operate. Each user needs at least one partition. The installer and system master have access to every partition. A partition master can only administer eligible users within their own areas. See [People, codes and partitions](/user/users-codes/).
+7. Go back to save the changes.
 
-## Assign a keypad or device record
+</Steps>
 
-Open **Keypads and devices** from the installer menu and select a device entry. Turn **In use** on, set **Name**, choose its **Home partition**, and set **Supervision**. **All partitions** records permission for that device to work across areas; it does not add a partition switcher to the current touchscreen. **Not supervised** disables its supervision timer; otherwise the panel reports a trouble if that device does not answer within the configured interval.
+A new partition starts with these delays: exit time 60 seconds, **Entry time 1** 30 seconds and **Entry time 2** 45 seconds.
 
-The menu provides software records and supervision policy. The documentation does not claim that a supported physical secondary keypad or expander is present or tested. Confirm the current hardware options at [RoboAlarms hardware](https://roboalarms.com/hardware/).
+| Setting | Range | Range with **Allow values outside SIA CP-01** |
+| --- | --- | --- |
+| **Exit time** | 45 to 255 seconds | 0 to 600 seconds |
+| **Entry time 1** and **Entry time 2** | 30 to 240 seconds | 0 to 600 seconds |
 
-## Verify and recover
+The **Allow values outside SIA CP-01** setting is in **Delays and arming**. See [System options](/installer/system-options/). The limits do not certify that an installation meets a standard.
 
-After saving, check each partition separately: its name, zone list, delays, user access and keypad assignment. If an area is missing from a picker, confirm it is **In use**. If disabling is refused, move its zones first or keep the partition used by this keypad. If a device shows a trouble, check its configured identity and supervision interval; software configuration alone cannot repair missing hardware or wiring.
+## Turn off a partition
+
+Move the zones of the partition to another partition first. If the partition still has zones, the panel shows **Move its zones to another partition first**. The partition of this panel stays in use. If you try to turn it off, the panel shows **This keypad's own partition stays in use**.
+
+Before you turn off a partition, check the users who work only in that partition.
+
+## Assign zones and people
+
+Each zone belongs to one partition in use. On the zone page, push **Partition** and choose the area. See [Set up zones](/installer/zones/).
+
+Each user needs at least one partition. Open **Settings > Users** and push the user. Push **Partitions**. Choose the areas where the code works. The installer and the system master work in every partition. A partition master manages users only in their own partitions. See [People, codes and partitions](/user/users-codes/).
+
+## Partition settings for a panel
+
+Each panel shows and arms its default partition. You can let people switch to another partition on the panel.
+
+<Steps>
+
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Keypads and devices**.
+3. Push **This panel**.
+
+   The panel shows **Partition settings**.
+
+   <PanelShot src="/images/panel/partitions-this-panel.png" alt="This panel page with Default partition, Allow partition switching, Return after inactivity and Never return automatically" caption="Turn on Allow partition switching to let people choose another partition." />
+
+4. Push **Default partition**. Choose the partition that the panel shows.
+5. Turn **Allow partition switching** on or off.
+6. If switching is on, set **Return after inactivity**, or turn on **Never return automatically**.
+
+</Steps>
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Default partition** | The partition that the panel shows and arms. | |
+| **Allow partition switching** | Lets a person choose another partition. Off locks the panel to its default partition. | Off |
+| **Return after inactivity** | The time in seconds after which the panel goes back to its default partition when nobody touches it. You can set 1 to 3600 seconds. | 30 seconds |
+| **Never return automatically** | The panel stays on the chosen partition until someone changes it. | Off |
+
+When switching is on and more than one partition is in use, the **Security** screen shows a row with the partition name and **Switch partition**. Push the row to open **Choose a partition**.
+
+<PanelShot src="/images/panel/partitions-switch-row.png" alt="Security screen with the Home row and Switch partition under the alarm state" caption="The Switch partition row is under the alarm state." />
+
+A keypad panel has the same settings on its page in **Keypads and devices**. See [Keypad panels](/installer/keypads/#set-up-a-keypad).
+
+## Supervised devices
+
+The **Supervised devices** section of **Keypads and devices** holds records for other supervised equipment, such as expanders. Push a device to open it.
+
+| Setting | What it does |
+| --- | --- |
+| **In use** | The panel expects the device to answer. |
+| **Name** | The name of the device, for example Garage expander. |
+| **Home partition** | The partition that the device belongs to, or **All partitions**. |
+| **Supervision** | How long the device can be silent before the panel shows a trouble. |
+
+A record does not connect a device. The panel shows a trouble when a supervised device in use does not answer.
+
+<Aside type="tip" title="Check the result">
+For each partition, check its name, its zones, its delays and the users who can use it. On each panel, check that the **Security** screen shows the right partition.
+</Aside>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| A partition is missing from a list | Open the partition and check that **In use** is on. |
+| **Move its zones to another partition first** | Move each zone of the partition to another partition, then turn it off. |
+| **This keypad's own partition stays in use** | Keep the partition. The partition of this panel cannot be turned off. |
+| The **Switch partition** row does not show | Turn on **Allow partition switching** and check that more than one partition is in use. |
+| A supervised device shows a trouble | Check the device, its power and its wiring. Check its **Supervision** time. |
+
+## Related tasks
+
+- [Set up zones](/installer/zones/)
+- [Keypad panels](/installer/keypads/)
+- [Partitions and your code](/user/partitions/)
+- [Commission and hand over](/installer/commissioning/)

@@ -1,56 +1,128 @@
 ---
-title: "Set up phone notifications"
-description: "Configure ntfy or Pushover and confirm delivery with a test."
-sidebar:
-  order: 8
+title: "Phone notifications"
+description: "Send alarms, troubles and other events from the panel to a phone with ntfy or Pushover, and test the delivery."
+audience: ["installer"]
+time: "15 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-> This URL is kept for existing links. The [Integrations guide](/integrations/) explains how phone notifications fit alongside MQTT and Home Assistant.
+The panel can send notifications to a phone through ntfy or Pushover. Use this page to set up one of the services, choose what to send and test the delivery.
 
-**Where:** Settings > Integrations, in the notifications group<br />
-**Access:** system master or installer code.
+<Aside type="note" title="Before you start">
+- You need the system master code or the installer code.
+- The panel must be connected to the internet through Wi-Fi.
+- Have the phone that gets the notifications with you.
+- Set up notifications on the alarm panel. A keypad panel does not show **Integrations**.
+</Aside>
 
-Notifications depend on the network, the selected service and phone settings. A saved configuration is not proof of delivery: finish with a test received on the intended phone.
+Phone notifications are not a monitoring service. A notification can arrive late or not at all if the network, the service or the phone has a problem. The panel still sounds and records every alarm.
 
-## ntfy
+## Choose a service
 
-1. Install/open the ntfy client on the intended phone.
-2. On the panel, open **Settings > Integrations > ntfy**.
-3. The hosted **ntfy.sh** service and a unique topic are selected by default. To use your own service, change the **Server** choice and enter its **Address**.
-4. Set an **Access token** only if your server requires one.
-5. Subscribe the phone to the same server and topic. Use **Show the QR code** to scan the subscription details, or enter the topic in the phone app.
-6. Enable **Send notifications** and choose the event categories.
-7. Select **Send a test notification** and verify the phone receives it.
+| Service | What you need | Special features |
+| --- | --- | --- |
+| **ntfy** | The ntfy app on the phone. No account is needed for the hosted ntfy.sh service. You can also use your own ntfy server. | The panel makes a private topic for you. |
+| **Pushover** | A Pushover account, its user key, and an application token that you make on pushover.net. | An alarm notification can repeat until someone answers it. |
 
-<PanelShot src="/images/panel/ntfy.png" alt="ntfy configuration page with notification and destination controls" caption="Configure the destination before testing delivery." />
+You can use both services at the same time.
 
-Treat the topic and any access token as private: anyone who knows the topic can subscribe to it. **New topic** replaces it, so every phone must subscribe again. The QR code reveals subscription details for a short time; use it only when ready to add the intended phone. Do not put that QR code in shared screenshots.
+## Set up ntfy
 
-For hosted-service accounts, authentication and access rules, consult [ntfy's documentation](https://docs.ntfy.sh/).
+<Steps>
 
-For a self-hosted ntfy server, its HTTPS certificate must chain to a certificate authority trusted by the panel's certificate bundle. Although a private CA can be saved through the panel tools, current notification firmware does not use that saved CA for ntfy connections.
+1. Install the ntfy app on the phone.
+2. On the panel, push **Settings > Integrations**.
+3. Enter the system master code or the installer code.
+4. Under **Alerts to your phone**, push **ntfy**.
+5. If you use your own ntfy server, push **Server** and then push **My own server**. Push **Address** and type the server address, for example `https://ntfy.example.com`.
+6. If your own server needs an access token, push **Access token** and type it.
+7. Turn on **Send notifications**.
+8. Push **Add a phone**.
 
-## Pushover
+   The panel shows a QR code for one minute.
 
-1. Set up Pushover on the receiving phone.
-2. Obtain the account's **user/group key** and create an application token in Pushover.
-3. Open **Settings > Integrations > Pushover**.
-4. Enter the two credentials into their respective fields.
-5. Turn on **Send notifications** and review event categories.
-6. Review **Repeat alarms until answered**. When enabled, an alarm notification repeats until the panel is disarmed, silenced or the alarm is cancelled.
-7. Send a test and confirm delivery.
+9. In the ntfy app, add a subscription. Scan the QR code, or type the topic from the **Topic** row.
+10. Push **Send a test notification**.
 
-<PanelShot src="/images/panel/pushover.png" alt="Pushover configuration with credential and notification controls" caption="The user key and application token are different credentials." />
+    The panel shows **Sent - check your phone**.
 
-The panel ships without a shared Pushover application token. Use the credentials created for this installation. See [Pushover](https://pushover.net/) for account and application setup. Pushover delivery has not yet been verified end to end on panel hardware; run the test and confirm delivery before relying on it.
+11. Check that the test notification arrives on the phone.
+
+</Steps>
+
+<PanelShot src="/images/panel/notifications-ntfy.png" alt="ntfy page with Send notifications on, Add a phone, Send a test notification and the What to send switches" caption="Turn on Send notifications, add the phone, and then send a test notification." size="medium" />
+
+<Aside type="caution" title="Caution">
+Keep the topic private. Anyone who knows the topic or photographs the QR code can read the notifications.
+</Aside>
+
+**New topic** makes a new private topic. Every phone on the old topic stops getting notifications until it subscribes to the new topic. Use **New topic** if someone who must not see the notifications knows the old topic.
+
+Use an HTTPS certificate from a public certificate authority on your own ntfy server. The touchscreen has no setting for your own certificate authority. For ntfy server settings, see the [ntfy documentation](https://docs.ntfy.sh/).
+
+## Set up Pushover
+
+<Steps>
+
+1. Install the Pushover app on the phone and sign in to your Pushover account.
+2. On a computer, sign in at [pushover.net](https://pushover.net/).
+3. Copy the user key from the home page.
+4. Make an application, and then copy its application token.
+5. On the panel, push **Settings > Integrations**.
+6. Enter the system master code or the installer code.
+7. Under **Alerts to your phone**, push **Pushover**.
+8. Push **User key** and type the user key.
+9. Push **Application token** and type the application token.
+10. Turn on **Send notifications**.
+11. Push **Send a test notification**.
+12. Check that the test notification arrives on the phone.
+
+</Steps>
+
+If a key is wrong, the panel shows **That key wasn't right**. Each key has 30 letters and digits. To open the Pushover sign-up page on a phone, push **Show a QR code for the sign-up page**.
+
+<PanelShot src="/images/panel/notifications-pushover.png" alt="Pushover page with Send notifications on, Send a test notification and the What to send switches" caption="Send a test notification after you turn on Send notifications." size="medium" />
+
+On the Pushover page, **Repeat alarms until answered** makes an alarm notification repeat until someone answers it on the phone. A disarm on the panel also stops the repeat. **Sound for alarms** sets the sound that alarm notifications use.
 
 ## Choose what to send
 
-Review alarm, trouble and other available event categories with the owner. Silent alarms require explicit opt-in; a phone sound or visible notification can reveal an event intended to remain silent at the panel.
+Both services have the same switches under **What to send**. Choose them with the owner.
 
-If you disable alarm notifications, the page warns about the consequence. Enable only the channels and categories you have tested.
+| Switch | What it sends | Default |
+| --- | --- | --- |
+| **Alarms** | Burglary, fire, carbon monoxide and panic alarms. | On |
+| **Arming and disarming** | Each arm and disarm, and who did it. | On |
+| **Troubles** | Mains power, batteries, tamper, and a sensor that stops reporting. | On |
+| **Zone activity** | Bypassed zones and the door chime. | Off |
+| **System and admin** | Restarts, updates, code changes and setting changes. This includes the updates of keypad panels, for example **Keypad 1 updated** or **Keypad 1 update failed**. | Off |
+| **Silent alarms too** | Duress codes and silent panic alarms. | Off |
 
-## When a test does not arrive
+If you turn off **Alarms**, the page warns that nothing tells the phone when the siren sounds.
 
-Check panel network status, the service status shown on the page, destination credentials, phone subscription and phone notification permissions. Repeat the test after correcting the cause. A successful local button press does not establish end-to-end delivery. ntfy delivery has been checked from panel hardware; Pushover still needs hardware acceptance. Phone alerts are a convenience, not a life-safety path. For help with panel-hosted browser settings, see [Panel Manager](/panel-manager/).
+<Aside type="danger" title="Warning">
+Turn on **Silent alarms too** only after you talk with the owner. A silent alarm shows on the phone's lock screen, where a person who stands near the phone can see it.
+</Aside>
+
+<Aside type="tip" title="Check the result">
+The test notification arrives on each phone. The service row under **Settings > Integrations** shows **On**, and later shows when the panel last sent a notification.
+</Aside>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The page shows **Waiting for Wi-Fi**. | Connect the panel to Wi-Fi. The panel keeps the notifications until the connection is back. |
+| The page shows **Can't reach the service**. | Check the internet connection of the panel. For your own ntfy server, check the address. |
+| The page shows **Certificate not trusted**. | Use a certificate from a public certificate authority on your own ntfy server. Check the date and time on the panel. |
+| The page shows **The server refused the token**. | Type the access token again. |
+| The page shows **Pushover refused the keys**. | Type the user key and the application token again. |
+| The page shows **Too many today**. | The panel pauses the notifications until the next day, so alarms still get through. Turn off switches that you do not need. |
+| The test arrives on no phone. | Check the subscription in the ntfy app, or the Pushover sign-in. Check the notification permissions on the phone. |
+
+## Related tasks
+
+- [Connect other systems](/integrations/)
+- [Connect an MQTT broker](/installer/mqtt/)
+- [Test and hand over](/installer/commissioning/)

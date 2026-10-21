@@ -1,66 +1,117 @@
 ---
-title: "Access and permissions"
-description: "See which panel role or browser account can view and change each part of RoboAlarms."
-sidebar:
-  order: 2
+title: "Who can do what"
+description: "See what each code level can do on the panel, and what each browser account can do in Panel Manager."
+audience: ["user", "installer"]
 ---
+import { Aside } from '@astrojs/starlight/components';
 
-Access depends on the user role, the partitions assigned to that user, and whether the system is disarmed. Panel Manager follows the same role rules, but some browser pages show only a reduced view of panel information. A browser account does not grant more access than that person's panel role.
+Each code has a level. The level and the partitions of the code decide what the person can do. Use this page to see what each level can do on the panel and in Panel Manager.
 
-## Roles
+## Code levels
 
-| Role | What the role can do |
-| --- | --- |
-| Standard user | Arm and disarm assigned partitions as allowed by their code; see their own assigned partition status and everyday panel pages. |
-| Partition master | Do standard user tasks for assigned partitions and manage lower-authority users in those partitions. |
-| System master | Manage household users and shared settings across the system. Cannot manage the installer account. |
-| Installer | Configure alarm behavior, manage every user, and control remote access and development tools. The installer cannot arm or disarm; use an authorized household account for those tasks. Installer mode temporarily prevents arming. |
-| Arm-only | Arm assigned partitions; cannot disarm. |
-| Guest | Can disarm only an armed period that the guest started. |
-| Duress | Disarms while sending the configured silent duress indication. Treat this code as private. |
+| Level | Who has it | What it can do |
+| --- | --- | --- |
+| **Standard** | Each person in the household | Arms, disarms, bypasses and changes the chime in its partitions. A new user gets this level. |
+| **Arm only** | For example, a cleaner who locks up | Arms only. It cannot disarm or bypass. |
+| **Guest** | A visitor | Arms, and disarms only what the same code armed. It cannot bypass. |
+| **Duress** | A person who can be forced to disarm | Disarms like a standard code and records a private event. A connected service can report it. |
+| **Partition master** | The person who manages one area | Everything a standard code can do. It also manages the users of its own partitions. |
+| **System master** | The person who manages the household | Everything, in all partitions. It manages all users except the installer. |
+| **Installer** | The installer | Programs the panel and manages all users. It never arms or disarms. |
 
-Household users' operation is limited to their partition assignments and code permissions. Installer access reaches programming across partitions but does not grant arm or disarm authority.
+The installer code and the system master code work in all partitions. Other codes work only in the partitions that the person who manages users chose. See [Users and codes](/user/users-codes/).
 
-## What each role can change
+<Aside type="note">
+The installer code does not arm, disarm or restart the exit time. In installer mode, nobody can arm the panel. The installer uses a household code to test arming.
+</Aside>
 
-| Task | Standard user | Partition master | System master | Installer |
+## On the panel
+
+In the table, "Yes" means in the partitions of the code. A **Duress** code can do the same as a **Standard** code.
+
+| Task | Standard | Arm only | Guest | Partition master | System master | Installer |
+| --- | --- | --- | --- | --- | --- | --- |
+| Arm | Yes | Yes | Yes | Yes | Yes | No |
+| Disarm or cancel exit time | Yes | No | Only what it armed | Yes | Yes | No |
+| Bypass a zone | Yes | No | No | Yes | Yes | Yes |
+| Turn the chime on or off | Yes | Yes | Yes | Yes | Yes | Yes |
+| Clear the alarm memory, acknowledge troubles | Yes | No | Yes | Yes | Yes | Yes |
+| Unlock a lock, open a door, cover or valve on **Smart Home** | Yes | No | No | Yes | Yes | No |
+| Change a protected device on **Smart Home** | No | No | No | Yes | Yes | Yes |
+| Arrange **Smart Home** when it asks for a master code | No | No | No | Yes | Yes | Yes |
+| Show private events in **Activity** | No | No | No | Own partitions | Yes | Yes |
+| **Settings > Screen and sound**, clock format | Yes | Yes | Yes | Yes | Yes | Yes |
+| **Settings > Users** | No | No | No | Lower users in own partitions | All except the installer | All |
+| **Settings > Wi-Fi and network** | No | No | No | Yes | Yes | Yes |
+| **Settings > Time and language**: time zone, language, region, time server | No | No | No | Yes | Yes | Yes |
+| **Settings > Smart Home**: which devices ask for a master code | No | No | No | Yes | Yes | Yes |
+| Start a walk test | No | No | No | Yes | Yes | Yes |
+| **Settings > Integrations**: Home Assistant, MQTT, phone notifications | No | No | No | No | Yes | Yes |
+| **Settings > Automations** | No | No | No | No | Yes | Yes |
+| Save an automation that arms or disarms | No | No | No | No | Yes | No |
+| Install a software update | No | No | No | No | Yes | Yes |
+| Remove or format the SD card | No | No | No | No | Yes | Yes |
+| Installer menu: zones, sensors, sirens, partitions, keypads, delays, codes, updates, factory reset | No | No | No | No | No | Yes |
+
+Anyone can see the zones, **Activity** without private events, the troubles and the state of the SD card. The chime needs no code when the installer turns off **Chime needs a code**.
+
+### Notes on users and codes
+
+- A partition master manages only users whose partitions are all inside its own partitions. It can give only the levels **Standard**, **Arm only**, **Guest** and **Duress**.
+- Only the system master and the installer can make a partition master.
+- Nobody can change their own level. Nobody can delete the installer or the system master.
+- The installer can change the installer code and the master code without the old code, in **Installer and master codes**.
+
+### Notes on Smart Home
+
+- A protected device asks for a system master, partition master or installer code before each change. After a correct code, more changes on the same panel go through for 90 seconds.
+- A lock asks for a code each time it unlocks. A garage door, cover or valve asks for a code each time it opens. This code must be able to disarm.
+- From the factory, no device is protected. See [Protect a device with a master code](/user/smart-home/#protect-a-device-with-a-master-code).
+
+### Notes on automations
+
+An automation acts as the person who saved it last. When it runs, the panel checks the level of that person again. The installer can save device actions, but not arming or disarming actions. The installer decides with **Allow less secure automations** if automations can disarm, unlock and open. See [Create panel automations](/user/automations/#safety-and-permissions).
+
+## In Panel Manager
+
+Panel Manager uses a browser account with a password, not a code. The account has the same level and partitions as the user. A browser account never gets more authority than the code level of that person.
+
+| Task | Standard | Partition master | System master | Installer |
 | --- | --- | --- | --- | --- |
-| View status, Zones, Activity, Troubles, About and storage information | Yes, for assigned partitions where applicable | Yes, for assigned partitions | Yes | Yes |
-| Change display and sound preferences | Yes | Yes | Yes | Yes |
-| Arm or disarm | Assigned partitions and code rules | Assigned partitions and code rules | All partitions, under the normal alarm rules | — |
-| Change Wi-Fi, network settings, or date and time | — | Yes | Yes | Yes |
-| Manage household users and keypad codes | — | Lower-authority users whose full partition access stays within the master's areas | Everyone except the installer | Everyone |
-| Configure Home Assistant, MQTT, and phone notification integrations | — | — | Yes | Yes |
-| Read private event details in Activity on the panel | — | Yes | Yes | Yes |
-| Create or edit panel device automations | — | — | Yes | Yes |
-| Save an automation that arms or disarms | — | — | Yes | — |
-| Allow less-secure automation actions | — | — | — | Yes |
-| Program zones, sensor links, partitions, devices, delays, and system options | — | — | — | Yes |
-| Change installer or system-master code without the old code | — | — | — | Yes |
-| Manage SD card | — | — | Yes | Yes |
-| Install a normal signed software update on the touchscreen | — | — | Yes | Yes |
-| Change the update server or channel | — | — | — | Yes |
-| Turn Panel Manager or Developer mode on or off | — | — | — | Yes |
-| Enroll a development workstation, install a signed development file, or factory reset | — | — | — | Yes, with any requested installer-code check |
+| See the status, zones, troubles and **Activity** | Own partitions | Own partitions | Yes | Yes |
+| Use the remote keypad | Yes | Yes | Yes | Yes |
+| Arm, disarm and bypass | As with the code | As with the code | As with the code | Bypass only |
+| Change the display and sound settings | Yes | Yes | Yes | Yes |
+| Change your own browser password | Yes | Yes | Yes | Yes |
+| Manage people, codes and browser sign-ins | No | Lower users in own partitions | All except the installer | All |
+| Change the network, the time, the language and the region | No | Yes | Yes | Yes |
+| Start a walk test | No | Yes | Yes | Yes |
+| Change integrations and automations | No | No | Yes | Yes |
+| Check for and install a software update | No | No | Yes | Yes |
+| Manage the SD card | No | No | Yes | Yes |
+| Program zones, sensors, partitions, keypads and alarm rules | No | No | No | Yes |
+| Change the update server or channel, allow panic alarms over MQTT | No | No | No | Yes |
+| Turn on developer tools, install a signed development file, factory reset | No | No | No | Yes |
 
-In the browser, everyone who can sign in can open the **Remote keypad** when screen sharing is available. It operates the panel's own screen and still follows the panel's code prompts. Activity contains the event history; private details require the appropriate authority. The panel's red remote-session banner lets the person there pause or stop remote access. See [panel automations](/user/automations/) for the maker's permissions and restrictions on automatic alarm actions.
-
-For the matching browser menu and sign-in steps, see [Use Panel Manager in a browser](/panel-manager/).
+**Arm only**, **Guest** and **Duress** codes cannot have a browser sign-in. The remote keypad works like the touchscreen, so the panel still asks for a code where it needs one. See [Browser accounts](/panel-manager/accounts/).
 
 ## Keypad codes and browser passwords
 
-A keypad code is used at the panel for the actions that ask for a code. It does not sign in to Panel Manager. Browser sign-in uses a separate password between 12 and 64 characters.
+A keypad code works only on the panel. It does not sign in to Panel Manager. A browser password has 12 to 64 characters.
 
-Eligible installer, system master, partition master, and standard-user accounts can have a browser sign-in. Arm-only, guest, and duress accounts cannot. People sign in with their account name, including the installer (initially **Installer**); a Panel ID is not a sign-in name.
+- The installer turns on its own sign-in at **Settings > About > Installer > Browser sign-in**.
+- For another user, the person who manages that user opens **Settings > Users >** the name **> Browser sign-in**.
+- A password that you set for another person is temporary. That person chooses a new password at the first sign-in.
 
-On the panel, the installer opens **Settings > About > Installer** and turns on **Browser sign-in**, directly below the **Panel Manager** switch. For another eligible user, open **Settings > Users > [person] > Browser sign-in**. A person who manages that account can enable, disable, or change its browser sign-in there. An enabled account offers **Change the browser password**.
+## When the panel is armed
 
-In Panel Manager, the installer can manage every user's code and browser sign-in; the system master can manage everyone except the installer; a partition master can manage their own code and browser sign-in, plus lower-authority users whose entire partition access stays within the partition master's own areas. Browser changes use the signed-in account's authority. Protected browser operations may ask for that account's password again; they do not use the panel's keypad code. A password set for someone else is temporary and that person must choose a new one at first sign-in. A signed-in user changes their own browser password with **Change password** in the account area by entering their current browser password.
+While a partition is armed or an alarm sounds, nobody can change settings, on the panel or in Panel Manager. **Settings** opens again when all partitions are disarmed and the alarm is silenced. In Panel Manager, the remote keypad, your own password and **Sign out** still work.
 
-## Settings and armed state
+A code that opens a protected section of **Settings** stays valid while **Settings** is open. It ends when you close **Settings** or after a time without a touch.
 
-Protected Settings sections ask for an authorized user code on the panel. That authorization lasts while Settings remains open and expires after inactivity; closing Settings ends it. Installer mode requires the installer code and also ends when it is left or times out.
+## Related tasks
 
-While any partition is armed or an alarm is active, configuration changes are blocked. The browser reports that the panel is locked. The remote keypad, changing your own browser password, and signing out remain available. Disarm and clear the active alarm condition before changing settings.
-
-For task-by-task instructions, see [People and access codes](/user/users-codes/) and the [Installer Guide checklist](/installer/setup-checklist/).
+- [Users and codes](/user/users-codes/)
+- [Partitions](/user/partitions/)
+- [Installer access and codes](/installer/installer-access/)
+- [Panel Manager](/panel-manager/)

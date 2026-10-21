@@ -1,0 +1,67 @@
+---
+title: "Safety and limits"
+description: "Know what RoboAlarms does and does not do before you rely on it to protect people or property."
+audience: ["everyone"]
+---
+import { Aside } from '@astrojs/starlight/components';
+
+Read this page before you rely on your panel. It tells you the limits of RoboAlarms and the safety rules for the people who live with it and install it.
+
+<Aside type="danger" title="Warning">
+Do not use RoboAlarms as your only protection for life safety. RoboAlarms is do-it-yourself software. It is not a certified or listed alarm system, and it is not a monitoring service.
+</Aside>
+
+## What RoboAlarms does not do
+
+- **It does not call emergency services.** No police, fire or medical service gets a message from the panel. The **Emergency** screen says this below its buttons. In an emergency, call the emergency service yourself.
+- **It is not a monitoring service.** Nobody watches your alarms for you. A duress code and a silent panic record an event, but they do not send help.
+- **Connected services do not replace monitoring.** Home Assistant, MQTT and phone notifications can tell you about an alarm. They depend on your network, the internet and other services. A message can arrive late or not at all.
+- **The settings do not certify an installation.** Some delay and timing settings follow alarm standards. Use of these settings does not make an installation meet a standard.
+
+## Sensors from the network
+
+A zone can get its state from a sensor on the network, for example a Home Assistant sensor or a Zigbee or Z-Wave sensor. Such a zone works only while that network and the source of the sensor work.
+
+If the panel cannot reach a sensor, the zone shows a trouble, for example **Not reporting**. The panel cannot detect an opening on that zone until the sensor reports again.
+
+## Test the panel regularly
+
+- Do a walk test regularly, and after each change to zones or sensors. Open **Settings > Walk test** and push **Start walk test**. Each zone that works makes the panel beep.
+- Read each trouble when it appears. Acknowledge it only after you know what it means. See [Alarms, troubles and activity](/user/alarms-troubles/).
+- Tell the people who get your notifications before you test an alarm or the **Emergency** screen.
+
+## Keep codes secret
+
+- Change both factory codes during the first setup. The factory codes are public.
+- Give each person a separate code. Then **Activity** shows who armed and disarmed the panel.
+- Do not write a code on or near the panel. Do not share the installer code with the household.
+- Remove the code of a person who no longer needs access. See [Users and codes](/user/users-codes/).
+
+## Fire and CO zones
+
+<Aside type="danger" title="Warning">
+Do not disable or disconnect a fire or CO sensor. A fire or CO zone that does not work does not cause an alarm.
+</Aside>
+
+Fire and CO zones work at all times, also when the panel is disarmed or in installer mode. The panel does not let you bypass a fire or CO zone. Test fire and CO sensors as their makers tell you.
+
+## Power and batteries
+
+<Aside type="caution" title="Caution">
+Use only the power supply and the backup battery that the hardware instructions name. A wrong power supply or battery can damage the panel or cause a fire.
+</Aside>
+
+- Do not open a power supply or work on mains wiring yourself. Ask a qualified electrician to do mains work.
+- If the panel shows **Mains power lost**, the panel runs on its battery. Restore the power before the battery is empty.
+- Replace a sensor battery when the panel shows **Low battery** for that zone.
+
+## Installation and wiring
+
+Do the physical installation and the wiring as the maker of each part tells you. This documentation does not tell you how to mount the panel or how to wire it. For the supported parts, see [RoboAlarms hardware](https://roboalarms.com/hardware/).
+
+## Related tasks
+
+- [How RoboAlarms works](/start/how-it-works/)
+- [Quick start](/start/quick-start/)
+- [Alarms, troubles and activity](/user/alarms-troubles/)
+- [Commissioning](/installer/commissioning/)

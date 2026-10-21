@@ -1,88 +1,328 @@
 ---
 title: "Troubleshooting"
-description: "Look up an on-screen message and find the next useful action."
-sidebar:
-  order: 1
+description: "Find the message or problem that you see, learn why it happens, and do the steps to fix it."
+audience: ["everyone"]
 ---
-import PanelShot from '../../../components/PanelShot.astro';
+import { Aside } from '@astrojs/starlight/components';
 
-Start with the exact message and the named zone or service. Avoid factory reset as a general troubleshooting step.
+Use this page when the panel, Panel Manager or a connected service does not work as you expect. Find the message that you see. Each entry tells you why it happens and what to do.
 
-## Home and keypad
+Use search with the exact words on the screen. Do not use a factory reset to fix a problem. A factory reset erases the zones, the users and every setting.
 
-| What you see | What it means / next action |
+<Aside type="danger" title="Warning">
+If there can be a real emergency, get everyone to safety first. Then call the emergency service yourself. The panel does not call anyone.
+</Aside>
+
+## The panel
+
+### The panel does not arm: Not ready
+
+**What you see:** The state text shows **Not ready**. The code pad shows **Not ready: a zone is open**, or the name of a zone and **is open** or **isn't ready**.
+
+**Why:** A zone in this partition is open, or a zone has a trouble.
+
+**What to do:**
+
+1. Push **Zones** on the rail.
+2. Push **Open** to show the zones that are open.
+3. Close each door or window that the cards name. For a motion sensor, wait until the card shows **No motion**.
+4. If a zone must stay open, push **Bypass open** on the code pad, and then push the check mark.
+
+**Bypass open** leaves out only the zones that can be bypassed. Fire zones, CO zones and other zones that cannot be bypassed stay in. See [Zones and bypass](/user/zones-bypass/).
+
+### The panel does not arm: another message
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| **A walk test is running** | A walk test is on in this partition. | End the walk test in **Settings > Walk test**. Then arm again. |
+| **Not while the installer is working** | The panel is in installer mode. Nobody can arm in installer mode. | Ask the installer to push **Leave installer mode**. Installer mode also ends after 15 minutes without a touch. |
+| **This code can't do that** | Your code cannot arm this partition. The installer code never arms. | Use your own code. Ask the person who manages users to check your partitions. |
+| **Wait: a sensor radio is updating** | The Z-Wave radio is installing new software. | Wait until the update ends. It can take up to 15 minutes. |
+
+### The panel armed Stay after you pushed Away
+
+**What you see:** You pushed **Away**, but the panel shows **Armed Stay**.
+
+**Why:** **Auto-stay** is on. Nobody opened and closed an exit door during the exit time, so the panel thinks that someone is still at home.
+
+**What to do:**
+
+1. Disarm the panel.
+2. Arm **Away** again.
+3. Leave through the exit door before the countdown ends.
+
+### A zone shows Not reporting
+
+**What you see:** A zone card shows **Not reporting**. The zone shows under **Trouble** on the **Zones** screen.
+
+**Why:** The panel cannot get the state of the sensor. A radio sensor does not send, or the connection to its source stopped. For a Home Assistant sensor, Home Assistant or the network does not answer. The panel does not treat this zone as closed.
+
+**What to do:**
+
+1. Check the battery and the power of the sensor.
+2. For a radio sensor, bring a new battery or move the sensor nearer to the panel.
+3. For a Home Assistant sensor, check that Home Assistant runs and that the sensor is available there. Check the connection under **Settings > Integrations**.
+4. Open and close the door, or walk past the motion sensor. Check that the zone changes.
+5. If the zone does not come back, tell the installer.
+
+Until the sensor reports again, the panel cannot detect an opening on that zone. See [Safety and limits](/start/safety/#sensors-from-the-network).
+
+### A zone shows Tamper, Low battery or Sensor fault
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| **Low battery** | The battery of the sensor is low. | Replace the battery of the sensor. |
+| **Tamper** | Someone opened the sensor cover, or a wired zone has a short or a cut wire. | Close the sensor cover. Ask the installer to check the wiring and the resistors. |
+| **Sensor fault** | The sensor or its wiring has a fault. | Tell the installer. |
+| **Open during the day** | A **Trouble by day, alarm by night** door opened while disarmed. | Close the door. |
+
+A zone with a trouble is not the same as an open door. To show all zones with a trouble, push **Trouble** on the **Zones** screen.
+
+### The top bar shows a trouble count
+
+**What you see:** A yellow number in the top bar. The panel beeps for some troubles.
+
+**Why:** The panel found a fault. A trouble is not an alarm.
+
+**What to do:**
+
+1. Push the yellow trouble count to open **Troubles**.
+2. Read each trouble and the line below it.
+3. Fix the cause. Use the table below.
+4. Push **Acknowledge**, enter your code and push the check mark. The trouble beeps stop.
+
+| Trouble | What to do |
 | --- | --- |
-| **Not ready** | Open **Zones**, identify the active input and restore it. Review any intentional [bypass](/user/zones-bypass/) |
-| **Armed Stay** after choosing Away | Auto-stay may have detected that no entry/exit door was used |
-| Settings will not open | Disarm all partitions and resolve a sounding alarm first |
-| Code refused | Check authority and partition access. Guest and installer codes have disarm restrictions; see [partitions and your code](/user/partitions/) |
-| A keypad shows or controls the wrong area | Check which partition is assigned to that keypad; see [partitions and your code](/user/partitions/) and ask the installer to check the assignment |
-| **Keypad locked** | Stop guessing and wait for the displayed lockout to end; contact the master if the code is unknown |
-| Cannot arm in Installer | Select **Leave installer mode** and retry |
-| Chime is silent | Check global chime, disarmed state and the individual zone's Chime option |
-| Normal volume is low but alarms are loud | Alarm/fire/CO sounds use full volume separately from the everyday volume setting |
+| **Mains power lost** | The panel runs on its battery. Check the power supply and the outlet. Restore the power before the battery is empty. |
+| **Panel battery low** | Replace or recharge the backup battery of the panel. Use only the battery that the hardware instructions name. |
+| **Network down** | Open **Settings > Wi-Fi and network** and check the connection. See [Wi-Fi, network and time](/user/network-time/). |
+| **Clock not set** | Connect the panel to Wi-Fi so that it gets the time. Or set the time by hand if the panel has a clock module. |
+| **Reports not getting through** | A connected service does not answer. Check the internet connection and the service under **Settings > Integrations**. |
+| **Siren problem** | A siren does not work, or its supervision input is open. Ask the installer to open **Sirens and outputs**. |
+| **Sensor radio problem** | A radio for wireless sensors does not work. Wireless sensors can go unheard. Tell the installer. |
+| **Panel tamper** | Someone opened the panel. Close it, and tell the installer. |
+| **Storage problem** | The panel can fail to save settings. Write down the message and tell the installer. |
+| **Wi-Fi module not responding** | The panel keeps protecting without the network. Tell the installer. |
 
-## A zone shows CHECK or Unreachable
+To acknowledge does not repair a trouble. The trouble stays in the list until its cause is fixed. If the panel shows **Troubles can be acknowledged once the system is disarmed**, disarm first.
 
-The panel does not have a trustworthy current state for that input. It is not the same as a closed door.
+### The panel shows Alarm occurred or Alarm canceled
 
-1. Identify the zone and its source.
-2. Check that the source service is connected.
-3. For Home Assistant, confirm the entity is available and still in the share list.
-4. Restore the connection and operate the input to verify a fresh state.
-5. Ask the installer if the problem persists.
+**What you see:** After you disarm, the state text shows **Alarm occurred** or **Alarm canceled**. A **Clear alarm** card shows on the **Security** screen.
 
-<PanelShot src="/images/panel/zone-unreachable.png" alt="Zone source view showing an unavailable input" caption="This troubleshooting example intentionally shows an unreachable source." />
+**Why:** An alarm happened. The panel keeps an alarm memory until a person clears it. **Alarm canceled** means that someone disarmed soon after the alarm started, and **No alert was sent**.
+
+**What to do:**
+
+1. Read the zone that the panel names, and find out what caused the alarm.
+2. Push **Clear alarm**.
+3. Enter your code and push the check mark.
+
+**Activity** keeps the alarm after you clear it. See [Alarms, troubles and activity](/user/alarms-troubles/#clear-the-alarm-memory).
+
+### The siren does not stop
+
+| What you see | What to do |
+| --- | --- |
+| A fire, CO or medical alarm sounds. | Push **Silence**. Then enter your code and push the check mark. |
+| **Siren silenced. Enter your code to reset** | Enter your code and push the check mark. |
+| **The siren timed out** | No action stops the siren now. The alarm stays in the alarm memory. Clear it with your code. |
+| A fire or CO siren sounds until someone silences it. | This is correct. From the factory, fire and CO sirens do not stop by themselves. |
+
+### The panel does not accept your code
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| **Wrong code, try again** | The panel does not know this code. | Type the code again with care, then push the check mark. |
+| **This code can't do that** | Your code cannot do this action, or does not work in this partition. An **Arm only** code cannot disarm. A **Guest** code disarms only what it armed. The installer code never arms or disarms. | Use a code that can do the action. See [Who can do what](/reference/permissions/). |
+| **Keypad locked. Try again in** a time | Too many wrong codes. The keypad refuses all codes for a while. | Stop and wait until the time ends. Do not guess. |
+| **That zone can't be bypassed** | The zone is a fire or CO zone, or the installer did not allow a bypass. | Close the zone, or ask the installer. |
+
+### You forgot your code
+
+1. If you are a user, ask the person who manages users to give you a new code. See [Users and codes](/user/users-codes/#change-or-remove-a-code).
+2. If you lost the master code, ask the installer. The installer can set a new master code without the old one.
+3. If the installer lost the installer code, the installer can use **Installer code recovery** in the two minutes after the panel starts. See [Recover a lost installer code](/installer/installer-access/#recover-a-lost-installer-code).
+
+Do not use a factory reset to recover a code.
+
+### Settings does not open
+
+| What you see | What to do |
+| --- | --- |
+| **Settings open once the system is disarmed** | Disarm every partition. |
+| **Settings open once the alarm is silenced** | Stop the alarm with your code. |
+| **This code can't open this section** | Use a code with more authority. See [Who can do what](/reference/permissions/). |
+| A section is not in the list | Some sections show only on the alarm panel, or only when the panel has the part. A keypad panel has no **Users**, **Integrations**, **Automations**, **Smart Home** or **Walk test**. |
+
+### The screen does not look as you expect
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| The screen is dark. | The screen saver or **Screen off** started. | Push the screen. |
+| The panel shows **Smart Home** and not **Security**. | The start screen is **Smart Home**. | To change it, open **Settings > Screen and sound > Start screen**. See [Screen and sound](/user/display-sound/#choose-the-start-screen). |
+| The panel shows a different partition than before. | The panel returned to its default partition after a time without a touch. | Push the **Switch partition** row and choose the partition again. |
+| The top bar shows **Factory codes · Tap to change**. | The panel still uses a factory code. | Push the message and change the code. Anyone can look up the factory codes. |
+| The panel does not speak. | **Announcements** is off, or the panel has no voice pack. | Open **Settings > Screen and sound > Announcements**. |
+| No door chimes. | The chime is off, or **Chime volume** is at 0. | Push the bell in the top bar. Check **Chime volume**. |
+
+### Smart Home and automations
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| **Smart Home** is not on the rail. | Home Assistant shares no device with the panel. | Pair Home Assistant and share a device. See [Share Home Assistant entities](/integrations/home-assistant-sharing/). |
+| **Only a master code can change it** | The device is protected. | Enter a system master, partition master or installer code. |
+| **Not confirmed** | The device did not answer. | Look at the device itself before you try again. This is important for a lock or a door. |
+| **Offline** | The panel cannot reach the device. | Check that the device is online in Home Assistant. |
+| A rule shows **On · waits until the clock is set**. | The panel clock is not set. | Set the clock. See [Wi-Fi, network and time](/user/network-time/). |
+| A rule shows **Didn't work** or **Can't run**. | A device or a rule check stopped the action. | Open the rule and read the reason. See [Create panel automations](/user/automations/). |
+
+### An update does not install
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| The update waits. | The panel restarts only when it is safe. | Disarm all partitions, stop any alarm and end any walk test. Ask the installer to leave installer mode. |
+| The panel shows no new version. | The panel cannot reach the update server, or no update is available. | Push **Check again**. Run the connection check. |
+| **Rolled back** | The new version did not start correctly. The panel uses the earlier version. | Write down both versions. Tell the installer. Do not try again many times. |
+
+See [Software updates and SD card](/user/updates-storage/).
+
+## The network and Panel Manager
+
+### The panel does not connect to Wi-Fi
+
+1. Open **Settings > Wi-Fi and network**.
+2. Push the network, and type the Wi-Fi password again.
+3. If the network is not in the list, make sure that the router is on, and push **Look again**.
+4. If it still does not connect, ask the person who manages the router for the correct password.
+
+The alarm keeps working without Wi-Fi. The time from the internet, update checks, phone notifications and Home Assistant need the network.
+
+### The connection check fails
+
+Open **Settings > Wi-Fi and network**, push the connected network and push **Check the connection**. Start with the first step that fails.
+
+| First step that fails | What to do |
+| --- | --- |
+| **Wi-Fi** | Check the Wi-Fi password and the distance to the router. |
+| **Address** | The router did not give the panel an address. Restart the router. Check a fixed address, if you use one. |
+| **Router** | Check the router. With a fixed address, check the **Router** value. |
+| **Name lookup** | Check the **DNS server**, or set **IP address settings** to **Automatic**. |
+| **Internet** | Check the internet connection of the router. |
+| **Time server** | Check the **Time server** setting under **Settings > Time and language**. |
+| **Connected service** | Check the service under **Settings > Integrations**. |
+
+### Phone notifications do not arrive
+
+| What you see | What to do |
+| --- | --- |
+| **Waiting for Wi-Fi** | Connect the panel to Wi-Fi. The panel keeps the notifications until the connection is back. |
+| **Can't reach the service** | Check the internet connection. For your own ntfy server, check the address. |
+| **Certificate not trusted** | Check the date and time on the panel. Use a certificate from a public certificate authority on your own server. |
+| **Too many today** | Turn off the switches under **What to send** that you do not need. |
+| The test arrives on no phone. | Check the subscription in the ntfy app, or the Pushover sign-in. Check the notification permissions on the phone. |
+
+See [Phone notifications](/installer/notifications/). For an MQTT broker, see [Connect an MQTT broker](/installer/mqtt/).
+
+### Panel Manager does not open
+
+1. On the panel, open **Settings > About > Installer** and check that **Panel Manager** is on.
+2. Use the HTTPS address that the panel shows under the switch.
+3. Use a computer on the same home network as the panel.
+4. If the browser warns about the certificate, compare its fingerprint with the fingerprint on the panel. Trust the certificate only if they are the same.
+5. If the page does not load, check that an ad blocker does not block the address of the panel.
+
+### You cannot sign in to Panel Manager
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| The sign-in refuses your keypad code. | Panel Manager uses a password, not a code. | Type your browser password. |
+| The sign-in refuses your password. | The password is wrong, or browser sign-in is off for your account. | Ask the person who manages users to set a new password. |
+| The sign-in makes you wait. | Five wrong passwords start a wait of one minute. Each new wrong password makes the wait longer, up to 15 minutes. | Wait. Then type the correct password one time. |
+| Your account cannot sign in. | **Arm only**, **Guest** and **Duress** codes cannot have a browser sign-in. | Use another account. |
+
+### Panel Manager says that the panel is locked
+
+While a partition is armed or an alarm sounds, nobody can change settings. Disarm every partition and stop the alarm. You can still use the remote keypad, change your own password and sign out.
+
+### Panel Manager stops after a network change
+
+The panel tries a new network setting for two minutes. Open Panel Manager at the new address, and click **Keep the new settings** before the two minutes end. If you do not, the panel goes back to the earlier settings. Then connect at the earlier address and try again. See [Network settings in Panel Manager](/panel-manager/network/).
 
 ## Home Assistant
 
-| Symptom | Next step |
+| What you see | What to do |
 | --- | --- |
-| No discovered panel | Add RoboAlarms manually using its address; check enablement and TCP 6054 |
-| No RoboAlarms in integration search | Verify HACS/manual installation and restart Home Assistant |
-| Pairing expired | Reopen pairing on the panel and continue within two minutes |
-| Codes differ | Reject the pairing; verify devices and the network before retrying |
-| A shared entity is absent | Check integration options, entity availability and pairing state |
-| Certificate changed | Verify the device; use reauthentication after an expected identity change |
-| Wrong device during reconfigure | Do not accept it; check that the address belongs to the same panel |
-| Protocol incompatible | Use compatible panel and integration versions |
+| Home Assistant does not find the panel. | Turn on **Home Assistant** under **Settings > Integrations**. On another subnet, add the panel with its IP address. |
+| **Could not reach the panel** | Check the IP address of the panel, and that the network allows TCP port 6054. |
+| **Pairing timed out on the panel** | Push **Pair with Home Assistant** on the panel again, and continue within two minutes. |
+| The entities show as unavailable. | Check the power and the Wi-Fi of the panel. The integration connects again by itself. |
 
-The complete flow is in [Set up Home Assistant](/integrations/home-assistant-setup/). For connection repairs, changed identities and version problems, use [Home Assistant troubleshooting](/integrations/home-assistant-troubleshooting/).
+For all other messages, see [Troubleshoot Home Assistant](/integrations/home-assistant-troubleshooting/).
 
-## Smart Home and automations
+## The Flasher
 
-| Symptom | Next step |
+| What you see | What to do |
 | --- | --- |
-| Smart Home is absent or an expected device is missing | Check the paired connection and the separate controllable-entity share list, then the entity's availability; see [Smart Home](/user/smart-home/) |
-| A tile shows a pending, failed or unknown result | Read its status, check the actual device, and restore the connection before repeating an action |
-| A timed automation waits | Set the clock and verify the time zone, enabled rule, days and time conditions |
-| An automation no longer has permission | The panel rechecks the person who saved it for protected actions; review that person's permissions and the installer's allowed-action setting |
-| Automatic arming is warning | Review the warning and open zones, then use the displayed Put off options if needed; see [Panel automations](/user/automations/) |
-| An automation failed | Open its last-run result and identify the missing, offline or refused device or alarm action before using Try it now |
+| The Flasher does not find the panel. | Use a USB data cable. Connect it directly to the computer. Close other programs that use the port. |
+| The screen stays black after the install. | Check the power supply of the panel. |
+| A write stops, or the USB connection breaks. | Keep the power on and connect the same panel again. Run the same job again. |
 
-For details about a bound Home Assistant zone, check [Use Home Assistant sensors](/installer/home-assistant-zones/). If setup fails before pairing or after a factory reset, the [RoboAlarms Flasher guide](/flasher/) covers serial installation and full-flash restore; a restore replaces the current settings with the saved copy, while a factory reset removes them.
+Do not choose **Install** to fix an update problem. **Install** erases the whole panel. For all other problems, see [Flasher troubleshooting](/flasher/troubleshooting/).
 
-## Network and notifications
+## Sirens
 
-Use the panel's [connection check](/user/network-time/) to separate Wi-Fi, addressing, router and service failures.
+| What you see | Why | What to do |
+| --- | --- | --- |
+| A siren stays quiet in a test. | The siren has no power or signal, or the wiring is wrong. | Check the power and the wiring of the siren. For a 433 MHz siren, put it in its learning mode and push **Pair it again**. |
+| **Not while one of its partitions is armed** | You cannot test or change a siren while its partition is armed. | Disarm the partitions of the siren. |
+| **Its supervision input is open: check the siren and its wiring.** | The fault contact of the wired siren is open. | Check the siren and its wiring. |
+| **Nothing can transmit on 433 MHz** | The panel has no working 433 MHz transmitter. | Open **Settings > About > Installer > 433 MHz** and check the **Transmitter** row. |
 
-For missing phone alerts, check the selected event categories, service status, destination and phone permissions. Follow [notification setup and testing](/installer/notifications/). Send an explicit test; a panel event appearing in Activity does not prove a phone received it.
+The panel cannot hear a 433 MHz siren. Test it now and then. See [Sirens and outputs](/installer/sirens/).
 
-For browser access, a keypad code is not the Panel Manager password. Confirm the **Panel Manager** switch is on under **Settings > About > Installer**, use its HTTPS address, and verify the certificate fingerprint shown on the panel before trusting it. See [Panel Manager](/panel-manager/) for sign-in and recovery.
+## Keypad panels
 
-For browser network changes, reconnect and confirm **Keep the new settings** within the trial period. Otherwise the previous network settings return. Panel Manager's guide explains the two-minute trial and rollback.
+### The keypad panel shows No system communication
 
-## Updates and storage
+**What you see:** The **Security** screen of the keypad panel shows **No system communication**. It also shows **Check the alarm panel** and **Is it on, and on the same Wi-Fi?**. The arming tiles are dimmed. Zones show **Unknown**.
 
-| Symptom | Next step |
-| --- | --- |
-| Update waits | Disarm every partition and ensure the system is silent |
-| Update rolled back | Record both versions and the message; contact the maintainer before retrying repeatedly |
-| USB install or update failed | Keep the panel powered, save the Flasher log, and follow [Flasher recovery steps](/flasher/troubleshooting/). Do not choose Reset to factory defaults unless you intend to erase the configuration |
-| Storage problem | Treat configuration persistence as unresolved; record the message and contact the installer |
-| SD card not found | Check the storage status; do not format as a first response |
-| Need a lost master code | Ask the installer to set a replacement; factory reset is unnecessary |
+**Why:** The keypad panel cannot reach the alarm panel.
+
+**What to do:**
+
+1. Check that the alarm panel is on.
+2. Check that both panels are on the same Wi-Fi network.
+3. On the keypad panel, open **Settings > Wi-Fi and network** and check the connection.
+4. Wait. The keypad connects again by itself when the alarm panel answers.
+
+If a fire or CO alarm keeps sounding on the keypad panel, push **Silence**. This stops the sound on that keypad only.
+
+### Other keypad messages
+
+| What you see | Why | What to do |
+| --- | --- | --- |
+| **Connecting** and **Arming waits until it answers** | The keypad panel starts and connects to the alarm panel. | Wait. |
+| **Not paired** | The alarm panel removed this keypad. | Push **Pair again** and pair it again. See [Keypad panels](/installer/keypads/#pair-a-new-keypad-panel). |
+| **Update this keypad: Settings > About** | The keypad software is older than the alarm panel software. | Update the keypad panel. |
+| **Partition switching unavailable** | The keypad panel cannot reach the alarm panel. | Check that the alarm panel is on and on the same Wi-Fi. |
+| The alarm panel shows the keypad as **Not responding**. | The keypad panel stopped answering. | Check the power and the Wi-Fi of the keypad panel. |
 
 ## Information to collect
 
-Record the software version, exact message, affected zone/service, the action just taken and whether it repeats. Screenshots should exclude codes, notification QR codes, tokens and private network details.
+Before you ask for help, write down these facts:
+
+- The software version. Open **Settings > About**.
+- The exact message on the screen.
+- The zone, the partition or the service that the message names.
+- What you did before the message appeared.
+- If the problem comes back.
+
+Do not send codes, passwords, QR codes, tokens or the name of your network to anyone.
+
+## Related tasks
+
+- [Alarms, troubles and activity](/user/alarms-troubles/)
+- [Questions and answers](/reference/faq/)
+- [Who can do what](/reference/permissions/)
+- [Safety and limits](/start/safety/)

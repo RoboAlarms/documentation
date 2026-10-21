@@ -1,0 +1,176 @@
+---
+title: "Keypad panels"
+description: "Pair another RoboAlarms panel as a keypad for the alarm panel, set its partitions, and know what it shows."
+audience: ["installer"]
+time: "10 minutes"
+---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
+
+A keypad panel is another RoboAlarms panel on the same Wi-Fi as the alarm panel. It shows the alarm state, arms and disarms, and sends panic alarms to the alarm panel. Use this page to pair a keypad panel and to set it up.
+
+Each home has one alarm panel. The sensors, the users and the alarm live on the alarm panel. A keypad panel has no zones or users of its own.
+
+<Aside type="note" title="Before you start">
+- You need the installer code of the alarm panel.
+- Disarm every partition on the alarm panel.
+- The new keypad panel must be new from the box, or reset to its factory settings. Its first setup asks how it will be used.
+- Both panels must be on the same Wi-Fi network. If the new panel is near the alarm panel, it can get the Wi-Fi settings from it.
+- The alarm panel needs a free keypad number. Keypad numbers 1 to 8 are shared with Zigbee keypads and supervised devices.
+</Aside>
+
+## Pair a new keypad panel
+
+You do the steps on two screens: the alarm panel and the new keypad panel. Pairing stays open for 2 minutes.
+
+<Steps>
+
+1. On the alarm panel, open **Settings > About > Installer** and enter the installer code.
+2. Push **Keypads and devices**.
+3. Push **Add a keypad**.
+
+   The alarm panel shows **Waiting for a keypad** and the time that is left. Stay on this page. Leaving it closes pairing.
+
+4. On the new keypad panel, push **Start** on the **Welcome** step.
+5. On the **How will this panel be used?** step, push **A keypad**. Then push **Next**.
+
+   <PanelShot src="/images/panel/first-setup-role.png" alt="Setup step How will this panel be used? with The alarm panel and A keypad" caption="Choose A keypad on the new panel." />
+
+6. On the **Find your alarm panel** step, push **Find panel**.
+
+   If the alarm panel is out of range, push **Select Wi-Fi** first and join the network that the alarm panel uses.
+
+7. Wait until the keypad panel shows **Found** and the name of the alarm panel.
+
+   Both screens show a six-digit code.
+
+8. Compare the code on the two screens.
+
+   <PanelShot src="/images/panel/keypads-setup-compare.png" alt="Keypad setup step with Found Harbor House, the code 540 497, No, cancel and Yes, pair" caption="The new keypad panel shows the code and the alarm panel it found." />
+
+9. If the codes are the same, push **Yes, allow** on the alarm panel.
+
+   <PanelShot src="/images/panel/keypads-add-compare.png" alt="Add a keypad page on the alarm panel with the code 540 497, No, reject and Yes, allow" caption="The alarm panel asks if the keypad shows the same code." size="medium" />
+
+10. Push **Yes, pair** on the keypad panel.
+
+    The alarm panel shows **Added as Keypad** and the keypad number. The keypad panel shows **Keypad paired**.
+
+11. On the keypad panel, push **Done**.
+
+    The keypad panel restarts as a keypad.
+
+</Steps>
+
+<Aside type="danger" title="Warning">
+Do not pair if the codes are different. Push **No, reject** on the alarm panel. A different code means that something on your network is in between.
+</Aside>
+
+<Aside type="tip" title="Check the result">
+On the alarm panel, **Keypads and devices** shows the new keypad with **Connected**. On the keypad panel, the **Security** screen shows the alarm state of its partition.
+</Aside>
+
+To change the role of a panel later, reset it to its factory settings. The role step shows only on the first start.
+
+## Pair from Panel Manager
+
+You can also start pairing in a browser. Sign in to [Panel Manager](/panel-manager/installer/) as the installer. Click **Installer > Partitions and devices**, click **Add device**, then click **Keypad**. In the **Add a keypad** dialog, click **Start pairing**. When the codes appear, click **Matches** if they are the same, or **No match** if they are different. The pairing window is 2 minutes.
+
+## Set up a keypad
+
+Open **Settings > About > Installer > Keypads and devices** on the alarm panel. The **Keypads** section shows each keypad panel and its state.
+
+<PanelShot src="/images/panel/keypads-list.png" alt="Keypads and devices page with Add a keypad, This panel, Hall keypad Connected and Bedroom keypad Not responding" caption="Each keypad row shows its number, its default partition and its state." size="medium" />
+
+| State | What it means |
+| --- | --- |
+| **Connected** | The keypad answers the alarm panel. |
+| **Connecting** | The keypad is new and has not answered yet. |
+| **Updating** | The keypad restarts with a software update from the alarm panel. |
+| **Not responding** | The keypad stopped answering. This is a trouble. The row shows when the panel last heard it. |
+
+Push a keypad to open its page. Changes are saved when you go back.
+
+<PanelShot src="/images/panel/keypads-detail.png" alt="Hall keypad page with Connected, Name, Default partition, Allow partition switching and Return after inactivity" caption="The keypad page shows its state, its name and its partition settings." size="medium" />
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Name** | The name of the keypad, for example Hall keypad. | Keypad and its number |
+| **Default partition** | The partition that the keypad shows and arms. | |
+| **Allow partition switching** | Lets a person choose another partition on the keypad. Off locks the keypad to its default partition. | Off |
+| **Return after inactivity** | The time in seconds after which the keypad goes back to its default partition. You can set 1 to 3600 seconds. | 30 seconds |
+| **Never return automatically** | The keypad stays on the chosen partition until someone changes it. | Off |
+| **Supervision** | How long the keypad can be silent before the alarm panel shows a trouble: 1, 5 or 15 minutes, or **Not supervised**. | 5 minutes |
+| **Remove this keypad** | Hold the button to remove the keypad. It stops working at once. To use it again, pair it again. | |
+
+**Return after inactivity** and **Never return automatically** apply only when **Allow partition switching** is on. For the partition settings of the alarm panel itself, see [Set up partitions](/installer/partitions/#partition-settings-for-a-panel).
+
+## What the keypad panel shows
+
+A keypad panel shows the same **Security**, **Zones**, **Activity** and **Panic** screens as the alarm panel, for its partition. Its **Smart Home** screen shows the devices of the alarm panel. Its **Settings** list has **Screen and sound**, **Wi-Fi and network**, **Time and language** and **About**. Language, screen and sound settings stay on each keypad.
+
+On the **Panic** screen, a person holds a button for 2 seconds to set off the alarm on the alarm panel.
+
+**Settings > About** on the keypad panel shows the alarm panel that it belongs to: its **Name**, its **Address** and the **Keypad number**.
+
+### When the keypad loses the alarm panel
+
+If the keypad panel cannot reach the alarm panel, the **Security** screen shows **No system communication**. It also shows **Check the alarm panel** and **Is it on, and on the same Wi-Fi?**. Arming is off on the keypad until the alarm panel answers again.
+
+<PanelShot src="/images/panel/keypads-lost-link.png" alt="Keypad Security screen with No system communication, Harbor House hasn't answered, and Check the alarm panel" caption="Arming buttons are dimmed while the keypad cannot reach the alarm panel." />
+
+| The keypad shows | Do this |
+| --- | --- |
+| **Connecting** and **Arming waits until it answers** | Wait. The keypad is starting and connects to the alarm panel. |
+| **No system communication** | Check that the alarm panel is on and on the same Wi-Fi. Check the Wi-Fi of the keypad panel. |
+| **Not paired** | The alarm panel removed this keypad. Push **Pair again** and pair it again. |
+| **Update this keypad: Settings > About** | The keypad software is older than the alarm panel software. Update the keypad. |
+
+If a fire or CO alarm keeps sounding on a keypad that lost the alarm panel, push **Silence**. This stops the alarm sound on that keypad only.
+
+## Updates
+
+Keypads update with the alarm panel. Each keypad gets the new version while it keeps working. The panels restart together once everything is disarmed. **Software update** on the alarm panel shows a **Keypads** section with the state of each keypad. See [Updates and storage](/user/updates-storage/).
+
+## Make a keypad a stand-alone panel
+
+To use a keypad panel as an alarm panel again, reset it on the keypad panel itself.
+
+<Aside type="caution" title="Caution">
+This is a factory reset. It erases the pairing, the Wi-Fi and every setting on the keypad panel.
+</Aside>
+
+<Steps>
+
+1. On the keypad panel, open **Settings > About**.
+2. Push **Make it a stand-alone panel**.
+3. Push **Enter the installer code** and enter the installer code.
+4. Hold **Hold to erase everything** until the panel restarts.
+
+   The panel restarts with the first setup.
+
+5. On the alarm panel, remove the keypad in **Keypads and devices**.
+
+   Until you remove it, the alarm panel shows a trouble for this keypad.
+
+</Steps>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Not paired: the codes didn't match** | Start again on both panels. If the codes are different again, do not pair. Something on your network is in between. |
+| **Not paired: rejected at the alarm panel** | Open **Add a keypad** on the alarm panel and push **Yes, allow** when the codes match. |
+| **Not paired: no answer in time** | Both screens must answer within 2 minutes. Open **Add a keypad** on the alarm panel again, then try again. |
+| **Not paired: no keypad number is free** | Remove a keypad, Zigbee keypad or supervised device on the alarm panel, then try again. |
+| **Not paired: two alarm panels are open** | Close **Add a keypad** on the alarm panel that the keypad is not for, then try again. |
+| **Not paired: another keypad was pairing too** | Pair one keypad at a time. |
+| The keypad shows **Still looking** | Check that **Add a keypad** is open on the alarm panel. If the alarm panel is out of range, push **Select Wi-Fi**. |
+| **Add a keypad** shows **No keypad asked to pair** | Check that the new panel is on the same Wi-Fi and on its pairing step. Push **Try again**. |
+
+## Related tasks
+
+- [Set up partitions](/installer/partitions/)
+- [Run the first setup](/installer/first-setup/)
+- [Installer programming in Panel Manager](/panel-manager/installer/)
+- [Commission and hand over](/installer/commissioning/)

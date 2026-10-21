@@ -1,48 +1,127 @@
 ---
 title: "Software updates and SD card"
-description: "Check and install a signed panel update, then inspect or safely manage an SD card."
-sidebar:
-  order: 9
+description: "Check for and install a panel update, and look after the SD card."
+audience: [user]
+time: "10 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-## Check or install an update
+Use this page to install a new software version on the panel, and to check or remove the SD card.
 
-**Where:** Settings > About > Software update<br />
-**Access:** a system master or installer code is required to open and manage this page. Settings cannot be opened while a partition is armed or in alarm.
+## Install an update
 
-1. Open **Settings > About** and note the running version.
-2. Open **Software update**. Select **Check again** if you want the panel to ask its update server now; the page also shows its check result and when it last checked.
-3. If a version is offered, read its version and whether the panel marks it as an important fix.
-4. Select **Install version ...** and confirm with **Install** when you are ready. The panel downloads and verifies the signed image before it can install.
-5. Keep power connected. If the verified update is waiting, the screen explains what must become safe first. The panel restarts when every partition is disarmed, the alarm is silent, installer mode is off and any walk test has ended.
-6. After restart, allow the panel to test the new version. Reopen **Software update** or **About this panel** to confirm the result.
+<Aside type="note" title="Before you start">
+- You need a system master code or the installer code.
+- All partitions must be disarmed, with no alarm. Settings open only then.
+- The panel must be connected to the internet.
+</Aside>
 
-<PanelShot src="/images/panel/update.png" alt="Software update page with a version offered by the update server" caption="Review the offered version before installing it." />
+<Steps>
 
-Nothing installs without a person choosing **Install**. The panel keeps protecting while it downloads and waits to restart. You can select **Stop the update** while it is still stoppable; confirm **Stop it**. Once the panel has begun restarting to install, it cannot be stopped from this page. A failed start-up self-test returns to the previous firmware and reports **Rolled back**; the rolled-back version did not become the running version.
+1. Open **Settings > About**.
+
+   The top row shows the version that runs now.
+
+2. Push **Software update**.
+3. Enter your code, if the panel asks for one.
+4. To ask the update server now, push **Check again**.
+
+   If a new version is available, the panel shows it.
+
+5. Push **Install version** and the version number.
+6. Read the question, and then push **Install**.
+
+   The panel downloads and checks the update.
+
+</Steps>
+
+<PanelShot src="/images/panel/updates-offered.png" alt="Software update page with Version 0.6.1 is ready to install and the Install version 0.6.1 button" caption="The top row shows the new version and the version that you have now." />
+
+<Aside type="caution" title="Caution">
+Keep the power connected until the update is complete. The panel needs power to download, check and install the update.
+</Aside>
+
+The panel keeps protecting while it downloads and waits. It restarts when all of these are true:
+
+- All partitions are disarmed.
+- No alarm sounds.
+- Installer mode is off.
+- No walk test runs.
+
+After the restart, the panel tests the new version. If the test fails, the panel goes back to the earlier version and shows **Rolled back**.
+
+<Aside type="tip" title="Check the result">
+Open **Settings > About**. The top row shows the new version.
+</Aside>
+
+Nothing installs until a person pushes **Install**. To stop an update, push **Stop the update**, and then push **Stop it**. When the panel starts to restart, you cannot stop the update.
+
+### Keypad panels
+
+Keypads update with this panel. They restart together once everything is disarmed.
+
+<PanelShot src="/images/panel/updates-keypads.png" alt="Keypads section of Software update with three keypads and the update state of each" caption="Each keypad shows its version and how far its update is." size="medium" />
+
+On a keypad panel, **Software update** shows the alarm panel that its updates come from.
+### Language and voice packs
+
+Some updates also bring language packs and voice packs. The panel gets them from its update server with the update. There is no separate download button. The voice announcements need a voice pack. See [Screen and sound](/user/display-sound/#voice-announcements).
 
 ### Update server and channel
 
-The update server and release channel are installer settings, separate from checking or installing a release. The installer finds **Updates** under **Settings > About > Installer**. There, **Update server** and **Update channel** are available only to the installer. The default server is the RoboAlarms server; changing it requires the installer to verify the server and, when its signing key is not already trusted, review and accept its key fingerprint. Changing the server replaces the previously accepted key. Do not change these values to work around an update error; ask the installer to verify which source the panel should trust.
+The installer sets the update server and the update channel at **Settings > About > Installer > Updates**. The default server is the RoboAlarms server, and the default channel is **Stable**. **Beta** and **Alpha** have newer versions that are less tested. **Dev** is for developers.
 
-The channel controls which releases the server offers: **Stable**, **Beta**, **Alpha** or **Dev**. Stable is the default. Beta and Alpha contain newer, less-tested releases; Dev is for developers. Choosing a channel triggers a check, but it does not install a release by itself.
+Do not ask the installer to change the server or channel to work around an update error. Ask the installer to find the cause instead.
 
-Some releases may list signed language and asset packs in addition to firmware. The panel fetches matching packs listed by its update server; there is no separate pack download button on this page. A ready voice pack is required for the voice controls described in [Screen and sound](/user/display-sound/). A pack being available from a development build or test server does not mean it is included in every release.
-
-For a USB update, use [RoboAlarms Flasher](/flasher/update/). [Panel Manager](/panel-manager/updates/) provides browser access for installers with Developer mode enabled; it is an installer workflow, not an ordinary household-user update path.
+To update the panel over USB, use the [Flasher](/flasher/update/). The system master and the installer can also use [Panel Manager](/panel-manager/updates/).
 
 <span id="view-storage"></span>
 
-## View and manage an SD card
+## View and manage the SD card
 
-**Where:** Settings > About > SD card<br />
-**Access:** anyone can view the card state; a system master or installer code is needed for card actions.
+<Aside type="note" title="Before you start">
+- Anyone can see the state of the card.
+- You need a system master code or the installer code to remove or format the card.
+</Aside>
 
-The **SD card** row reports the card state. Open it to see status and, when available, its filesystem and model. If no card is detected, select **Check for a card** to check again. With a supported card, use **Safely remove** and wait for the state to update before removing it. FAT12, FAT16 and FAT32 are supported; exFAT is not. A card error or unsupported filesystem does not mean panel settings are stored on the card.
+<Steps>
 
-<PanelShot src="/images/panel/storage.png" alt="About this panel SD card status and card details" caption="The SD card page reports card state and details when a card is available." />
+1. Open **Settings > About**.
+2. Push **SD card**.
 
-**Format the card erases all files and partitions on that card.** Review the confirmation carefully and keep panel power connected until formatting finishes. Formatting is not a secure erase or a general fix for every storage problem. If the card contains files you need, back them up before formatting.
+   The panel shows the state of the card, the free space, the format and the model.
 
-The SD card page reports card storage only. It does not provide a browser for internal flash or removable access to panel settings. Ask the installer for help if **Check for a card** cannot detect a supported card or a storage error persists.
+3. If the panel finds no card, push **Check for a card**.
+4. Before you take out the card, push **Safely remove**. Wait until the state changes.
+
+</Steps>
+
+<PanelShot src="/images/panel/updates-sd-card.png" alt="SD card page with Ready, the free space, Safely remove, the card details and Format the card" caption="Push Safely remove before you take out the card." size="medium" />
+
+The panel can use cards with the FAT12, FAT16 or FAT32 format. It cannot use exFAT. The panel does not keep its settings on the card. A card error does not change the alarm settings.
+
+### Format the card
+
+<Aside type="caution" title="Caution">
+Copy the files that you need before you format the card. **Format the card** erases all files and partitions on the card.
+</Aside>
+
+Push **Format the card**, read the question, and then confirm. Keep the power connected until the format is complete. A format is not a secure erase.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Software update** asks for a code. | Enter a system master code or the installer code. |
+| The panel shows no new version. | Push **Check again**. Make sure the connection check passes. See [Wi-Fi, network and time](/user/network-time/#check-the-connection). |
+| The update waits. | Disarm all partitions, silence any alarm and end any walk test. Ask the installer to leave installer mode. |
+| The panel shows **Rolled back**. | The new version did not start correctly, and the panel uses the earlier version. Tell the installer. |
+| The panel does not find the SD card. | Push **Check for a card**. Use a card with the FAT32 format. |
+
+## Related tasks
+
+- [Wi-Fi, network and time](/user/network-time/)
+- [Screen and sound](/user/display-sound/)
+- [Update with the Flasher](/flasher/update/)
+- [Keypads](/installer/keypads/)

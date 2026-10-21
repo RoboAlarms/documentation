@@ -1,0 +1,13 @@
+[
+  { "out": "panel/integrations-list.png", "from": "panel/96_integrations.png" },
+  { "out": "panel/ha-pair-ready.png", "from": "panel/98_ha_ready.png", "crop": {"left":430,"top":60,"width":594,"height":320} },
+  { "out": "panel/ha-pair-code.png", "from": "panel/100_ha_pairing_code.png", "crop": {"left":430,"top":130,"width":594,"height":340} },
+  { "out": "panel/ha-pair-paired.png", "from": "panel/101_ha_paired.png", "crop": {"left":430,"top":60,"width":594,"height":360} },
+  { "out": "panel/ha-zone-sensor-pick.png", "from": "panel/195_zone_ha_catalog.png", "crop": {"left":430,"top":60,"width":594,"height":400} },
+  { "out": "panel/ha-zone-bound.png", "from": "panel/197_zone_ha_bound.png", "crop": {"left":430,"top":60,"width":594,"height":190} },
+  { "out": "panel/mqtt-broker.png", "from": "panel/104_mqtt_connected.png" },
+  { "out": "panel/notifications-ntfy.png", "from": "panel/211_ntfy_on.png", "crop": {"left":430,"top":60,"width":594,"height":458} },
+  { "out": "panel/notifications-pushover.png", "from": "panel/217_pushover_on.png", "crop": {"left":430,"top":60,"width":594,"height":496} },
+  { "out": "panel/delays-and-arming.png", "from": "panel/131_installer_options.png" },
+  { "out": "panel/commissioning-walk-test.png", "from": "panel/282_walk_test_summary.png", "crop": {"left":430,"top":60,"width":594,"height":520} }
+]

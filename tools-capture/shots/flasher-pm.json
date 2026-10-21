@@ -1,0 +1,22 @@
+[
+  { "out": "panel-manager/pm-sign-in.png", "from": "panel-manager/sign-in.png", "crop": { "left": 620, "top": 150, "width": 452, "height": 530 } },
+  { "out": "panel-manager/pm-overview.png", "from": "panel-manager/overview.png" },
+  { "out": "panel-manager/pm-people-browser-sign-in.png", "from": "panel-manager/people-browser-sign-in.png", "crop": { "left": 272, "top": 620, "width": 1150, "height": 310 } },
+  { "out": "panel-manager/pm-troubles.png", "from": "panel-manager/troubles.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 420 } },
+  { "out": "panel-manager/pm-remote-keypad.png", "from": "panel-manager/remote-keypad.png" },
+  { "out": "panel-manager/pm-automations-ideas.png", "from": "panel-manager/automations-ideas.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 545 } },
+  { "out": "panel-manager/pm-automations-editor.png", "from": "panel-manager/automations-editor.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 890 } },
+  { "out": "panel-manager/pm-zone-editor.png", "from": "panel-manager/installer-zone-editor.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 890 } },
+  { "out": "panel-manager/pm-partitions-and-devices.png", "from": "panel-manager/installer-partitions-and-devices.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 455 } },
+  { "out": "panel-manager/pm-network.png", "from": "panel-manager/network.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 825 } },
+  { "out": "panel-manager/pm-software-updates.png", "from": "panel-manager/software-updates.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 300 } },
+  { "out": "panel-manager/pm-keypad-updates.png", "from": "panel-manager/installer-software-updates.png", "crop": { "left": 272, "top": 70, "width": 1150, "height": 400 } },
+  { "out": "flasher/flasher-connect.png", "from": "flasher/install-07-connect.png" },
+  { "out": "flasher/flasher-plan-parts.png", "from": "flasher/install-03-plan-parts.png", "crop": { "left": 460, "top": 120, "width": 792, "height": 474 } },
+  { "out": "flasher/flasher-install-review.png", "from": "flasher/install-10-review.png", "crop": { "left": 460, "top": 90, "width": 792, "height": 790 } },
+  { "out": "flasher/flasher-install-progress.png", "from": "flasher/install-12-progress-writing.png" },
+  { "out": "flasher/flasher-update-review.png", "from": "flasher/update-03-review.png", "crop": { "left": 460, "top": 90, "width": 792, "height": 790 } },
+  { "out": "flasher/flasher-backups.png", "from": "flasher/tools-05-backups.png", "crop": { "left": 0, "top": 64, "width": 1330, "height": 460 } },
+  { "out": "flasher/flasher-test-parts.png", "from": "flasher/install-14-test-and-finish.png", "crop": { "left": 460, "top": 360, "width": 792, "height": 480 } },
+  { "out": "flasher/flasher-panels-and-ports.png", "from": "flasher/tools-01-panels-and-ports.png", "crop": { "left": 0, "top": 64, "width": 1330, "height": 460 } }
+]

@@ -1,39 +1,76 @@
 ---
 title: "Glossary"
-description: "Plain-language explanations of alarm and integration terms."
-sidebar:
-  order: 3
+description: "The meaning of the words that the panel and this guide use."
+audience: ["everyone"]
 ---
-import PanelShot from '../../../components/PanelShot.astro';
 
-| Term | Meaning |
+This page explains the words that the panel and this guide use. The words are in alphabetical order.
+
+| Word | Meaning |
 | --- | --- |
-| **Activity** | The panel's event history, with public wording and protected private details |
-| **Alarm memory** | A record that an alarm occurred, even after it is no longer sounding |
-| **Auto-stay** | A setting that can change keypad Away arming to Stay when nobody exits |
-| **Automation** | A saved trigger and action. [Panel automations](/user/automations/) run on the panel; Home Assistant automations run in Home Assistant |
-| **Bypass** | Temporarily leaving an eligible zone out of protection for an armed period |
-| **Chime** | A sound for selected opening events while disarmed |
-| **Commissioning** | Checking the configured system against its intended operation |
-| **Disarmed** | Burglary arming is off; 24-hour behaviors can still operate |
-| **Entity** | A named state or control exposed in Home Assistant |
-| **Entry delay** | Time to disarm after using a designated entry route |
-| **Exit delay** | Time to leave after arming |
-| **Factory reset** | Returns the panel to initial setup. [Panel Manager reset](/panel-manager/installer/#factory-reset) erases configuration and optionally the event log while retaining firmware; [Flasher reset](/flasher/backups/#reset-to-factory-defaults) erases the entire flash and installs firmware again |
-| **Flasher** | Desktop app that installs, updates, backs up, restores, and tests supported RoboAlarms panels over USB; see [the Flasher guide](/flasher/) |
-| **HACS** | Home Assistant Community Store, used to install custom integrations |
-| **Home Assistant Container** | Home Assistant running in a container such as Docker, with supporting services managed separately |
-| **Home Assistant integration** | The RoboAlarms custom integration that pairs directly with the panel over the local network; it is separate from MQTT |
-| **Installer mode** | Authorized programming mode that blocks arming |
-| **Instant** | An arming option that removes entry delay |
-| **Integration** | Software connecting RoboAlarms to another system or service |
-| **Master code** | A household administrator's alarm code |
-| **MQTT broker** | The service that routes MQTT messages between clients |
-| **Pairing** | Explicitly establishing trust between the panel and Home Assistant |
-| **Panel Manager** | The panel-hosted browser administration interface; it uses a browser password rather than an alarm keypad code. See [Panel Manager](/panel-manager/) |
-| **Partition** | An independently armed part of an alarm system. Disarming one does not disarm the others; see [Partitions and your code](/user/partitions/) |
-| **Source** | The connection supplying a zone's sensor state |
-| **Smart Home** | The panel screen for supported shared device controls, rooms and Favorites; see [Smart Home](/user/smart-home/) |
-| **Supervision** | Checking that a sensor/source remains available |
-| **Trouble / CHECK** | A fault requiring attention, distinct from an alarm |
-| **Zone** | A named input with assigned alarm behavior |
+| **433 MHz** | A radio band for simple wireless sensors, remotes and sirens. The panel needs a 433 MHz receiver for sensors and a 433 MHz transmitter for sirens. A 433 MHz sensor is not supervised. See [Sensors and radio modules](/installer/sensors-radios/#433-mhz-sensors). |
+| **Activity** | The event history of the panel, on the rail. Some events are private and show only with a master or installer code. See [Alarms, troubles and activity](/user/alarms-troubles/#review-what-happened). |
+| **Alarm** | The panel detected an event, for example a door that opened while armed. The screen turns red and the sirens sound. |
+| **Alarm memory** | The record of an alarm that the panel keeps after the alarm stops. The state text shows **Alarm occurred** or **Alarm canceled** until someone clears it with a code. |
+| **Alarm panel** | The panel that holds the zones, the users and the alarm. Each home has one alarm panel. Compare **Keypad panel**. |
+| **Arm** | Start the protection. The arming modes are **Away**, **Stay** and **Night**. See [Arm and disarm](/user/arming-disarming/). |
+| **Arm only** | A code level that can arm but cannot disarm or bypass. |
+| **Auto-stay** | A setting that changes **Away** to **Stay** when nobody leaves through an exit door during the exit time. |
+| **Automation** | A short rule that the panel keeps and runs by itself, for example a light when a door opens. See [Create panel automations](/user/automations/). |
+| **Bypass** | Leave a zone out of the protection for one arming. All bypasses end when you disarm. See [Zones and bypass](/user/zones-bypass/). |
+| **Chime** | A beep at the panel when a door or window opens while the panel is disarmed. See [Turn the chime on or off](/user/chime/). |
+| **Code** | The digits that a person types on the code pad, from 4 to 10 digits. A code is not a Panel Manager password. |
+| **Contact** | The setting that tells the panel how a wired sensor's contact works, for example **Normally closed** or an end-of-line choice. |
+| **Default partition** | The partition that a panel shows and returns to. |
+| **Disarm** | Stop the burglary protection. Fire, CO and other 24-hour zones keep working. |
+| **Double end-of-line** | A wired contact with two 2 kOhm resistors at the sensor. A cut or shorted wire is a tamper. |
+| **Duress code** | A code that disarms and also records a private event that a connected service can report. It does not send help by itself. |
+| **End-of-line resistor** | A resistor at the sensor end of a wired zone. With it, the panel can tell a cut or shorted wire from a normal state. See [Wired zones and end-of-line resistors](/installer/zones/#wired-zones-and-end-of-line-resistors). |
+| **Entity** | A state or a control in Home Assistant, for example a door sensor or a light. |
+| **Entry time** | The time to disarm after you open an entry door while armed. The panel has **Entry time 1** and **Entry time 2**. |
+| **Exit time** | The time to leave after you arm. |
+| **Factory reset** | Erases the zones, the users, the Wi-Fi and every setting. The panel then starts the first setup with the factory codes. See [Factory reset](/installer/installer-access/#factory-reset). |
+| **Favorites** | The first tab of **Smart Home**, with the devices that you use most. |
+| **Flasher** | The program for your computer that installs and updates the panel firmware over USB. See [the Flasher guide](/flasher/). |
+| **Guest** | A code level that arms, and disarms only what the same code armed. |
+| **HACS** | The Home Assistant Community Store. You use it to install the RoboAlarms integration. |
+| **Home Assistant integration** | The RoboAlarms software in Home Assistant. It connects directly to the panel on the local network. It does not need MQTT. See [Install and pair Home Assistant](/integrations/home-assistant-setup/). |
+| **Installer** | The person who installs and sets up the panel, and the code level of that person. The installer code changes how the alarm works, but never arms or disarms. |
+| **Installer mode** | The mode that opens the installer menu. Nobody can arm while it is on. It ends after 15 minutes without a touch. See [Installer access and codes](/installer/installer-access/). |
+| **Keypad lockout** | After too many wrong codes, the keypad refuses all codes for a while. The panel shows **Keypad locked**. |
+| **Keypad panel** | Another RoboAlarms panel that acts as a keypad for the alarm panel. It has no zones or users of its own. See [Keypad panels](/installer/keypads/). |
+| **MQTT** | A way to send the panel status to a broker, for Node-RED or your own scripts. See [Connect an MQTT broker](/installer/mqtt/). |
+| **Night zone** | An interior zone that is also armed in **Night**. |
+| **No entry delay** | An arming option that removes the entry time. An entry door then causes an alarm at once. See [Arming options](/user/arming-disarming/#arming-options). |
+| **Not reporting** | A zone trouble. The panel cannot get the state of the sensor, so it cannot detect an opening on that zone. See [Troubleshooting](/reference/troubleshooting/#a-zone-shows-not-reporting). |
+| **Pairing** | The step that makes two devices trust each other, for example the panel and Home Assistant, or the alarm panel and a keypad panel. You compare a six-digit code on both screens. |
+| **Panel Manager** | Pages that the panel shows in a browser on your home network. It uses a password, not a code. See [Panel Manager](/panel-manager/). |
+| **Partition** | An area of the home that arms and disarms separately. The panel has up to four partitions. See [Partitions](/user/partitions/). |
+| **Partition master** | A code level that does everything a standard code does, and manages users in its own partitions. |
+| **Partition switching** | A setting that lets a person choose another partition on a panel. Then the **Security** screen shows a **Switch partition** row. |
+| **Protected device** | A **Smart Home** device that asks for a master code before each change. It shows a key on its tile. See [Smart Home](/user/smart-home/#protect-a-device-with-a-master-code). |
+| **Rail** | The column on the left side of the screen: **Security**, **Zones**, **Smart Home**, **Activity** and **Panic**. |
+| **Report delay** | If someone disarms within this time, the panel does not send the burglary alarm. |
+| **Room** | A tab on **Smart Home** that groups devices. The rooms belong to the panel. A device follows its Home Assistant area until you put it in a room on the panel. |
+| **Sensor** | The device that detects a change, for example a door contact or a motion sensor. A zone gets its state from a sensor. |
+| **Siren** | A device that sounds with the alarm. It can be wired, 433 MHz, Zigbee or Z-Wave. |
+| **Siren time** | How long a burglary alarm sounds. It applies to every siren. |
+| **Smart Home** | The panel screen for lights, locks and other devices that Home Assistant shares. See [Smart Home](/user/smart-home/). |
+| **Source** | Where a zone gets the state of its sensor: wired, 433 MHz, Zigbee, Z-Wave or Home Assistant. |
+| **Start screen** | The screen that the panel rests on while disarmed: **Security** or **Smart Home**. See [Choose the start screen](/user/display-sound/#choose-the-start-screen). |
+| **Strobe** | A light output that is on from an audible alarm until someone disarms. |
+| **Supervision** | The panel checks that a sensor, siren or keypad still answers. When it does not answer in time, the panel shows a trouble. |
+| **System master** | The code level that does everything in all partitions and manages all users except the installer. The factory master code has this level. |
+| **Trouble** | A fault that needs attention, for example a low battery. A trouble is not an alarm. See [Read and acknowledge a trouble](/user/alarms-troubles/#read-and-acknowledge-a-trouble). |
+| **Walk test** | A test in which you open each door and walk past each sensor. The panel beeps for each zone. |
+| **Wired output** | A relay or MOSFET module on a free terminal: a siren, a strobe, smoke detector power or an armed light. See [Sirens and outputs](/installer/sirens/). |
+| **Z-Wave** | A radio standard for sensors, sirens and other devices. The panel uses it with a Z-Wave radio module. |
+| **Zigbee** | A radio standard for sensors, sirens and other devices. The panel uses it with its own Zigbee radio module. |
+| **Zone** | One place that the panel watches, with a name, for example Front Door. A zone has a type and a source. |
+| **Zone type** | How the alarm reacts when a zone changes, for example **Entry/exit 1**, **Perimeter** or **Fire**. See [Zone types](/installer/zones/#zone-types). |
+
+## Related tasks
+
+- [How RoboAlarms works](/start/how-it-works/)
+- [Questions and answers](/reference/faq/)
+- [Who can do what](/reference/permissions/)

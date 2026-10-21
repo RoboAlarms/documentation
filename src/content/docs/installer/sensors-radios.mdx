@@ -1,44 +1,189 @@
 ---
 title: "Sensors and radio modules"
-description: "Choose and commission wired, 433 MHz, Zigbee, and Z-Wave zone sources with their current software limits."
-sidebar:
-  order: 4.5
+description: "Use wired, 433 MHz, Zigbee and Z-Wave sensors, update the Z-Wave radio, and set Zigbee and Z-Wave sirens."
+audience: ["installer"]
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-RoboAlarms supports several sensor sources, but software support does not prove that a particular device or physical installation has been accepted. Confirm the panel's current capabilities in **Settings > About > Installer** and the source picker. Use [RoboAlarms hardware](https://roboalarms.com/hardware/) and the module maker's instructions for physical context; this guide does not specify wiring.
+The panel can read sensors from its wired terminals and from three radios: 433 MHz, Zigbee and Z-Wave. Use this page to choose a source for each zone, to look after the radios and to set Zigbee and Z-Wave sirens.
 
-Before programming, disarm every partition and leave Installer mode closed when the page asks for it. Pairing, removal, radio resets, and firmware updates can interrupt sensor coverage. Plan those changes with the person responsible for the system, and do not rely on a source until its sensor has been tested at the panel.
+The source picker in **Add a zone** shows only the sources that this panel can use. A source in the list does not prove that the module or the sensor is connected. Test each sensor at the panel before you rely on it.
 
-## Wired terminals and 433 MHz sensors
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- Disarm every partition. Pairing, removal, radio resets and radio updates are done only in installer mode with everything disarmed.
+- Tell the person responsible for the building. A radio change can stop sensor reports for a while.
+</Aside>
 
-Use the Flasher's **Panel and parts** step to record an optional receiver, then use **Zones > Add a zone** on the panel to learn a 433 MHz sensor. The Flasher's receiver test only shows transmissions; it does not enroll a sensor. Some common fixed-code and rolling-code families are decoded, but a 433 MHz label alone does not mean a device is supported. The zone's learned codes determine which signal opens and closes it.
+## Choose a source
 
-This 433 MHz source is not supervised. A sensor that stops transmitting does not report that it has failed. Where supported, the panel can use separate learned codes for tamper and low battery. Do not assign an unsupervised sensor to fire, CO, or panic protection. Fixed-code signals may be copied.
+| Source | What it is | Do not use for |
+| --- | --- | --- |
+| **Wired contact** | A contact wired to the panel's terminals | |
+| **433 MHz sensor** | A sensor that the panel learns when you open and close it | Fire, CO and panic |
+| **Zigbee sensor** | A sensor paired to the panel's own Zigbee radio | |
+| **Z-Wave sensor** | A sensor paired to the panel's Z-Wave radio | Fire and CO, if added without encryption |
+| **Home Assistant sensor** | Any sensor that Home Assistant knows | Fire, CO and panic |
 
-Wired inputs are available only where the board provides them and are subject to the selected optional-module layout. Confirm the source and terminal shown by the panel before saving a zone.
+For the physical wiring and the modules, use the module maker's instructions and [RoboAlarms hardware](https://roboalarms.com/hardware/).
+
+## Wired terminals
+
+Wire the contact between a terminal and GND. Then add a zone with the **Wired contact** source and set its **Contact**. See [Wired zones and end-of-line resistors](/installer/zones/#wired-zones-and-end-of-line-resistors).
+
+A terminal is used either by a zone or by an output. To use a terminal for a siren, a strobe or another output, see [Sirens and outputs](/installer/sirens/).
+
+## 433 MHz sensors
+
+The panel needs a 433 MHz receiver. Record the receiver in the Flasher's **Panel and parts** step. See [Connected parts](/flasher/connected-parts/). The Flasher's receiver test only shows signals. It does not add a sensor.
+
+To add a sensor, add a zone with the **433 MHz sensor** source. See [Enroll a 433 MHz sensor](/installer/zones/#enroll-a-433-mhz-sensor).
+
+The **433 MHz** page in the installer menu shows the state of the receiver and the transmitter, the 433 MHz zones and the 433 MHz sirens. See [The 433 MHz page](/installer/sirens/#the-433-mhz-page).
+
+<Aside type="danger" title="Warning">
+Do not use a 433 MHz sensor for fire, CO or panic protection. A 433 MHz sensor that stops sending cannot tell the panel, and its fixed-code signal can be copied.
+</Aside>
 
 ## Zigbee
 
-On supported panels with an ESP32-H2 radio, open **Settings > About > Installer > Zigbee** to inspect the radio and its device list. To pair a sensor, open a zone, choose **Source > Zigbee sensor**, then start the pairing window and put the intended device in its pairing mode. The panel supports install codes for devices that provide one. Pairing can also be started from the Zigbee page. Close the window when finished; it does not stay open after a restart.
+The panel's Zigbee radio is an ESP32-H2 module. Open **Settings > About > Installer > Zigbee** to see the radio and its devices.
 
-RoboAlarms has software for the radio, coordinator, device records, pairing pages, and zone reporting. The panel can also show sirens and keypads in its Zigbee device pages. However, real-sensor, siren, and keypad acceptance is still open. The radio has answered and the stack has started on a real module, but this does not establish reliable operation with a real device. Treat compatibility as unverified until the exact device has been tested through pairing, reports, restart, and radio-loss recovery.
+<PanelShot src="/images/panel/radios-zigbee-page.png" alt="Zigbee page with Radio Working, Add a device, Add with an install code, Remove a device and Install codes waiting" caption="The Radio row shows the state of the Zigbee radio." size="medium" />
 
-If the panel says the radio is unusable or its software is missing, prepare the ESP32-H2 module with the Flasher's **Zigbee module** tool. The module must be connected to the computer on its own USB port; the Flasher explains the required state. Firmware updates do not currently update the H2 module from the panel. Do not reset the Zigbee network unless you are prepared to pair its devices again.
+<Steps>
+
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Zigbee**.
+3. Push **Add a device**.
+
+   The panel listens for 3 minutes.
+
+4. Put the device in its pairing mode, as its maker describes.
+
+   The panel shows the device when it joins.
+
+5. Add a zone with the **Zigbee sensor** source and choose the device. See [Set up zones](/installer/zones/).
+
+</Steps>
+
+If the device label has an install code, push **Add with an install code** instead of **Add a device**. You can also start pairing from the zone: push **Source**, then **Zigbee sensor**.
+
+If the panel says that the radio cannot be used or that its software is missing, prepare the module with the Flasher's **Zigbee module** tool. Connect the module to the computer on its own USB port. See [Connected parts](/flasher/connected-parts/).
+
+<Aside type="caution" title="Caution">
+Do not push **Reset the Zigbee network** unless you are ready to pair every Zigbee device again. The reset disconnects all of them.
+</Aside>
 
 ## Z-Wave
 
-On a supported build with a working Z-Wave radio, open **Settings > About > Installer > Z-Wave**. Select **Add a device**, put one device into pairing mode as its maker describes, and follow the panel's security choices. Use Security 2 when the device supports it, entering its printed PIN when requested. If the device is added without encryption, the panel warns that its radio signal can be copied; do not use it for fire or CO protection. Check the device page and bind the intended input to a zone through **Zones > Add a zone > Source > Z-Wave sensor**.
+Open **Settings > About > Installer > Z-Wave** to see the radio and its devices.
 
-Compatibility depends on what the device reports and the panel's model rules. The panel exposes only inputs it can use; a device name in the UI does not guarantee that every feature of that device is supported. The software includes add, remove, replace, setup-again, SmartStart, region, radio diagnostics, and selected device operations. Real-device acceptance remains incomplete, including reset-line confirmation and a full sensor test through restart and loss of the radio. Verify the specific sensor before relying on it.
+<Steps>
 
-Changing the radio region can stop devices that use another frequency band or Long Range. The panel warns and asks for the installer code when a choice would remove devices; those devices need to be paired again. **Reset the Z-Wave network** starts a new network and disconnects every device from the panel. Use either operation only when you understand the re-pairing work. A Z-Wave radio software update also interrupts sensor reports; keep the panel powered and wait for the radio to return before arming.
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Z-Wave**.
+3. Push **Add a device**.
+4. Put one device in its pairing mode, as its maker describes.
+5. Follow the security choices on the panel. Choose Security 2 when the device supports it, and type its printed PIN when the panel asks.
+6. Add a zone with the **Z-Wave sensor** source and choose the device input.
 
-## Clock and other optional modules
+</Steps>
 
-The Flasher can test a supported battery-backed clock module when the running firmware's service console is available. The touchscreen and Panel Manager provide manual time setting only when the panel can keep time. Check the panel's reported capability before relying on clock retention.
+If the panel adds a device without encryption, it warns that the radio signal can be copied. Do not use that device for fire or CO protection.
 
-The Flasher shows the supported optional-part combinations and can prepare a Zigbee radio. A release firmware without the service console cannot answer the Flasher's busy-state probe or apply and verify its connected-part choices. Confirm that the panel is disarmed and idle at its own screen before any Flasher operation that can restart it. See [Flasher connected parts](/flasher/connected-parts/) and [Flasher updates](/flasher/update/).
+The panel uses only the inputs that it can read from a device. A device name on the screen does not mean that every feature of the device works.
 
-## Keep the software current
+<Aside type="caution" title="Caution">
+A change of **Region** can stop devices that use another frequency band or Long Range. **Reset the Z-Wave network** starts a new network and disconnects every device. After either change, you must pair those devices again.
+</Aside>
 
-The Flasher's signed firmware-server releases include matching language and voice packs and the asset packs used by the panel, such as screen-saver images, letters, and certificates. Install and Update handle the compatible packs alongside firmware. An update does not substitute for testing sensor operation. The panel's **Screen and sound** settings control whether available announcements are enabled; a voice pack by itself does not mean announcements are on.
+### Update the Z-Wave radio
+
+The Z-Wave radio has its own software. The panel checks for an update only when you ask. Nothing installs by itself.
+
+<Aside type="caution" title="Caution">
+Keep the panel powered during a radio update. Z-Wave sensors are not heard for up to 15 minutes, and arming waits until the radio is back.
+</Aside>
+
+<Steps>
+
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Z-Wave**.
+3. Push the **Radio** row.
+
+   The panel shows the **Z-Wave radio** page.
+
+4. Push **Check for an update**.
+5. If the panel shows **Install version** and a version number, push it.
+6. Confirm the installation.
+
+   The radio installs the new software, then restarts.
+
+</Steps>
+
+You can also install a file from the radio's maker from an SD card:
+
+<Steps>
+
+1. Copy the maker's .gbl file to the top folder of the SD card, or to a folder named zwave. Copy only one .gbl file.
+2. Put the card in the panel.
+3. On the **Z-Wave radio** page, push **Install from an SD card**.
+4. Push **Update** to confirm **Update the radio from the SD card?**.
+
+</Steps>
+
+If no update is found, the panel shows **No update was found for this radio**. You can still install the maker's file from an SD card or from Panel Manager.
+
+<Aside type="tip" title="Check the result">
+The **Z-Wave radio** page shows **Updated** and the new version. The **Radio** row shows **Working**.
+</Aside>
+
+## Sirens on Zigbee and Z-Wave
+
+You set a Zigbee or Z-Wave siren on its device page under **Zigbee** or **Z-Wave**, not under **Sirens and outputs**. The **Siren time** in **Delays and arming** applies to these sirens too.
+
+| Setting | Zigbee siren | Z-Wave siren |
+| --- | --- | --- |
+| **Burglary and panic** | Yes. A silent panic stays silent. | Yes. A silent panic stays silent. |
+| **Fire and CO** | Yes. Its fire sound for fire, its emergency sound for CO. | Yes. Its fire tone for fire, its CO tone for CO. |
+| **Partitions** | The partitions whose alarms it sounds for | The partitions whose alarms and chirps it follows |
+| **Also sounds for** | Other partitions' alarms, never their chirps | Other partitions' alarms, never their chirps |
+| **Strobe with it** | Its own light, while it sounds | |
+| **Chirp when arming and disarming** | One chirp to arm, two to disarm | Its arm and disarm tones |
+| **Volume** | **Low**, **Medium**, **High** or **Very high** | **Its own** or a percentage |
+| **Test it** | Sounds it for 2 seconds | Sounds it for 2 seconds |
+| **Supervision** | A siren trouble when it is not heard. It cannot be turned off. | A siren trouble when it is not heard. Default **After 4 h**. It cannot be turned off. |
+
+A Zigbee smoke detector with a sounder also has siren settings. Its own sounder can sound with the panel's alarms, like a siren. The panel can use up to four Zigbee sirens.
+
+If a siren page shows **The panel doesn't sound it yet: turn on what it sounds for.**, turn on **Burglary and panic** or **Fire and CO**.
+
+<Aside type="danger" title="Warning">
+Tell the people in the building before you push **Test it**. A siren is loud enough to hurt your hearing near it.
+</Aside>
+
+## Clock and other modules
+
+The Flasher can test a battery-backed clock module. The touchscreen and Panel Manager let you set the time by hand only when the panel can keep the time. See [Connected parts](/flasher/connected-parts/).
+
+Before any Flasher job that can restart the panel, disarm the panel and leave it idle on its own screen. See [Update RoboAlarms with the Flasher](/flasher/update/).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Only in installer mode, with everything disarmed** | Enter the installer code and disarm every partition. |
+| **The radio is busy: try again when it's done** | Wait until the radio finishes, then try again. |
+| A Zigbee device does not join | Bring it near the panel, push **Add a device** again and put the device in pairing mode. |
+| **No .gbl file on the SD card** | Copy the radio's file to the top folder of the card, or to a folder named zwave. |
+| **More than one .gbl file on the SD card** | Leave only the file that you want to install. |
+| A siren is not heard in a test | Check its power and signal. Open its page and check **Supervision**. |
+
+## Related tasks
+
+- [Set up zones](/installer/zones/)
+- [Sirens and outputs](/installer/sirens/)
+- [Connected parts in the Flasher](/flasher/connected-parts/)
+- [Commission and hand over](/installer/commissioning/)

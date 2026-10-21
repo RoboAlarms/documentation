@@ -1,0 +1,23 @@
+[
+  { "out": "panel/first-setup-welcome.png", "from": "panel/429_bl-048-setup-welcome.png" },
+  { "out": "panel/first-setup-role.png", "from": "panel/430_bl-048-setup-role.png" },
+  { "out": "panel/first-setup-codes.png", "from": "panel/180_setup_codes.png" },
+  { "out": "panel/installer-locked.png", "from": "panel/109_installer_locked.png" },
+  { "out": "panel/installer-menu-top.png", "from": "panel/111_installer_menu.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 516 } },
+  { "out": "panel/zones-source-picker.png", "from": "panel/190_zone_source_pick.png", "crop": { "left": 212, "top": 42, "width": 600, "height": 518 } },
+  { "out": "panel/zones-contact-choices.png", "from": "panel/193_zone_eol_contact.png", "crop": { "left": 212, "top": 40, "width": 600, "height": 522 } },
+  { "out": "panel/radios-zigbee-page.png", "from": "panel/307_bl-144-zigbee.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 476 } },
+  { "out": "panel/sirens-list.png", "from": "panel/357_bl-037-sirens.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 440 } },
+  { "out": "panel/sirens-add-wired.png", "from": "panel/362_bl-037-wired-add.png", "crop": { "left": 218, "top": 88, "width": 588, "height": 426 } },
+  { "out": "panel/sirens-wired-page.png", "from": "panel/358_bl-037-wired.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 516 } },
+  { "out": "panel/sirens-433-pair.png", "from": "panel/361_bl-037-rf-siren-pair.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 456 } },
+  { "out": "panel/sirens-433-page.png", "from": "panel/363_bl-037-rf.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 516 } },
+  { "out": "panel/partitions-editor.png", "from": "panel/242_installer_partition.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 492 } },
+  { "out": "panel/partitions-this-panel.png", "from": "panel/486_bl-048-partition-policy.png" },
+  { "out": "panel/partitions-switch-row.png", "from": "panel/482_bl-048-partition-home.png" },
+  { "out": "panel/keypads-setup-compare.png", "from": "panel/435_bl-048-setup-pair-code.png" },
+  { "out": "panel/keypads-add-compare.png", "from": "panel/465_bl-048-add-code.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 410 } },
+  { "out": "panel/keypads-list.png", "from": "panel/470_bl-048-devices.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 516 } },
+  { "out": "panel/keypads-detail.png", "from": "panel/471_bl-048-keypad-page.png", "crop": { "left": 436, "top": 60, "width": 572, "height": 516 } },
+  { "out": "panel/keypads-lost-link.png", "from": "panel/452_bl-048-kp-home-lost.png" }
+]

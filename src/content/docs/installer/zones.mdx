@@ -1,72 +1,186 @@
 ---
-title: "Set up zones and sensor sources"
-description: "Name a zone, choose its behavior, bind its input and verify the result."
-sidebar:
-  order: 4
+title: "Set up zones"
+description: "Add a zone, connect its sensor, choose how the alarm reacts, and set how a wired contact is read."
+audience: ["installer"]
+time: "5 minutes for each zone"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-**Where:** Settings > About > Installer > Zones<br />
-**Access:** installer mode, with the system disarmed.
+A zone is one place that the panel watches, for example the front door. A zone has two parts: how the alarm reacts (its type) and the sensor that tells the panel the state (its source). Use this page to add zones and to set them up.
 
-RoboAlarms currently supports up to four partitions. Each zone belongs to exactly one enabled partition; the keypad's Zones view shows the zones assigned to its own partition. Configure [partitions and devices](/installer/partitions/) before assigning zones across multiple areas.
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- Disarm every partition and silence any alarm.
+- Set up the partitions first if the building has more than one area. See [Set up partitions](/installer/partitions/).
+- For a wired sensor, wire it to a free terminal. For a radio sensor, have it near the panel and ready to trigger.
+</Aside>
 
-A zone combines two decisions: **how the alarm reacts** and **which sensor supplies the state**. Choosing a sensor icon is not the same as connecting a sensor source.
+## Add a zone
 
-## Add or edit a zone
+<Steps>
 
-1. Open **Zones** from the installer menu.
-2. Select an existing zone or **Add a zone**.
-3. Set **Name** to a physical location, such as Front Door.
-4. Choose **Type** for the intended alarm behavior.
-5. Choose **Sensor** for the icon and open/closed wording.
-6. Open **Source** and select the input that will feed this zone.
-7. Review the applicable zone options.
-8. If multiple partitions are enabled, choose **Partition** for the area this zone belongs to.
-9. Go back to save the zone's programming, then verify it in the ordinary **Zones** list.
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Zones**.
+3. Push **Add a zone**.
 
-<PanelShot src="/images/panel/zone-edit.png" alt="Zone editor showing name, type, sensor and options" caption="The zone editor separates behavior from the source that supplies the input." />
+   The panel shows **Where is the sensor?**.
 
-## Common behavior choices
+   <PanelShot src="/images/panel/zones-source-picker.png" alt="Where is the sensor? sheet with Wired contact, Home Assistant sensor, Zigbee sensor, 433 MHz sensor and Simulator" caption="The list shows only the sources that this panel can use." size="small" />
 
-| Type | Typical intent |
+4. Push the kind of sensor.
+
+   For **Wired contact**, the panel shows **Pick the terminal**. For **433 MHz sensor**, it shows **Find the sensor**.
+
+5. Trigger the sensor. For example, open and close the door.
+
+   The panel shows which terminal or sensor answered.
+
+6. Push the terminal or sensor.
+
+   The panel opens the new zone's page.
+
+7. Push **Name**. Type where the zone is, for example Front Door or Kitchen Window.
+8. Push **Type**. Choose how the alarm reacts. See [Zone types](#zone-types).
+9. If more than one partition is in use, push **Partition** and choose the area.
+10. Push **Sensor**. Choose the kind of sensor. This sets the icon and the words for open and closed.
+11. Set the options under **What it does**. See [Zone options](#zone-options).
+12. Go back to save the zone.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+Open the **Zones** screen. Open and close the sensor. The zone changes to open, then back to closed.
+</Aside>
+
+The **Simulator** source is for tests only. It does not watch a real door. Replace it with a real source before you hand over the panel.
+
+## The zone page
+
+| Section | Rows |
 | --- | --- |
-| **Entry/exit 1** | The main entry route, using Entry time 1 |
-| **Entry/exit 2** | A second delayed entry route, using Entry time 2 |
-| **Perimeter** | An opening that should alarm immediately when armed |
-| **Interior follower** | Interior detection in Away; follows an entry sequence when configured appropriately |
-| **Interior with delay** | Interior detection that starts its own entry delay |
-| **24-hour / fire / CO types** | Specialized behavior that can remain active while disarmed |
+| **The zone** | **Name**, **Spoken name**, **Type**, **Partition** (with more than one partition), **Acts as** (for an arm or disarm button) |
+| **Its sensor** | **Sensor**, **Source**, and the **Sensor settings** of the source |
+| **What it does** | The zone options |
+| **Advanced** | **Cross-zone partner**, **Alarm limit** |
 
-Select specialized types only when the source and installation support their purpose. A generic Home Assistant entity or unsupervised radio input is not automatically suitable for fire, CO or panic.
+To remove a zone, push **Remove this zone** at the end of its page. The panel stops watching the sensor. The history of the zone stays in the event log.
 
-## Bind the source
+## Zone types
 
-The source picker lists what this build provides. For a Home Assistant input, pair the integration and share the desired entity first, then follow [Use Home Assistant sensors](/installer/home-assistant-zones/).
+| Type | Use it for |
+| --- | --- |
+| **Entry/exit 1** | The door that people come in by. It starts Entry time 1. |
+| **Entry/exit 2** | A second door, like the garage. It starts Entry time 2. |
+| **Perimeter** | Doors and windows that cause an alarm at once. |
+| **Interior follower** | Motion sensors that wait while entry time runs. |
+| **Interior with delay** | Motion sensors that start entry time. |
+| **Trouble by day, alarm by night** | Doors that must not open. |
+| **Silent burglary** | An alarm that the panel reports without the siren. |
+| **24-hour silent** | A hold-up button. It is always armed and silent. |
+| **24-hour audible** | A panic button. It is always armed and sounds the siren. |
+| **24-hour auxiliary** | Water, freezer or medical sensors. The keypad sounds. |
+| **Fire** | Smoke and heat detectors. |
+| **Fire with verification** | Smoke detectors that reset once and cause an alarm on a second trip. |
+| **Carbon monoxide** | CO detectors. |
+| **Monitor** | A sensor that is logged and reported, but never causes an alarm. |
+| **Arm Stay button**, **Arm Away button**, **Disarm button**, **Keyswitch** | A key fob, button or keyswitch that arms or disarms. |
+| **Momentary exit** | A button that restarts exit time. |
+| **No response** | Chime only, for example a doorbell. |
 
-For source-specific setup and current limits for 433 MHz, Zigbee, and Z-Wave, see [Sensors and radio modules](/installer/sensors-radios/).
+<Aside type="danger" title="Warning">
+Do not use a 433 MHz sensor or a Home Assistant sensor for fire, CO or panic protection. The panel cannot tell when such a sensor stops working.
+</Aside>
 
-<PanelShot src="/images/panel/source-picker.png" alt="Available zone source choices" caption="Source choices depend on the firmware and available services; a listed source does not prove hardware is connected." />
+## Zone options
 
-A **Simulator** source is a test input. It does not monitor a real door. Remove or replace example bindings before treating a system as an installation.
+| Option | What it does |
+| --- | --- |
+| **Night zone** | The interior zone is also armed in Night, not only in Away. |
+| **Chime** | The panel dings when the zone opens while disarmed and the chime is on. |
+| **Can be bypassed** | People can bypass the zone. 24-hour zones normally cannot be bypassed. |
+| **Report this zone** | On: the events of the zone go to phones and integrations. Off: they stay in the event log of the panel. |
+| **Cross-zone partner** | Two sensors must both trip close together to cause an alarm. |
+| **Alarm limit** | The zone stops sounding after this many alarms in one arming. **System setting** uses the value in **Delays and arming**. |
 
-### Enroll a 433 MHz sensor
+## Wired zones and end-of-line resistors
 
-The source appears as **433 MHz sensor** when the receiver is available in this build. Open **Source**, choose **433 MHz sensor**, and follow **Find the sensor**. Start with the door closed, then open it. The first fresh code received while learning is the code bound to the zone, so for a contact sensor, open it first and then close it again. For a remote or motion sensor, trigger it twice as the panel asks.
+For a wired zone, open the zone page and push **Sensor settings**. The **Contact** row sets how the panel reads the sensor's contact.
 
-The panel groups received codes by sensor and shows how often each answered. A frame without a checksum, such as EV1527, must arrive twice before it is confirmed; a protocol with a checked frame can be confirmed from one frame. Only confirmed frames count. The panel may say **Listening: nothing heard yet**, **Heard Sensor …**, or **Found it: Sensor … answered each time**. When one sensor has answered at least twice and more often than the others, choose **Use Sensor …**. If several sensors answer, trigger only the intended one again. **Already transmitting before you started** lists signals heard before learning began; those are not evidence that the intended sensor answered your trigger.
+On a terminal that can measure the loop, you can choose from five choices. On other terminals, you can choose **Normally closed** or **Normally open** only.
 
-The receiver supports selected 433 MHz sensor protocols. A matching frequency alone does not establish compatibility. This source does not decode devices operating at 345 MHz or 319.5 MHz. Verify that the receiver recognizes the sensor and reports its state before assigning it to a zone. If the sensor is not recognized, see [troubleshooting](/reference/troubleshooting/) or choose another supported source.
+<PanelShot src="/images/panel/zones-contact-choices.png" alt="Contact sheet with Normally closed, Normally open, Closed, end-of-line resistor, Open, end-of-line resistor and Double end-of-line" caption="The text under each choice tells which sensors it is for." size="small" />
 
-This radio source is not supervised: a sensor that stops transmitting cannot tell the panel it has failed, and most such sensors do not send periodic check-ins. A confirmed event can update the zone, but silence alone does not prove the sensor still works. Fixed-code signals can also be copied. Do not use this source for fire, CO or panic protection; choose another appropriate input. Where the sensor reports battery status, check it on the panel; otherwise include battery replacement in routine maintenance.
+| Contact | Resistors | Use it for | What the panel detects |
+| --- | --- | --- | --- |
+| **Normally closed** | None | A contact that is closed while the door is shut | A cut wire shows as open. |
+| **Normally open** | None | A contact that closes when it trips | A cut wire is not detected. |
+| **Closed, end-of-line resistor** | 2 kOhm at the sensor, 4.7 kOhm pull-up at the terminal | Doors, windows and motion sensors | A short across the wires is a tamper. |
+| **Open, end-of-line resistor** | 2 kOhm at the sensor, 4.7 kOhm pull-up at the terminal | Smoke detectors and panic buttons | A cut wire is a trouble. |
+| **Double end-of-line** | Two 2 kOhm resistors at the sensor, 4.7 kOhm pull-up at the terminal | Sensors with a tamper switch | A cut or shorted wire is a tamper. |
 
-## Review zone options
+Choose an end-of-line contact when you can. A plain contact does not show when someone cuts or shorts the wires. You can choose the end-of-line contacts only on the touchscreen, not in Panel Manager.
 
-- **Chime:** this zone can sound when it opens while disarmed and global chime is on.
-- **Night zone:** an eligible interior zone is also watched in Night.
-- **Can be bypassed:** controls permitted bypassing for eligible types.
-- **Report this zone:** controls reporting; disabling it retains local event history.
+<Aside type="caution" title="Caution">
+Fit the resistors exactly as the **Contact** choice says. If the wiring and the choice do not match, the zone shows a wrong state, a tamper or a trouble.
+</Aside>
 
-## Verify each zone
+The **Response time** row sets how long the contact must stay changed before the zone changes.
 
-Operate only the intended input and confirm the named zone changes on the keypad assigned to that zone's partition, then restores. Check the normal and active states separately. Review unreachable/tamper behavior where supported. See [commissioning](/installer/commissioning/) before handover.
+| Response time | Use it for |
+| --- | --- |
+| 10 ms | Fast sensors, for example glass break and shock sensors |
+| 350 ms | Doors, windows and motion sensors (usual) |
+| 700 ms | Contacts that bounce |
+| 1.2 s | Slow or noisy wiring |
+
+## Enroll a 433 MHz sensor
+
+<Steps>
+
+1. Push **Add a zone**.
+2. Push **433 MHz sensor**.
+
+   The panel shows **Find the sensor**. It listens for the sensor.
+
+3. Open the door.
+
+   The panel shows **Heard** and the name of a sensor.
+
+4. Close the door. For a remote or a motion sensor, trigger it again.
+
+   The panel shows **Found it:** and the sensor that answered each time.
+
+5. Push **Use** and the sensor name.
+
+</Steps>
+
+The panel groups the codes it receives by sensor and shows how often each one answered. If more than one sensor answers, trigger only the sensor that you want again. The section **Already transmitting before you started** lists signals that the panel heard before you began. They do not show that your sensor answered.
+
+The receiver decodes selected 433 MHz sensor types. A sensor that uses 433 MHz is not always one that the panel can read. The panel does not read sensors on 345 MHz or 319.5 MHz. Check that the zone opens and closes before you rely on the sensor.
+
+A 433 MHz sensor is not supervised. A sensor that stops sending cannot tell the panel. Fixed-code signals can also be copied. If the sensor sends tamper or low-battery codes, add them on the sensor settings page with **Find the tamper code** and **Find the low-battery code**. Otherwise, change the batteries as part of regular maintenance.
+
+The **433 MHz** page in the installer menu lists every 433 MHz zone and when the panel last heard it. See [Sirens and outputs](/installer/sirens/#the-433-mhz-page).
+
+## Other sources
+
+- For Zigbee and Z-Wave sensors, see [Sensors and radio modules](/installer/sensors-radios/).
+- For Home Assistant sensors, pair Home Assistant first, then see [Use Home Assistant sensors](/installer/home-assistant-zones/).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Every zone is in use** | Remove a zone that you do not use. |
+| No terminal answers when you open the door | Check the wiring between the terminal and GND. |
+| A wired zone shows a tamper or trouble at once | Check that the resistors match the **Contact** choice. |
+| A 433 MHz sensor is not found | Trigger the sensor near the panel. Check that the **Receiver** row on the **433 MHz** page shows **Working**. |
+| Several sensors answer | Trigger only the sensor you want, then choose the one that answered each time. |
+
+## Related tasks
+
+- [Sensors and radio modules](/installer/sensors-radios/)
+- [Set up partitions](/installer/partitions/)
+- [Use Home Assistant sensors](/installer/home-assistant-zones/)
+- [Commission and hand over](/installer/commissioning/)

@@ -1,41 +1,129 @@
 ---
 title: "Panel Manager"
-description: "Connect to and manage a RoboAlarms panel from its browser interface."
-sidebar:
-  order: 1
+description: "Open Panel Manager in a browser, sign in, and find the page for your task."
+audience: ["user", "installer"]
+time: "10 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-Panel Manager is the browser interface served by the panel itself. It works over your local network or an authorized VPN. It does not require a cloud account, Home Assistant, or a companion server. The panel uses HTTPS and checks every request against the signed-in person's role.
+Panel Manager is a website that the panel serves itself. Open it in a browser on the same network as the panel, or over a VPN that you trust. It needs no cloud account, no Home Assistant and no other server.
 
-<PanelShot src="/images/panel-manager/overview.png" alt="Panel Manager overview with fictional partitions and installer navigation" caption="The overview shows only the partitions and pages available to the signed-in account." source="Panel Manager development UI · fictional data" />
+Use Panel Manager to see the alarm state, arm and disarm, and change settings from a computer or phone. Each person sees only the pages and partitions that their role allows.
 
-## First connection
+## Turn on Panel Manager
 
-You need someone at the panel who can enter Installer mode, the installer code, and a computer on the same local network or an authorized VPN. All partitions must be disarmed and no alarm can be active before you change configuration.
+Panel Manager is off on a new panel. The installer turns it on at the panel.
 
-1. On the touchscreen, open **Settings > About > Installer** and enter the installer code.
-2. Turn on the **Panel Manager** switch. New installations have browser access off.
-3. Record the HTTPS address and **certificate SHA256 fingerprint** shown on the panel.
-4. On the computer, open that HTTPS address. Compare the browser certificate fingerprint with the value on the panel before trusting the panel's self-signed certificate.
-5. Create or enable a browser sign-in as described in [Browser accounts and permissions](/panel-manager/accounts/).
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- Disarm every partition.
+- The computer must be on the same network as the panel, or on a VPN to it.
+</Aside>
 
-When browser access is running, plain HTTP redirects to HTTPS. Turning **Browser access (this Panel Manager)** off closes the service and ends browser sessions. It also turns off **Developer tools**; local Installer access is needed to enable browser access again.
+<Steps>
 
-## Choose the right guide
+1. On the panel, open **Settings > About > Installer**, and enter the installer code.
+2. Under **This panel**, turn on **Panel Manager**.
 
-- For browser names, passwords, account management, roles, or lockouts, see [Browser accounts and permissions](/panel-manager/accounts/).
-- For screen control, keyboard input, the red local warning, and pausing a session, see [Remote keypad](/panel-manager/remote-keypad/).
-- For status, activity, zone status, display, integrations, time, storage, and health, see [Everyday pages and settings](/panel-manager/everyday/).
-- For the browser Automations list, editor, enable switch, Try it now, and deletion, see [Automations](/panel-manager/automations/). The touchscreen guide covers common trigger and action behavior.
-- For users, sensor links, partitions, devices, alarm rules, access switches, and factory reset, see [Installer programming](/panel-manager/installer/).
-- For Wi-Fi, fixed addressing, applying network changes, and rollback, see [Network settings and recovery](/panel-manager/network/).
-- For signed updates, developer uploads, restart behavior, and rollback, see [Software updates and recovery](/panel-manager/updates/).
+   The row shows the address of the panel and the fingerprint of its certificate.
 
-## Understand the limits
+3. Write down the address and the fingerprint.
+4. To sign in as the installer, turn on **Browser sign-in** below the switch, and set a password.
 
-The panel enforces permissions on each request; hiding a menu item is not the security boundary. Standard users see only their assigned partition status. Non-installers see zone names, sensor kinds, and status wording, but not sensor programming. The installer can manage all users; system and partition masters can manage only users allowed by their authority and partition scope. Integrations are for the system master and installer.
+   See [Installer access](/installer/installer-access/).
 
-While any partition is armed or an alarm is active, configuration changes are refused. You can still use the remote keypad because it operates the panel's own screen, change your own browser password, or sign out. Normal signed updates can be installed by a system master, partition master, or installer when disarmed.
+</Steps>
 
-The remote keypad is a real control path to the panel. The person at the touchscreen sees a red banner and can pause the browser session. See [Remote keypad](/panel-manager/remote-keypad/) before using it to enter a code or change a protected setting.
+## Open Panel Manager and sign in
+
+<Aside type="note" title="Before you start">
+- You need your user name and your browser password. Your user name is your name in **Settings > Users** on the panel.
+- The browser password is not your keypad code. See [Browser accounts](/panel-manager/accounts/) if you have no password yet.
+</Aside>
+
+<Steps>
+
+1. In the browser, open the address of the panel with `https://`, for example https://192.0.2.42.
+
+   The panel uses its own certificate, so the browser shows a warning the first time.
+
+2. Compare the certificate fingerprint in the browser with the fingerprint on the panel.
+3. If the two are the same, accept the certificate in the browser.
+
+   Panel Manager shows **Sign in**.
+
+   <PanelShot src="/images/panel-manager/pm-sign-in.png" alt="Panel Manager Sign in card with User name Master, an empty Password field and the Sign in button" caption="Sign in with your name on the panel and your browser password." size="small" />
+
+4. Type your **User name** and your **Password**.
+5. Click **Sign in**.
+
+   Panel Manager shows **Overview**.
+
+</Steps>
+
+<Aside type="caution" title="Caution">
+Do not accept the certificate if the fingerprints are different. Another device on the network can be in between.
+</Aside>
+
+<Aside type="tip" title="Check the result">
+**Overview** shows the alarm state of your partitions. The top bar shows **Connected**, and the menu shows your name and role at the bottom.
+</Aside>
+
+<PanelShot src="/images/panel-manager/pm-overview.png" alt="Panel Manager Overview with Ready to arm, Away, Stay and Night, Chime, Zones All closed, Troubles None, Power Plugged in, Connection Online and recent activity" caption="Overview shows the alarm state, the arming buttons and recent activity." />
+
+If you open the address with `http://`, the panel sends the browser to `https://`.
+
+## The pages
+
+The menu shows only the pages that your role can use.
+
+| Menu group | Pages |
+| --- | --- |
+| (top) | **Overview**, **Remote keypad**, **Activity**, **Zones**, **Troubles** |
+| **Household** | **People and codes**, **Integrations**, **Automations** |
+| **Panel settings** | **Display and sound**, **Network**, **Date and time**, **Storage** |
+| **Installer** | **Zones**, **Z-Wave**, **Zigbee**, **Partitions and devices**, **System options**, **Access and maintenance** |
+| **System** | **System health**, **Walk test**, **Software updates**, **Developer** |
+
+| Role | What the person can use |
+| --- | --- |
+| Standard | Overview, Remote keypad, Activity, Zones, Troubles, Display and sound, Date and time (to read), Storage (to read), System health. Arms, disarms and bypasses in their own partitions. |
+| Partition master | The standard pages, and **People and codes** for their own partitions, **Network**, **Date and time** and **Walk test**. |
+| System master | The partition master pages for all partitions, and **Integrations**, **Automations**, **Software updates** and the SD card actions in **Storage**. |
+| Installer | All pages, and the **Installer** group. **Developer** shows only while developer tools are on. The installer does not arm or disarm. |
+
+Arm-only, guest and duress users cannot sign in to Panel Manager.
+
+The panel checks the role on every request. A copied page address does not give more access.
+
+## While the panel is armed
+
+While a partition is armed, from its exit time on, or an alarm sounds, Panel Manager does not change settings. You can still arm, disarm, use the remote keypad, change your own password and sign out. Disarm every partition to change settings.
+
+## Choose a guide
+
+- [Browser accounts](/panel-manager/accounts/): sign-in, passwords, roles and lockouts.
+- [Everyday pages](/panel-manager/everyday/): arm and disarm, zones, activity, troubles and panel settings.
+- [Remote keypad](/panel-manager/remote-keypad/): use the panel's screen from the browser.
+- [Automations](/panel-manager/automations/): rules that the panel runs by itself.
+- [Installer programming](/panel-manager/installer/): zones, radios, partitions, keypads, options and backups.
+- [Network settings](/panel-manager/network/): Wi-Fi and IP address with an automatic way back.
+- [Software updates](/panel-manager/updates/): update the panel and its keypads.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The browser cannot open the address. | Check the address on the panel in **Settings > About > Installer**. Check that the computer is on the same network. |
+| The page says that keypad codes do not sign in. | Type your browser password, not your keypad code. |
+| No password yet. | Ask the installer or a master to turn on your **Browser sign-in**. See [Browser accounts](/panel-manager/accounts/). |
+| After five wrong passwords, sign-in waits. | Wait one minute, then type the password again. |
+| The page shows **Browser access is off**. | The installer turns **Panel Manager** on again at the panel. |
+
+## Related tasks
+
+- [Browser accounts](/panel-manager/accounts/)
+- [Everyday pages](/panel-manager/everyday/)
+- [Installer access](/installer/installer-access/)
+- [Users and codes](/user/users-codes/)

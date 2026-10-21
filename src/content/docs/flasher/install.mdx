@@ -1,29 +1,141 @@
 ---
 title: "Install RoboAlarms"
-description: "Identify a new panel, review a compatible firmware bundle, preserve a flash backup, and install."
-sidebar:
-  order: 1
+description: "Use the eight steps of the Flasher's guided setup to put RoboAlarms on a new panel."
+audience: ["installer"]
+time: "20 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-Use **Install RoboAlarms** for a new panel or when you deliberately intend to erase and replace everything on the chip. Install erases the entire chip before writing the firmware, so the maker's demo and all saved panel settings are removed. Current release firmware has no service console, so the Flasher may not recognize it as RoboAlarms. If you need to preserve an existing installation, do not treat an unknown panel as new: use Panel Manager's signed update page when available, or identify a recovery route before choosing Install. See [Update](/flasher/update/).
+Use this page to put RoboAlarms on a new panel. Install erases the whole chip. The maker's demo software and all saved settings on the panel are removed.
 
-Before starting, make sure the panel is disarmed, out of Installer mode and idle. Keep its power supply and USB connection stable from identification through startup. On the Elecrow CrowPanel Advanced 7-inch, turn **POWER** on, connect the computer to **UART0**, and power **USB2.0** with a phone charger; leave the panel's own power supply connected if fitted. The screen needs more power than the computer's USB port supplies alone.
+To keep the codes, users, zones and Wi-Fi of a panel that runs RoboAlarms, do not use Install. See [Update RoboAlarms](/flasher/update/).
 
-## Install from the guided setup
+<Aside type="note" title="Before you start">
+- You need the Flasher, a USB-C data cable and a phone charger with 5 V and 2 A or more. See [Flasher](/flasher/).
+- You need the parts that you want to connect, and the items that **Get ready** lists for them.
+- The computer needs the internet the first time, to download the firmware.
+- Close other programs that use a serial port.
+</Aside>
 
-1. In **Panel and parts** (Plan), choose the panel model and mark only optional parts that are actually fitted.
-2. In **Get ready** (Wire), gather the items shown and prepare the panel. If a Zigbee module is selected, the Flasher offers to write and verify its radio software over USB before the module is fitted. The checklist is guidance, not a hardware test.
-3. Follow **Full wiring** to compare the planned parts with their documented locations. Use the hardware page and maker's instructions for physical work; the drawing is not proof that hardware is connected.
-4. Review **Check before power** for the selected parts and their listed checks. This checklist does not measure or verify the installation. Consult [RoboAlarms hardware](https://roboalarms.com/hardware/) before doing physical wiring.
-5. In **Connect**, select the panel's serial port and follow the board's connection instructions. If the panel is missing, expand **Nothing showing up?** and check the board, cable and whether another program is using the port.
-6. In **Check the panel**, choose **Check this panel**. For a new board this briefly restarts the chip into its loader so the Flasher can read the chip, silicon revision and flash size; that check does not write anything. Do not check a device unless you know it is the alarm panel. A release build without a service console cannot report the panel's state here. If the board is not identified, choose **Not this board? Choose it yourself** only when you know the exact model. A build for another chip or too little flash is disabled.
-7. In **Install**, confirm the board, release and operation. The Flasher chooses Stable when available, then Beta, then Alpha; it offers a Dev build only after a separate choice. To use a supplied file instead of a server release, open it under **Advanced tools > Software**. For a new board, **Back up the panel first** is selected by default. Keep it selected if you may want the maker's demo back. This is the only way to preserve the existing whole flash before Install erases it. Clearing the option requires confirmation. The Flasher cannot verify alarm state if firmware has no service console. Select **Install RoboAlarms** and confirm. It connects to the chip loader, reads and checks the backup when requested, erases the chip, writes and verifies firmware, installs matching language, voice, and asset packs when available, then restarts and watches for startup. Keep power and USB connected until the job finishes.
-8. At **Test and finish**, confirm startup. If the firmware answers its service-console commands, the Flasher applies chosen connected-part settings after startup, restarts once, and reads them back. Current release firmware omits the service console, so these commands may be unanswered; an unanswered command does not mean a part was configured. Complete first-start setup on the panel's touchscreen: join Wi-Fi and change the factory installer and master codes when prompted. See [Connected parts](/flasher/connected-parts/) for what the Flasher can verify with release firmware.
+## Plan and wire
 
-## Understand the safety check
+<Steps>
 
-The Flasher can read whether the panel is idle and refuse to restart it only when the running firmware answers its service-console probe with the required state. Current release firmware omits that console. A new panel, other firmware, and release firmware therefore cannot report armed state, Installer mode, an active alarm, or an update/probation check. Confirm at the panel that it is disarmed and idle before proceeding; do not treat a missing response as proof that the panel is safe to restart.
+1. Start the Flasher, and click **Guided setup**.
+2. In **Panel and parts**, click your panel.
+3. Under **What do you want to connect?**, tick each part that you have or plan to add.
 
-The firmware server supplies signed releases and their matching language, voice, and asset packs. The Flasher installs compatible packs with the firmware; you do not need to open separate pack files for a normal release install. Version selection prefers Stable, then Beta, then Alpha. A Dev build is offered only after a separate choice.
+   For **Wireless sensors (433 MHz)**, also click the receiver that you have. If you do not add a part, tick nothing. You can add parts later.
 
-If the install stops during erase or writing, the board may have no working firmware until an install finishes. Keep it powered, reconnect, and run Install again; the error card and [Logs](/flasher/troubleshooting/#advanced-tools) show the failure details. If startup reports a brownout or remains black, see [troubleshooting](/flasher/troubleshooting/#if-something-goes-wrong) for the board's power advice.
+   <PanelShot src="/images/flasher/flasher-plan-parts.png" alt="What do you want to connect? with Wireless sensors (433 MHz) ticked, CC1101 board chosen, and the Zigbee radio and Z-Wave sensors choices" caption="Tick the parts, then choose the receiver that you have." size="medium" />
+
+4. Click **Next: get ready to wire**.
+5. In **Get ready**, gather the items in **What you need**, and tick each one.
+
+   The page also shows where each part goes on the panel. If you ticked the Zigbee radio, the Flasher puts its radio software on first. See [Connected parts](/flasher/connected-parts/#zigbee-radio).
+
+6. Click **Next: see the full wiring**.
+7. In **Full wiring**, wire each part as the drawing shows, and tick each wire.
+
+   Click **Print or save** to keep the wiring on paper.
+
+8. Click **Next: check before power**.
+9. In **Check before power**, do each check, and tick it.
+10. Click **Next: plug the panel in**.
+
+</Steps>
+
+The Flasher does not test the wiring in these steps. Your ticks are a list for you only.
+
+## Connect and check the panel
+
+<Steps>
+
+1. Slide the **POWER** switch of the panel to on.
+2. Connect **UART0** to the computer, and **USB2.0** to the phone charger.
+
+   In **Connect**, the Flasher shows **Found a panel** and the port, for example COM5.
+
+3. Click **Next: check the panel**.
+4. If the panel is not your alarm panel, or you are not sure, unplug it now.
+5. In **Check the panel**, click **Check this panel**.
+
+   The panel restarts for a moment, so that the Flasher can read its chip. Nothing is written. A panel that runs RoboAlarms with a service console answers by itself and does not restart.
+
+6. If the Flasher asks **Which board is this?**, click your panel.
+
+   The Flasher shows **Ready for RoboAlarms** and the version.
+
+7. Click **Next: review**.
+
+</Steps>
+
+## Install
+
+<Aside type="caution" title="Caution">
+Keep **Back up the panel first** ticked on a new panel. Install erases the chip. The backup is the only way back to the maker's demo software.
+</Aside>
+
+<Steps>
+
+1. In **Install**, check the **Panel**, **Software** and **Parts** rows.
+
+   To change a row, click **Change** beside it.
+
+   <PanelShot src="/images/flasher/flasher-install-review.png" alt="Ready to install RoboAlarms 0.8.22 with the Panel, Software and Parts rows, the five steps under What happens, and Back up the panel first ticked" caption="What happens lists the steps of the install. Back up the panel first is ticked." size="medium" />
+
+2. Check that **Back up the panel first** is ticked.
+
+   The backup goes to the folder `Documents\RoboAlarms\Backups`.
+
+3. Click **Install RoboAlarms** and the version.
+
+   The Flasher backs up the panel and checks the backup. Then it erases the chip, writes the firmware and the voice of the language, and starts the panel. Last, it sets up the panel for your parts, with one more restart.
+
+   <PanelShot src="/images/flasher/flasher-install-progress.png" alt="Installing RoboAlarms, 60 %, about 2 minutes left" caption="The bar shows how far the install is." size="medium" />
+
+4. Keep the cable and the power connected until the Flasher shows **RoboAlarms is running on your panel**.
+
+</Steps>
+
+If the cable comes out or the computer sleeps, the panel is not damaged. Connect it again and start the install again.
+
+## Test and finish
+
+<Steps>
+
+1. On the panel's touchscreen, join your Wi-Fi.
+2. On the touchscreen, change the installer code and the master code when the panel asks.
+
+   The factory codes are public. Change them before the panel protects a home.
+
+3. In the Flasher, test each part under **Test your parts**.
+
+   See [Connected parts](/flasher/connected-parts/#test-the-parts).
+
+4. Click **Finish**.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The Flasher shows **RoboAlarms is running on your panel**. The touchscreen shows the first setup. Continue with [Run the first setup](/installer/first-setup/).
+</Aside>
+
+Software from the firmware server's Stable, Beta and Alpha channels has no service console. Then the Flasher cannot set up or test the parts after the install, and it shows **The panel did not answer**. Set up the parts later in **Advanced tools > Hardware**, or on the panel.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Connect** finds no panel. | Check the **POWER** switch, the **UART0** port and the cable. Click **Nothing showing up?** for more help. See [Flasher troubleshooting](/flasher/troubleshooting/). |
+| The install stops during the erase or the write. | Keep the panel powered. Connect it again, and run Install again. The panel has no working firmware until an install finishes. |
+| **This panel already runs RoboAlarms firmware, and an install erases its codes, users, zones and Wi-Fi.** | Use [Update](/flasher/update/) to keep them. Choose Install only if you want to erase the panel. |
+| The screen stays black after the install. | Connect **USB2.0** to a phone charger with 5 V and 2 A or more. Then switch the panel off and on with **POWER**. |
+
+## Related tasks
+
+- [Run the first setup](/installer/first-setup/)
+- [Connected parts](/flasher/connected-parts/)
+- [Back up, reset and restore](/flasher/backups/)
+- [Flasher troubleshooting](/flasher/troubleshooting/)

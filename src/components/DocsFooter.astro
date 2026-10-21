@@ -1,5 +1,35 @@
 ---
+// Starlight's page footer (pagination), then the website's footer.
 import Footer from '@astrojs/starlight/components/Footer.astro';
+const site = 'https://roboalarms.com';
 ---
 <Footer {...Astro.props} />
-<div class="edition-footer"><a href="https://roboalarms.com">RoboAlarms website</a> · Documentation edition 03 · 13 October 2026<br /><a href="/reference/edition/">Software coverage &amp; screenshot notes</a></div>
+<footer class="ra-footer">
+  <div class="ra-footer-grid">
+    <div>
+      <a class="wordmark" href={site} aria-label="RoboAlarms website"><img src="/brand/roboalarms-mark.png" alt="" width="30" height="30" /><span>RoboAlarms</span></a>
+      <p>Open by design. Yours to control. Firmware that turns an affordable touchscreen into a home alarm panel.</p>
+    </div>
+    <div>
+      <h2>Project</h2>
+      <nav aria-label="Project pages">
+        <a href={`${site}/explore/`}>Explore</a>
+        <a href={`${site}/hardware/`}>Hardware</a>
+        <a href={`${site}/flasher/`}>Flasher</a>
+        <a href={`${site}/updates/`}>Updates</a>
+      </nav>
+    </div>
+    <div>
+      <h2>Resources</h2>
+      <nav aria-label="Resources">
+        <a href="https://github.com/RoboAlarms/alarm-panel" rel="noopener">Source code ↗</a>
+        <a href="https://github.com/RoboAlarms/ha-addon" rel="noopener">Home Assistant integration ↗</a>
+        <a href="https://github.com/RoboAlarms" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
+  </div>
+  <div class="ra-footer-bottom">
+    <p>RoboAlarms is DIY software, not a certified alarm system or a monitoring service.</p>
+    <p>© 2026 the RoboAlarms contributors · <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="noopener">Apache 2.0</a></p>
+  </div>
+</footer>

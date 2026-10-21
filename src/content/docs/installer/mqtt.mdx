@@ -1,38 +1,90 @@
 ---
 title: "Connect an MQTT broker"
-description: "Configure the optional MQTT integration separately from Home Assistant pairing."
-sidebar:
-  order: 9
+description: "Connect the panel to an MQTT broker for Node-RED, your own scripts or other broker clients."
+audience: ["installer", "integrator"]
+time: "15 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-> This URL is kept for existing links. The [Integrations guide](/integrations/) compares MQTT with native Home Assistant pairing and phone notifications.
+MQTT sends the panel status and events to a broker. Node-RED, your own scripts and other broker clients can then read them. The Home Assistant integration does not need MQTT. For Home Assistant, see [Install and pair Home Assistant](/integrations/home-assistant-setup/).
 
-MQTT is a separate integration for broker-based setups, such as Node-RED, custom scripts, or Home Assistant installations using MQTT. The native RoboAlarms Home Assistant integration connects directly and does not require a broker.
+<Aside type="note" title="Before you start">
+- You need the system master code or the installer code.
+- Get these values from the broker administrator: the broker address, the port, the user name, the password and the type of encryption.
+- If the broker uses your own certificate authority, have its certificate file and the [Flasher](/flasher/) ready.
+- Disarm every partition.
+</Aside>
 
-**Before you begin:** obtain the broker host, port, credentials, TLS requirements and any required CA certificate from the broker administrator.
+## Connect to the broker
 
-## Configure the connection
+<Steps>
 
-1. Open **Settings > Integrations > MQTT** and authenticate with the system master or installer code if asked.
-2. Turn on **Connect to the broker**.
-3. Set **Address**, **Port**, **User name**, and **Password** to match the broker. A stored password appears as **Set**, not as its value.
-4. Under **Security**, choose the certificate option required by the broker. **Not encrypted** sends traffic, including commands and any codes they carry, in readable form; use it only on a network you trust. To use your own certificate authority, load it with `mqtt ca` from the service console; the USB console is available under **Advanced tools > Console** in [RoboAlarms Flasher](/flasher/).
-5. Review **Topic prefix** and **Panel ID** so the topics match your intended clients.
-6. Turn on **Announce the panel** if you need discovery messages, and review **Arm and disarm over MQTT** separately. Check the page's live connection state.
+1. Push **Settings > Integrations**.
+2. Enter the system master code or the installer code.
+3. Under **Smart home**, push **MQTT**.
+4. Under **Broker**, push **Address** and type the name or IP address of the broker, for example `mqtt.local`.
+5. Push **Security** and choose the encryption that the broker uses.
+6. Push **Port** and type the port. Leave it empty for the usual port: 1883, or 8883 with encryption.
+7. Push **User name** and type the broker user for the panel. Leave it empty if the broker has no sign-in.
+8. Push **Password** and type the password.
 
-<PanelShot src="/images/panel/mqtt.png" alt="MQTT configuration showing broker and integration controls" caption="The broker settings must match the service you are connecting to." />
+   The panel shows **Set** and never shows the password again.
 
-Do not turn off certificate verification merely to suppress an error. Check the server address, trust configuration and panel time first.
+9. Turn on **Connect to the broker**.
 
-## Discovery and remote commands
+   The line under the switch shows **On · connected to** and the broker address.
 
-**Announce the panel** controls MQTT discovery. When the native Home Assistant integration is paired, the panel withdraws or suppresses MQTT discovery to avoid duplicate Home Assistant entities; MQTT publishing for other broker clients can remain on. The page explains when discovery is quiet because of pairing.
+</Steps>
 
-Remote commands have their own enablement and authorization rules. Publishing status to a broker does not automatically grant remote control. **Arm and disarm over MQTT** controls whether commands are accepted, while the panel still checks user codes and installer policy. Disarming requires a valid code; arming without one depends on the installer option **Arm remotely without a code** in [System options](/installer/system-options/). Only enable command handling when broker permissions and intended clients are configured.
+<PanelShot src="/images/panel/mqtt-broker.png" alt="MQTT page with Connect to the broker on and connected, and the broker address, port, user name and password" caption="The line under Connect to the broker shows the connection state." />
 
-## Verify
+## Choose the security
 
-Confirm the panel reports a connected broker and inspect the expected status messages from your intended client. Test authorized commands only during agreed commissioning.
+| Choice | When to use it |
+| --- | --- |
+| **Encrypted** | The broker has a certificate from a public certificate authority. This is the default. |
+| **Encrypted, own certificate** | The broker uses your own certificate authority. Load the certificate on the service console with the `mqtt ca` command. The Flasher has the console under **Advanced tools > Console**. |
+| **Not encrypted** | Use it only on a home network that you trust. |
 
-If you are using the native integration and do not need another broker-based consumer, you can leave MQTT disconnected. Follow [Connect Home Assistant](/installer/home-assistant/) for direct pairing. For browser configuration of the panel itself, use [Panel Manager](/panel-manager/).
+<Aside type="caution" title="Caution">
+Do not choose **Not encrypted** on a network that you do not trust. Anyone on the network can read what the panel sends, and the codes that are sent to it.
+</Aside>
+
+## Choose what goes over the broker
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Announce the panel** | Sends discovery messages for the panel, every zone, troubles and events. | On |
+| **Arm and disarm over MQTT** | Lets broker clients arm and disarm. Off: broker clients can only watch. The panel always checks the code. | On |
+| **Code to arm** | Shows if arming needs a code. The installer setting **Arm remotely without a code** in [Delays and arming](/installer/system-options/) controls it. Disarming always needs a code. | Needed |
+| **Topic prefix** | The start of every topic. Empty: `alarmpanel`. | `alarmpanel` |
+| **Panel ID** | A part of every topic. Change it only if more than one panel uses the broker. Empty: made from the panel's address. | From the address |
+
+If no broker client must arm or disarm the panel, turn off **Arm and disarm over MQTT**. If a client must send commands, first set the broker permissions so that only that client can send them.
+
+Panel Manager has one more MQTT setting for the installer: **Allow panic alarms over MQTT**. It shows only when arming and disarming over MQTT is on.
+
+If the panel is paired with the Home Assistant integration, the panel sends no discovery messages to the broker. Home Assistant gets the panel directly, so it does not show the panel twice. Other broker clients still get the status and the events.
+
+<Aside type="tip" title="Check the result">
+The line under **Connect to the broker** shows **On · connected to** and the broker address. A broker client gets status messages under the topic prefix.
+</Aside>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Can't reach the broker** | Check the address and the port. Check that the panel and the broker are on a connected network. |
+| **The broker refused the sign-in** | Check the user name and the password. |
+| **Certificate not trusted** | Check the **Security** choice. For your own certificate authority, load it with `mqtt ca`. Check the date and time on the panel. |
+| **Own certificate, not loaded** | Load your certificate authority on the service console, or choose another **Security** setting. |
+| A broker client cannot arm or disarm. | Turn on **Arm and disarm over MQTT**. Check that the client sends a valid code. |
+
+Do not choose **Not encrypted** only to stop a certificate error. Find the cause of the error first.
+
+## Related tasks
+
+- [Connect other systems](/integrations/)
+- [Phone notifications](/installer/notifications/)
+- [Delays and arming](/installer/system-options/)

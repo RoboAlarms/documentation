@@ -1,32 +1,80 @@
 ---
 title: "Remote keypad"
-description: "View and operate the panel touchscreen safely from an authorized browser session."
-sidebar:
-  order: 3
+description: "Use the panel's own screen from a browser, and know what the person at the panel sees."
+audience: ["user", "installer"]
+time: "2 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-Open **Remote keypad** from a signed-in Panel Manager session. The panel's own display appears in the browser. Opening this page gives you control; there is no separate **Take control** button.
+**Remote keypad** shows the panel's own screen in the browser. You use it as if you stand at the panel. Use this page to control the screen from the browser, and to know what the person at the panel can do.
 
-<PanelShot src="/images/panel-manager/keypad.png" alt="Remote keypad displaying the panel with the red remote session banner and Still pictures selection" caption="A red banner on the panel shows that a browser is connected; the person there can pause control." source="Panel Manager UI · genuine LVGL frame in an isolated fixture" detail />
+<Aside type="note" title="Before you start">
+- Sign in to [Panel Manager](/panel-manager/).
+- Only one browser can use the remote keypad at a time.
+</Aside>
 
-## Operate the screen
+## Use the remote keypad
 
-1. Click or press the displayed screen to make a short tap. Hold to keep a control pressed; drag to scroll a page that supports scrolling.
-2. If the panel shows its own text field or code pad, click the screen and type on the computer keyboard. Printable keys, paste, Backspace, Enter, and Escape are sent to the panel. Keyboard input is ignored when focus is in a browser form, address bar, or browser shortcut.
-3. Choose **Video (H.264)** for a moving display when the browser can decode it. Choose **Still pictures (JPEG)** if video is unsupported or appears corrupted. Panel Manager remembers the choice in that browser.
-4. To finish, navigate away from **Remote keypad** or close its tab.
+<Steps>
 
-The browser sends a quick tap as one timed press and release at the panel, so a delayed network response does not turn a tap into a repeated key. A hold is refreshed while you hold and is released if updates stop. Use extra care with Panic or other long-press controls.
+1. Click **Remote keypad**.
 
-## Coordinate with the person at the panel
+   The panel's screen shows in the browser. You have control at once.
 
-The panel displays a steady red banner while a browser remote session is active. A local touchscreen touch blocks remote presses for three seconds after the last touch. While someone is typing a code or using a protected local page, remote presses remain blocked until that local task ends.
+   <PanelShot src="/images/panel-manager/pm-remote-keypad.png" alt="Remote keypad page with the panel's Security screen, the red banner Remote: Master · Tap to pause, and Video (H.264) and Still pictures (JPEG)" caption="The red banner on the panel shows who uses the remote keypad." />
 
-The person at the panel can tap the red banner to pause remote control. They can choose **Allow** to resume or **Turn off remote access** to close Web server and Developer mode. The pause is panel-wide; reconnecting the browser does not clear it. The person at the panel must choose **Allow** before remote presses resume.
+2. Click a button on the screen to push it.
 
-If the panel says local interaction is in progress, wait for it to finish or coordinate with the person there. If video does not update, select **Still pictures (JPEG)**. A background browser tab stops receiving pictures; after about a minute the panel ends that remote session. Reopen the page to reconnect, unless the person at the panel paused it—in that case they must allow it first.
+   To hold a button, for example on **Panic**, keep the mouse button down. To scroll, drag.
 
-## Keep codes private
+3. When the panel shows a text box or a code pad, type on the computer keyboard.
 
-Remote keypad control is equivalent to standing at the touchscreen. The panel still requires codes for actions that need them, but anyone who can see your browser may see the screen or what you type. Do not share the browser window during code entry or when private household information is visible. Browser passwords and keypad codes are different; the [accounts guide](/panel-manager/accounts/) explains sign-in and password recovery.
+   The keyboard sends letters, digits, Backspace, Enter and Escape. You can also paste text.
+
+4. To finish, open another page or close the browser tab.
+
+   The panel signs out of anything that you opened.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The bottom of the page shows **You have control**. The panel shows a red banner with your name.
+</Aside>
+
+Settings on the panel still ask for a code, as at the panel. Anyone who can see your screen can see what you type. Do not share your screen while you enter a code.
+
+## Video or still pictures
+
+Click **Video (H.264)** for a moving picture. If the browser cannot show the video, or the video looks wrong, click **Still pictures (JPEG)**. The browser remembers your choice.
+
+If the browser tab is in the background, the pictures stop. After about a minute, the panel ends the session. Open **Remote keypad** again to connect again.
+
+## What the person at the panel sees
+
+While you use the remote keypad, the panel shows a red banner: **Remote:** and your name, then **Tap to pause**.
+
+- When someone touches the panel, the panel takes over for a moment. Your clicks wait.
+- While someone types a code or uses a protected page at the panel, your clicks wait until they finish.
+- The person at the panel can push the banner to pause you. The panel then shows **Someone is using this keypad remotely** and two choices:
+  - **Allow** lets you continue.
+  - **Turn off remote access** turns off Panel Manager. Only the installer can turn it on again.
+
+While the remote keypad is paused, the banner shows **Remote keypad paused · Tap for choices**. The pause stays when you connect again. The person at the panel must push **Allow** first.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Remote keypad** is not in the menu. | This panel cannot share its screen. Use the other Panel Manager pages. |
+| The page says that another person is using the remote keypad now. | Wait until they finish, then try again. |
+| Your clicks do nothing. | Someone uses the panel, or the person at the panel paused you. Ask them to push **Allow**. |
+| The video does not move or looks wrong. | Click **Still pictures (JPEG)**. |
+| Panel Manager stops answering after a pause. | The person at the panel turned off remote access. The installer turns **Panel Manager** on again at the panel. |
+
+## Related tasks
+
+- [Panel Manager](/panel-manager/)
+- [Everyday pages](/panel-manager/everyday/)
+- [Arm and disarm](/user/arming-disarming/)
+- [Browser accounts](/panel-manager/accounts/)

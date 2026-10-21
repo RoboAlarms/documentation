@@ -1,48 +1,64 @@
 ---
-title: "Get to know your panel"
-description: "Find your way around the Home screen and learn the everyday controls."
-sidebar:
-  order: 1
+title: "The Home screen"
+description: "Find your way around the Security screen, the rail on the left and the top bar of the panel."
+audience: ["user"]
 ---
+import { Aside } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-RoboAlarms brings the alarm state, your zones and household settings together on one touchscreen. Start here if someone has already configured the system for you.
+Use this page to learn the parts of the panel screen. Start here if someone already set up the panel for you.
 
-## Read the Home screen
+## The Security screen
 
-The large status card tells you whether this keypad's partition is **Disarmed**, counting down or armed. A partition is an area that arms separately from other areas. **Ready to arm** means the required zones in this partition are ready for the selected arming mode. **Not ready** means a zone needs attention.
+The panel shows the **Security** screen when you start it. This screen shows the alarm state and the arming tiles. If the start screen is set to **Smart Home**, the panel shows **Smart Home** while it is disarmed. An alarm always shows the **Security** screen.
 
-<PanelShot src="/images/panel/home-ready.png" alt="RoboAlarms Home screen with Disarmed status and Away, Stay and Night choices" caption="Home is the starting point for everyday operation." />
+<PanelShot src="/images/panel/home-tour.png" alt="The Security screen. The rail is on the left, the top bar is at the top, the state ring is in the middle and the Away, Stay and Night tiles are on the right" caption="The numbers in the list below name each area of the Security screen." />
 
-The left rail gives you quick access to:
+1. **The rail.** The column on the left side. Push an item to open its screen: **Security**, **Zones**, **Smart Home**, **Activity** and **Panic**.
+2. **The state ring.** It shows the alarm state with a color and an icon. Green means **Disarmed** and ready. Yellow means that something needs attention.
+3. **The state text.** Below the ring, the panel shows the state, for example **Disarmed**. The line below it tells you more, for example **Ready to arm** or the name of an open zone.
+4. **The arming tiles.** **Away**, **Stay** and **Night**. Push a tile to arm. When the panel is armed, a code pad to disarm takes the place of the tiles.
+5. **The date.** On the left of the top bar. A message can show in its place, for example **Factory codes · Tap to change**.
+6. **The status icons.** The Wi-Fi icon and the battery level of the panel. When the panel has a trouble, a yellow trouble count shows here too.
+7. **The time.**
+8. **The chime button.** A bell. Push it to turn the chime on or off. A crossed-out bell means that the chime is off.
+9. **The settings button.** A gear. Push it to open **Settings**.
 
-| Control | What you use it for |
+## The rail
+
+| Item | What it opens |
 | --- | --- |
-| **Home** | Arm, disarm and see the current state |
-| **Zones** | Find an open sensor or review bypasses |
-| **Activity** | Read recent everyday events |
-| **Troubles** | Understand a fault and acknowledge it |
-| **Chime** | Turn door-opening sounds on or off |
-| **Panic** | Open the Emergency page |
+| **Security** | The alarm state, the arming tiles and the code pad. See [Arm and disarm](/user/arming-disarming/). |
+| **Zones** | A list of all zones and their state. A number on the icon shows how many zones need attention. See [Zones and bypass](/user/zones-bypass/). |
+| **Smart Home** | Lights, locks and other devices. This item shows only when the panel has devices. See [Smart Home](/user/smart-home/). |
+| **Activity** | The event history of the panel. See [Alarms, troubles and activity](/user/alarms-troubles/#review-what-happened). |
+| **Panic** | The **Emergency** screen with **Police**, **Fire** and **Medical** buttons. See [Alarms, troubles and activity](/user/alarms-troubles/#use-the-emergency-screen). |
 
-The gear at the top opens **Settings**. Settings are unavailable while any partition is armed or in alarm. A code is requested when you enter a protected section. The installer may have assigned this keypad to one partition; ask which area it controls if the screen does not show the area you expect.
+**Troubles** is not on the rail. To open **Troubles**, push the yellow trouble count in the top bar.
 
-## Learn these three tasks first
+## Settings
 
-1. [Arm and disarm](/user/arming-disarming/) with your own code.
-2. [Find an open zone](/user/zones-bypass/) before leaving.
-3. [Read an alert](/user/alarms-troubles/) without confusing an alarm with a system fault.
+The gear opens **Settings**. Some sections ask for a master or installer code. **Settings** does not open while the panel is armed or while an alarm sounds.
 
-Ask the installer which doors have an entry delay and which sensors are active in **Night**. These choices depend on your installation.
-
-If this panel has compatible device control enabled, [Smart Home](/user/smart-home/) explains device tiles, Favorites, Rooms and arranging the Home screen. The device controls shown depend on the configured device sources and the panel build. [Panel automations](/user/automations/) covers rules saved on the alarm panel; these are separate from Home Assistant automations and scheduled arming.
+On a keypad panel, **Users**, **Integrations**, **Automations**, **Smart Home** and **Walk test** are not in **Settings**.
 
 ## Enter a code
 
-Type the digits, then select the **check mark** to submit. Code lengths can differ, so typing the last digit alone does not submit. Use the delete key to correct a mistake.
+<Aside type="note">
+The panel does not submit a code when you type the last digit. Codes can have from 4 to 10 digits, so the panel waits for the check mark.
+</Aside>
 
-Repeated incorrect codes can temporarily lock the keypad. If you do not know your code, ask the person who manages household users rather than guessing.
+Type the digits of your code, then push the check mark. To correct a digit, push the delete key on the left of **0**.
+
+If you enter too many wrong codes, the keypad locks for a while. If you do not know your code, ask the person who manages users. Do not guess.
 
 ## Wake the screen
 
-Tap the screen saver to return to the panel. It shows the time and alarm state while the screen is dimmed. You can change its timing and brightness in [Screen and sound](/user/display-sound/). On builds with a ready voice pack, announcements can speak panel status and approved zone names; find their controls at **Settings > Screen and sound > Announcements**.
+After a time without a touch, the panel shows the screen saver. The screen saver shows the time and the alarm state. Push the screen to return to the panel. To change when the screen saver starts, see [Screen and sound](/user/display-sound/).
+
+## Related tasks
+
+- [Arm and disarm](/user/arming-disarming/)
+- [Zones and bypass](/user/zones-bypass/)
+- [Alarms, troubles and activity](/user/alarms-troubles/)
+- [Turn the chime on or off](/user/chime/)

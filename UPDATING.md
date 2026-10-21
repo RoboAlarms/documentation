@@ -1,34 +1,46 @@
 # Maintain the documentation
 
-This repository contains an independently buildable documentation site. Documentation editions are deliberate reviews of specified software versions; a firmware commit alone does not refresh the documentation.
+This repository builds the documentation site on its own. The capture tools in `tools-capture/`
+need a checkout of the firmware repository; the site build does not.
 
 ## Update content
 
-1. Identify the affected controls and reviewed firmware, Flasher, Panel Manager, or integration revision.
-2. Verify behavior against the implementation and applicable requirements. Keep planned behavior and unperformed hardware checks explicit.
-3. Update the relevant task pages, cross-links, task index, glossary, and troubleshooting entries together.
-4. Follow the [maintenance guidelines](docs/maintenance.md) and run `pnpm validate`.
+1. Find the controls that changed in the firmware, Flasher, Panel Manager or Home Assistant integration.
+2. Check the behaviour and the exact labels in the source. The English words on the panel are in
+   `components/ui/alarm_ui/src/ui_*.c`; Panel Manager words are in `components/services/panel_web/web/`.
+3. Update the task pages, the related links, the task index, the glossary, the FAQ and the
+   troubleshooting page together.
+4. Follow the [writing guide](docs/writing-guide.md) and the [maintenance guidelines](docs/maintenance.md).
+5. Run `pnpm validate`.
 
 ## Replace screenshots
 
-The existing capture and lab tooling remains with the firmware project. It requires that project's host preview, Flasher, Panel Manager fixtures, and integration sources; it is not part of this standalone website build.
+Screenshots use fictional data. The panel captures change both factory codes before every screen,
+so no screenshot shows a factory-code warning. Never use real codes, names, addresses or networks.
 
-Use the firmware checkout's `docs/manual/UPDATING.md` for the capture procedure. Generate captures in that separate checkout only when authorized to work there. Transfer only curated, reviewed images and their corresponding manifest records into this repository:
+1. Render the panel screens. From this repository, with the firmware repository next to it
+   (`../alarm-panel`) and its host toolchain installed:
 
-| Images | Manifest |
-| --- | --- |
-| `public/images/panel/` | `image-manifest.json` |
-| `public/images/home-assistant/` | `home-assistant-manifest.json` |
-| `public/images/flasher/`, `public/images/panel-manager/` | `browser-image-manifest.json` |
+   ```powershell
+   pwsh tools-capture/capture-panel.ps1            # -AlarmPanel <path> for another location
+   ```
 
-Keep stable image filenames. Preserve source revisions, capture dates, crop rectangles, dimensions, and hashes. Inspect every image for private information and meaningful warnings. Retained older captures must keep their original provenance and disclose differences from the current interface. Never copy authentication sessions, lab configuration, local notes, generated builds, or raw owner captures into this repository.
+   The script stages copies of the host preview in the firmware repository's ignored `build/`
+   folder and changes no tracked file there. It writes the shots to
+   `../alarm-panel/build/docs-preview/shots`. Copy them to `.capture/panel/` (ignored by Git).
+   The run must end with exit code 0 and `capture-status.json` must report `completed`.
+2. Capture Panel Manager and Flasher pages into `.capture/panel-manager/` and `.capture/flasher/`
+   as `tools-capture/browser/README.md` describes.
+3. Choose the screenshots for each page in `tools-capture/shots/*.json`: the published name, the
+   capture file and an optional crop rectangle.
+4. Run `node tools-capture/curate.mjs`. It copies and crops the images into `public/images/` and
+   writes `image-manifest.json` (source, crop, size and hash of each image).
+5. Look at every changed image at full size. Remove images that no page uses.
+6. Run `pnpm validate`. `scripts/verify-images.mjs` fails on an image that is missing from the
+   manifest, unused, changed after curation or blank.
 
-Manifest fields naming upstream fixture scripts describe historical capture provenance; those scripts intentionally remain outside this repository. `PanelShot.astro` uses manifest dimensions during the build, and `scripts/verify-images.mjs` verifies the curated files.
+## Before a release of the site
 
-## Prepare an edition
-
-Update `src/content/docs/reference/edition.mdx`, the landing page, and `src/components/DocsFooter.astro` consistently. Record the edition date, reviewed source revisions, software scope, screenshot limitations, and unperformed acceptance checks. Preserve any existing routes used by older bookmarks.
-
-Run `pnpm validate`, build the Docker image, and review the production pages on desktop and mobile. Record which checks passed and any remaining limitations with the update.
-
-Updates to `main` can trigger a rebuild and deployment when Dokploy is configured as described in [Deployment](docs/deployment.md). The repository itself contains no deployment credentials or production access.
+Run `pnpm validate`, build the Docker image and review the pages on a desktop and on a phone, in
+the light and dark themes. Updates to `main` can start a deployment when Dokploy is set up as
+[Deployment](docs/deployment.md) describes. The repository contains no deployment credentials.

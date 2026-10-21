@@ -1,30 +1,109 @@
 ---
-title: "Network settings and recovery"
-description: "Change Wi-Fi or IP settings, reconnect to the panel, and recover automatically from a failed network trial."
-sidebar:
-  order: 6
+title: "Network settings"
+description: "Change the panel's Wi-Fi or IP address in Panel Manager, keep the new settings, and recover when the panel goes back."
+audience: ["user", "installer"]
+time: "10 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-Network changes can interrupt your browser session. Before editing, note the panel's current network address and keep a way to reach the touchscreen. The browser and panel must be on the same local network or an authorized VPN. The panel's network settings are available to system masters, partition masters, and the installer while disarmed and not in alarm.
+Use this page to change the Wi-Fi network or the IP address of the panel in Panel Manager. The panel tries new settings for two minutes first. If you do not confirm them, the panel goes back to the old settings by itself.
 
-## Change network settings
+<Aside type="note" title="Before you start">
+- Sign in as a partition master, the system master or the installer.
+- Disarm every partition.
+- Write down the current address of the panel, for example https://192.0.2.42.
+- Have a way to reach the panel's screen, in case the browser loses the panel.
+</Aside>
 
-1. Open **Panel settings > Network**.
-2. For Wi-Fi, select **Find networks**, choose a listed network, or type its **Network name**. Enter its **Password** if it is secured; leave the field blank only for an open network. Select **Connect**, review the network name and password change, then confirm. This password field is submitted with the network change; an empty value means the new Wi-Fi network has no password.
-3. For IP settings, open the **IP address** card. Leave **Fixed IP address** off to use the router's automatic address, or turn it on and enter the **IP address**, **Subnet mask**, **Router (gateway)**, and **DNS server** values from your network plan. **Second DNS server** is optional. Select **Apply**, inspect the before-and-after review, and confirm.
-4. The panel applies either network change as a two-minute trial. The browser may disconnect while the panel joins Wi-Fi or changes address.
-5. Reopen Panel Manager at the panel's new address and select **Keep the new settings** before the two-minute trial ends. After confirming, use **Connection check > Run the check** to test Wi-Fi, IP address, router, name lookup (DNS), internet, time server, and connected service in order. Later checks are skipped when an earlier prerequisite fails.
+<PanelShot src="/images/panel-manager/pm-network.png" alt="Network page with the current Wi-Fi network, signal, IP address and clock, the Wi-Fi network card with Find networks, Network name, Password and Connect, the IP address card with Fixed IP address, and Connection check" caption="The top card shows the current connection. The cards below change it." />
 
-The confirmation binds to the trial network profile. If you cannot reconnect and confirm, the panel restores the previous profile when the timer expires. A reboot during the trial also causes rollback. Once rollback completes, reconnect at the old address and try again with corrected settings.
+## Change the Wi-Fi network
 
-## If Panel Manager stops responding
+<Steps>
 
-1. Try the panel's new address right away over the LAN or authorized VPN; the trial lasts two minutes from the save.
-2. If Panel Manager opens, choose **Keep the new settings** immediately. If the browser cannot reach the panel before the deadline, do not submit another network change; wait for the trial to roll back.
-3. After rollback, check the panel's current address on its touchscreen and reconnect at the previous address. Then correct the network fields and try again.
-4. If the browser warns that the certificate changed, compare its SHA256 fingerprint with the one shown beneath the **Panel Manager** switch in **Settings > About > Installer** before trusting it.
-5. If Browser access was turned off, go to **Settings > About > Installer** on the touchscreen and turn the **Panel Manager** switch back on. Disabling the service ends the browser session, so it cannot be re-enabled through that session.
+1. Click **Network**.
+2. Under **Wi-Fi network**, click **Find networks**, and click a network in the list.
 
-If the panel is reachable but the browser reports a failed fetch, confirm the address and VPN route, then check whether an ad or tracker blocker is blocking the panel's address. Plain HTTP redirects to HTTPS while Web server is enabled; open the HTTPS address directly.
+   You can also type the **Network name**.
 
-For changes to browser access itself, see [Installer programming](/panel-manager/installer/). For signed firmware rollback, see [Software updates and recovery](/panel-manager/updates/).
+3. Type the **Password** of the network. Leave it empty only for an open network.
+4. Click **Connect**.
+
+   Panel Manager asks **Change Wi-Fi network?**.
+
+5. Check the values, and confirm.
+
+   The panel joins the new network. The browser can lose the connection.
+
+6. Within two minutes, open Panel Manager again and sign in.
+
+   If the address changes, the page shows a link to the new address. Open it in the same browser.
+
+7. Click **Keep the new settings**.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+Panel Manager shows **New network settings kept.** The top card on **Network** shows the new Wi-Fi network.
+</Aside>
+
+## Set a fixed IP address
+
+<Steps>
+
+1. Click **Network**.
+2. Under **IP address**, turn on **Fixed IP address**.
+
+   When it is off, the router gives the panel its address (DHCP).
+
+3. Type the **IP address**, the **Subnet mask**, the **Router (gateway)** and the **DNS server**.
+
+   The **Second DNS server** is optional.
+
+4. Click **Apply**.
+
+   Panel Manager asks **Change the IP address?**.
+
+5. Check the values, and confirm.
+6. Within two minutes, open the panel at its new address, for example https://192.0.2.50, in the same browser.
+7. Sign in, and click **Keep the new settings**.
+
+</Steps>
+
+Ask the person who manages your network for the values. An address that another device uses stops the panel from working on the network.
+
+## Check the connection
+
+Under **Connection check**, click **Run the check**. The panel checks in order: Wi-Fi, the IP address, the router, name lookup (DNS), the internet, the time server and the connected services. If one check fails, the later checks are skipped. The first failed check shows what to fix.
+
+## If the panel goes back
+
+If you do not click **Keep the new settings** within two minutes, the panel goes back to the old settings. A restart during the two minutes also brings back the old settings.
+
+<Steps>
+
+1. Wait until the two minutes are over.
+2. Open Panel Manager at the old address.
+3. Correct the values, and try again.
+
+</Steps>
+
+Do not send a second change while the panel tries the first one.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The browser does not reach the new address. | Check that the computer is on the same network as the panel. Wait two minutes, then open the old address. |
+| The browser warns that the certificate changed. | Compare the fingerprint in the browser with the fingerprint on the panel, in **Settings > About > Installer** under **Panel Manager**. |
+| The page does not load, but the panel answers. | An ad blocker can block the panel's address. Allow the address in the blocker. Open the address with `https://`. |
+| You do not know the panel's address any more. | On the panel, open **Settings > Wi-Fi and network**. See [Network and time](/user/network-time/). |
+| Panel Manager is off. | The installer turns on **Panel Manager** at the panel, in **Settings > About > Installer**. |
+
+## Related tasks
+
+- [Network and time](/user/network-time/)
+- [Panel Manager](/panel-manager/)
+- [Software updates](/panel-manager/updates/)
+- [Installer programming](/panel-manager/installer/)

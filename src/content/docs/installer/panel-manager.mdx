@@ -1,43 +1,30 @@
 ---
 title: "Panel Manager"
-description: "Open the panel-hosted browser guide for sign-in, daily settings, remote keypad and installer tasks."
-sidebar:
-  hidden: true
+description: "Turn on Panel Manager on the panel, and then use the Panel Manager guide."
+audience: ["installer"]
+time: "5 minutes"
 ---
+import { Steps } from '@astrojs/starlight/components';
 
-Panel Manager is the browser interface hosted by the RoboAlarms panel. Start with the [Panel Manager guide](/panel-manager/) for first access and sign-in, then use its pages for the task you need:
+Panel Manager lets you change the panel's settings from a browser on the same network. You turn it on at the panel.
 
-- [Browser accounts and permissions](/panel-manager/accounts/)
-- [Remote keypad](/panel-manager/remote-keypad/)
-- [Everyday pages and settings](/panel-manager/everyday/)
-- [Installer programming](/panel-manager/installer/)
-- [Network settings and recovery](/panel-manager/network/)
-- [Software updates and recovery](/panel-manager/updates/)
+<Steps>
 
-For local touchscreen programming, see [Installer access](/installer/installer-access/).
+1. Push **Settings > About > Installer**, and enter the installer code.
+2. Under **This panel**, turn on **Panel Manager**.
 
-These section links remain available for older bookmarks:
+   The row shows the panel's address and its certificate.
 
-## Turn on browser access
+3. To sign in as the installer from a browser, turn on **Browser sign-in**.
+4. Type a new password for the browser.
 
-Follow [First connection](/panel-manager/#first-connection).
+   The password is not the installer code. The row shows the user name for the sign-in.
 
-## Create a browser sign-in
+</Steps>
 
-See [Browser accounts and permissions](/panel-manager/accounts/).
+To change the password later, push **Change the browser password**. For the first connection and all Panel Manager tasks, see the [Panel Manager guide](/panel-manager/).
 
-## Find pages and understand access
+## Related tasks
 
-See [Everyday pages and settings](/panel-manager/everyday/) and [Installer programming](/panel-manager/installer/).
-
-## Use the remote keypad
-
-See [Remote keypad](/panel-manager/remote-keypad/).
-
-## Review configuration and recover a network change
-
-See [Network settings and recovery](/panel-manager/network/).
-
-## Turn off access and development tools
-
-See [Installer programming](/panel-manager/installer/#manage-browser-and-development-access).
+- [Panel Manager](/panel-manager/)
+- [Installer access and code recovery](/installer/installer-access/)

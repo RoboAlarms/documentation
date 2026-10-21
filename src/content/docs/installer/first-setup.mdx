@@ -1,43 +1,116 @@
 ---
-title: "First setup"
-description: "Join Wi-Fi, choose a time zone, replace factory codes and name the system."
-sidebar:
-  order: 2
+title: "Run the first setup"
+description: "Choose the panel's role, join Wi-Fi, set the time zone, replace the factory codes and name the system."
+audience: ["installer"]
+time: "5 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-A panel without a completed setup opens the welcome wizard. Work through it in order.
+A new panel starts the setup on its first start. The setup asks how the panel will be used, then sets the Wi-Fi, the time zone, the codes and the system name. Fire, CO and panic already work during the setup.
 
-If the wizard starts with a **Language** step, choose the screen language and select **Next**. English is always available; other choices require their language pack to be installed.
+<Aside type="note" title="Before you start">
+- Install the firmware. See [Install the firmware](/installer/flasher/).
+- Know the Wi-Fi network name and password.
+- Choose a new installer code and a new master code. Each code has 4 to 10 digits.
+</Aside>
 
-<PanelShot src="/images/panel/setup-welcome.png" alt="Setup welcome screen listing Wi-Fi, timezone, codes and system name" caption="The wizard gathers the basic installation settings." />
+## Start the setup
 
-## 1. Join Wi-Fi
+If the setup starts with **Language**, choose the language of the screen and push **Next**. English is always available. Other languages need their language pack.
 
-Select **Start**, choose the intended Wi-Fi network and enter its password. Select **Next** after connection. **Skip for now** lets you continue without networking, but connected services still need setup later.
+The **Welcome** step lists the steps. Push **Start**.
 
-## 2. Choose the time zone
+<PanelShot src="/images/panel/first-setup-welcome.png" alt="Setup Welcome step listing Choose its role, Join Wi-Fi, Choose your time zone, Change the factory codes, Name your system and Look it over" caption="The Welcome step lists every step of the setup." />
 
-Select the installation's time zone, then **Next**. Verify local time once synchronization completes. If a battery-backed clock can keep time, its time is unset, and Wi-Fi time is not yet available, the wizard may include a **Date and time** step so you can set it manually. Otherwise the configured time server sets the panel clock after Wi-Fi connects. Later, a master or installer can use **Set the date and time** in **Settings > Time and language** when the panel can keep time.
+## Choose how the panel will be used
 
-## 3. Replace both factory codes
+On the first start, the setup asks **How will this panel be used?**.
 
-The factory installer code is **69420** and the factory master code is **123456**. These are public defaults, not private installation credentials.
+| Choice | Use it when |
+| --- | --- |
+| **The alarm panel** | This is the only panel, or the main panel. The sensors and the alarm live here. |
+| **A keypad** | Another RoboAlarms panel in the house is the alarm panel. This panel will be a keypad for it. |
 
-Select **Change** beside each code and enter a unique new code twice. Keep the installer and master codes distinct and hand the master code to the person responsible for the household.
+<PanelShot src="/images/panel/first-setup-role.png" alt="Setup step How will this panel be used? with The alarm panel selected and A keypad" caption="The alarm panel is selected by default." />
 
-<PanelShot src="/images/panel/setup-codes.png" alt="Setup page for changing installer and master factory codes" caption="Replace both factory codes before handover." />
+Push your choice. Then push **Next**. To change the role later, you must reset the panel to its factory settings.
 
-Codes can contain 4–10 digits, subject to the configured minimum. If you keep a factory code, the reminder remains on the status bar.
+If you choose **A keypad**, the setup goes on to pair the panel with the alarm panel. Follow [Keypad panels](/installer/keypads/#pair-a-new-keypad-panel). The rest of this page is for the alarm panel.
 
-## 4. Name the system
+## Set up the alarm panel
 
-Choose a short, recognizable name such as Home or Workshop. The name appears in the panel experience and event history.
+<span id="3-replace-both-factory-codes"></span>
 
-## 5. Review and finish
+<Aside type="danger" title="Warning">
+Replace both factory codes. The factory installer code is 69420 and the factory master code is 123456. Anyone can look them up.
+</Aside>
 
-Check the summary for Wi-Fi, time zone, codes and name. Select **Done**. Next, configure and verify [zones](/installer/zones/); the wizard does not prove sensor coverage.
+<Steps>
 
-## Run the wizard again
+1. On the **Join Wi-Fi** step, push the network.
+2. Type the Wi-Fi password.
 
-While disarmed, open **Settings > About > Installer** and select **Run the setup again**. On a configured panel, **Leave setup** returns to Home. Changes made as you move through the wizard remain saved; leaving it is not an undo operation.
+   When the panel is connected, the button changes to **Next**. Push **Next**.
+
+   To go on without Wi-Fi, push **Skip for now**. The alarm works without Wi-Fi, but the clock, updates and connected services need it.
+
+3. On the **Time zone** step, push your time zone. Then push **Next**.
+
+   Daylight saving time switches by itself.
+
+4. If the setup shows **Date and time**, set the date and the time. Then push **Next**.
+
+   This step shows only when the panel can keep the time and has no internet yet. The panel corrects the time once it is online.
+
+5. On the **Change the factory codes** step, push **Change** beside **Installer code**.
+6. Type the new installer code twice.
+7. Push **Change** beside **Master code**.
+8. Type the new master code twice.
+9. Push **Next**.
+
+   <PanelShot src="/images/panel/first-setup-codes.png" alt="Change the factory codes step with Installer code and Master code both changed" caption="Both rows show Changed when you have replaced the factory codes." />
+
+10. On the **Name your system** step, push **System name**.
+11. Type a short name, for example Home or Workshop. Then push **Next**.
+
+    The name shows on the screen saver and in the event log.
+
+12. On the **You're all set** step, check the Wi-Fi, the time zone, the codes and the name.
+13. Push **Done**.
+
+</Steps>
+
+Use a different code for the installer and for the master. Give the master code to the person who is responsible for the household. If you keep a factory code, the status bar reminds you until you change it.
+
+<Aside type="tip" title="Check the result">
+The panel shows the **Security** screen. The status bar does not show a factory code reminder. The setup does not test the sensors: set up and test the [zones](/installer/zones/) next.
+</Aside>
+
+## Run the setup again
+
+<Steps>
+
+1. Disarm every partition.
+2. Open **Settings > About > Installer** and enter the installer code.
+3. Push **Run the setup again**.
+
+</Steps>
+
+The setup goes through the Wi-Fi, the time zone, the codes and the name again. It does not ask for the role again. On a panel that is already set up, every step except the last has **Leave setup**. **Leave setup** goes back to the main screen. The changes that you made in earlier steps stay saved.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The panel does not join Wi-Fi | Check the password. Push **Skip for now** and join later in **Settings > Wi-Fi and network**. |
+| **Not saved: codes must be 4 to 10 digits long** | Type a code with 4 to 10 digits. |
+| The time is wrong | Check the time zone. A master or the installer can set the time in **Settings > Time and language**. |
+| You chose the wrong role | Reset the panel to its factory settings and run the setup again. |
+
+## Related tasks
+
+- [Plan the installation](/installer/setup-checklist/)
+- [Installer access and codes](/installer/installer-access/)
+- [Keypad panels](/installer/keypads/)
+- [Set up zones](/installer/zones/)

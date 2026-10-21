@@ -1,35 +1,128 @@
 ---
-title: "Software updates and recovery"
-description: "Check and install signed panel updates, use developer uploads, and understand rollback."
-sidebar:
-  order: 7
+title: "Software updates"
+description: "Check for and install a signed panel update in Panel Manager, follow the keypads, and choose where updates come from."
+audience: ["user", "installer"]
+time: "10 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-Panel Manager can check for a signed release and install it from **System > Software updates**. A system master, partition master, or installer can check and install the normal release. Only the system master and installer can change the **Release source**. All partitions must be disarmed and no alarm can be active before installing; the panel refuses a change while armed or in alarm.
+Panel Manager can check for a new version of the panel software and install it. Every update is signed. The panel checks the signature and installs only while everything is disarmed. If the new version fails its self-test, the panel goes back to the old version by itself.
 
-## Install a normal signed update
+Use this page to update the panel, to follow the updates of its keypads, and to choose where updates come from.
 
-1. Open **System > Software updates** and select **Check now**.
-2. Review the installed version and any available version. If an update is available, choose **Install** and read the confirmation.
-3. Confirm the installation. Keep the browser open while the panel downloads and verifies the signed update, restarts, and reconnects.
-4. When Panel Manager returns, check **System health** and **Software updates** for a normal result and the installed version.
+## Install an update
 
-An update restarts the panel, so the browser connection will drop temporarily. If startup checks fail, the panel returns to the previous firmware. Wait for the panel to finish restarting and reconnect at its HTTPS address. Do not interrupt power during an update.
+<Aside type="note" title="Before you start">
+- Sign in as the system master or the installer. Other roles do not see **Software updates**.
+- Disarm every partition, and wait until no alarm sounds.
+- Keep the panel powered during the update.
+</Aside>
 
-## Install a signed development file
+<Steps>
 
-This path is for an installer who has a signed `.bin` for this panel's board and profile. It requires **Developer tools** to be on under **Installer > Access and maintenance**. Developer tools are optional; a household user should use the normal signed release path.
+1. Click **Software updates**.
+2. Click **Check now**.
 
-1. Confirm all partitions are disarmed and no alarm is active. If a temporary browser password has not yet been changed, sign in and change it first; the panel refuses the upload until you do.
-2. Open **System > Software updates** and find the **Install a signed file** card. Choose **Firmware file** and select a signed `.bin` built for this panel's board and profile.
-3. Review the file name, size, and **Allow the same or an older version** value. Leave that switch off unless the installer specifically intends that signed downgrade.
-4. Select **Upload and install**, review the file details, then confirm **Upload and install**. Keep the browser open while the upload and signature checks run, then allow the panel to restart and complete its health check.
-5. Reconnect after restart and verify **System health**. A missing reconnect or failed startup health check causes rollback to the previous firmware.
+   If a new version is available, the page shows **Version** and the number **is available**.
 
-The installer is required for signed uploads and downgrade authorization. A temporary password still awaiting change cannot upload firmware. Turning **Developer tools** off leaves normal browser administration on if **Browser access** remains on. Turning Web server off closes the browser service and disables Developer tools; enable it locally at the touchscreen to use the browser again.
+   <PanelShot src="/images/panel-manager/pm-software-updates.png" alt="Software updates with Installed: version 0.6.1, Version 0.6.2 is available, Install version 0.6.2 and Check now" caption="The card shows the installed version and the version that is available." size="medium" />
 
-## If the panel does not return
+3. Click **Install version** and the number.
 
-Wait for the restart and probation window to complete, then reconnect using the current address and verify the HTTPS fingerprint from local Installer if the browser reports a certificate change. Check **System health** and the installed version before trying again. A network trial may also roll back independently; see [Network settings and recovery](/panel-manager/network/).
+   Panel Manager asks **Install version** and the number.
 
-If the panel is still unavailable after the update rollback window, check that it has power and its expected network route, then use the [Flasher troubleshooting and recovery guide](/flasher/troubleshooting/) for USB recovery steps. Do not repeatedly upload an image or power-cycle during an active update. For enabling developer access, see [Installer programming](/panel-manager/installer/).
+4. Confirm.
+
+   The panel downloads the update and checks it. The alarm keeps working while it downloads. Then the panel restarts with the new version. The browser loses the connection for about a minute.
+
+5. Wait until Panel Manager connects again, and sign in.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+**Software updates** shows **Installed: version** and the new number. The card shows that the new version passed its self-test.
+</Aside>
+
+Until the panel restarts, you can click **Stop the update**, then **Stop it**. The panel keeps the old version. You can stop an update also while a partition is armed.
+
+If a partition is armed when the download ends, the panel waits. It installs the update once everything is disarmed.
+
+## Keypad updates
+
+On a panel with keypad panels, the installer sees **Keypad updates** at the top of **Software updates**. Keypads update with the alarm panel. Each keypad gets the new version while it keeps working. The panels restart together once everything is disarmed.
+
+<PanelShot src="/images/panel-manager/pm-keypad-updates.png" alt="Software updates as the installer with Keypad updates: Hall keypad 0.7.4 Up to date, and the panel's update card" caption="Keypad updates shows the version and the update state of each keypad." size="medium" />
+
+| State | What it means |
+| --- | --- |
+| **Up to date** | The keypad has the same version as the alarm panel. |
+| **Downloading**, **Receiving from this panel** | The keypad gets the new version. The page shows the percentage. |
+| **Ready · restarts with this panel** | The keypad restarts together with the alarm panel. |
+| **Restarting** | The keypad starts with the new version. |
+| **Not updated yet · tries again by itself** | The keypad did not get the update. It tries again. |
+| **Newer than this panel** | The keypad has a newer version than the alarm panel. Update the alarm panel. |
+| **Waiting for status** | The keypad has not answered yet. |
+
+See [Keypad panels](/installer/keypads/#updates).
+
+## Where updates come from
+
+The installer sees two more cards on **Software updates**.
+
+**Where updates come from** shows the **Update server** and its **Signing key**. Every update must be signed with this key, or with the key of the version that runs now. The panel refuses everything else.
+
+To use another update server, click **Change the update server…**, and type the domain. The panel checks the server first. Tick that you trust the server, and click **Use this server**. Click **Go back to roboalarms.com** to use the RoboAlarms server again.
+
+<Aside type="caution" title="Caution">
+Use only an update server that you trust. Its owner can install firmware that changes everything that the panel does, the alarm too.
+</Aside>
+
+**Change the update server…** stays off while the factory installer code is in use. Change the installer code first.
+
+**Update channel** sets which releases the panel is offered:
+
+| Channel | Releases |
+| --- | --- |
+| **Stable** | Tested the longest. Right for most homes. |
+| **Beta** | Newer releases, tried by a few people first. |
+| **Alpha** | The newest releases, still being tested. |
+| **Dev** | Special builds for developers. |
+
+A channel also gets the releases of the steadier channels. Dev stands apart. Choose the **Channel**, and click **Save**. The panel checks for updates on the new channel at once.
+
+## Install a signed file
+
+While **Developer tools** is on, the installer sees **Install a signed file**. Use it for a signed `.bin` file built for this board.
+
+<Steps>
+
+1. Turn on **Developer tools** in **Installer > Access and maintenance**.
+2. Disarm every partition.
+3. On **Software updates**, choose the **Firmware file**.
+4. Leave **Allow the same or an older version** off, unless you want to go back to an older version.
+5. Click **Upload and install**, and confirm.
+
+   The panel checks the signature, then restarts with the new version.
+
+</Steps>
+
+A person who still has a temporary browser password cannot upload firmware. Turn off **Developer tools** when you finish.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Software updates** is not in the menu. | Sign in as the system master or the installer. |
+| **You can install it once everything is disarmed.** | Disarm every partition, and wait until no alarm sounds. |
+| **Couldn't check for updates** | Check the panel's internet connection with **Network > Connection check**. |
+| **Version** and the number **failed its self-test** | The panel went back to the old version by itself. Check **System health**, and try again later. |
+| The panel does not come back after the update. | Wait a few minutes. Open Panel Manager at the panel's address again. If the browser warns about the certificate, compare the fingerprint on the panel. |
+| The panel does not start any more. | Use the Flasher. See [Flasher troubleshooting](/flasher/troubleshooting/). |
+
+## Related tasks
+
+- [Updates and storage](/user/updates-storage/)
+- [Keypad panels](/installer/keypads/)
+- [Update RoboAlarms with the Flasher](/flasher/update/)
+- [Network settings](/panel-manager/network/)

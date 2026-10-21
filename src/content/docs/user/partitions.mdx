@@ -1,22 +1,88 @@
 ---
-title: "Partitions and your code"
-description: "Understand independently armed areas and check which partitions your code can operate."
-sidebar:
-  order: 6.5
+title: "Partitions"
+description: "Understand areas that arm separately, switch the partition that the panel shows, and check where your code works."
+audience: ["user", "installer"]
+time: "1 minute"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-A **partition** is an alarm area that can be armed and disarmed separately from other areas. The installer gives each partition a name and assigns zones and keypads to it. A partition is a software grouping; it does not by itself mean there is a separate physical panel, siren or monitoring connection.
+A **partition** is an area of the home that arms and disarms separately, for example the house and a studio. Use this page to switch the partition on the panel and to check where your code works.
 
-## Use the keypad for its assigned area
+Most homes use one partition. Then this page does not apply to you.
 
-The Home and Zones screens show the partition assigned to that keypad. The current touchscreen has no Home control for switching to another partition. Arm or disarm its area as described in [Arm and disarm](/user/arming-disarming/). If a keypad does not show the area you expected, ask the installer which partition it controls. Do not assume that disarming one partition disarms the others.
+<Aside type="note" title="Before you start">
+- The installer set up more than one partition.
+- To switch, the installer must allow partition switching on this panel.
+</Aside>
 
-## Check which areas your code covers
+## How partitions work
 
-Ask the person who manages users or the installer to review your access in **Settings > Users > your name > Partitions**. That row appears when more than one partition is in use. Your code must have access to the partition operated by a keypad. Installer and system-master codes have access to every partition.
+- The installer gives each partition a name and puts each zone in one partition. The panel can have up to four partitions.
+- Each panel has a default partition. The **Security** and **Zones** screens show the partition that the panel shows now.
+- To arm or disarm one partition does not change the other partitions.
+- A partition is a setting in the software. It does not add a separate panel, siren or monitoring service.
 
-If you have a **Partition master** account, you can manage eligible lower-level users only within your own assigned areas. The installer and system master can manage users across the system. See [Users, codes and partitions](/user/users-codes/) for the authority rules.
+## Switch the partition
 
-## If something looks wrong
+If switching is allowed, the **Security** screen shows a row below the state ring. The row shows the name of the partition and **Switch partition**.
 
-If your code is refused, ask the installer or user manager to check both your authority and partition access. A user change can be made only while every affected partition is disarmed and quiet. Contact the installer if a keypad shows the wrong area, zones are assigned to the wrong area, or one partition's armed state does not match the intended operation.
+<PanelShot src="/images/panel/partitions-switch-row.png" alt="The Security screen with a row below the state ring that says Home and Switch partition" caption="The row below the state ring shows the partition that the panel shows now." />
+
+<Steps>
+
+1. On the **Security** screen, push the **Switch partition** row.
+
+   The panel shows **Choose a partition** with a list of the partitions. A check mark shows the current partition.
+
+   <PanelShot src="/images/panel/partitions-chooser.png" alt="The Choose a partition list with Home and Studio" caption="Push the name of the partition that you want to use." size="small" />
+
+2. Push the name of the partition.
+
+   The **Security** and **Zones** screens show that partition.
+
+3. Arm or disarm as usual. See [Arm and disarm](/user/arming-disarming/).
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The row below the state ring shows the name of the partition that you chose.
+</Aside>
+
+When nobody touches the panel for a time, the panel returns to its default partition. The installer sets this time. From the factory, it is 30 seconds. The installer can also turn off the automatic return.
+
+## Check where your code works
+
+Your code works only in the partitions that the person who manages users chose for you. Ask that person to check **Settings > Users >** your name **> Partitions**. The installer and system master codes work in all partitions.
+
+A **Partition master** code can manage users only in its own partitions. See [Users and codes](/user/users-codes/).
+
+## For the installer
+
+Set the partition of this panel in **Settings > About > Installer > Keypads and devices > This panel**:
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| **Default partition** | The partition that the panel shows and returns to. | Partition 1 |
+| **Allow partition switching** | Shows the **Switch partition** row. Off locks this panel to its default partition. | Off |
+| **Return after inactivity** | The seconds without a touch before the panel returns to its default partition, from 1 to 3600. | 30 |
+| **Never return automatically** | The panel stays on the chosen partition. | Off |
+
+See [Partitions](/installer/partitions/) and [Keypads](/installer/keypads/).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The **Security** screen has no **Switch partition** row. | Switching is not allowed, or only one partition is in use. Ask the installer. |
+| The panel says **Partition switching unavailable**. | On a keypad panel, check that the alarm panel is on and on the same Wi-Fi. |
+| The panel does not accept your code in a partition. | Your code does not work in that partition. Ask the person who manages users. |
+| The panel shows a different partition than before. | The panel returned to its default partition. Switch again. |
+| A zone is in the wrong partition. | Ask the installer to change the zone. |
+
+## Related tasks
+
+- [Arm and disarm](/user/arming-disarming/)
+- [Users and codes](/user/users-codes/)
+- [Partitions (installer)](/installer/partitions/)
+- [Keypads](/installer/keypads/)

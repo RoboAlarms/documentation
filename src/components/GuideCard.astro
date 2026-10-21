@@ -1,0 +1,14 @@
+---
+// A card on the home page: an icon, a title, a sentence and a link, as on the website.
+import { Icon } from '@astrojs/starlight/components';
+import type { StarlightIcon } from '@astrojs/starlight/types';
+
+interface Props { title: string; href: string; icon: StarlightIcon; more?: string }
+const { title, href, icon, more = 'Open' } = Astro.props;
+---
+<a class="card-link" href={href}>
+  <span class="card-icon"><Icon name={icon} /></span>
+  <strong>{title}</strong>
+  <span class="desc"><slot /></span>
+  <span class="more">{more} →</span>
+</a>

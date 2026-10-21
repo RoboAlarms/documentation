@@ -1,0 +1,80 @@
+---
+title: "Quick start"
+description: "Set up a new RoboAlarms Panel, from the hardware to the first time you arm it."
+audience: ["everyone"]
+time: "1 to 2 hours"
+---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
+
+Use this page to set up a new panel from the start. Each step links to the full instructions and tells you how to know that the step worked.
+
+<Aside type="note" title="Before you start">
+- A computer with an internet connection and a USB data cable.
+- The name and password of your home Wi-Fi network.
+- At least one door, window or motion sensor to connect.
+- Time to do the steps in order. Each step needs the step before it.
+</Aside>
+
+<Aside type="danger" title="Warning">
+Read [Safety and limits](/start/safety/) before you rely on the panel. RoboAlarms is not a monitoring service and does not call emergency services.
+</Aside>
+
+## Set up the panel
+
+<Steps>
+
+1. **Get the hardware.** Find the panel, the power supply and the parts that you want on [RoboAlarms hardware](https://roboalarms.com/hardware/). Do the physical installation and the wiring as the maker of each part tells you.
+
+   **How to tell it worked:** The panel turns on when it gets power.
+
+2. **Install the firmware with the Flasher.** Connect the panel to your computer with USB. Then follow [Install RoboAlarms](/flasher/install/). The Flasher gets the firmware from the RoboAlarms firmware server.
+
+   **How to tell it worked:** The Flasher finishes its last step, and the panel restarts and shows **Welcome**.
+
+3. **Do the first setup on the touchscreen.** Push **Start** and follow the steps on the screen. Choose the role of the panel, join Wi-Fi, choose the time zone, change both factory codes, and name the system. For each step, see [First setup](/installer/first-setup/).
+
+   <PanelShot src="/images/panel/quick-start-welcome.png" alt="The Welcome screen of the first setup, with a list of the setup steps and a Start button" caption="The Welcome screen lists each step of the first setup." />
+
+   **How to tell it worked:** The panel shows the **Security** screen with the correct time. The top bar does not show **Factory codes · Tap to change**.
+
+4. **Add your first zone.** Open **Settings > About > Installer**, enter the installer code, and open **Zones**. Then follow [Zones](/installer/zones/) to add a zone and connect its sensor.
+
+   **How to tell it worked:** On the **Zones** screen, the zone changes from **Closed** to **Open** when you open the door or window.
+
+5. **Do a walk test.** Open **Settings > Walk test**, enter the master code, and push **Start walk test**. Open and close each door and window, and walk past each motion sensor. Push **End test** when you finish.
+
+   **How to tell it worked:** The panel beeps for each zone, and the count shows that every zone was tested.
+
+6. **Arm and disarm one time.** Push **Stay**, enter your code and push the check mark. When the panel shows **Armed Stay**, enter your code and push the check mark again. See [Arm and disarm](/user/arming-disarming/).
+
+   **How to tell it worked:** The panel shows **Armed Stay**, then **Disarmed** after you enter your code.
+
+7. **Optional: connect more.** Turn on [Panel Manager](/panel-manager/) to use the panel from a browser. Connect [Home Assistant](/integrations/home-assistant-setup/), [MQTT](/installer/mqtt/) or [phone notifications](/installer/notifications/) if you use them.
+
+   **How to tell it worked:** The browser opens the Panel Manager sign-in page, or Home Assistant shows the panel as connected.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The panel shows **Disarmed** and **Ready to arm** on the **Security** screen. Each zone that you added changes state when you open and close it. Then do the full [commissioning checklist](/installer/commissioning/) before you hand over the panel.
+</Aside>
+
+<PanelShot src="/images/panel/home-tour.png" alt="The Security screen with the state ring that says Disarmed, Ready to arm, and the Away, Stay and Night tiles" caption="A panel that is ready shows Disarmed and Ready to arm." />
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The Flasher does not find the panel. | Use a USB data cable and close other programs that use the port. See [Flasher troubleshooting](/flasher/troubleshooting/). |
+| The panel screen stays black after the install. | Check the power supply. See [Flasher troubleshooting](/flasher/troubleshooting/). |
+| The panel does not join Wi-Fi. | Push **Skip for now** and continue. Join Wi-Fi later in **Settings > Wi-Fi and network**. |
+| A zone does not change when you open the door. | Check the sensor and its connection. See [Zones](/installer/zones/). |
+| The panel shows **Not ready**. | Open **Zones** and close the zone that is open. |
+
+## Related tasks
+
+- [How RoboAlarms works](/start/how-it-works/)
+- [Setup checklist](/installer/setup-checklist/)
+- [The Home screen](/user/getting-started/)
+- [Commissioning](/installer/commissioning/)

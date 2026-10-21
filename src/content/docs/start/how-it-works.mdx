@@ -1,0 +1,81 @@
+---
+title: "How RoboAlarms works"
+description: "Learn the parts of RoboAlarms, who uses each part, and the words that the panel uses."
+audience: ["everyone"]
+---
+import { Aside, LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+RoboAlarms is alarm software for a touchscreen panel on your wall. This page tells you what the parts are, who uses them, and which words you will see.
+
+## The parts
+
+The panel is the center of RoboAlarms. The other parts connect to it, and most of them are optional.
+
+| Part | What it is | Do you need it? |
+| --- | --- | --- |
+| **RoboAlarms Panel** | The touchscreen on your wall. It holds the alarm, the zones and the codes. It works without the internet. | Yes |
+| **Flasher** | An app for your computer. It installs and updates the panel firmware over USB. It gets the firmware from [firmware.roboalarms.com](https://firmware.roboalarms.com/). | Yes, to install the firmware |
+| **Panel Manager** | Pages that the panel serves over HTTPS on your home network. You open them in a browser. | No |
+| **Keypad panels** | Another RoboAlarms panel can be a keypad for your alarm panel. Use one, for example, at a second door. | No |
+| **Home Assistant integration** | A connection to Home Assistant. You install it with HACS. | No |
+| **MQTT** | Sends the panel status to an MQTT broker, for other software on your network. | No |
+| **Phone notifications** | Sends alarm and trouble messages to a phone through a notification service. | No |
+
+The panel makes every alarm decision itself. If the network or Home Assistant stops, the panel continues to protect your home.
+
+```text
+                 Flasher (computer, USB)
+                          |
+ Keypad panel ---- RoboAlarms Panel ---- Panel Manager (browser, home network)
+                          |
+        Home Assistant · MQTT · phone notifications (optional)
+```
+
+For the hardware that the panel uses, see [RoboAlarms hardware](https://roboalarms.com/hardware/).
+
+## Who does what
+
+Three kinds of people work with RoboAlarms. One person can have more than one role.
+
+| Role | What this person does | Start here |
+| --- | --- | --- |
+| **Household** | Arms and disarms, bypasses a zone, reads alarms and troubles, and adds codes for the family. | [The Home screen](/user/getting-started/) |
+| **Installer** | Installs the firmware, does the first setup, adds zones and sensors, sets the delays, tests the panel and hands it over. | [Setup checklist](/installer/setup-checklist/) |
+| **Integrator** | Connects the panel to Home Assistant, MQTT or phone notifications. | [Integrations](/integrations/) |
+
+## Three access levels
+
+Each person types a code on the panel. The code tells the panel who the person is and what the person can do.
+
+| Code | Who has it | What it can do |
+| --- | --- | --- |
+| **User code** | Each person in the household | Arms and disarms. Some user codes can also bypass zones or change the chime. |
+| **Master code** | The person who manages the household | Everything that a user code can do. It also adds, changes and removes users. |
+| **Installer code** | The installer | Changes how the alarm works, in installer mode. The installer code does not arm or disarm. |
+
+For the full rules, see [Users and codes](/user/users-codes/) and [Access and permissions](/reference/permissions/).
+
+<Aside type="note">
+Panel Manager uses a password, not a code. The password is for sign-in in a browser only.
+</Aside>
+
+## Key words
+
+These words are on the panel and in this guide. The [glossary](/reference/glossary/) has more words.
+
+| Word | Meaning |
+| --- | --- |
+| **Zone** | One sensor input with a name, for example "Front Door". The zone tells the panel what to do when the sensor changes. |
+| **Partition** | An area of the home that arms and disarms separately. Most homes use one partition. |
+| **Arm** | Start the protection. The panel has three arming modes: **Away**, **Stay** and **Night**. |
+| **Disarm** | Stop the burglary protection. Fire and CO zones continue to work. |
+| **Bypass** | Leave one zone out of the protection the next time you arm. |
+| **Alarm** | The panel detected an event, for example a door that opened while armed. |
+| **Trouble** | A fault that needs attention, for example a low sensor battery. A trouble is not an alarm. |
+
+## Next steps
+
+<CardGrid>
+  <LinkCard title="Quick start" href="/start/quick-start/" description="Set up a new panel from start to finish." />
+  <LinkCard title="Safety and limits" href="/start/safety/" description="Know what RoboAlarms does and does not do." />
+</CardGrid>

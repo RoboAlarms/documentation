@@ -1,0 +1,17 @@
+[
+  { "out": "panel/home-tour.png", "from": "panel/01_home_ready.png" },
+  { "out": "panel/quick-start-welcome.png", "from": "panel/429_bl-048-setup-welcome.png" },
+  { "out": "panel/arming-pad-options.png", "from": "panel/288_pad_arm_not_ready_options.png", "crop": { "left": 560, "top": 52, "width": 452, "height": 536 } },
+  { "out": "panel/arming-entry-time.png", "from": "panel/07_entry_delay.png" },
+  { "out": "panel/alarms-burglary.png", "from": "panel/09_alarm_burglary.png" },
+  { "out": "panel/alarms-clear.png", "from": "panel/10_alarm_memory.png" },
+  { "out": "panel/alarms-troubles-list.png", "from": "panel/72_troubles.png", "crop": { "left": 96, "top": 0, "width": 928, "height": 330 } },
+  { "out": "panel/alarms-emergency.png", "from": "panel/75_emergency_hold.png" },
+  { "out": "panel/zones-list.png", "from": "panel/13_zones.png" },
+  { "out": "panel/zones-bypass-pad.png", "from": "panel/200_bypass_panel.png", "crop": { "left": 262, "top": 64, "width": 500, "height": 472 } },
+  { "out": "panel/users-user-page.png", "from": "panel/83_user_page.png" },
+  { "out": "panel/users-authority-picker.png", "from": "panel/82_user_authority.png", "crop": { "left": 202, "top": 34, "width": 620, "height": 534 } },
+  { "out": "panel/chime-code-pad.png", "from": "panel/199_chime_panel.png", "crop": { "left": 262, "top": 64, "width": 500, "height": 472 } },
+  { "out": "panel/partitions-switch-row.png", "from": "panel/482_bl-048-partition-home.png" },
+  { "out": "panel/partitions-chooser.png", "from": "panel/483_bl-048-partition-chooser.png", "crop": { "left": 202, "top": 154, "width": 620, "height": 294 } }
+]

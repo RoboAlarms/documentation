@@ -1,38 +1,145 @@
 ---
-title: "Installer access and code recovery"
-description: "Enter programming, leave it safely, and understand master-code recovery."
-sidebar:
-  order: 3
+title: "Installer access and codes"
+description: "Enter and leave installer mode, find each installer setting, change the codes and recover a lost installer code."
+audience: ["installer"]
+time: "2 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
+
+Installer mode opens the settings that change how the alarm works. Use this page to enter and leave installer mode, to find each setting and to change or recover the codes.
+
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- Disarm every partition and silence any alarm.
+</Aside>
 
 ## Enter installer mode
 
-1. Make sure every partition is disarmed and the system is not sounding an alarm.
-2. Open **Settings > About > Installer**.
-3. Select **Enter the installer code** and authenticate.
-4. Confirm that the installer menu is available.
+<Steps>
 
-<PanelShot src="/images/panel/installer-menu.png" alt="Installer menu with system options, zones and code settings" caption="Installer mode is for alarm programming and system access controls." />
+1. Open **Settings > About**.
+2. Push **Installer**.
 
-Arming is blocked while installer mode is active. Fire, CO, 24-hour zones and panics remain live. The session ends after 15 minutes without activity.
+   The panel shows **Enter the installer code**.
 
-When finished, select **Leave installer mode**. Confirm the panel returns to ordinary operation before testing arming.
+   <PanelShot src="/images/panel/installer-locked.png" alt="Installer page with Enter the installer code and Lost the installer code?" caption="Push Enter the installer code to open the installer menu." />
 
-## Reset installer or master codes
+3. Push **Enter the installer code**.
+4. Type the installer code.
 
-In installer mode, open **Installer and master codes**. Choose the relevant code and enter its replacement twice. This route does not require the old value.
+   The panel shows the installer menu. The status bar shows **Installer · Arming off · Tap to leave**.
 
-The installer can replace the system master code here. The installer may also manage household users in **Settings > Users**, including their codes, names, authority, partitions and browser sign-in. The system master can manage other users but cannot change or remove the installer account.
+</Steps>
 
-## If the installer code is lost
+While installer mode is on, nobody can arm the panel. Fire, CO and panic buttons keep working. Installer mode ends by itself after 15 minutes without a touch.
 
-When **Installer code recovery** is enabled, the touchscreen describes a two-minute recovery route after power-up. The current implementation can also open this route after a software restart, so treat the setting as allowing recovery after any startup. Every partition must be disarmed. Follow the on-screen confirmation, then set a new installer code.
+If the panel shows **Disarm first, and silence any alarm**, disarm every partition and silence the alarm, then try again.
 
-Arrange an authorized restart before using this route. Do not interrupt an active alarm to try recovery. If the option was disabled or the system is armed, this route is unavailable. The setting is in **Settings > About > Installer > Delays and arming**.
+## Leave installer mode
 
-## Factory reset is a separate action
+Push **Leave installer mode** at the end of the installer menu, or push the **Installer** banner in the status bar. The panel shows **Installer mode ended · arming is on again**.
 
-**Factory reset** erases configuration and returns the system to setup and factory codes. Its confirmation can also request event-log erasure. It is not the normal way to fix pairing, change Wi-Fi or recover a master code.
+Your changes are saved when you go back from each page. Check that the panel shows the normal **Security** screen before you test arming.
 
-General configuration backup/restore is not a completed workflow in this edition. Do not reset on the assumption that the current installation can be restored from a backup.
+## The installer menu
+
+<PanelShot src="/images/panel/installer-menu-top.png" alt="Installer menu with the Sensors and devices section: Zones, Zigbee, 433 MHz, Partitions and Keypads and devices" caption="The installer menu starts with the sensors and devices." size="medium" />
+
+| Section | Row | What it holds |
+| --- | --- | --- |
+| **Sensors and devices** | **Zones** | Sensors, types and names. See [Set up zones](/installer/zones/). |
+| | **Z-Wave** | Sensors on the Z-Wave radio, when the panel has one. See [Sensors and radio modules](/installer/sensors-radios/#z-wave). |
+| | **Zigbee** | Sensors on the Zigbee radio, when the panel has one. See [Sensors and radio modules](/installer/sensors-radios/#zigbee). |
+| | **433 MHz** | Sensors and sirens on 433 MHz. The row shows only when the panel has a 433 MHz receiver or transmitter, a 433 MHz siren or a 433 MHz zone. |
+| | **Partitions** | Areas that arm separately. See [Set up partitions](/installer/partitions/). |
+| | **Keypads and devices** | Keypad panels, the partition settings of this panel and supervised devices. See [Keypad panels](/installer/keypads/). |
+| | **Sirens and outputs** | What sounds and what switches when the alarm does. See [Sirens and outputs](/installer/sirens/). |
+| **How the alarm works** | **Delays and arming** | Entry and exit times, sirens, panic keys and codes. See [System options](/installer/system-options/). |
+| **This panel** | **System name** | The name on the screen and in the event log. |
+| | **Installer and master codes** | The two codes that cannot be deleted. |
+| | **Panel Manager** | A switch for changes from a browser on your network. Under it: **Browser sign-in** and **Change the browser password**. See [Panel Manager](/panel-manager/). |
+| | **Developer mode** | Development tools and signed network updates. |
+| **Updates** | **Update server** | Where updates come from. |
+| | **Update channel** | Which releases the panel gets. |
+| **Test and start over** | **Walk test** | Leaves installer mode and starts a walk test. |
+| | **Run the setup again** | The Wi-Fi, time zone, codes and name, step by step. See [Run the first setup](/installer/first-setup/#run-the-setup-again). |
+| | **Factory reset** | Erases everything. |
+| | **Leave installer mode** | Ends installer mode. |
+
+On a keypad panel, **Settings** has no **Installer** row. You set a keypad panel on its alarm panel.
+
+## Change the installer or master code
+
+<Steps>
+
+1. In the installer menu, push **Installer and master codes**.
+2. Push **Installer code** or **Master code**.
+3. Type the new code twice.
+
+   The panel shows **Installer code changed** or **Master code changed**.
+
+</Steps>
+
+You do not need the old code. The installer code programs the panel. It never arms or disarms. The master manages the codes of everyone else in **Settings > Users**. The installer can also manage users there. The master cannot change or remove the installer.
+
+## Recover a lost installer code
+
+If **Installer code recovery** is on, the installer menu opens without the code for two minutes after the panel starts. The setting is in **Delays and arming**, under **Power**.
+
+<Aside type="caution" title="Caution">
+Agree on a time with the person responsible for the building before you restart the panel. Do not restart the panel during an alarm.
+</Aside>
+
+<Steps>
+
+1. Disarm every partition.
+2. Unplug the panel for ten seconds.
+3. Plug the panel in again.
+4. Within two minutes, open **Settings > About > Installer**.
+5. Push **Forgot the code? Open without it**.
+
+   The panel shows **Open installer mode without the code?**.
+
+6. Push **Open installer mode**.
+
+   The panel shows **Installer mode without a code: set a new installer code**.
+
+7. Open **Installer and master codes**. Set a new installer code.
+
+</Steps>
+
+The panel logs and reports the recovery. If the two minutes are over, the panel shows **The two minutes after power-up are over**. If **Installer code recovery** is off, or a partition is armed, this route does not work.
+
+## Factory reset
+
+**Factory reset** erases the zones, the users and codes, the Wi-Fi and every setting. The panel then restarts with the factory codes and the first setup. Do not use it to fix pairing, to change the Wi-Fi or to recover a code.
+
+<Aside type="caution" title="Caution">
+A factory reset cannot be undone. Make a backup in Panel Manager before you reset the panel.
+</Aside>
+
+<Steps>
+
+1. In the installer menu, push **Factory reset**.
+2. To also erase the event log, turn on **Also erase the event log**. When it is off, the panel keeps the history with the reset in it.
+3. Hold **Hold to erase everything** until the panel shows **Erasing. The panel restarts with the setup**.
+
+</Steps>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Wrong code, try again** | Type the installer code again. |
+| **That isn't the installer code** | Type the installer code, not the master code or a user code. |
+| **Disarm first, and silence any alarm** | Disarm every partition and silence the alarm. |
+| **The two minutes after power-up are over** | Restart the panel again and open **Installer** within two minutes. |
+| Installer mode ended by itself | Enter the installer code again. Installer mode ends after 15 minutes without a touch. |
+
+## Related tasks
+
+- [Run the first setup](/installer/first-setup/)
+- [System options](/installer/system-options/)
+- [People, codes and partitions](/user/users-codes/)
+- [Plan the installation](/installer/setup-checklist/)

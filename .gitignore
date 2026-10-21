@@ -16,3 +16,4 @@ build/
 Thumbs.db
 .idea/
 .vscode/
+.capture/

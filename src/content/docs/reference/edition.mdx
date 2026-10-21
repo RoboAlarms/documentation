@@ -1,68 +1,40 @@
 ---
-title: "About this edition"
-description: "Reviewed software, screenshot sources, compatibility and documentation scope."
-sidebar:
-  order: 4
+title: "Software versions"
+description: "Which RoboAlarms software this guide describes, and how to find the version that you use."
+audience: ["everyone"]
 ---
 
-**Edition 03 · 13 October 2026**
+This guide describes the current RoboAlarms software. Use this page to find the version that you use.
 
-This edition covers the current RoboAlarms software. The build is prepared locally for upload; preparing an edition does not publish it.
+## What this guide describes
 
-| Reviewed source | Revision and scope |
+| Software | What it is |
 | --- | --- |
-| Panel and Flasher | `d33d91a0`: current 7-inch UI, Smart Home, panel automations, radio configuration, voice and packs; Flasher 0.1.2 |
-| Home Assistant integration | `2f79b49`: prepared 0.2.0 candidate, compared with published `v0.1.0` |
-| Project website | `f3d9a82`: project context and preserved original desktop Flasher images |
-| Home Assistant lab | Official Container `2026.10.1`, unmodified integration candidate, fictional panel and local account |
+| **RoboAlarms Panel** | The firmware on the panel. Keypad panels use the same firmware. |
+| **Flasher** | The program for your computer that installs and updates the firmware over USB. |
+| **Panel Manager** | The pages that the panel shows in a browser. They come with the panel firmware. |
+| **Home Assistant integration** | The RoboAlarms integration that you install in Home Assistant with HACS. |
 
-Published integration 0.1.0 already supports explicitly selected binary-sensor zone inputs and a separate device-control allow-list. The prepared 0.2.0 candidate adds richer device values/capabilities and exports supported panel Z-Wave outputs to Home Assistant. **A screenshot displaying 0.2.0 does not mean that release has been published.** Use compatible panel and integration releases and check their release notes.
+## Find your version
 
-The Smart Home and automation pages describe the reviewed implementation. Availability depends on the installed build and selected device capabilities. Software and simulator checks do not establish hardware or installation acceptance.
+| Software | Where to find the version |
+| --- | --- |
+| Panel | Open **Settings > About**. The top row shows the version. |
+| Keypad panel | Open **Settings > About** on the alarm panel, and then push **Software update**. The **Keypads** section shows the version of each keypad. |
+| Panel Manager | Panel Manager has the same version as the panel. |
+| Home Assistant integration | In Home Assistant, open **Settings > Devices & services > RoboAlarms**. The integration details show the version. |
+| Flasher | The Flasher shows the firmware release before it installs. |
 
-## Find your software version
+## Older or newer software
 
-On the panel, open **Settings > About** to reach **About this panel**. In Home Assistant, open the **RoboAlarms** integration details. In the Flasher, review the selected release and board before starting a job.
+Labels and options can be different on older or newer software. If a label in this guide is not on your screen, update the panel. See [Software updates and SD card](/user/updates-storage/).
 
-Documentation editions are deliberate snapshots, refreshed when the owner requests an edition. Labels and options can differ on older or newer software.
+Use panel software and a Home Assistant integration that work together. The release notes of the integration tell which panel software it needs.
 
-## What is covered
+For news about new versions, see [RoboAlarms updates](https://roboalarms.com/updates/).
 
-The User Guide covers daily alarm operation, partitions, users, Smart Home, panel automations, screen and sound, time/language, updates and SD-card tasks. The Installer Guide covers software setup, commissioning and radio/zone configuration. Integrations has detailed Home Assistant setup, sharing, usage and recovery, with links to MQTT and phone notifications. Flasher and Panel Manager have separate task guides.
+## Related tasks
 
-Physical mounting, wiring design and purchasing remain outside the documentation; use [RoboAlarms hardware](https://roboalarms.com/hardware/) and vendor instructions. PDF production, the separate Settings > Devices rename/hide page, and unfinished hardware acceptance are outside this edition. The same operating instructions apply across supported sizes; every panel image uses the 7-inch layout.
-
-## Screenshot sources
-
-### Panel
-
-Panel screenshots use the actual UI and alarm engine in the host preview, rendered at **1024 × 600** for the 7-inch panel, with fictional data. Each screenshot scenario changes both factory codes through the engine after initialization; every normal capture asserts that no factory code remains. It omits engineering scenes that test factory-code refusal without altering production defaults or warning logic.
-
-Crops retain the controls and context taught by the caption. Warnings remain when they are the task's subject. No UI pixels are repainted. The images are software illustrations, not photographs or proof that physical sensors work.
-Release numbers and dates shown in the preview are examples; check the version and offer on your own panel.
-
-### Home Assistant
-
-Home Assistant images were recaptured on **13 October 2026** in an isolated Docker lab. They show its real 2026.10.1 interface and the unmodified 0.2.0 candidate. The fictional panel supplies pairing and zone/status data; the lab does not test durable trust, firmware persistence or complete device control.
-
-The pairing illustrations on both screens match. Naming, sharing selections and the alarm-code prompt show the actual interface. No real alarm command was sent for that prompt. HACS instructions follow official documentation; its GitHub authorization was not captured using an owner's account.
-
-Some integration dialogs still say **Devices**. The operating screen on the reviewed panel is named **Smart Home**.
-
-### Desktop Flasher
-
-Flasher images come from the owner's original **Windows desktop app** screenshots on the project website. Their original capture dates are unknown. Whole images are retained where useful; the progress detail is cropped to the relevant status, excluding the chip identity. The website originals are unchanged. They show an older five-step development interface; the current guide describes the eight-step **Plan → Wire → Install** flow. Image versions are examples, not release recommendations.
-
-Fresh desktop capture was attempted, but the Windows capture service could not access the display. Browser images were not substituted. Captions and the provenance manifest identify every retained image.
-
-### Panel Manager
-
-Panel Manager images show the current production browser frontend over a fictional backend. Its remote keypad receives a genuine 7-inch host-rendered panel frame, with the real remote-session banner, through the still-frame transport. This illustrates the interface without testing live hardware, remote input or video performance.
-
-Image manifests record source files, dimensions, crop rectangles, dates and hashes. Example names, addresses, pairing digits and credentials are not installation values to copy.
-
-## Before relying on a new setup
-
-Follow the [commissioning checklist](/installer/commissioning/). Verify sensor states, alarm operation, access permissions, device actions and notification delivery. Record unperformed checks as untested.
-
-Home Assistant, MQTT and phone notifications remain optional. Their connection does not establish professional monitoring or guaranteed emergency dispatch. Visit [RoboAlarms](https://roboalarms.com) for project information and releases.
+- [Software updates and SD card](/user/updates-storage/)
+- [Update with the Flasher](/flasher/update/)
+- [Troubleshoot Home Assistant](/integrations/home-assistant-troubleshooting/#update-the-integration)

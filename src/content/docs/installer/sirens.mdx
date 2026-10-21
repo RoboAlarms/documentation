@@ -1,0 +1,203 @@
+---
+title: "Sirens and outputs"
+description: "Add wired sirens, strobes and other outputs, pair 433 MHz sirens, and test what sounds with the alarm."
+audience: ["installer"]
+time: "15 minutes"
+---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
+
+Use this page to set what sounds and what switches when the alarm does. The panel's own speaker always sounds too. Other sirens follow it: a steady sound for burglary, the fire pattern for fire and the CO pattern for CO.
+
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- Disarm every partition. The panel refuses a change or a test while one of the siren's partitions is armed.
+- For a wired output, you need a relay or MOSFET module and a free terminal on the panel.
+- For a 433 MHz siren, the panel needs a 433 MHz transmitter.
+</Aside>
+
+## What you can add
+
+Open **Settings > About > Installer > Sirens and outputs**. The page has a section for each kind that the panel can use.
+
+| Section | What it holds | Limit |
+| --- | --- | --- |
+| **On the panel's terminals** | Wired outputs, each through a relay or MOSFET module on a free terminal | 4 |
+| **433 MHz** | 433 MHz sirens that learn the panel like a key fob. The section shows when the panel has a 433 MHz transmitter. | 4 |
+
+Zigbee and Z-Wave sirens are not on this page. You set them on their device pages under **Zigbee** and **Z-Wave**. See [Sensors and radio modules](/installer/sensors-radios/#sirens-on-zigbee-and-z-wave).
+
+<PanelShot src="/images/panel/sirens-list.png" alt="Sirens and outputs page with a wired siren, an armed light and the Add a wired siren or output row" caption="Each output shows its terminal, its partitions and its state." size="medium" />
+
+The **Siren time** and **Fire and CO sirens stop by themselves** settings in **Delays and arming** apply to every siren kind. See [System options](/installer/system-options/). Each siren kind has its own siren trouble.
+
+## Add a wired output
+
+A wired output switches a relay or MOSFET module on a free terminal. You can choose four kinds of output:
+
+| Output | What it does |
+| --- | --- |
+| **Siren** | Sounds with the alarm. |
+| **Strobe** | Is on from an audible alarm until someone disarms. |
+| **Smoke detector power** | Cuts power briefly to reset 4-wire smoke detectors. The **Smoke detector reset** time in **Delays and arming** sets how long. |
+| **Armed light** | Is on while its partitions are armed. |
+
+<Aside type="caution" title="Caution">
+Wire the module as its maker's instructions say. A wrong connection can damage the module or the panel's terminal.
+</Aside>
+
+<Steps>
+
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Sirens and outputs**.
+3. Push **Add a wired siren or output**.
+
+   The panel shows **Add a wired output**.
+
+   <PanelShot src="/images/panel/sirens-add-wired.png" alt="Add a wired output sheet with Siren, Strobe, Smoke detector power and Armed light" caption="Choose what the module switches." size="small" />
+
+4. Push the kind of output.
+
+   The panel shows the free terminals.
+
+5. Push the terminal that the module is wired to.
+
+   The panel opens the output's page. A new output starts in the first partition, for burglary and for fire.
+
+6. Set the output on its page. See [Wired output settings](#wired-output-settings).
+
+</Steps>
+
+If no terminal is free, the panel shows **No free terminal: every one is a zone's or an output's**. A terminal that you give to an output is no longer free for a zone.
+
+## Wired output settings
+
+The page title is the kind of output. The line under it shows the terminal.
+
+<PanelShot src="/images/panel/sirens-wired-page.png" alt="A wired siren page with Burglary and panic, Fire and CO, Partitions and Also sounds for" caption="A siren's page starts with what it sounds for and its partitions." size="medium" />
+
+| Setting | What it does | Shown for |
+| --- | --- | --- |
+| **Burglary and panic** | Sounds the siren for burglary and audible panic alarms. A silent panic stays silent. | Siren |
+| **Fire and CO** | Sounds the siren for fire and CO alarms, with the fire pattern or the CO pattern. | Siren |
+| **Partitions** | The partitions whose alarms and chirps it follows. For an armed light: it is on while any of them is armed. | Siren, Strobe, Armed light |
+| **Also sounds for** | Other partitions whose alarms it also follows. It never chirps for them. | Siren, Strobe |
+| **What it is** | The kind of output. | All |
+| **Terminal** | The terminal that switches the module. | All |
+| **Relay board** | **Switches on low** or **Switches on high**. Most relay boards switch on low. | All |
+| **Chirp when arming and disarming** | One chirp to arm, two to disarm. | Siren |
+| **Supervision input** | A terminal wired to the siren's fault contact. An open contact is a siren trouble. **None** means the circuit is not checked. | Siren |
+| **Test it** | Sounds the output for 2 seconds. | Siren, Strobe |
+| **Remove it** | Removes the output. Its terminal goes back to the zones. | All |
+
+A siren must sound for something. If you turn off both **Burglary and panic** and **Fire and CO**, the panel refuses and shows **A siren sounds for something: remove it instead**.
+
+If the supervision input is open, the page shows **Its supervision input is open: check the siren and its wiring.**
+
+## Add a 433 MHz siren
+
+A 433 MHz siren learns the panel like a key fob. The panel sends to the siren, but the siren does not answer.
+
+<Aside type="danger" title="Warning">
+Test a 433 MHz siren regularly. The panel cannot hear this siren, so it does not know when the siren stops working.
+</Aside>
+
+<Steps>
+
+1. Open **Settings > About > Installer** and enter the installer code.
+2. Push **Sirens and outputs**.
+3. Push **Add a 433 MHz siren**.
+
+   The panel shows **Pair a 433 MHz siren**.
+
+4. Put the siren in its learning mode. Its manual tells how. Usually you hold its button until it beeps.
+5. Push **Send the pairing signal**.
+
+   The panel sends the signal three times. Most sirens beep when they learn it.
+
+   <PanelShot src="/images/panel/sirens-433-pair.png" alt="Pair a 433 MHz siren page with the three steps, Send the pairing signal, Test it and What it sounds for" caption="The pairing page lists the three steps in order." size="medium" />
+
+6. Push **Test it**.
+
+   The siren sounds for 2 seconds. If it stays quiet, send the pairing signal again.
+
+7. Push **What it sounds for** and set the siren.
+
+</Steps>
+
+A new 433 MHz siren sounds for burglary and fire in its partitions. You can change this on its page.
+
+## 433 MHz siren settings
+
+Open the siren from **Sirens and outputs**. The line under its name shows its address and **Not supervised**.
+
+| Setting | What it does |
+| --- | --- |
+| **Burglary and panic** | Sounds the siren for burglary and audible panic alarms. A silent panic stays silent. |
+| **Fire and CO** | Sounds the siren for fire and CO alarms, with its one sound. |
+| **Partitions** | The partitions whose alarms and chirps it follows. |
+| **Also sounds for** | Other partitions whose alarms it also follows. It never chirps for them. |
+| **Chirp when arming and disarming** | Plays the siren's own arm and disarm sounds. |
+| **Test it** | Sounds the siren for 2 seconds. |
+| **Pair it again** | Opens the pairing page. Put the siren in its learning mode first. |
+| **Remove it** | Sends the siren the stop signal, then removes it. |
+
+If the panel has no working 433 MHz transmitter, the page shows **Nothing can transmit on 433 MHz now: this siren won't sound. It is a siren trouble.**
+
+## Test the sirens
+
+<Aside type="danger" title="Warning">
+Tell the people in the building before you push **Test it**, and keep your ears away from the siren. A siren is loud enough to hurt your hearing near it.
+</Aside>
+
+<Steps>
+
+1. Open the siren or output from **Sirens and outputs**.
+2. Push **Test it**.
+
+   The panel shows **Sounding for 2 seconds**. For a 433 MHz siren, it shows **Sent: it should sound for 2 seconds**.
+
+3. Listen for the siren, or look at the strobe.
+4. Do the same for each siren and strobe.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+Each siren sounds for 2 seconds and stops. The **Sirens and outputs** row in the installer menu does not show **Siren problem**.
+</Aside>
+
+## The 433 MHz page
+
+Open **Settings > About > Installer > 433 MHz**. The row shows only when the panel has a 433 MHz receiver or transmitter, a 433 MHz siren or a 433 MHz zone.
+
+<PanelShot src="/images/panel/sirens-433-page.png" alt="433 MHz page with the Receiver and Transmitter rows, Add a sensor, Add a siren and a sensor list" caption="The Receiver and Transmitter rows show if 433 MHz works." size="medium" />
+
+| Row | What it shows |
+| --- | --- |
+| **Receiver** | **Working**, **Interference**, **Off** or **Not connected**. Under it: when the panel last heard a sensor. |
+| **Transmitter** | **Ready** when the panel can sound 433 MHz sirens. **None** when it cannot. |
+| **Add a sensor** | Opens **Zones**. Add a zone, choose **433 MHz sensor** and trigger the sensor. See [Set up zones](/installer/zones/#enroll-a-433-mhz-sensor). |
+| **Add a siren** | Opens the pairing page for a new 433 MHz siren. |
+| **Sensors** | Each 433 MHz zone, with its code and when the panel last heard it. |
+| **Sirens** | Each 433 MHz siren and its state. |
+
+**Interference** means that something nearby drowns the 433 MHz band. Sensors can then go unheard.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **Not while one of its partitions is armed** | Disarm the siren's partitions, then try again. |
+| **Not while it sounds** | Wait until the siren stops, or silence the alarm. |
+| **That terminal is in use: pick a free one** | Choose another terminal, or remove the zone or output that uses it. |
+| **No room for another one** | Remove a siren or output of the same kind first. |
+| **Nothing can transmit on 433 MHz** | Open the **433 MHz** page. If **Transmitter** shows **None**, fit a 433 MHz transmitter. |
+| A 433 MHz siren stays quiet in a test | Put the siren in its learning mode, then push **Pair it again**. |
+| A wired siren stays quiet in a test | Check the module's wiring and the **Relay board** setting. |
+
+## Related tasks
+
+- [Set the siren time and other system options](/installer/system-options/)
+- [Sensors and radio modules](/installer/sensors-radios/)
+- [Set up partitions](/installer/partitions/)
+- [Commission and hand over](/installer/commissioning/)

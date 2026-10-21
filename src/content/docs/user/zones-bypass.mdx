@@ -1,44 +1,104 @@
 ---
-title: "Zones and bypassing"
-description: "Find an open sensor and temporarily exclude an eligible zone."
-sidebar:
-  order: 3
+title: "Zones and bypass"
+description: "Find an open door or window, and leave a zone out of the protection for one arming."
+audience: ["user"]
+time: "2 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-A **zone** is the named alarm input for a door, window, motion detector or other sensor. The zone's name tells you where to look. On a multi-partition system, this keypad shows zones in its assigned partition.
+A **zone** is one sensor with a name, for example a door, a window or a motion sensor. Use this page to find a zone that is open, and to bypass a zone before you arm.
+
+<Aside type="note" title="Before you start">
+- To bypass, you need a code that can bypass. **Arm only** and **Guest** codes cannot bypass.
+- The panel must be disarmed to bypass a zone.
+</Aside>
 
 ## Find what is open
 
-1. Select **Zones** on the left rail.
-2. Use the **Open** filter to find active sensors.
-3. Close the named door or window, or wait for a motion detector to clear.
-4. Check that the zone returns to normal, then return to Home.
+<Steps>
 
-<PanelShot src="/images/panel/zones.png" alt="Zone list showing sensor names and status" caption="Use the zone name and status to locate the opening." />
+1. Push **Zones** on the rail.
 
-**Unreachable** or **CHECK** is different from an open door: the panel cannot rely on the sensor's current state. See [sensor troubleshooting](/reference/troubleshooting/#a-zone-shows-check-or-unreachable).
+   The panel shows a card for each zone with its name and state. The line below the title counts the zones that are open and bypassed.
+
+2. Push **Open** to show only the zones that are open.
+
+3. Close the door or window that the card names. For a motion sensor, wait until the card shows **No motion**.
+
+</Steps>
+
+<PanelShot src="/images/panel/zones-list.png" alt="The Zones screen with the All, Open, Bypassed and Trouble filters and a card for each zone" caption="Each card shows the zone name, its state and a Bypass or Unbypass button." />
+
+<Aside type="tip" title="Check the result">
+When you push **Open**, the panel shows no zones. On the **Security** screen, the state text shows **Ready to arm**.
+</Aside>
+
+### Zone states
+
+| State on the card | What it means |
+| --- | --- |
+| **Closed**, **No motion**, **Normal** or **Dry** | The zone is ready. |
+| **Open**, **Motion** or another active state | The sensor detects something now. |
+| **Bypassed** | The zone is left out of the next arming. |
+| **Low battery**, **Tamper**, **Not reporting** or **Sensor fault** | The zone has a trouble. Push **Trouble** to show all zones with a trouble. |
+| **Unknown** | On a keypad panel: the keypad cannot reach the alarm panel. |
+
+A zone with a trouble is not the same as an open door. With **Not reporting**, the panel cannot get the state of the sensor. See [Troubleshooting](/reference/troubleshooting/).
 
 ## Bypass one zone
 
-**Before you begin:** disarm the system. A bypass intentionally leaves that zone out of the next armed period.
+A bypassed zone is left out of the protection the next time you arm. All bypasses clear when you disarm.
 
-1. Open **Zones** and find the zone.
-2. Select **Bypass**.
-3. Enter a code allowed to bypass and select the **check mark**.
-4. Confirm the zone shows **Bypassed**.
-5. Arm using your chosen mode.
+<Aside type="danger" title="Warning">
+Bypass a zone only when you know why it is open. A bypassed zone does not cause a burglary alarm while the panel is armed.
+</Aside>
 
-<PanelShot src="/images/panel/bypass.png" alt="Code confirmation for bypassing a named zone" caption="The confirmation identifies the exact zone being left out." />
+<Steps>
 
-To put it back before arming, select **Unbypass** and authenticate. Bypasses clear when the system is disarmed; review them each time you arm.
+1. Push **Zones** on the rail.
 
-## Bypass open while arming
+2. On the card of the zone, push **Bypass**.
 
-The arming code pad can offer **Bypass open** when zones are not ready. It bypasses eligible not-ready zones as part of the arming request. Review the zone list first: this may exclude more than one opening.
+   The panel shows a code pad with the zone name, for example **Bypass Front Door**.
 
-If an input cannot be bypassed, the panel can still refuse to arm. Fire, CO and 24-hour zones are not generally bypassable; a missing button is not a UI fault. A bypass applies only to the zone's partition.
+   <PanelShot src="/images/panel/zones-bypass-pad.png" alt="The Bypass Front Door code pad over the Zones screen" caption="The title of the code pad names the zone that you bypass." size="small" />
 
-## When to call the installer
+3. Enter your code.
 
-Ask for help if a zone has the wrong name, reacts to the wrong sensor, repeatedly becomes unreachable, or uses the wrong alarm behavior. Renaming, source assignment and zone types belong in [installer programming](/installer/zones/).
+4. Push the check mark.
+
+   The card shows **Bypassed**, and the button changes to **Unbypass**.
+
+5. Arm the panel. See [Arm and disarm](/user/arming-disarming/).
+
+</Steps>
+
+To put the zone back before you arm, push **Unbypass**, enter your code and push the check mark.
+
+<Aside type="tip" title="Check the result">
+Push **Bypassed**. The panel shows the zones that are bypassed.
+</Aside>
+
+### Zones that you cannot bypass
+
+A zone without a **Bypass** button cannot be bypassed. Fire and CO zones cannot be bypassed. Other 24-hour zones can be bypassed only if the installer allows it. The **Bypass** button is also not shown while the panel is armed.
+
+## Bypass open zones when you arm
+
+If a zone is open when you arm, the code pad shows **Bypass open**. Push **Bypass open**, then push the check mark. The panel bypasses all open zones that can be bypassed, and arms. Before you use it, push **Open** on the **Zones** screen to see which zones it leaves out.
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The card has no **Bypass** button. | The zone cannot be bypassed, or the panel is armed. Close the zone, or disarm first. |
+| The panel does not accept your code for a bypass. | Your code cannot bypass. Ask the person who manages users. |
+| A zone has the wrong name or reacts to the wrong sensor. | Tell the installer. The installer changes zones in [Zones](/installer/zones/). |
+| A zone often shows **Not reporting**. | Tell the installer. The sensor or its connection needs attention. |
+
+## Related tasks
+
+- [Arm and disarm](/user/arming-disarming/)
+- [Alarms, troubles and activity](/user/alarms-troubles/)
+- [The Home screen](/user/getting-started/)

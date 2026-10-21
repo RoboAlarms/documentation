@@ -1,52 +1,77 @@
 ---
 title: "Use Home Assistant sensors"
-description: "Choose which Home Assistant entities the panel can use as alarm zones."
-sidebar:
-  order: 7
+description: "Use a shared Home Assistant binary sensor as the sensor of a panel zone."
+audience: ["installer", "integrator"]
+time: "10 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-> This URL is kept for existing links. The current [Home Assistant sharing guide](/integrations/home-assistant-sharing/) covers permissions, prerequisites, sensor binding, and device control.
+A zone can use a Home Assistant binary sensor as its sensor. Use this page to connect a shared Home Assistant sensor to a zone and test it.
 
-Pairing lets Home Assistant see the panel. Sharing permits the opposite direction: selected Home Assistant sensors can supply states to panel zones.
+<Aside type="note" title="Before you start">
+- You need the installer code.
+- The panel is paired with Home Assistant. See [Connect Home Assistant](/installer/home-assistant/).
+- The sensor is in **Entities the panel may use as zones** in the integration options. See [Share Home Assistant entities](/integrations/home-assistant-sharing/).
+- The sensor changes state correctly in Home Assistant.
+</Aside>
 
-**Before you begin:** finish [pairing](/installer/home-assistant/), confirm the connection, and verify the source entity already changes correctly in Home Assistant. The integration and panel firmware remain in testing; confirm you have compatible versions before commissioning.
+<Aside type="danger" title="Warning">
+Do not use a Home Assistant sensor for a fire, CO, panic or other 24-hour zone. The sensor needs Home Assistant and the network, and the panel does not trust it for these zones.
+</Aside>
 
-## 1. Choose what to share
+## Connect the sensor to a zone
 
-1. In Home Assistant, open **Settings > Devices & services**.
-2. Open the **RoboAlarms** integration and its panel entry, then select **Configure** (the gear beside the entry).
-3. Find **What the panel may see and do**.
-4. Under **Entities the panel may use as zones**, select the intended entities.
-5. Select **Submit** to save the options.
+<Steps>
 
-<PanelShot src="/images/home-assistant/share-entities.png" alt="Home Assistant options for entities the panel may use as zones and entities it may control" caption="Choose the zone entities explicitly. The control permission is separate." source="Home Assistant 2026.10.1 · simulated panel" detail />
+1. Push **Settings > About > Installer**, and enter the installer code.
+2. Push **Zones**.
+3. Add a zone, or open the zone that gets the sensor.
+4. For a new zone, push **Home Assistant sensor** on **Where is the sensor?**. For an existing zone, scroll to **Its sensor**, push **Source** and choose **Home Assistant sensor**.
 
-An empty selection shares nothing. Do not share RoboAlarms' own exported entities back to the same panel.
+   The panel shows **Pick the sensor** with the shared sensors.
 
-The separate **Entities the panel may control** permission is for the panel's **Smart Home** screen. Leave it empty if you only want to share zone sensors. It is a separate grant from **Entities the panel may use as zones**; selecting an entity for one list does not add it to the other. The supported domains and panel-side code prompts depend on a compatible integration and firmware build; see [Share Home Assistant entities](/integrations/home-assistant-sharing/).
+5. To search, push **Find the sensor** and type a part of the name, the room or the entity ID.
+6. Push the sensor that the zone uses.
+7. Push the back arrow to save the zone.
 
-## 2. Assign the sensor to a zone
+</Steps>
 
-1. On the panel, open **Settings > About > Installer > Zones** and enter the installer code.
-2. Add or open the intended zone.
-3. Scroll to **Its sensor**, open **Source**, then choose **Home Assistant sensor**.
-4. Search by name, room or entity ID.
-5. Select the intended entity and confirm it in the picker.
-6. Go back to the zone list to save. Reopen the zone and check **Source** under **Its sensor**; read its current state at the top of the page.
+<PanelShot src="/images/panel/ha-zone-sensor-pick.png" alt="Pick the sensor page with Find the sensor and three Home Assistant sensors with their rooms and states" caption="Each shared sensor shows its room and its state; check both before you pick one." size="medium" />
 
-<PanelShot src="/images/panel/ha-sensor-search.png" alt="Home Assistant source search finding an example Porch Door entity" caption="Use an identifiable entity name and verify its location before binding." />
+## Test the sensor
 
-<PanelShot src="/images/panel/ha-zone.png" alt="Zone with a Home Assistant source assigned and its current state" caption="Scroll to Its sensor to confirm which entity feeds the zone; the top of the page reports its current state." />
+<Steps>
 
-## 3. Verify the behavior
+1. Open the zone again.
 
-Operate the source sensor and confirm the correct zone becomes active and returns to normal. A value displayed as unavailable in Home Assistant should not be treated as a closed door. For life-safety zones, the installer override for untrusted sources is not available; do not use a Home Assistant entity as a fire, CO, or panic input.
+   The top of the zone page shows the state and **Home Assistant · Needs the network**.
 
-Home Assistant and its network are now part of this zone's availability. A connection loss can raise a source or zone trouble after its grace period. Verify the recovery path during commissioning.
+2. Open and close the door or window, or walk past the motion sensor.
+3. Check that the state at the top of the zone page changes, and then goes back.
+4. Run a walk test to check the zone with the other zones. See [Test and hand over](/installer/commissioning/).
 
-## Sensor suitability
+</Steps>
 
-Use an input with an unambiguous normal/active state. These network sources are not automatically trusted for fire, CO or panic. See [zone setup](/installer/zones/) before assigning a source.
+<PanelShot src="/images/panel/ha-zone-bound.png" alt="Zone page with the state Open and the source line Home Assistant, Needs the network" caption="The top of the zone page shows the sensor's state and its source." size="medium" />
 
-If the sensor is missing from the picker, first check the share list, connection status and entity availability. Reinstalling the integration is usually unnecessary. For other link and pairing problems, see [troubleshooting](/reference/troubleshooting/).
+If Home Assistant or the network stops, the zone shows **Not reporting** after the time in **Unreachable after**. The panel does not take an unavailable sensor as closed. Tell the owner that this zone needs Home Assistant and the network.
+
+<Aside type="tip" title="Check the result">
+The zone's state on the panel follows the sensor. A walk test shows the zone as tested.
+</Aside>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| The sensor is not in **Pick the sensor**. | Add the sensor to **Entities the panel may use as zones** in Home Assistant. Check that the panel is still paired. |
+| **That sensor isn't available** | Check the sensor in Home Assistant. It must not show as unavailable. |
+| The zone shows **Not reporting**. | Check the connection to Home Assistant on **Settings > Integrations**. Check the sensor in Home Assistant. |
+| The zone shows open when the door is closed. | Check that you picked the correct sensor. Check the sensor's state in Home Assistant. |
+
+## Related tasks
+
+- [Share Home Assistant entities](/integrations/home-assistant-sharing/)
+- [Set up zones and sensor sources](/installer/zones/)
+- [Test and hand over](/installer/commissioning/)

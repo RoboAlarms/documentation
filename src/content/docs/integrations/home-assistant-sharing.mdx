@@ -1,47 +1,79 @@
 ---
 title: "Share Home Assistant entities"
-description: "Choose which Home Assistant sensors and devices RoboAlarms can use."
-sidebar:
-  order: 2
+description: "Choose which Home Assistant sensors the panel can use as zones and which devices it can control."
+audience: ["installer", "integrator"]
+time: "10 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-Home Assistant pairing sends panel status to Home Assistant. Sharing is a separate permission: it lets the panel receive selected Home Assistant entity names, areas, device classes, and states. The sharing lists start empty. Select only the entities you intend the panel to use.
+Pairing lets Home Assistant see the panel. Sharing is a separate permission in the other direction: it lets the panel use Home Assistant entities that you choose. Use this page to choose the sensors that the panel can use as zones and the devices that it can control.
 
-You need a working [paired connection](/integrations/home-assistant-setup/) and compatible panel firmware. The published v0.1.0 integration includes binary sensor zone sharing and a separate device control allow-list. On compatible current panel firmware, selected devices appear on the panel's **Smart Home** screen. Check the release notes for version-specific support; the unpublished v0.2.0 candidate adds the panel's own Z-Wave devices to Home Assistant.
+<Aside type="note" title="Before you start">
+- You need a Home Assistant administrator account.
+- The panel is paired with Home Assistant. See [Install and pair Home Assistant](/integrations/home-assistant-setup/).
+</Aside>
 
-## Choose what the panel may receive
+## Choose what the panel can use
+
+<Steps>
 
 1. In Home Assistant, open **Settings > Devices & services**.
-2. Open the **RoboAlarms** integration and the panel's entry, then select **Configure**.
-3. In **What the panel may see and do**, use **Entities the panel may use as zones** to select binary sensors.
-4. Use **Entities the panel may control** separately for devices the panel may operate. Leave this list empty if you only need sensor inputs.
-5. Select **Submit** to save the options.
+2. Open the **RoboAlarms** integration.
+3. Click the gear button of the panel entry.
 
-<PanelShot src="/images/home-assistant/share-entities.png" alt="Home Assistant options for entities the panel may use as zones and entities it may control" caption="Zone sources and controllable devices are separate permission lists." source="Home Assistant 2026.10.1 · simulated panel" detail />
+   Home Assistant shows **What the panel may see and do**.
 
-An empty list grants no access for that purpose. A sensor selected for zones does not become controllable; a device selected for control does not become a zone source. The panel receives no other entities from Home Assistant. Do not share RoboAlarms' own exported entities back to the same panel.
+4. Under **Entities the panel may use as zones**, click **Add entity** and choose a binary sensor.
+5. Do step 4 again for each sensor that the panel uses as a zone.
+6. Under **Entities the panel may control**, add each device that the panel can operate.
+7. Click **Submit**.
 
-## Bind a shared sensor to a panel zone
+</Steps>
 
-1. On the panel, open **Settings > About > Installer > Zones** and enter the installer code.
-2. Add or open a zone, scroll to **Its sensor**, then open **Source**.
-3. Choose **Home Assistant sensor** and search by entity name, room, or entity ID.
-4. Select the intended entity, then go back to the zone list to save the zone.
-5. Reopen the zone. Check **Source** under **Its sensor** to confirm the binding, and read the current state at the top of the page.
+<PanelShot src="/images/home-assistant/share-entities.png" alt="Home Assistant dialog What the panel may see and do with one sensor for zones and one light for control" caption="The zone list and the control list are separate; an entity in one list is not in the other." size="small" />
 
-<PanelShot src="/images/panel/ha-sensor-search.png" alt="Panel searching shared Home Assistant entities" caption="Check the entity's name and room before binding it." />
+Both lists are empty at first. If both lists are empty, the panel gets nothing from Home Assistant. The panel gets only the name, area, device class and state of each entity that you choose. Do not share the panel's own RoboAlarms entities back to the panel.
 
-<PanelShot src="/images/panel/ha-zone.png" alt="Panel zone showing a Home Assistant source and its current state" caption="The top of the zone page reports its state. Scroll to Its sensor and confirm that the selected entity is the intended one." />
+## Entities the panel may use as zones
 
-Operate the sensor. Confirm the correct panel zone becomes active and returns to normal. If the entity is unavailable or Home Assistant disconnects, the panel must not treat stale data as a safe condition; check the displayed source/zone trouble and the connection before relying on it.
+This list takes binary sensors, for example door, window and motion sensors. To connect a shared sensor to a zone on the panel, see [Use Home Assistant sensors](/installer/home-assistant-zones/).
 
-Use an entity with an unambiguous normal and active state. Home Assistant sensors are network inputs and depend on Home Assistant and the network. Do not use them for fire, carbon monoxide, panic, or another life-safety zone. They do not replace the panel's supported local sensors.
+A Home Assistant sensor needs Home Assistant and the network. Do not use it for a fire, CO, panic or other 24-hour zone.
 
-## Allow device control
+## Entities the panel may control
 
-The separate **Entities the panel may control** permission can include supported Home Assistant lights, switches, input booleans, fans, climate entities, covers, locks, valves, scenes, and scripts. A selected entity appears on the panel's **Smart Home** screen when the panel firmware supports it. The panel exposes only the actions implemented for that entity kind; it does not grant the panel general Home Assistant access.
+This list takes these kinds of entities: lights, switches, input booleans, fans, climate entities, covers, locks, valves, scenes and scripts. The panel shows them as tiles on its **Smart Home** screen. For how people use the tiles, see [Control household devices](/user/smart-home/).
 
-Unlocking a lock and opening a cover or valve require a user code on the panel. Check the name and room of each selected entity, then test its allowed action from the panel while supervised. Remove an entity from the list to revoke its permission.
+- To unlock a lock, or to open a cover or a valve, the panel always asks for a user code.
+- On the panel, **Settings > Smart Home** can make more devices ask for a master code before a change.
+- The panel does only the actions of each entity kind. It gets no other access to Home Assistant.
 
-For Home Assistant automations using panel entities, see [Home Assistant usage](/integrations/home-assistant-usage/). For the older task URL, see [Use Home Assistant sensors](/installer/home-assistant-zones/).
+<Aside type="caution" title="Caution">
+Check what a scene or script does before you share it. The panel runs the scene or script, but it cannot see or limit what the scene or script does to other devices. A script can unlock a door without the panel's code prompt.
+</Aside>
+
+## Rooms on the panel
+
+The rooms on the panel's **Smart Home** screen belong to the panel. A shared device first shows in the room of its Home Assistant area. The device follows its area in Home Assistant until someone puts it in a room on the panel. After that, the panel keeps the device in its panel room. A device with no area and no room shows under **Other**.
+
+To remove a permission, remove the entity from the list and click **Submit**.
+
+<Aside type="tip" title="Check the result">
+A sensor that you shared shows in **Pick the sensor** when you set a zone source to **Home Assistant sensor**. A device that you shared for control shows as a tile on **Smart Home**.
+</Aside>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| A sensor is not in the zone list in Home Assistant. | Only binary sensors can be zones. Choose a binary sensor. |
+| A shared device does not show on **Smart Home**. | Check that the entity is in **Entities the panel may control**. Check that the panel is still paired. |
+| A device tile shows **Offline**. | Check the entity in Home Assistant. It must not show as unavailable. |
+| A device is in the wrong room on the panel. | Move it on the panel with **Arrange**, or change its area in Home Assistant if nobody moved it on the panel. |
+
+## Related tasks
+
+- [Use Home Assistant sensors](/installer/home-assistant-zones/)
+- [Control household devices](/user/smart-home/)
+- [Use Home Assistant entities](/integrations/home-assistant-usage/)

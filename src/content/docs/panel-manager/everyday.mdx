@@ -1,65 +1,151 @@
 ---
-title: "Everyday pages and settings"
-description: "Use Panel Manager for status, activity, zones, display, integrations, time, storage, and health."
-sidebar:
-  order: 4
+title: "Everyday pages"
+description: "Arm and disarm, bypass zones, read activity and troubles, and change display, time, storage and integrations in Panel Manager."
+audience: ["user", "installer"]
+time: "5 minutes"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import PanelShot from '../../../components/PanelShot.astro';
 
-The Panel Manager menu lists only pages available to your account. The panel checks authorization for each request as well, so a copied page address cannot grant access.
+Use this page for the everyday Panel Manager pages: arm and disarm, zones, activity, troubles and the panel settings. The menu shows only the pages that your role can use. See [Panel Manager](/panel-manager/#the-pages).
 
-## Find the page
+Panel Manager does the same things as the touchscreen. For what arming levels, bypass and troubles mean, see the user guide: [Arm and disarm](/user/arming-disarming/), [Zones and bypass](/user/zones-bypass/) and [Alarms and troubles](/user/alarms-troubles/).
 
-| Menu | What it shows or changes | Who can use it |
-| --- | --- | --- |
-| **Overview** | Panel health, clock, connection, and status for your permitted partitions. | All signed-in users; partition status is scoped to the user's assignments. |
-| **Activity** | Recent public event wording. It is not the private Event log on the touchscreen. | All signed-in users. |
-| **Zones** | Zone name, sensor kind, and the panel's status wording. | All signed-in users; only the installer can program or link sensors. |
-| **Display and sound** | Display brightness, screen saver, keypad sound, language, voice volume, and Announcements when voice support is available. | All signed-in users can change display settings; system master and installer can manage voice packs. |
-| **Date and time** | Time zone and time server; when the panel can keep time, a card also lets an authorized user set the current time. | All signed-in users can view; system master, partition master, and installer can change. |
-| **Automations** | Rules the panel runs from a trigger, such as a sensor, alarm state, or time, with one or two actions and a last-run result. | System master and installer; only the system master can save Arm or Disarm actions. Changes are locked while any partition is armed or an alarm is active. |
-| **Storage** | SD card and firmware storage state and capacity. | All signed-in users can view; system master and installer can operate SD card actions. |
-| **System health** | Current system and service health information. | All signed-in users. |
-| **Integrations** | Home Assistant/MQTT and notification services included in this firmware. | System master and installer. |
-| **Software updates** | Update status and the signed release available from the configured source. | All signed-in users can view status; system master, partition master, and installer can check/install. Only system master and installer can change the release source. |
+## Arm the panel
 
-The page can show only features included in the firmware. A compiled-in integration can still be disabled and configurable. For setup details, see the [Home Assistant](/installer/home-assistant/) and [notifications](/installer/notifications/) guides.
+<Aside type="note" title="Before you start">
+- Sign in as a standard user, a partition master or a system master. The installer does not arm or disarm.
+- **Overview** shows **Ready to arm**.
+</Aside>
 
-Open **Household > Automations** for local rules, or read the [Panel Manager Automations guide](/panel-manager/automations/) for its editor and controls. The [touchscreen automations guide](/user/automations/) explains the shared trigger and action behavior.
+<Steps>
 
-## Adjust display and sound
+1. Click **Overview**.
+2. Click **Away**, **Stay** or **Night**.
 
-1. Open **Panel settings > Display and sound**.
-2. Adjust **Screen brightness**, **Screen saver**, **Screen saver brightness**, **Speaker volume**, **Voice volume**, **Key click sounds**, or **24-hour clock**. Screen saver brightness appears only when the screen saver is enabled. Alarm sounds are not affected by Speaker volume.
-3. Select **Save changes**, check each before-and-after value in **Review changes**, and confirm **Save changes**. Return to the page to see the saved values.
+   Panel Manager shows the zones that the level watches, the exit time and the options.
 
-The **Announcements** card appears when voice support is available. It shows whether a voice pack is installed, its language, and whether it is ready. A system master or installer can upload a signed **.robovoice** file there. Firmware-server releases used by the Flasher include a matching voice pack when one is available. Installing a pack does not turn Announcements on; use the card's switch after the pack is ready. The page language and voice language are separate.
+3. If you want, turn on an option:
+   - **No entry delay**: doors sound the alarm at once.
+   - **Silent exit** (Away only): no beeps, and twice the exit time.
+   - **Bypass** and the zone names: the open zones are off until the next disarm.
+4. Click **Arm Away**, **Arm Stay** or **Arm Night**.
 
-## Set the time zone or panel clock
+   **Overview** shows the exit time. Then it shows the armed state.
 
-1. Open **Panel settings > Date and time**. The page displays the **Time zone** and **Time server** settings. All users can view them; a system master, partition master, or installer can change them.
-2. Choose a named time zone or **Other: type a POSIX rule**. If you choose Other, enter the **POSIX time-zone rule**. Set **Time server** to a host name such as `pool.ntp.org` or the router if your network provides time.
-3. Select **Save changes**, inspect **Review changes**, confirm **Save changes**, then reopen **Date and time** to check the saved values.
+</Steps>
 
-If the panel reports that it can keep time, the page also shows **Set the date and time**. Choose **Use this computer’s time** to fill the review with this computer's current time, or enter **New date and time** in this computer's time zone. Choose **Set**, check the before-and-after time, and confirm **Set**. The time server corrects a manually set time at its next sync.
+Panel Manager does not ask for a code. It uses your role and your partitions, as your code does at the panel. If a zone is open and cannot be bypassed, the arm button stays off.
 
-## Check or manage storage
+## Disarm the panel
 
-1. Open **Panel settings > Storage**. Review the SD card state and capacity and the **Internal flash** firmware-slot use. This page is readable by every signed-in user.
-2. A system master or installer can choose **Check** to look for card file-system errors, or **Eject** and wait for confirmation before physically removing the card.
-3. **Erase and format…** deletes every file on the SD card. The dialog says the panel settings, users, and event log are stored separately. Continue only if the card's files can be erased; type `ERASE SD CARD` exactly and select **Erase**. Cancel if the confirmation text or selected card is not what you expect.
+<Steps>
 
-## Open an integration
+1. Click **Overview**.
+2. Click **Disarm**.
 
-1. Open **Household > Integrations**. If no integrations are included in the firmware, the page explains that none are available.
-2. Check each card's status, then choose **Set up** for the integration you intend to configure. Integrations are managed by the system master and installer.
-3. Follow that integration page and review changes before saving. Saved secrets are not shown again; an empty secret field normally means keep the existing secret, while an explicit clear action removes it. For Home Assistant setup, see the [pairing guide](/installer/home-assistant/); for phone alerts, see [Notifications](/installer/notifications/).
+   Panel Manager asks **Disarm** and the partition name.
 
-## Apply and verify changes
+3. Click **Disarm**.
 
-Configuration forms present a **Review** step before applying. Check each before-and-after value, especially for integrations and settings that affect more than one partition, then confirm. The page reports the result; return to the page to verify the displayed setting or status.
+</Steps>
 
-Most configuration changes are blocked while any partition is armed or an alarm is active. If the panel is locked, disarm all partitions and clear the active alarm before trying again. Your own browser password, sign-out, and remote keypad remain available. Review does not bypass the panel's checks: the signed-in account's role and partition access govern each browser action, and sensitive actions may require that account's browser password again. Browser pages do not ask for a keypad code as confirmation.
+During an alarm, **Overview** shows **Disarm and silence**. After the alarm, click **Clear alarm**.
 
-## Understand what you can see
+<Aside type="tip" title="Check the result">
+**Overview** shows **Ready to arm** or **Not ready**, and **Recent activity** shows **Disarmed** and your name.
+</Aside>
 
-Panel Manager shows each person only the partitions assigned to their account. A standard user sees the zone status words the panel publishes, not installer-only sensor details or the private Event log. Integrations and sensitive programming are restricted separately from status viewing. For account scope and browser sign-in, see [Browser accounts and permissions](/panel-manager/accounts/); for installer-only pages, see [Installer programming](/panel-manager/installer/).
+## Zones
+
+**Zones** shows each zone and its state. Click **All**, **Open**, **Bypassed** or **Trouble** to filter the list. Click **What these words mean** for the zone states.
+
+To bypass a zone, click **Bypass** on the zone. To end the bypass, click **Unbypass**. You can bypass only while the partition is disarmed. A bypass ends at the next disarm.
+
+The installer programs zones in **Installer > Zones**. See [Installer programming](/panel-manager/installer/#program-a-zone).
+
+## Activity and troubles
+
+**Activity** shows the most recent events on the panel, newest first. Click **All**, **Alarms**, **Troubles**, **Arming**, **Bypass** or **System** to filter the list.
+
+**Troubles** shows the active troubles and **What the panel watches**: mains power, backup battery, network, reports, clock, wireless sensors, siren, storage and the panel cover.
+
+<PanelShot src="/images/panel-manager/pm-troubles.png" alt="Troubles page with No troubles and What the panel watches: Mains power On, Backup battery 82% left, Network Connected, Reports Getting through, Clock Set, Wireless sensors All heard, Siren Working, Storage Saving, Panel cover Closed" caption="What the panel watches shows the state of each part." size="medium" />
+
+When the panel beeps for a trouble, click **Acknowledge** to stop the beeps. A trouble stays in the list until it is fixed.
+
+## Display and sound
+
+<Steps>
+
+1. Click **Display and sound**.
+2. Change the settings, for example **Screen brightness**, **Screen saver**, **Night hours** or **Beeps volume**.
+3. Click **Save changes**.
+
+   Panel Manager shows the old and new values.
+
+4. Check the values, and click **Save changes**.
+
+</Steps>
+
+The settings are the same as **Settings > Screen and sound** on the panel. Alarm sounds do not change. **Language** changes the words on the panel's screen. Only a system master, a partition master or the installer can change the language and the region. See [Screen and sound](/user/display-sound/).
+
+The **Announcements** card shows the voice pack of the panel. A system master or the installer can install a signed `.robovoice` file there. The language of the Panel Manager pages is set for this browser only.
+
+## Date and time
+
+Everyone can see the time zone and the time server. A system master, a partition master or the installer can change them.
+
+<Steps>
+
+1. Click **Date and time**.
+2. Choose the **Time zone**.
+
+   If your time zone is not in the list, choose **Other: type a POSIX rule**, and type the **POSIX time-zone rule**.
+
+3. Type the **Time server**, for example `pool.ntp.org` or your router.
+4. Click **Save changes**, check the values, and click **Save changes**.
+
+</Steps>
+
+If the panel can keep the time by itself, the page shows **Set the date and time**. Click **Use this computer's time**, or type the **New date and time**. Then click **Set**. The time server corrects the time at its next sync. See [Network and time](/user/network-time/).
+
+## Storage
+
+**Storage** shows the SD card and the panel's internal flash. A system master or the installer can use the card actions:
+
+- **Check** looks for file-system errors.
+- **Eject** prepares the card for removal. Wait for **Safe to remove** before you take the card out.
+- **Erase and format…** deletes every file on the card. Type `ERASE SD CARD` to confirm. The panel's settings, users and event log are in its own flash and stay.
+
+## System health and walk test
+
+**System health** shows live readings: memory, uptime, firmware version, display, network and power. Click **Refresh** for new values.
+
+A system master, a partition master or the installer can start a walk test in **Walk test**. Click **Start walk test**, then trip each sensor once. The page lists each zone as tested. Under **On this phone**, you can turn on **Beep**, **Vibrate** and **Say zone names**. Click **End walk test** to finish. See [Commission and hand over](/installer/commissioning/).
+
+## Integrations
+
+A system master or the installer opens **Integrations**. The page shows each integration in this firmware and its state, for example **Home Assistant**, **MQTT**, **ntfy** and **Pushover**. Click **Set up** to open one.
+
+Saved passwords and keys are never shown again. An empty field keeps the saved value.
+
+- For Home Assistant, see [Pair with Home Assistant](/installer/home-assistant/).
+- For MQTT, see [MQTT](/installer/mqtt/).
+- For phone alerts, see [Notifications](/installer/notifications/).
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| **The panel is armed or an alarm is sounding** | Settings change only while every partition is disarmed and quiet. Disarm, then try again. |
+| The arming buttons are not on **Overview**. | You are signed in as the installer, or your role cannot arm this partition. |
+| **Bypass** is off. | Disarm the partition first. A zone that cannot be bypassed has no button. |
+| A page is not in the menu. | Your role cannot use it. See [Panel Manager](/panel-manager/#the-pages). |
+
+## Related tasks
+
+- [Arm and disarm](/user/arming-disarming/)
+- [Remote keypad](/panel-manager/remote-keypad/)
+- [Automations](/panel-manager/automations/)
+- [Network settings](/panel-manager/network/)

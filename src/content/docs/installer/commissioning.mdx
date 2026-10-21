@@ -1,65 +1,146 @@
 ---
-title: "Commission and hand over"
-description: "Verify configuration and explain the system before everyday use."
-sidebar:
-  order: 11
+title: "Test and hand over"
+description: "Test the zones, sirens, keypads and connections, and then hand the panel over to the owner."
+audience: ["installer"]
+time: "1 to 2 hours"
 ---
+import { Aside, Steps } from '@astrojs/starlight/components';
 import PanelShot from '../../../components/PanelShot.astro';
 
-Commissioning confirms that the configured system behaves as intended. A screenshot or completed wizard cannot replace these checks.
+Before the owner uses the panel, test that it works as you set it up. Then show the owner how to use it. A finished setup wizard does not replace these tests.
 
-For a software-only demonstration, use simulator inputs and record the result as simulation. Physical detection, radio performance and installation acceptance remain unverified until suitable hardware is available.
+<Aside type="note" title="Before you start">
+- You need the installer code and a test user code.
+- Agree on the test time with everyone in the building and with everyone who gets notifications.
+- Know how to disarm and how to silence the sirens.
+- Have a list of all zones, and a record to write each result in.
+</Aside>
 
-## Prepare the test
+<Aside type="danger" title="Warning">
+Do not test fire, CO, panic or duress functions as a casual demonstration. Tell the people who get alarms and notifications before each test. A test alarm that nobody expects can cause a real emergency response.
+</Aside>
 
-- Agree the test period with everyone affected.
-- Identify notification recipients and any connected automations.
-- Use authorized test codes.
-- Know how to disarm before beginning.
-- Keep a zone schedule and record pass/fail results.
+## Check the settings
 
-Do not trigger emergency, fire, CO or duress functions as an informal demonstration.
+- [ ] The panel's software version is in the record. It is under **Settings > About**.
+- [ ] The installer code and the master code are not the factory codes. **Installer and master codes** shows **Changed from the factory codes**.
+- [ ] The Wi-Fi, the IP address settings, the time and the time zone are correct.
+- [ ] Each zone in use has a clear name, the correct type and the correct sensor source.
+- [ ] Each partition in use has the correct name, zones, exit time and entry times.
+- [ ] Each user code has access only to the correct partitions.
+- [ ] Each keypad panel shows and arms its default partition. If **Allow partition switching** is on for a keypad, it can also switch to the other partitions. Check each partition on its own.
+- [ ] The night zones and the chime zones are the zones that the owner wants.
+- [ ] The values on **Delays and arming** are in the record.
+- [ ] Connections that the owner does not use are off under **Settings > Integrations**.
 
-## Check configuration
+## Test the zones
 
-- [ ] The displayed software version is recorded.
-- [ ] Installer and master factory codes are replaced.
-- [ ] Wi-Fi, address mode, local time and time zone are correct.
-- [ ] Every used zone has an understandable name and an intentional type/source.
-- [ ] Each enabled partition has the intended name, zones, exit/entry times and keypad assignments.
-- [ ] User codes have only the intended partition access; installer and system-master access is understood.
-- [ ] A keypad displays and arms only its assigned partition; other partitions were checked independently.
-- [ ] No simulator binding is being mistaken for a physical sensor.
-- [ ] Night-zone and chime choices match the owner's expectations.
-- [ ] Entry/exit timings and auto-stay behavior are understood.
-- [ ] Unused remote services are disabled.
+<Steps>
 
-## Check operation
+1. Push **Settings > Walk test**.
+2. Enter a master code or the installer code to start the walk test.
+3. Open and close each door and window. Walk past each motion sensor.
+4. Check that each zone shows as tested, with the correct name.
+5. End the walk test.
 
-- [ ] Each intended input changes only the correct named zone and then restores.
-- [ ] Each installed wireless sensor has been learned or paired and tested for its expected reports after a restart; test radio-loss and recovery indications where supported. If the required device is unavailable, record this as **Not tested**. See [Sensors and radio modules](/installer/sensors-radios/) for current limits.
-- [ ] Away, Stay and Night behave as configured.
-- [ ] Each enabled partition arms and disarms separately as intended.
-- [ ] Entry and exit countdowns allow the intended route.
-- [ ] Authorized users can perform their allowed operations.
-- [ ] Arm-only and Guest restrictions are understood.
-- [ ] A deliberate eligible bypass is visible and clears on disarm.
-- [ ] Chime responds only to intended zones.
-- [ ] Faults are investigated rather than merely acknowledged.
+   The panel shows the summary with **Not tested** and **Tested**.
 
-## Check connected services
+</Steps>
 
-- [ ] Home Assistant reconnects and displays the expected devices.
-- [ ] Only intended Home Assistant entities are shared.
-- [ ] Shared sensor states agree with the panel.
-- [ ] Loss and recovery of a test source are handled as expected.
-- [ ] Each configured notification service delivers a test to the intended phone.
-- [ ] Panel Manager access and certificate identity are verified if enabled.
+<PanelShot src="/images/panel/commissioning-walk-test.png" alt="Walk test page with a summary of one zone not tested and other zones tested" caption="After the walk test, find each zone under Not tested and test it again." size="medium" />
 
-For now, mark hardware-dependent items **Not tested** rather than passing them based on a simulator.
+Also do these tests:
 
-## Hand over
+- [ ] Each wireless sensor reports after a restart of the panel. Where the sensor supports it, test a lost radio signal and its return.
+- [ ] Each tamper switch causes a tamper trouble.
+- [ ] Each Home Assistant sensor follows its zone. See [Use Home Assistant sensors](/installer/home-assistant-zones/).
 
-Show the owner how to arm/disarm each assigned area, find an open zone, bypass deliberately, manage users and read Troubles. Explain partition names and keypad assignments, code access, Instant, Auto-stay, entry routes, phone-notification limits and who to contact.
+## Test the sirens
 
-Leave installer mode. Confirm the expected idle state and explain any remaining troubles. Hand over the private configuration record and unresolved items alongside the User Guide.
+<Steps>
+
+1. Push **Settings > About > Installer**, and enter the installer code.
+2. Push **Sirens and outputs**.
+3. Open each siren, and push **Test it**.
+
+   The siren sounds for 2 seconds.
+
+4. For a Zigbee or Z-Wave siren, open its device page under **Zigbee** or **Z-Wave**, and push **Test it**.
+5. Arm a partition and cause a burglary alarm. Check that each siren of that partition sounds.
+6. Disarm, and check that the sirens stop.
+
+</Steps>
+
+- [ ] Each siren sounds for the alarms that you set on its page.
+- [ ] The siren time on **Delays and arming** is correct.
+- [ ] Each 433 MHz siren sounds. The panel cannot hear a 433 MHz siren, so test it with the owner and tell them to test it now and then.
+
+For siren settings, see [Set up sirens and outputs](/installer/sirens/).
+
+## Test the keypad panels
+
+If the installation has keypad panels, do these tests on each one:
+
+- [ ] **Settings > About** on the keypad panel shows **Connected · shows and arms** and the correct partition.
+- [ ] The keypad panel arms and disarms its partition.
+- [ ] If partition switching is allowed, the keypad panel shows **Switch partition** on **Security**. It goes back to its default partition after the time in **Return after inactivity**.
+- [ ] The panic buttons of the keypad panel cause an alarm on the alarm panel.
+- [ ] If you turn off the keypad panel, the alarm panel shows a trouble after the supervision time.
+
+For keypad settings, see [Add keypad panels](/installer/keypads/).
+
+## Test arming and disarming
+
+- [ ] **Away**, **Stay** and **Night** work as you set them up.
+- [ ] Each partition arms and disarms on its own.
+- [ ] The exit time and the entry time are long enough for the entry route.
+- [ ] Each user can do only what the user's role allows.
+- [ ] A bypass shows on the screen and ends when the partition disarms.
+- [ ] The chime sounds only for the correct zones.
+- [ ] Each trouble on the panel has a known cause.
+
+## Test the connections
+
+- [ ] Each notification service sends a test notification to each phone. On the ntfy or Pushover page, push **Send a test notification**. See [Phone notifications](/installer/notifications/).
+- [ ] A test alarm arrives on each phone as a notification.
+- [ ] Home Assistant shows the panel and the correct entities. See [Install and pair Home Assistant](/integrations/home-assistant-setup/).
+- [ ] Only the correct Home Assistant entities are shared with the panel.
+- [ ] If the connection to Home Assistant stops and comes back, the panel and Home Assistant show it correctly.
+- [ ] The MQTT broker gets the status messages. See [Connect an MQTT broker](/installer/mqtt/).
+- [ ] If Panel Manager is on, you can sign in from a browser and the certificate is correct. See [Panel Manager](/panel-manager/).
+
+## Hand over the panel
+
+<Steps>
+
+1. Show the owner how to arm and disarm each partition.
+2. Show the owner how to find an open zone and how to bypass a zone.
+3. Show the owner how to add and change users and codes.
+4. Show the owner where the troubles and the activity are.
+5. Explain the partitions, the keypad panels and the codes.
+6. Explain the entry route, **Auto-stay** and the phone notifications.
+7. Tell the owner who to call for help.
+8. Leave installer mode.
+9. Give the owner the record of the settings, the open items and the user guide.
+
+</Steps>
+
+<Aside type="tip" title="Check the result">
+The panel is disarmed and not in installer mode. **Security** shows no unexpected trouble. Each item in the record has a result.
+</Aside>
+
+## If it does not work
+
+| Problem | Do this |
+| --- | --- |
+| A zone does not show as tested. | Check the sensor, its source and the zone number. Test the zone again. |
+| A siren does not sound. | Check its wiring, its terminal and its partitions on **Sirens and outputs**. |
+| A keypad panel shows **No system communication**. | Check that the alarm panel is on and that both panels are on the same Wi-Fi. |
+| A test notification does not arrive. | See the troubleshooting table on [Phone notifications](/installer/notifications/). |
+
+## Related tasks
+
+- [Delays and arming](/installer/system-options/)
+- [Set up sirens and outputs](/installer/sirens/)
+- [Add keypad panels](/installer/keypads/)
+- [Phone notifications](/installer/notifications/)

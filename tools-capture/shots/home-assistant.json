@@ -1,0 +1,10 @@
+[
+  { "out": "home-assistant/alarm-control.png", "keep": true },
+  { "out": "home-assistant/arm-code.png", "keep": true },
+  { "out": "home-assistant/compare-code.png", "keep": true },
+  { "out": "home-assistant/connect.png", "keep": true },
+  { "out": "home-assistant/connected.png", "keep": true },
+  { "out": "home-assistant/name-assign.png", "keep": true },
+  { "out": "home-assistant/open-pairing.png", "keep": true },
+  { "out": "home-assistant/share-entities.png", "keep": true }
+]

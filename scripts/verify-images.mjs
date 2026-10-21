@@ -1,23 +1,36 @@
-// Verify every curated screenshot's manifest, dimensions and optional content hash.
+// Verify the screenshots: each file in public/images is in image-manifest.json with its size and
+// hash, is used by a page, and is not blank.
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import {createHash} from 'node:crypto';
+import { createHash } from 'node:crypto';
 import sharp from 'sharp';
+
 const root = path.resolve('.');
-let count=0;
-for (const [manifestName,folder] of [['image-manifest.json','panel'],['home-assistant-manifest.json','home-assistant'],['browser-image-manifest.json','']]) {
-  const manifest=JSON.parse(await fs.readFile(path.join(root,manifestName),'utf8'));
-  for (const item of manifest.images) {
-    const location=path.join(root,'public/images',folder,item.file);
-    const bytes=await fs.readFile(location);
-    const metadata=await sharp(bytes).metadata();
-    const width=item.crop?.width ?? item.width ?? 1024;
-    const height=item.crop?.height ?? item.height ?? 600;
-    if(metadata.width!==width || metadata.height!==height) throw new Error(`${location}: dimensions differ from manifest`);
-    if(item.sha256 && createHash('sha256').update(bytes).digest('hex')!==item.sha256) throw new Error(`${location}: hash differs from manifest`);
-    const stats=await sharp(bytes).stats();
-    if(stats.channels.every(c=>c.stdev<1)) throw new Error(`${location}: image appears blank`);
-    count++;
-  }
+const images = path.join(root, 'public/images');
+const { images: manifest } = JSON.parse(await fs.readFile(path.join(root, 'image-manifest.json'), 'utf8'));
+
+async function walk(dir) {
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+  return (await Promise.all(entries.map((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : path.join(dir, e.name))))).flat();
 }
-console.log(`Verified ${count} screenshot files, dimensions, recorded hashes and nonblank pixels. Visual review remains required.`);
+const pages = (await walk(path.join(root, 'src/content/docs'))).filter((f) => /\.mdx?$/.test(f));
+const text = (await Promise.all(pages.map((f) => fs.readFile(f, 'utf8')))).join('\n');
+
+const failures = [];
+const listed = new Set(manifest.map((item) => item.file));
+for (const file of await walk(images)) {
+  const name = path.relative(images, file).replaceAll('\\', '/');
+  if (!listed.has(name)) failures.push(`${name}: not in image-manifest.json`);
+}
+for (const item of manifest) {
+  const location = path.join(images, item.file);
+  let bytes;
+  try { bytes = await fs.readFile(location); } catch { failures.push(`${item.file}: missing`); continue; }
+  const metadata = await sharp(bytes).metadata();
+  if (metadata.width !== item.width || metadata.height !== item.height) failures.push(`${item.file}: size differs from the manifest`);
+  if (createHash('sha256').update(bytes).digest('hex') !== item.sha256) failures.push(`${item.file}: hash differs from the manifest`);
+  if ((await sharp(bytes).stats()).channels.every((c) => c.stdev < 1)) failures.push(`${item.file}: image looks blank`);
+  if (!text.includes(`/images/${item.file}`)) failures.push(`${item.file}: no page uses it`);
+}
+if (failures.length) { console.error(failures.join('\n')); process.exitCode = 1; }
+else console.log(`Verified ${manifest.length} screenshots: listed, used, sizes, hashes and nonblank pixels.`);
