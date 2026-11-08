@@ -12,7 +12,7 @@ Built with [Astro](https://astro.build) and [Starlight](https://starlight.astro.
 
 ## Develop locally
 
-Install Node.js 24 LTS and pnpm 11.25.0, then:
+Install Node.js 26 LTS and pnpm 11.25.0, then:
 
 ```sh
 git clone https://github.com/RoboAlarms/documentation.git

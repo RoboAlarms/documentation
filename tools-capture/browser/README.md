@@ -7,7 +7,7 @@ git-ignored `alarm-panel/build/docs-capture/` and this `.capture/` folder. All d
 
 ## Tools
 
-- Node 24 on PATH; no npm packages.
+- Node 26 on PATH; no npm packages.
 - Google Chrome (`C:\Program Files\Google\Chrome\Application\chrome.exe`), driven headless over the
   DevTools protocol by `tools-capture/browser/cdp.mjs` (Node's built-in WebSocket). No Playwright was available.
   Every launch: fresh temporary profile, `--headless=new --hide-scrollbars --force-color-profile=srgb`,
